@@ -7,6 +7,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-palladian: var(--palladian); /* color pallete starts */
+  --color-oatmeal: var(--oatmeal);
+  --color-blue-fantastic: var(--blue-fantastic);
+  --color-burning-flame: var(--burning-flame);
+  --color-truffle-trouble: var(--truffle-trouble);
+  --color-abyssal-blue: var(--abyssal-blue); /* color pallete ends */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-heading);
@@ -51,6 +57,12 @@
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  --palladian: #eee9df; /* color pallete starts */
+  --oatmeal: #c9c1b1;
+  --blue-fantastic: #2c3b4d;
+  --burning-flame: #ffb162;
+  --truffle-trouble: #a35139;
+  --abyssal-blue: #1b2632; /* color pallete ends */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);

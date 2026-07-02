@@ -3,16 +3,13 @@ import RegistrationForm from "@/components/ui/RegisterForm";
 
 export default function RegisterPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="max-h-screen bg-palladian">
 
       {/* <Header /> */}
 
-      <section className="grid lg:grid-cols-2">
-
+      <section className="h-screen overflow-hidden w-full grid grid-rows-1 lg:grid-cols-2">
         <RegistrationForm />
-
         <ImageSection />
-
       </section>
 
       {/* <Footer /> */}

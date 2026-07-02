@@ -3,14 +3,15 @@ import Image from "next/image";
 
 export default function ImageSection() {
   return (
-    <div className="relative hidden lg:block h-screen">
+    <div className="relative hidden lg:block h-screen w-full">
 
       <Image
         src="/backgroundHouse.png"
         alt="House"
         fill
         priority
-        sizes="(max-width: 1024px) 90vw, 50vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        quality={100}
         className="object-cover"
       />
 

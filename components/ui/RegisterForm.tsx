@@ -19,8 +19,8 @@ export default function RegistrationForm() {
 };
 
   return (
-    <div className="flex justify-center px-20 py-15 lg:px-30 ">
-      <div className=" w-full max-w-md">
+    <div className="flex justify-center h-screen top-0 px-20 py-15 lg:px-30 ">
+      <div className=" w-full h-full max-w-md">
 
         <h1 className="text-4xl font-bold text-slate-900">
           Create Your Account
@@ -32,10 +32,10 @@ export default function RegistrationForm() {
 
         
 
-<form
-  onSubmit={handleSubmit(onSubmit)}
-  className="mt-8 space-y-5"
->
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="h-full space-y-4"
+          >
 
           {/* Username */}
           <div>
@@ -47,7 +47,7 @@ export default function RegistrationForm() {
               type="text"
               placeholder="Enter your username"
               {...register("username")}
-              className="w-full  border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
             />
             {errors.username && (
               <p className="mt-1 text-sm text-red-500">
@@ -66,7 +66,7 @@ export default function RegistrationForm() {
               type="email"
               placeholder="Enter your email"
               {...register("email")}
-              className="w-full border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
             />
             {errors.email && (
               <p className="mt-1 text-sm text-red-500">
@@ -85,7 +85,7 @@ export default function RegistrationForm() {
               type="password"
               placeholder="Enter password"
               {...register("password")}
-              className="w-full border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
             />
             {errors.password && (
               <p className="mt-1 text-sm text-red-500">
@@ -104,7 +104,7 @@ export default function RegistrationForm() {
               type="password"
               placeholder="Confirm password"
               {...register("confirmPassword")}
-              className="w-full  border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"  
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"  
             /> 
             {errors.confirmPassword && (
               <p className="mt-1 text-sm text-red-500">
@@ -120,9 +120,9 @@ export default function RegistrationForm() {
               Select Role
             </label>
 
-          <div className=  "grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
 
-            <label className=" border border-gray-300 p-4 hover:border-orange-500 hover:bg-orange-50 flex items-center gap-2">  
+            <label className="text-sm border rounded-2xl border-gray-300 p-4 hover:border-orange-500 hover:bg-orange-50 flex items-center gap-2">  
               <input
                 type="radio"
                 {...register("role")}
@@ -131,7 +131,7 @@ export default function RegistrationForm() {
               Customer
             </label>
 
-            <label className=" border border-gray-300 p-4 hover:border-orange-500 hover:bg-orange-50 flex items-center gap-2"
+            <label className="text-sm border rounded-2xl border-gray-300 p-4 hover:border-orange-500 hover:bg-orange-50 flex items-center gap-2"
                       >
               <input
                 type="radio"
@@ -155,21 +155,20 @@ export default function RegistrationForm() {
       {/* Submit */}
           <button
             type="submit"
-            className="w-full rounded-xs bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600"
+            className="w-full rounded-xl cursor-pointer bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600"
           >
             Create Account
           </button>
-          
+            <p className="text-center text-sm text-gray-600">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="font-semibold text-orange-500 hover:text-orange-600 hover:underline"
+            >
+              Sign in
+            </Link>
+          </p>
         </form>
-        <p className="mt-6 text-center text-sm text-gray-600">
-  Already have an account?{" "}
-  <Link
-    href="/login"
-    className="font-semibold text-orange-500 hover:text-orange-600 hover:underline"
-  >
-    Sign in
-  </Link>
-</p>
 
       </div>
     </div>
