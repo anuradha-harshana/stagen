@@ -1,9 +1,9 @@
-import ImageSection from "@/components/ui/ImageSection";
-import RegistrationForm from "@/components/ui/RegisterForm";
+import ImageSection from "@/components/ui/ImageSection/ImageSection";
+import RegistrationForm from "@/components/ui/Form/RegisterForm";
 
 export default function RegisterPage() {
   return (
-    <main className="max-h-screen bg-palladian">
+    <main className="max-h-screen">
 
       {/* <Header /> */}
 

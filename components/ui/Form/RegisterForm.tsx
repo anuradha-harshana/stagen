@@ -19,7 +19,7 @@ export default function RegistrationForm() {
 };
 
   return (
-    <div className="flex justify-center h-screen top-0 px-20 py-15 lg:px-30 ">
+    <div className="flex justify-center h-screen top-0 px-20 py-15 lg:px-30 bg-palladian">
       <div className=" w-full h-full max-w-md">
 
         <h1 className="text-4xl font-bold text-slate-900">
