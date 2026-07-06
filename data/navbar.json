@@ -1,0 +1,88 @@
+[
+    {
+        "role": "company-admin",
+        "items": [
+            {
+                "id": 1,
+                "name": "Dashboard",
+                "url": "/admin/dashboard",
+                "icon": "LayoutDashboard"
+            },
+            {
+                "id": 2,
+                "name": "Users",
+                "url": "/company-admin/users",
+                "icon": "UserRoundPen"
+            },
+            {
+                "id": 3,
+                "name": "Profile",
+                "url": "/company-admin/settings",
+                "icon": "Building2"
+            },
+            {
+                "id": 4,
+                "name": "Settings",
+                "url": "/company-admin/settings",
+                "icon": "Settings"
+            }
+            
+        ]
+
+    },
+    {
+        "role": "company-management",
+        "items": [
+            {
+                "id": 1,
+                "name": "Dashboard",
+                "url": "/company-management/dashboard",
+                "icon": "LayoutDashboard"
+            },
+            {
+                "id": 2,
+                "name": "Users",
+                "url": "/company-management/users",
+                "icon": "UserRoundPen"
+            },
+            {
+                "id": 3,
+                "name": "Profile",
+                "url": "/company-management/settings",
+                "icon": "Building2"
+            },
+            {
+                "id": 4,
+                "name": "Settings",
+                "url": "/company-management/settings",
+                "icon": "Settings"
+            }
+            
+        ]
+    },    
+    {
+        "role": "customer",
+        "items": [
+            {
+                "id": 1,
+                "name": "Dashboard",
+                "url": "/customer/dashboard",
+                "icon": "LayoutDashboard"
+            },
+            {
+                "id": 2,
+                "name": "Profile",
+                "url": "/customer/profile",
+                "icon": "UserRoundPen"
+            },
+            {
+                "id": 3,
+                "name": "Settings",
+                "url": "/customer/settings",
+                "icon": "Settings"
+            }
+            
+        ]
+
+    }
+]

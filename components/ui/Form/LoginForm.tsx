@@ -11,9 +11,13 @@ function LoginForm() {
     <div className="min-h-screen bg-[#F5F1E8] flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
             <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 rounded-lg bg-[#1F2A37] flex items-center justify-center">
-                    <Image src="/logo.jpg" alt="Logo" width={64} height={64} />
-                </div>
+                    <Image 
+                        src="/logo.jpg" 
+                        alt="Logo" 
+                        width={64} 
+                        height={64}
+                        className="rounded-xl"
+                    />
             </div>
             <h1 className="text-3xl font-bold text-center text-[#1F2A37]">
                 Welcome Back!
@@ -76,7 +80,7 @@ function LoginForm() {
             </form>
             <p className="text-center text-sm text-gray-500 mt-8">
                 Don't have an account?{" "}
-                <a href="#" className="text-[#F59E42] font-semibold">
+                <a href="/register" className="text-[#F59E42] font-semibold">
                     Sign Up
                 </a>
             </p>

@@ -4,9 +4,33 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+
+@font-face{
+  font-family: "Cream";
+  src: url("/fonts/Cream.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: "Bebas Neue";
+  src: url("/fonts/BebasNeue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-palladian: var(--palladian); /* color pallete starts */
+  --color-oatmeal: var(--oatmeal);
+  --color-blue-fantastic: var(--blue-fantastic);
+  --color-burning-flame: var(--burning-flame);
+  --color-truffle-trouble: var(--truffle-trouble);
+  --color-abyssal-blue: var(--abyssal-blue); /* color pallete ends */
+  --font-cream: var(--font-cream);
+  --font-bebas-neue:  var(--font-bebas-neue)
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-heading);
@@ -49,8 +73,16 @@
 }
 
 :root {
+  --font-cream: "Cream", sans-serif;
+  --font-bebas-neue: "Bebas Neue", sans-serif;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  --palladian: #eee9df; /* color pallete starts */
+  --oatmeal: #c9c1b1;
+  --blue-fantastic: #2c3b4d;
+  --burning-flame: #ffb162;
+  --truffle-trouble: #a35139;
+  --abyssal-blue: #1b2632; /* color pallete ends */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);

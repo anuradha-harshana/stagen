@@ -1,3 +1,10 @@
+export interface NavbarProps {
+    id: string;
+    name: string;
+    url: string;
+    icon: string;
+}
+
 export interface User {
     id: string;
     name: string;
