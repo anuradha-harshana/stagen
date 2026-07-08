@@ -3,9 +3,44 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { LoginFormData, loginSchema } from "@/lib/login/validation";
+import { useRouter } from "next/navigation";
 
 function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
+
+    const {
+            register,
+            handleSubmit,
+        } = useForm<LoginFormData>({
+            resolver: zodResolver(loginSchema),
+        });
+
+    const onSubmit =async (data: LoginFormData) => {
+
+        const res = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json"
+
+            },
+            body:JSON.stringify(data)
+        })
+
+        const result = await res.json();
+
+        if(!res){
+            alert(result.message);
+        }
+
+        alert("Login successfully");
+        router.push("/")
+    }    
+    
+
 
   return (
     <div className="min-h-screen bg-[#F5F1E8] flex items-center justify-center px-4">
@@ -25,7 +60,7 @@ function LoginForm() {
             <p className="text-center text-gray-500 mt-2 mb-8">
                 Sign in to your account to continue
             </p>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="email">
                         Email Address
@@ -33,7 +68,7 @@ function LoginForm() {
                     <input
                         type="email"
                         id="email"
-                        name="email"
+                        {...register("email")}
                         className="bg-gray-50 border border-gray-300 text-gray-900 placeholder:text-gray-500 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="Enter your email"
                     />
@@ -46,7 +81,7 @@ function LoginForm() {
                         <input
                             type={showPassword ? "text" : "password"}
                             id="password"
-                            name="password"
+                            {...register("password")}
                             className="bg-gray-50 border border-gray-300 text-gray-900 placeholder:text-gray-500 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-12"
                             placeholder="Enter your password"
                         />
@@ -56,7 +91,7 @@ function LoginForm() {
                             className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
                             aria-label={showPassword ? "Hide password" : "Show password"}
                         >
-                            {showPassword ? <EyeOff className="h-5 w-5" aria-hidden="true" /> : <Eye className="h-5 w-5" aria-hidden="true" />}
+                            {!showPassword ? <EyeOff className="h-5 w-5" aria-hidden="true" /> : <Eye className="h-5 w-5" aria-hidden="true" />}
                         </button>
                     </div>
                 </div>
