@@ -2,20 +2,40 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterFormData, registerSchema } from "@/lib/validation"; 
+import { RegisterFormData, registerSchema } from "@/lib/register/validation"; 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 
 export default function RegistrationForm() {
   const {
-  register,
-  handleSubmit,
-  formState: { errors },
-} = useForm<RegisterFormData>({
-  resolver: zodResolver(registerSchema),
-});
+          register,
+          handleSubmit,
+          formState: { errors },
+        } = useForm<RegisterFormData>({
+          resolver: zodResolver(registerSchema),
+        });
 
-  const onSubmit = (data: RegisterFormData) => {
-  console.log(data);
+  const router = useRouter();
+
+  const onSubmit = async (data: RegisterFormData) => {
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      alert(result.message);
+      return;
+    }
+
+    alert("Registration successful!");
+    router.push("/login");
 };
 
   return (

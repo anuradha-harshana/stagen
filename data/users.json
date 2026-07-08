@@ -1,0 +1,16 @@
+[
+  {
+    "id": "090f73a8-d7fc-4494-9cd7-87e4fe1bad54",
+    "username": "Anuradha",
+    "email": "anuradaharshana61@gmail.com",
+    "password": "2003Anu@1428",
+    "role": "customer"
+  },
+  {
+    "id": "e2e09934-2bd8-492c-93cc-781501cf2abd",
+    "username": "Navodya",
+    "email": "Navo@gmail.com",
+    "password": "Navo@123456",
+    "role": "company"
+  }
+]
