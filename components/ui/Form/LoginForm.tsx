@@ -7,6 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginFormData, loginSchema } from "@/lib/login/validation";
 import { useRouter } from "next/navigation";
+import { getRedirectPath } from "@/hooks/Auth/redirection";
+
+
+
+
 
 function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -37,7 +42,7 @@ function LoginForm() {
         }
 
         alert("Login successfully");
-        router.push("/")
+        router.replace(getRedirectPath(result.role));
     }    
     
 

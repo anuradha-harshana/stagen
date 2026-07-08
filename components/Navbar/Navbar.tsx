@@ -100,7 +100,7 @@ export async function Navbar({ role }: props) {
             className="ml-auto shrink-0 text-oatmeal/70 hover:text-burning-flame transition-colors duration-300 ease-in-out group-data-[collapsible=icon]:hidden"
             aria-label="Log out"
           >
-            <LogOut className="h-4 w-4" />
+            <Link href="/login"><LogOut className="h-4 w-4" /></Link>
           </button>
         </div>
       </SidebarFooter>
