@@ -33,3 +33,9 @@ export interface Trade {
 export interface Customer {
     customerUser: User;
 }
+
+export interface ResetPasswordFormData {
+  password: string;
+  confirmPassword: string;
+  revokeSessions: boolean;
+}
