@@ -10,7 +10,7 @@ const companyAdminLayout = ({
   return (
     <>
       <SidebarProvider>
-        <Navbar role="company-admin" />
+        <Navbar role="company" />
         <main className="flex-1 bg-oatmeal">
             <SidebarTrigger />
             {children}

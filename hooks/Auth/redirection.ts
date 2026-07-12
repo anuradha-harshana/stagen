@@ -1,7 +1,7 @@
 export function getRedirectPath(role: string) {
     switch (role) {
         case "company":
-            return "/company-admin";
+            return "/company";
 
         case "company-management":
             return "/company-management";

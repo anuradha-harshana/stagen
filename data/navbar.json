@@ -5,25 +5,25 @@
             {
                 "id": 1,
                 "name": "Dashboard",
-                "url": "/admin/dashboard",
+                "url": "/company/dashboard",
                 "icon": "LayoutDashboard"
             },
             {
                 "id": 2,
                 "name": "Users",
-                "url": "/company-admin/users",
+                "url": "/company/users",
                 "icon": "UserRoundPen"
             },
             {
                 "id": 3,
                 "name": "Profile",
-                "url": "/company-admin/settings",
+                "url": "/company/profile",
                 "icon": "Building2"
             },
             {
                 "id": 4,
                 "name": "Settings",
-                "url": "/company-admin/settings",
+                "url": "/company/settings",
                 "icon": "Settings"
             }
             

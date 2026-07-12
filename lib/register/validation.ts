@@ -17,9 +17,7 @@ export const registerSchema = z
 
     confirmPassword: z.string(),
 
-    role: z.enum(["customer", "company"], {
-      message: "Please select a valid role",
-    }),
+    role: z.string(),
   })
   .refine(
     (data) => data.password === data.confirmPassword,

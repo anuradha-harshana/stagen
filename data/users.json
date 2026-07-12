@@ -1,16 +1,9 @@
 [
   {
-    "id": "090f73a8-d7fc-4494-9cd7-87e4fe1bad54",
-    "username": "Anuradha",
-    "email": "anuradaharshana61@gmail.com",
-    "password": "2003Anu@1428",
-    "role": "customer"
-  },
-  {
-    "id": "e2e09934-2bd8-492c-93cc-781501cf2abd",
-    "username": "Navodya",
-    "email": "Navo@gmail.com",
-    "password": "Navo@123456",
+    "id": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "username": "Build & Co",
+    "email": "buildit@stagen.com",
+    "password": "Stagen@123456",
     "role": "company"
   }
 ]
