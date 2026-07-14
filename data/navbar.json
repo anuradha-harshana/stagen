@@ -1,88 +1,68 @@
 [
-    {
-        "role": "company",
-        "items": [
-            {
-                "id": 1,
-                "name": "Dashboard",
-                "url": "/company/dashboard",
-                "icon": "LayoutDashboard"
-            },
-            {
-                "id": 2,
-                "name": "Users",
-                "url": "/company/users",
-                "icon": "UserRoundPen"
-            },
-            {
-                "id": 3,
-                "name": "Profile",
-                "url": "/company/profile",
-                "icon": "Building2"
-            },
-            {
-                "id": 4,
-                "name": "Settings",
-                "url": "/company/settings",
-                "icon": "Settings"
-            }
-            
-        ]
-
-    },
-    {
-        "role": "company-management",
-        "items": [
-            {
-                "id": 1,
-                "name": "Dashboard",
-                "url": "/company-management/dashboard",
-                "icon": "LayoutDashboard"
-            },
-            {
-                "id": 2,
-                "name": "Users",
-                "url": "/company-management/users",
-                "icon": "UserRoundPen"
-            },
-            {
-                "id": 3,
-                "name": "Profile",
-                "url": "/company-management/settings",
-                "icon": "Building2"
-            },
-            {
-                "id": 4,
-                "name": "Settings",
-                "url": "/company-management/settings",
-                "icon": "Settings"
-            }
-            
-        ]
-    },    
-    {
-        "role": "customer",
-        "items": [
-            {
-                "id": 1,
-                "name": "Dashboard",
-                "url": "/customer/dashboard",
-                "icon": "LayoutDashboard"
-            },
-            {
-                "id": 2,
-                "name": "Profile",
-                "url": "/customer/profile",
-                "icon": "UserRoundPen"
-            },
-            {
-                "id": 3,
-                "name": "Settings",
-                "url": "/customer/settings",
-                "icon": "Settings"
-            }
-            
-        ]
-
-    }
+  {
+    "role": "company",
+    "items": [
+      { "id": 1, "name": "Dashboard", "url": "/company/dashboard", "icon": "LayoutDashboard" },
+      { "id": 2, "name": "Profile", "url": "/company/profile", "icon": "Building2" },
+      { "id": 3, "name": "Users", "url": "/company/users", "icon": "UserRoundPen" },
+      { "id": 4, "name": "Projects", "url": "/company/projects", "icon": "FolderKanban" },
+      { "id": 5, "name": "Stage Templates", "url": "/company/stage-templates", "icon": "ListOrdered" },
+      { "id": 6, "name": "FAQ & AI Knowledge", "url": "/company/faq", "icon": "BookOpen" },
+      { "id": 7, "name": "Notifications", "url": "/company/notifications", "icon": "BellRing" },
+      { "id": 8, "name": "Documents", "url": "/company/documents", "icon": "FileStack" },
+      { "id": 9, "name": "Billing", "url": "/company/billing", "icon": "CreditCard" },
+      { "id": 10, "name": "Localisation", "url": "/company/localisation", "icon": "Globe" },
+      { "id": 11, "name": "Audit Logs", "url": "/company/audit-logs", "icon": "ScrollText" },
+      { "id": 12, "name": "Settings", "url": "/company/settings", "icon": "Settings" }
+    ]
+  },
+  {
+    "role": "company-management",
+    "items": [
+      { "id": 1, "name": "Dashboard", "url": "/company-management/dashboard", "icon": "LayoutDashboard" },
+      { "id": 2, "name": "Projects Overview", "url": "/company-management/projects", "icon": "Building2" },
+      { "id": 3, "name": "At-Risk Projects", "url": "/company-management/at-risk", "icon": "AlertOctagon" },
+      { "id": 4, "name": "Customer Insights", "url": "/company-management/customer-insights", "icon": "MessageSquareText" },
+      { "id": 5, "name": "Warranty & Defects", "url": "/company-management/warranty", "icon": "ShieldAlert" },
+      { "id": 6, "name": "Supervisor Workload", "url": "/company-management/supervisors", "icon": "UsersRound" },
+      { "id": 7, "name": "Reports & Analytics", "url": "/company-management/reports", "icon": "BarChart3" },
+      { "id": 8, "name": "Billing & Usage", "url": "/company-management/billing", "icon": "CreditCard" },
+      { "id": 9, "name": "Audit & Compliance", "url": "/company-management/audit", "icon": "FileSearch" },
+      { "id": 10, "name": "AI/FAQ Trends", "url": "/company-management/ai-trends", "icon": "TrendingUp" },
+      { "id": 11, "name": "Users", "url": "/company-management/users", "icon": "UserRoundPen" },
+      { "id": 12, "name": "Settings", "url": "/company-management/settings", "icon": "Settings" }
+    ]
+  },
+  {
+    "role": "customer",
+    "items": [
+      { "id": 1, "name": "Dashboard", "url": "/customer/dashboard", "icon": "LayoutDashboard" },
+      { "id": 2, "name": "Progress", "url": "/customer/progress", "icon": "Construction" },
+      { "id": 3, "name": "Timeline", "url": "/customer/timeline", "icon": "History" },
+      { "id": 4, "name": "Photos & Documents", "url": "/customer/documents", "icon": "FolderOpen" },
+      { "id": 5, "name": "Invoices & Payments", "url": "/customer/invoices", "icon": "Receipt" },
+      { "id": 6, "name": "Warranty & Maintenance", "url": "/customer/warranty", "icon": "ShieldCheck" },
+      { "id": 7, "name": "Ask / AI Assistant", "url": "/customer/assistant", "icon": "MessageCircleQuestion" },
+      { "id": 8, "name": "Notifications", "url": "/customer/notifications", "icon": "Bell" },
+      { "id": 9, "name": "Profile", "url": "/customer/profile", "icon": "UserRoundPen" },
+      { "id": 10, "name": "Settings", "url": "/customer/settings", "icon": "Settings" }
+    ]
+  },
+  {
+    "role": "supervisor",
+    "items": [
+      { "id": 1, "name": "Dashboard", "url": "/supervisor/dashboard", "icon": "LayoutDashboard" },
+      { "id": 2, "name": "My Projects", "url": "/supervisor/projects", "icon": "Building2" },
+      { "id": 3, "name": "Stage Updates", "url": "/supervisor/stage-updates", "icon": "ListChecks" },
+      { "id": 4, "name": "Site Photos", "url": "/supervisor/photos", "icon": "Camera" },
+      { "id": 5, "name": "Timeline", "url": "/supervisor/timeline", "icon": "History" },
+      { "id": 6, "name": "Delays", "url": "/supervisor/delays", "icon": "AlertTriangle" },
+      { "id": 7, "name": "Customer Questions", "url": "/supervisor/questions", "icon": "MessageCircle" },
+      { "id": 8, "name": "Documents", "url": "/supervisor/documents", "icon": "FileText" },
+      { "id": 9, "name": "Warranty Assignment", "url": "/supervisor/warranty", "icon": "Wrench" },
+      { "id": 10, "name": "Notifications", "url": "/supervisor/notifications", "icon": "Bell" },
+      { "id": 11, "name": "Profile", "url": "/supervisor/profile", "icon": "UserRoundPen" },
+      { "id": 12, "name": "Settings", "url": "/supervisor/settings", "icon": "Settings" }
+    ]
+  }
 ]

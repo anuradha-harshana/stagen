@@ -11,9 +11,11 @@ const customerLayout = ({
     <>
       <SidebarProvider>
         <Navbar role="customer" />
-        <main className="flex-1 bg-oatmeal">
+        <main className="pb-10 flex-1 bg-oatmeal h-screen overflow-hidden">
             <SidebarTrigger />
-            {children}
+            <div className="h-full overflow-y-scroll scrollbar-none">
+              {children}
+            </div>
         </main>
       </SidebarProvider>
     </>

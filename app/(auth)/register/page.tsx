@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form"
 import { RegisterFormData, registerSchema } from "@/lib/register/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export default function RegisterPage() {
   const {
@@ -35,11 +36,11 @@ export default function RegisterPage() {
     const result = await res.json()
 
     if (!res.ok) {
-      alert(result.message ?? "Registration failed. Please try again.")
+      toast(result.message ?? "Registration failed. Please try again.", {position: "top-right"})
       return
     }
 
-    alert("Registration successful!")
+    toast("Registration Successful!", {position: "top-right"})
     router.push("/login");
   }
 

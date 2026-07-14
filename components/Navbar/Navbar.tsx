@@ -10,17 +10,12 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import { NavbarProps } from "@/lib/types/types"
-import { LayoutDashboard, UserRoundPen, Settings, LogOut, Building2 } from "lucide-react"
+import { LogOut } from "lucide-react"
+import { NavbarLinks } from "./NavbarLinks"
+
 
 type props = {
   role: string
-}
-
-const icons: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
-  LayoutDashboard,
-  UserRoundPen,
-  Settings,
-  Building2
 }
 
 export async function Navbar({ role }: props) {
@@ -62,26 +57,7 @@ export async function Navbar({ role }: props) {
           <SidebarGroupLabel className="px-4 text-[11px] uppercase tracking-widest text-oatmeal/50 group-data-[collapsible=icon]:hidden">
             Menu
           </SidebarGroupLabel>
-          <div className="flex flex-col gap-1 mt-1">
-            {data.map((item) => {
-              const Icon = icons[item.icon]
-              if (!Icon) return null
-
-              return (
-                <SidebarMenuItem key={item.id}>
-                  <Link
-                    href={item.url}
-                    className="group/link flex items-center gap-3 mx-1 px-3 py-2.5 rounded-lg border-[0.5px] border-transparent transition-colors duration-300 ease-in-out hover:bg-truffle-trouble/20 hover:border-white/10 group-data-[collapsible=icon]:mx-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:py-2"
-                  >
-                    <Icon className="h-5 w-5 shrink-0 text-oatmeal transition-colors duration-300 ease-in-out group-hover/link:text-burning-flame" />
-                    <span className="text-sm text-oatmeal transition-colors duration-300 ease-in-out group-hover/link:text-palladian group-data-[collapsible=icon]:hidden">
-                      {item.name}
-                    </span>
-                  </Link>
-                </SidebarMenuItem>
-              )
-            })}
-          </div>
+          <NavbarLinks data={data} /> 
         </SidebarGroup>
       </SidebarContent>
 

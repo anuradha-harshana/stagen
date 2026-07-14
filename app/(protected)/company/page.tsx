@@ -1,11 +1,9 @@
-import React from 'react'
+import { redirect } from "next/navigation"
+
+
 
 const page = () => {
-  return (
-    <div>
-      <h1>Company Admin</h1>
-    </div>
-  )
+  redirect("/company/dashboard")
 }
 
 export default page

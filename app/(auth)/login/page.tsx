@@ -11,6 +11,7 @@ import { LoginFormData, loginSchema } from "@/lib/login/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { getRedirectPath } from "@/hooks/Auth/redirection"
+import { toast } from "sonner"
 
 export default function LoginPage() {
   
@@ -36,11 +37,11 @@ export default function LoginPage() {
         const result = await res.json();
 
         if(!res.ok){
-            alert(result.message);
+            toast(result.message , {position: "top-right"});
             return;
         }
 
-        alert("Login successful!");
+        toast("Login Successful!", {position: "top-right"})
         router.replace(getRedirectPath(result.role));
     };
 

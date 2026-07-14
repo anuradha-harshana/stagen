@@ -1,8 +1,10 @@
+import { IconName } from "../Icons/icons";
+
 export interface NavbarProps {
     id: string;
     name: string;
     url: string;
-    icon: string;
+    icon: IconName;
 }
 
 export interface User {
