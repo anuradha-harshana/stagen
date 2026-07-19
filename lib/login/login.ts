@@ -6,14 +6,14 @@ import { getUsers } from "../users/users";
 
 export async function loginUser(
     email: string,
-    password: String
+    password: string
 ) {
 
     const users = await getUsers();
 
     return users.find(
         user => 
-            user.email === email && user.password === password
+            user.email.toLowerCase() === email.toLowerCase() && user.password === password
     );
 
 }

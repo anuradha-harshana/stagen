@@ -4,8 +4,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { AuthLogo } from "@/components/auth/logo"
-import { BrandPanel } from "@/components/auth/brand-panel"
+import { AuthLogo } from "@/components/Auth/logo"
+import { BrandPanel } from "@/components/Auth/brand-panel"
 import { useForm } from "react-hook-form"
 import { LoginFormData, loginSchema } from "@/lib/login/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -41,8 +41,8 @@ export default function LoginPage() {
             return;
         }
 
-        toast("Login Successful!", {position: "top-right"})
-        router.replace(getRedirectPath(result.role));
+        toast(`Login Successful!`, {position: "top-right"})
+        router.replace(getRedirectPath(result.user.role));
     };
 
 

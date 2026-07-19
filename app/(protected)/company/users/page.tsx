@@ -92,7 +92,7 @@ export default function UserPage() {
           </p>
         </div>
 
-        <Button className="px-6.5 py-5 text-base bg-orange-400 hover:bg-orange-500">
+        <Button className="px-6.5 py-5 text-base bg-truffle-trouble/70 hover:bg-truffle-trouble/90">
           <Plus size={20} />
           Add User
         </Button>

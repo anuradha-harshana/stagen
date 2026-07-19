@@ -8,10 +8,9 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Image from "next/image"
-import Link from "next/link"
 import { NavbarProps } from "@/lib/types/types"
-import { LogOut } from "lucide-react"
 import { NavbarLinks } from "./NavbarLinks"
+import { LogoutButton } from "../Auth/LogoutButton"
 
 
 type props = {
@@ -24,6 +23,7 @@ export async function Navbar({ role }: props) {
   })
 
   const data: NavbarProps[] = await res.json()
+
 
   return (
     <Sidebar
@@ -72,12 +72,7 @@ export async function Navbar({ role }: props) {
             </span>
             <span className="text-[11px] text-oatmeal/60 truncate">Active session</span>
           </div>
-          <button
-            className="ml-auto shrink-0 text-oatmeal/70 hover:text-burning-flame transition-colors duration-300 ease-in-out group-data-[collapsible=icon]:hidden"
-            aria-label="Log out"
-          >
-            <Link href="/login"><LogOut className="h-4 w-4" /></Link>
-          </button>
+          <LogoutButton />
         </div>
       </SidebarFooter>
     </Sidebar>

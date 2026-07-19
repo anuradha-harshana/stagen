@@ -24,6 +24,13 @@ export interface Register {
     role: string;
 }
 
+export interface Session {
+    id: string;
+    userId: string;
+    createdAt: string;
+    expiresAt: string;
+}
+
 export interface Company {
     companyUser: User;
     tenant_id: string;
