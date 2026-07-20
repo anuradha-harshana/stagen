@@ -1,16 +1,20 @@
-"use client"
+
 
 import StatCards from "@/components/Customer/StatCards"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import UserDetails from "@/components/user/userDetails"
+import { requireAuth } from "@/lib/auth/auth"
 
 
 
-const page = () => {
+export  default async function page () {
+  
+  const user = await requireAuth();
+
   return (
     <div className="flex flex-col gap-4 w-full px-5">
-        <UserDetails />
+        <UserDetails username={user.username} />
         <div className="grid grid-cols-1 sm:grid-cols-9 gap-2">
            <StatCards />
            <StatCards />
@@ -66,4 +70,4 @@ const page = () => {
   )
 }
 
-export default page
+
