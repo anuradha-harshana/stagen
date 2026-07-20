@@ -15,6 +15,10 @@ export interface User {
     role: string;
 }
 
+export interface Userdetails {
+    username: string;
+}
+
 export interface Login {
     user: User;
 }
