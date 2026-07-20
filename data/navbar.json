@@ -84,5 +84,28 @@
             
         ]
 
+    },
+    {
+        "role": "site-supervisor",
+        "items": [
+            {
+                "id": 1,
+                "name": "Dashboard",
+                "url": "/site-supervisor",
+                "icon": "LayoutDashboard"
+            },
+            {
+                "id": 2,
+                "name": "Project",
+                "url": "/site-supervisor/projects",
+                "icon": "Building2"
+            },
+            {
+                "id": 3,
+                "name": "Profile",
+                "url": "/site-supervisor/profile",
+                "icon": "UserRoundPen"
+            }
+        ]
     }
 ]
