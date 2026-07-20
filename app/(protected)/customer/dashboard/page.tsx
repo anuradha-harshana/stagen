@@ -3,7 +3,7 @@
 import StatCards from "@/components/Customer/StatCards"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import UserDetails from "@/components/User/userDetails"
+import UserDetails from "@/components/user/userDetails"
 import { requireAuth } from "@/lib/auth/auth"
 
 
