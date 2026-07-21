@@ -13,7 +13,7 @@ const filters = [
 
 const NotificationFilter = () => {
   return (
-    <Card className="rounded-2xl p-5 flex flex-col  bg-palladian" >
+    <Card className="rounded-2xl p-5 flex flex-col  bg-palladian text-blue-fantastic text-sm font-bold font-cream" >
 
       <h2 className="mb-1 text-lg font-semibold  text-foreground flex-row ">
         Filter

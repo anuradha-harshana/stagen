@@ -6,8 +6,8 @@ const NotificationHeader = () => {
   return (
     <>
       <div className="flex flex-row justify-between items-start">
-        <div>
-          <h1 className="text-4xl font-bold">
+        <div className="font-cream">
+          <h1 className="text-4xl font-bold ">
             Notifications
           </h1>
 

@@ -38,7 +38,7 @@ const notifications = [
 
 const NotificationList = () => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 font-cream">
 
       <div className="flex justify-end gap-3">
         <Button variant="ghost">

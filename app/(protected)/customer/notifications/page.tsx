@@ -4,22 +4,25 @@ import NotificationSidebar from "@/components/notifications/notification-sidebar
 
 const NotificationPage = () => {
   return (
-    <div className=" gap-4 min-h-screen bg-oatmeal p-8 grid-1">
-      <div className="mx-auto max-w-7xl space-y-8">
+    <div className="min-h-screen bg-oatmeal px-4 py-6 sm:px-6 lg:p-8">
+      <div className="mx-auto max-w-7xl space-y-6 lg:space-y-8">
+        
         {/* Header */}
         <NotificationHeader />
 
         {/* Main Content */}
-        <div className="flex gap-6 items-start">
-          {/* Left Side */}
-          <div className=" gap-4 flex-1">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+          
+          {/* Notification List */}
+          <main className="min-w-0 flex-1">
             <NotificationList />
-          </div>
+          </main>
 
-          {/* Right Side */}
-          <div className="w-[340px] shrink-0">
+          {/* Filter Sidebar */}
+          <aside className="w-full lg:w-[340px] lg:shrink-0">
             <NotificationSidebar />
-          </div>
+          </aside>
+
         </div>
       </div>
     </div>

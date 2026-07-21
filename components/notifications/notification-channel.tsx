@@ -9,7 +9,7 @@ const channels = [
 
 const NotificationChannel = () => {
   return (
-    <Card className="rounded-2xl px-5 py-6 shadow-sm bg-palladian">
+    <Card className="rounded-2xl px-5 py-6 shadow-sm bg-palladian font font-cream">
 
       <h2 className="mb-1 text-lg font-semibold text-foreground">
         Notification Channels
