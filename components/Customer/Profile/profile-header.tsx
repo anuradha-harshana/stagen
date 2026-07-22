@@ -1,27 +1,34 @@
-import { Bell } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { User, ShieldCheck, UserCheck } from "lucide-react"
 
 const ProfileHeader = () => {
   return (
-    <div className="flex items-start justify-between">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Profile</h1>
-
-        <p className="mt-1 text-sm text-muted-foreground">
-          Manage your personal information and preferences
-        </p>
+    <div className="flex items-start justify-between flex-wrap gap-4 pb-4 border-b border-blue-fantastic/15 font-cream">
+      <div className="flex items-center gap-3">
+        <div className="h-11 w-11 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
+          <User className="h-5 w-5 text-burning-flame" />
+        </div>
+        <div>
+          <h1 className="text-blue-fantastic text-2xl font-bold leading-tight font-cream">
+            Customer Profile
+          </h1>
+          <p className="text-blue-fantastic/60 text-sm mt-0.5 font-medium font-cream">
+            Manage your personal details, security settings, and active sessions
+          </p>
+        </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <Avatar>
-          <AvatarImage src="/profile-avatar.png" alt="Profile" />
-          <AvatarFallback>JB</AvatarFallback>
-        </Avatar>
-
-        <Bell className="h-5 w-5 text-muted-foreground" />
+      <div className="flex gap-2 flex-wrap items-center">
+        <div className="flex items-center gap-1.5 rounded-full border border-blue-fantastic/15 bg-blue-fantastic/5 px-3 py-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+          <span className="text-xs text-blue-fantastic font-semibold font-cream">Verified Account</span>
+        </div>
+        <div className="flex items-center gap-1.5 rounded-full border border-blue-fantastic/15 bg-blue-fantastic/5 px-3 py-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-truffle-trouble" />
+          <span className="text-xs text-blue-fantastic font-semibold font-cream">Customer Portal</span>
+        </div>
       </div>
     </div>
   )
 }
 
-export default ProfileHeader
+export default ProfileHeader
