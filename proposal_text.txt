@@ -1,0 +1,476 @@
+--- PAGE 1 ---
+Construction  Progress  &  Customer  
+Experience
+ 
+Platform
+ 
+Project  Proposal  &  Scope  Document  
+ 
+1.  Executive  Summary  
+This  proposal  outlines  the  development  of  a  modern  cloud-based  Construction  Progress  &  
+Customer
+ 
+Experience
+ 
+Platform
+ 
+designed
+ 
+specifically
+ 
+for
+ 
+Australian
+ 
+residential
+ 
+home
+ 
+builders.
+ 
+The  platform  aims  to  improve  communication,  transparency,  customer  satisfaction,  operational  
+efficiency,
+ 
+and
+ 
+post-handover
+ 
+warranty
+ 
+management
+ 
+throughout
+ 
+the
+ 
+home
+ 
+construction
+ 
+lifecycle.
+ 
+Unlike  traditional  construction  management  systems  that  primarily  focus  on  internal  project  
+operations,
+ 
+this
+ 
+platform
+ 
+is
+ 
+designed
+ 
+around
+ 
+the
+ 
+customer
+ 
+journey
+ 
+while
+ 
+also
+ 
+providing
+ 
+supervisors,
+ 
+trades,
+ 
+and
+ 
+builders
+ 
+with
+ 
+practical
+ 
+tools
+ 
+to
+ 
+manage
+ 
+projects
+ 
+more
+ 
+efficiently.
+ 
+The  system  will  provide:  
+●  Real-time  construction  progress  tracking  ●  Timeline-based  activity  updates  ●  Photo  and  document  management  ●  Customer  notifications  ●  Invoice  and  billing  notifications  ●  Warranty  and  defect  tracking  ●  FAQ  and  AI-powered  customer  assistance  ●  Multi-tenant  builder  management  ●  Auto-scalable  cloud  infrastructure  
+The  platform  will  be  designed  as  a  SaaS  (Software  as  a  Service)  solution  targeting  volume  
+home
+ 
+builders,
+ 
+project
+ 
+builders,
+ 
+and
+ 
+residential
+ 
+construction
+ 
+companies.
+ 
+ 
+2.  Business  Objectives  
+--- PAGE 2 ---
+Primary  Objectives  
+●  Improve  customer  experience  during  home  construction  ●  Reduce  customer  support  calls  and  email  traffic  ●  Increase  transparency  between  builders  and  customers  ●  Centralize  project  communication  and  updates  ●  Streamline  post-handover  defect  and  warranty  management  ●  Provide  a  scalable  platform  for  residential  builders  
+Secondary  Objectives  
+●  Create  recurring  SaaS  revenue  ●  Enable  enterprise  builder  onboarding  ●  Support  future  integrations  with  accounting  and  ERP  systems  ●  Enable  AI-assisted  customer  support  ●  Build  a  scalable  multi-tenant  architecture  
+ 
+3.  Problem  Statement  
+Residential  builders  and  customers  commonly  experience:  
+●  Limited  visibility  into  project  progress  ●  Repetitive  customer  calls  and  emails  ●  Poor  update  frequency  ●  Unclear  construction  timelines  ●  Disconnected  communication  channels  ●  Difficulty  managing  warranty  issues  post-handover  ●  Lack  of  centralized  document  access  ●  Delays  caused  by  inefficient  communication  
+Most  existing  construction  management  systems  are  focused  on  internal  operations  and  are  
+overly
+ 
+complex
+ 
+for
+ 
+residential
+ 
+customer
+ 
+engagement.
+ 
+This  platform  aims  to  solve  these  problems  through  a  simple,  visual,  customer-focused  
+experience.
+ 
+ 
+4.  Proposed  Solution  
+--- PAGE 3 ---
+The  proposed  solution  is  a  cloud-native  Construction  Progress  &  Customer  Experience  Platform  
+consisting
+ 
+of:
+ 
+Customer  Portal  
+Customers  can:  
+●  View  live  construction  progress  ●  Track  stage  completion  ●  Access  timeline  updates  ●  View  site  photos  and  documents  ●  Receive  notifications  ●  Access  invoices  and  payment  reminders  ●  Log  warranty  and  maintenance  issues  ●  Access  FAQ  and  AI  assistant  
+Builder  Management  Portal  
+Builders  and  supervisors  can:  
+●  Manage  multiple  projects  ●  Update  project  stages  ●  Upload  site  photos  and  updates  ●  Communicate  with  customers  ●  Assign  and  track  warranty  issues  ●  Configure  notifications  ●  Manage  FAQs  and  AI  responses  ●  View  operational  dashboards  
+Trade  Access  Portal  
+Trades  can:  
+●  View  assigned  jobs  ●  Upload  completion  evidence  ●  Update  job  status  ●  Report  issues  or  delays  
+ 
+5.  Key  Features  
+--- PAGE 4 ---
+5.1  Project  Progress  Tracking  
+●  Construction  stage  tracking  ●  Percentage-based  progress  indicators  ●  Timeline  and  milestone  tracking  ●  Estimated  completion  forecasting  ●  Delay  indicators  
+Example  Stages  
+●  Site  Cut  ●  Slab  ●  Frame  ●  Lockup  ●  Fixing  ●  Completion  ●  Handover  
+ 
+5.2  Activity  Timeline  
+Visual  timeline  feed  displaying:  
+●  Supervisor  updates  ●  Construction  milestones  ●  Photos  ●  Inspection  updates  ●  Delays  ●  Site  activities  
+Features:  
+●  Chronological  activity  feed  ●  Photo  attachments  ●  Tagged  updates  ●  Customer  comments  ●  Supervisor  replies  
+ 
+5.3  Notifications  System  
+--- PAGE 5 ---
+Notification  types  include:  
+Progress  Notifications  
+●  Stage  started/completed  ●  Inspection  scheduled  ●  New  site  photos  uploaded  ●  Delays  recorded  
+Financial  Notifications  
+●  Invoice  issued  ●  Payment  due  reminders  ●  Payment  confirmations  
+Support  Notifications  
+●  Question  answered  ●  Warranty  issue  updated  ●  AI  assistant  responses  
+Delivery  methods:  
+●  Push  notifications  ●  Email  notifications  ●  In-app  notifications  
+ 
+5.4  Warranty  &  Defect  Management  
+Post-handover  functionality  includes:  
+●  Warranty  issue  submission  ●  Photo-based  defect  reporting  ●  Trade  assignment  ●  Status  tracking  ●  Scheduled  maintenance  reminders  ●  Warranty  expiry  reminders  
+Workflow:  
+Reported  →  Assigned  →  Scheduled  →  In  Progress  →  Resolved  
+ 
+--- PAGE 6 ---
+5.5  FAQ  &  AI  Assistant  
+FAQ  System  
+Builder-managed  knowledge  base  covering:  
+●  Construction  stages  ●  Delays  ●  PCI  process  ●  Site  access  ●  Payments  ●  Variations  ●  Warranty  information  
+AI  Assistant  
+AI-powered  assistant  capable  of  answering:  
+●  General  construction  questions  ●  Builder  policy  questions  ●  Project-specific  questions  ●  Timeline  and  stage  explanations  
+The  AI  assistant  will  use:  
+●  FAQ  content  ●  Project  data  ●  Uploaded  documents  ●  Builder-defined  policies  
+AI  guardrails  will  ensure  responses  are  limited  to  approved  information  sources.  
+ 
+5.6  Document  Management  
+Supported  documents  include:  
+●  Floor  plans  ●  Contracts  ●  Invoices  ●  Certificates  ●  Appliance  manuals  ●  Warranty  documents  
+--- PAGE 7 ---
+●  PCI  checklists  
+Features:  
+●  Secure  uploads  ●  Role-based  access  ●  Version  tracking  ●  Cloud  storage  
+ 
+6.  User  Roles  &  Use  Cases  
+The  platform  will  support  the  following  primary  user  roles.  Access  will  be  controlled  using  
+role-based
+ 
+permissions
+ 
+within
+ 
+each
+ 
+tenant/company.
+ 
+ 
+6.1  Customer  
+Customers  are  home  buyers  or  property  owners  who  use  the  platform  to  track  the  construction  
+journey
+ 
+and
+ 
+communicate
+ 
+with
+ 
+the
+ 
+builder.
+ 
+Key  Use  Cases  
+●  View  current  construction  stage  and  progress  percentage  ●  View  project  timeline  and  latest  site  activity  ●  Receive  notifications  for  milestones,  invoices,  inspections,  delays,  and  handover  
+updates
+ ●  View  uploaded  site  photos  and  documents  ●  Ask  project-related  questions  through  the  portal  or  AI  assistant  ●  Access  FAQs  related  to  construction  stages,  payments,  PCI,  handover,  and  warranty  ●  Submit  warranty  or  maintenance  issues  after  handover  ●  Upload  photos  for  reported  defects  ●  Track  defect  or  warranty  issue  status  ●  Access  handover  documents,  appliance  manuals,  certificates,  and  warranty  information  ●  Receive  reminders  for  warranty  periods  and  follow-up  inspections  
+ 
+6.2  Site  Supervisor  
+--- PAGE 8 ---
+Site  supervisors  manage  day-to-day  project  updates  and  are  responsible  for  keeping  customers  
+informed.
+ 
+Key  Use  Cases  
+●  View  assigned  projects  and  site  status  ●  Update  project  stages  such  as  slab,  frame,  lockup,  fixing,  completion,  and  handover  ●  Upload  site  photos  and  progress  notes  ●  Create  timeline  updates  for  customers  ●  Log  delays  due  to  weather,  materials,  inspections,  or  trade  availability  ●  Respond  to  customer  questions  ●  Upload  key  documents  or  inspection  updates  ●  Assign  warranty  or  defect  issues  to  relevant  trades  ●  Track  defect  resolution  progress  ●  Receive  reminders  for  pending  customer  questions  or  overdue  updates  
+ 
+6.3  Trades  
+Trades  are  contractors  or  subcontractors  such  as  electricians,  plumbers,  carpenters,  painters,  
+tilers,
+ 
+and
+ 
+landscapers.
+ 
+Key  Use  Cases  
+●  View  assigned  jobs  or  warranty  tasks  ●  Access  relevant  site  details  and  job  instructions  ●  Update  task  status  such  as  scheduled,  started,  completed,  or  blocked  ●  Upload  completion  photos  or  evidence  of  work  ●  Report  issues  such  as  missing  materials,  access  problems,  incorrect  drawings,  or  unsafe  
+conditions
+ ●  Comment  on  assigned  tasks  ●  Receive  notifications  for  upcoming  work,  changes,  or  urgent  issues  ●  Support  warranty  issue  resolution  after  handover  
+ 
+6.4  Company  Admin  
+Company  admins  manage  system  configuration  and  operational  setup  for  each  builder/company  
+tenant.
+ 
+Key  Use  Cases  
+--- PAGE 9 ---
+●  Manage  company  profile  and  branding  ●  Configure  company  logo,  colours,  email  templates,  and  customer-facing  portal  branding  ●  Manage  users,  roles,  and  permissions  ●  Invite  customers,  supervisors,  trades,  and  management  users  ●  Create  and  manage  projects/sites  ●  Assign  supervisors  to  projects  ●  Configure  construction  stages  and  milestone  templates  ●  Manage  FAQ  content  and  approved  AI  knowledge  base  ●  Configure  notification  templates  and  notification  rules  ●  Upload  standard  documents  and  policy  templates  ●  Manage  billing  settings  and  subscription/site  licensing  ●  Manage  translation/localisation  settings  ●  View  audit  logs  and  user  activity  
+ 
+6.5  Company  Management  
+Company  management  users  require  higher-level  visibility  across  projects,  teams,  customer  
+experience,
+ 
+and
+ 
+business
+ 
+performance.
+ 
+Key  Use  Cases  
+●  View  executive  dashboard  across  all  active  projects  ●  Monitor  project  counts  by  stage,  region,  supervisor,  and  status  ●  Identify  delayed  or  at-risk  projects  ●  View  customer  communication  trends  and  unanswered  questions  ●  Track  open  warranty  and  defect  issues  ●  View  supervisor  workload  and  update  frequency  ●  Review  operational  reports  and  analytics  ●  Monitor  billing  and  site  usage  ●  Access  audit  and  compliance  reporting  ●  Review  AI/FAQ  usage  trends  and  common  customer  questions  
+ 
+7.  Technical  Architecture  
+Frontend  
+Web  Portal  
+--- PAGE 10 ---
+●  Next.js  ●  TypeScript  ●  Tailwind  CSS  
+Mobile  Application  
+●  React  Native  ●  Expo  
+ 
+Backend  
+Core  Technologies  
+●  Java  21  ●  Spring  Boot  3  ●  Spring  Security  ●  Spring  Data  JPA  ●  Spring  Batch  ●  PostgreSQL  
+Architecture  Style  
+●  Modular  monolith  ●  Containerized  deployment  ●  Stateless  API  services  
+ 
+Cloud  Infrastructure  
+AWS  Services  
+●  ECS  Fargate  ●  Application  Load  Balancer  ●  Aurora  PostgreSQL  ●  S3  ●  EventBridge  ●  SQS  ●  CloudFront  ●  Cognito  ●  CloudWatch  
+--- PAGE 11 ---
+●  WAF  ●  KMS  
+Scalability  
+●  Auto-scaling  container  infrastructure  ●  Multi-AZ  deployment  ●  Stateless  service  architecture  ●  Asynchronous  processing  via  queues  
+ 
+Authentication  &  Security  
+●  Amazon  Cognito  ●  Microsoft  Entra  ID  federation  ●  JWT-based  authentication  ●  Role-based  access  control  ●  Multi-tenant  isolation  ●  Encrypted  storage  
+ 
+8.  Billing  Platform  
+The  system  will  include  a  billing  platform  supporting:  
+●  Per-site  billing  ●  Subscription  billing  ●  Volume  pricing  ●  Invoice  generation  ●  Renewal  processing  ●  Payment  tracking  ●  Reporting  
+Planned  Billing  Features  
+●  Invoice  management  ●  Automated  renewal  reminders  ●  Batch  invoice  generation  ●  Discount  management  ●  GST  handling  
+--- PAGE 12 ---
+●  Financial  reporting  
+Technologies  
+●  Spring  Batch  ●  Stripe  integration  ●  Scheduled  batch  processing  
+ 
+9.  Multi-Tenant  SaaS  Design  
+The  platform  will  support  multiple  builder  organizations  using  a  shared  SaaS  platform  
+architecture.
+ 
+Each  organization  will  operate  as  a  separate  tenant  with  isolated:  
+●  Projects  ●  Users  ●  Documents  ●  Notifications  ●  FAQ  content  ●  Warranty  records  ●  Billing  data  ●  Branding  configuration  
+The  architecture  will  support  future  enterprise  scaling.  
+Multi-Tenant  Requirements  
+●  Every  company  is  represented  as  a  tenant/organization  ●  All  key  data  tables  include  tenant_id or  organization_id  ●  Backend  APIs  enforce  tenant-level  isolation  ●  Users  can  only  access  data  within  their  assigned  organization  ●  Platform  administrators  can  manage  all  tenants  ●  Audit  logs  record  tenant,  user,  action,  and  timestamps  
+White-Label  Branding  
+Each  tenant/company  can  configure:  
+●  Company  logo  
+--- PAGE 13 ---
+●  Brand  colours  ●  Customer  portal  theme  ●  Branded  emails  ●  Branded  PDFs  and  reports  ●  Company-specific  support  details  ●  Optional  custom  subdomain  support  
+Locale  &  Translation  Support  
+The  platform  will  support  localisation  and  multilingual  capabilities.  
+Locale  Features  
+●  Default  locale  per  company  ●  Locale  preference  per  user  ●  Time  zone  support  ●  Locale-aware  date,  time,  and  currency  formatting  ●  Australian  English  as  default  initial  locale  
+Translation  Features  
+●  Translation  key-based  UI  design  ●  Multi-language  support  for  UI  labels  ●  Translated  notification  templates  ●  Translated  email  templates  ●  Translated  FAQ  content  ●  Fallback  language  support  ●  Future  support  for  additional  languages  
+ 
+10.  Project  Scope  
+Included  in  Scope  
+Phase  1  –  MVP  
+●  User  authentication  ●  Organization  management  ●  Project  management  ●  Stage  progress  tracking  
+--- PAGE 14 ---
+●  Activity  timeline  ●  Photo  uploads  ●  Customer  portal  ●  Notifications  ●  Basic  admin  dashboard  
+Phase  2  
+●  Warranty  management  ●  Document  management  ●  Trade  portal  ●  Enhanced  reporting  ●  Mobile  optimization  
+Phase  3  
+●  FAQ  system  ●  AI  assistant  ●  Advanced  analytics  ●  Billing  platform  enhancements  ●  Enterprise  features  
+ 
+Out  of  Scope  (Initial  Release)  
+●  Full  accounting  platform  ●  Payroll  processing  ●  Complex  scheduling  engine  ●  ERP  replacement  ●  Procurement  management  ●  BIM  integration  ●  Advanced  AI  automation  
+ 
+11.  Delivery  Approach  
+Methodology  
+●  Agile  delivery  ●  Two-week  sprints  
+--- PAGE 15 ---
+●  Incremental  releases  ●  Continuous  feedback  cycles  
+Team  Structure  
+●  Project  Manager  /  Technical  Lead  ●  Business  Analyst  ●  Backend  Developers  ●  Frontend  Developers  ●  QA  Engineer  
+ 
+12.  Proposed  Timeline  
+Phase  Duration  Deliverables  
+Discovery  &  Architecture  1  Month  Requirements,  architecture,  UI  planning  
+MVP  Development  3–4  Months  Core  platform,  progress  tracking  
+Builder  Portal  Expansion  2–3  Months  Dashboards,  notifications,  documents  
+Warranty  Module  2  Months  Defect  management  
+AI  &  FAQ  Features  2  Months  AI  assistant,  FAQ  platform  
+Stabilization  &  Pilot  Rollout  1  Month  Testing,  onboarding  
+Estimated  Total  Timeline:  10–12  Months  
+--- PAGE 16 ---
+ 
+13.  Expected  Business  Benefits  
+For  Builders  
+●  Reduced  customer  support  workload  ●  Improved  operational  visibility  ●  Better  customer  satisfaction  ●  Centralized  communication  ●  Streamlined  defect  tracking  ●  Improved  professional  image  
+For  Customers  
+●  Better  transparency  ●  Reduced  uncertainty  ●  Real-time  updates  ●  Easier  communication  ●  Centralized  access  to  project  information  
+ 
+14.  Commercial  Model  
+Suggested  pricing  models:  
+Per  Site  Pricing  
+●  Standard:  $99  per  site  (12  months)  ●  Volume  discounts  available  
+Subscription  Pricing  
+●  Monthly  builder  subscriptions  ●  Enterprise  pricing  available  
+Optional  Add-ons  
+--- PAGE 17 ---
+●  AI  assistant  ●  White-label  branding  ●  Advanced  analytics  ●  Extended  warranty  management  
+ 
+15.  Future  Enhancements  
+Potential  future  features  include:  
+●  AI-powered  project  summaries  ●  Predictive  delay  analysis  ●  Builder  benchmarking  ●  Customer  satisfaction  analytics  ●  Accounting  integrations  ●  Voice/photo  AI  analysis  ●  Smart  scheduling  ●  Trade  performance  tracking  ●  Mobile  offline  support  
+ 
+16.  Conclusion  
+The  proposed  Construction  Progress  &  Customer  Experience  Platform  addresses  significant  
+gaps
+ 
+in
+ 
+residential
+ 
+construction
+ 
+communication
+ 
+and
+ 
+customer
+ 
+engagement.
+ 
+By  combining  project  visibility,  timeline-based  updates,  notifications,  warranty  management,  and  
+AI-assisted
+ 
+support
+ 
+within
+ 
+a
+ 
+scalable
+ 
+SaaS
+ 
+platform,
+ 
+the
+ 
+solution
+ 
+has
+ 
+strong
+ 
+commercial
+ 
+potential
+ 
+within
+ 
+the
+ 
+Australian
+ 
+residential
+ 
+construction
+ 
+industry.
+ 
+The  platform  is  designed  to  support  both  operational  efficiency  for  builders  and  a  significantly  
+improved
+ 
+experience
+ 
+for
+ 
+customers
+ 
+throughout
+ 
+the
+ 
+home
+ 
+construction
+ 
+lifecycle.
+ 
+ 
+ 
