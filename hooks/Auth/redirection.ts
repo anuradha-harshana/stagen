@@ -8,6 +8,9 @@ export function getRedirectPath(role: string) {
 
         case "customer":
             return "/customer";
+        
+        case "supervisor":
+            return "/supervisor";    
 
         default:
             return "/redirect";
