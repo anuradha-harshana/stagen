@@ -5,6 +5,7 @@ import { Userdetails } from "@/lib/types/types"
 
 
 
+
 const UserDetails = ({
   username
 }: Userdetails) => {
