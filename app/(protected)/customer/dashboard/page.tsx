@@ -21,7 +21,7 @@ export default async function page() {
   return (
     <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-12">
       {/* Header Greeting Section */}
-      <DashboardHeader username={user.username} percentage={data.overallProgress.percentage} />
+      <DashboardHeader username={user.username} email={user.email} role={user.role} percentage={data.overallProgress.percentage} />
 
       {/* Top 3 Stat Cards Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -30,7 +30,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full px-5 py-1">
+    <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-16">
       <SettingHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="w-full mt-2 flex justify-center">
         {renderActiveSetting()}
