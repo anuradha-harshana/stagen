@@ -14,17 +14,10 @@
     "role": "customer"
   },
   {
-    "id": "8e19ab44-d877-4101-8e52-918ff4b81e23",
-    "username": "ABC",
-    "email": "imeshaudayangani2830@gmail.com",
-    "password": "Imesha@2830",
-    "role": "company"
-  },  
-  {
-    "id": "8e19ab44-d877-4101-8e52-918ff4b81e29",
-    "username": "Site Supervisor",
-    "email": "sitesupervisor@gmail.com",
-    "password": "Imesha@2830",
+    "id": "7ab56015-4412-494e-8aff-dbb5095e0097",
+    "username": "Eric",
+    "email": "supervisor@stagen.com",
+    "password": "Stagen@123456",
     "role": "supervisor"
   }
 ]

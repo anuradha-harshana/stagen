@@ -1,11 +1,5 @@
-import React from 'react'
+import { redirect } from "next/navigation";
 
-const page = () => {
-  return (
-    <div>
-      <h1>This is the supervisor dashboard</h1>
-    </div>
-  )
+export default function SupervisorPage() {
+  redirect("/supervisor/dashboard");
 }
-
-export default page
