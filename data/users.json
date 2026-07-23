@@ -12,5 +12,12 @@
     "email": "customer@stagen.com",
     "password": "Stagen@123456",
     "role": "customer"
+  },
+  {
+    "id": "7ab56015-4412-494e-8aff-dbb5095e0097",
+    "username": "Eric",
+    "email": "supervisor@stagen.com",
+    "password": "Stagen@123456",
+    "role": "supervisor"
   }
 ]
