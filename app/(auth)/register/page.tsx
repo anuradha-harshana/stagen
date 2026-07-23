@@ -4,8 +4,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { AuthLogo } from "@/components/Auth/logo"
-import { RegisterPanel } from "@/components/Auth/register-panel"
+import { AuthLogo } from "@/components/auth/logo"
+import { RegisterPanel } from "@/components/auth/register-panel"
 import { useForm } from "react-hook-form"
 import { RegisterFormData, registerSchema } from "@/lib/register/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -16,16 +16,16 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-    defaultValues: {role: "company"}
+    defaultValues: { role: "company" }
   })
 
   const router = useRouter()
 
   const onSubmit = async (data: RegisterFormData) => {
-        const res = await fetch(`/api/register`, {
+    const res = await fetch(`/api/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,11 +36,11 @@ export default function RegisterPage() {
     const result = await res.json()
 
     if (!res.ok) {
-      toast(result.message ?? "Registration failed. Please try again.", {position: "top-right"})
+      toast(result.message ?? "Registration failed. Please try again.", { position: "top-right" })
       return
     }
 
-    toast("Registration Successful!", {position: "top-right"})
+    toast("Registration Successful!", { position: "top-right" })
     router.push("/login");
   }
 
@@ -59,7 +59,7 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          <form className="flex flex-col gap-4"  onSubmit={handleSubmit(onSubmit)} >
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)} >
             <Field>
               <FieldLabel>Company name</FieldLabel>
               <Input
