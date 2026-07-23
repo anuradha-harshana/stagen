@@ -57,7 +57,7 @@ export async function Navbar({ role }: props) {
           <SidebarGroupLabel className="px-4 text-[11px] uppercase tracking-widest text-oatmeal/50 group-data-[collapsible=icon]:hidden">
             Menu
           </SidebarGroupLabel>
-          <NavbarLinks data={data} /> 
+          <NavbarLinks data={data} />
         </SidebarGroup>
       </SidebarContent>
 

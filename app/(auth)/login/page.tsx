@@ -14,36 +14,36 @@ import { getRedirectPath } from "@/hooks/Auth/redirection"
 import { toast } from "sonner"
 
 export default function LoginPage() {
-  
-    const {
-        register,
-        handleSubmit,
-        formState: {errors}
-    } = useForm<LoginFormData>({
-        resolver: zodResolver(loginSchema)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema)
+  });
+
+  const router = useRouter();
+
+  const onSubmit = async (data: LoginFormData) => {
+    const res = await fetch(`/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
 
-    const router = useRouter();
+    const result = await res.json();
 
-    const onSubmit = async (data: LoginFormData) => {
-        const res = await fetch(`/api/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
+    if (!res.ok) {
+      toast(result.message, { position: "top-right" });
+      return;
+    }
 
-        const result = await res.json();
-
-        if(!res.ok){
-            toast(result.message , {position: "top-right"});
-            return;
-        }
-
-        toast(`Login Successful!`, {position: "top-right"})
-        router.replace(getRedirectPath(result.user.role));
-    };
+    toast(`Login Successful!`, { position: "top-right" })
+    router.replace(getRedirectPath(result.user.role));
+  };
 
 
 
@@ -78,11 +78,11 @@ export default function LoginPage() {
           <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
             <Field>
               <FieldLabel>Email</FieldLabel>
-              <Input type="email" placeholder="you@company.com" {...register("email")}/>
+              <Input type="email" placeholder="you@company.com" {...register("email")} />
             </Field>
             <Field>
               <FieldLabel>Password</FieldLabel>
-              <Input type="password" placeholder="Your password" {...register("password")}/>
+              <Input type="password" placeholder="Your password" {...register("password")} />
             </Field>
 
             <Button
