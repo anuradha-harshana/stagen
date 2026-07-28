@@ -42,10 +42,9 @@
       { "id": 4, "name": "Photos & Documents", "url": "/customer/documents", "icon": "FolderOpen" },
       { "id": 5, "name": "Invoices & Payments", "url": "/customer/invoices", "icon": "Receipt" },
       { "id": 6, "name": "Warranty & Maintenance", "url": "/customer/warranty", "icon": "ShieldCheck" },
-      { "id": 7, "name": "Ask / AI Assistant", "url": "/customer/assistant", "icon": "MessageCircleQuestion" },
-      { "id": 8, "name": "Notifications", "url": "/customer/notifications", "icon": "Bell" },
-      { "id": 9, "name": "Profile", "url": "/customer/profile", "icon": "UserRoundPen" },
-      { "id": 10, "name": "Settings", "url": "/customer/settings", "icon": "Settings" }
+      { "id": 7, "name": "Notifications", "url": "/customer/notifications", "icon": "Bell" },
+      { "id": 8, "name": "Profile", "url": "/customer/profile", "icon": "UserRoundPen" },
+      { "id": 9, "name": "Settings", "url": "/customer/settings", "icon": "Settings" }
     ]
   },
   {

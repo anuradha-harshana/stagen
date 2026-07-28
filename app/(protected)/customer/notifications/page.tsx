@@ -1,12 +1,13 @@
-import React from "react";
+import { Suspense } from "react"
+import { NotificationContainer } from "@/components/notifications/notification-container"
+import { NotificationSkeleton } from "@/components/notifications/notification-skeleton"
 
-export default function NotificationsPage() {
+export default function NotificationPage() {
   return (
-    <div className="p-6 md:p-8 text-blue-fantastic font-sans">
-      <h1 className="text-2xl font-extrabold font-cream mb-4">Notifications</h1>
-      <p className="text-sm text-blue-fantastic/60">
-        Review alerts, supervisor alerts, and document signoff requests.
-      </p>
+    <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-16">
+      <Suspense fallback={<NotificationSkeleton />}>
+        <NotificationContainer />
+      </Suspense>
     </div>
-  );
+  )
 }

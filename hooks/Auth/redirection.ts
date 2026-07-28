@@ -12,6 +12,9 @@ export function getRedirectPath(role: string) {
         case "supervisor":
             return "/supervisor";    
 
+        case "supervisor":
+            return "/supervisor";
+
         default:
             return "/redirect";
     }
