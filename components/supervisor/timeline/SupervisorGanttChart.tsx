@@ -3,39 +3,48 @@
 import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { TimelineStage, TimelinePageData } from "@/lib/timeline/data";
-import TimelineBar from "./TimelineBar";
-import MilestoneMarker from "./MilestoneMarker";
-import { ZoomScale } from "./ZoomToggle";
-import { HelpCircle, Eye, CheckCircle2, Truck, AlertTriangle, CalendarDays } from "lucide-react";
+import TimelineBar from "@/components/Customer/Timeline/TimelineBar";
+import MilestoneMarker from "@/components/Customer/Timeline/MilestoneMarker";
+import { ZoomScale } from "@/components/Customer/Timeline/ZoomToggle";
+import { 
+  Eye, 
+  CheckCircle2, 
+  Truck, 
+  AlertTriangle, 
+  CalendarDays, 
+  Edit3, 
+  ChevronRight 
+} from "lucide-react";
 
-interface GanttChartProps {
+interface SupervisorGanttChartProps {
   data: TimelinePageData;
   zoomScale: ZoomScale;
   simulatedToday: string;
+  selectedStageId: string | null;
+  onSelectStage: (stage: TimelineStage) => void;
 }
 
-export default function GanttChart({
+export function SupervisorGanttChart({
   data,
   zoomScale,
   simulatedToday,
-}: GanttChartProps) {
+  selectedStageId,
+  onSelectStage,
+}: SupervisorGanttChartProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Parse date helpers
   const parseDate = (dStr: string) => new Date(dStr);
-  
+
   // Find project start and end range boundaries (with padding)
   const getTimelineBoundaries = () => {
     let minTime = parseDate(data.startDate).getTime();
-    
-    // We target completion date for padding
+
     let maxCompletion = data.currentProjectedCompletion;
     if (new Date(data.originalEstCompletion) > new Date(maxCompletion)) {
       maxCompletion = data.originalEstCompletion;
     }
     let maxTime = parseDate(maxCompletion).getTime();
 
-    // Find if there are any milestones or stages out of bounds
     data.stages.forEach((stage) => {
       const dates = [
         stage.plannedStart,
@@ -57,7 +66,6 @@ export default function GanttChart({
       });
     });
 
-    // Pad by 5 days on start, 7 days on end for clean margins
     const paddedStart = new Date(minTime - 5 * 24 * 60 * 60 * 1000);
     const paddedEnd = new Date(maxTime + 7 * 24 * 60 * 60 * 1000);
 
@@ -68,13 +76,14 @@ export default function GanttChart({
     };
   };
 
-  const { start: minDate, end: maxDate, totalDays } = getTimelineBoundaries();
+  const { start: minDate, end: maxDate } = getTimelineBoundaries();
 
   // Percentage position calculator
   const getPercent = (dateStr: string) => {
     const time = parseDate(dateStr).getTime();
     const minTime = minDate.getTime();
     const maxTime = maxDate.getTime();
+    if (maxTime === minTime) return 0;
     const pct = ((time - minTime) / (maxTime - minTime)) * 100;
     return Math.max(0, Math.min(100, pct));
   };
@@ -94,11 +103,9 @@ export default function GanttChart({
     const maxTime = maxDate.getTime();
 
     if (zoomScale === "week") {
-      // Columns every Monday
       let current = new Date(minDate);
-      // Move to next Monday
       current.setDate(current.getDate() + ((1 + 7 - current.getDay()) % 7));
-      
+
       while (current.getTime() <= maxTime) {
         columns.push({
           label: current.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
@@ -108,7 +115,6 @@ export default function GanttChart({
         current.setDate(current.getDate() + 7);
       }
     } else {
-      // Month scale or Project scale (Columns at start of each month)
       let current = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
       if (current.getTime() < minTime) {
         current.setMonth(current.getMonth() + 1);
@@ -128,23 +134,6 @@ export default function GanttChart({
 
   const gridColumns = generateGridColumns();
 
-  // Scroll to "Today" line on initial render or demoState change
-  useEffect(() => {
-    if (scrollContainerRef.current && data.statusFlag !== "not-started") {
-      const container = scrollContainerRef.current;
-      const todayPct = getPercent(simulatedToday);
-      const scrollWidth = container.scrollWidth;
-      const clientWidth = container.clientWidth;
-      
-      // Calculate target scroll position (center the today line)
-      const targetScroll = (todayPct / 100) * scrollWidth - clientWidth / 2;
-      container.scrollTo({
-        left: Math.max(0, targetScroll),
-        behavior: "smooth",
-      });
-    }
-  }, [zoomScale, simulatedToday, data.statusFlag]);
-
   // Width formatting based on zoom scale
   const getGanttWidthClass = () => {
     switch (zoomScale) {
@@ -158,12 +147,28 @@ export default function GanttChart({
     }
   };
 
+  // Auto scroll to Today marker
+  useEffect(() => {
+    if (scrollContainerRef.current && data.statusFlag !== "not-started") {
+      const todayPct = getPercent(simulatedToday);
+      const container = scrollContainerRef.current;
+      const scrollWidth = container.scrollWidth;
+      const clientWidth = container.clientWidth;
+
+      const targetScroll = (todayPct / 100) * scrollWidth - clientWidth / 2;
+      container.scrollTo({
+        left: Math.max(0, targetScroll),
+        behavior: "smooth",
+      });
+    }
+  }, [zoomScale, simulatedToday, data.statusFlag]);
+
   return (
-    <div className="w-full bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl p-6 space-y-6">
+    <div className="w-full bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl p-6 space-y-6 font-cream">
       {/* 1. Timeline Legends */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-blue-fantastic/5 pb-4">
         {/* Status Legends */}
-        <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-blue-fantastic/70">
+        <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-blue-fantastic/70 font-sans">
           <div className="flex items-center gap-2">
             <div className="h-3 w-5 bg-emerald-600 rounded" />
             <span>On-Time</span>
@@ -187,21 +192,29 @@ export default function GanttChart({
         </div>
 
         {/* Milestone Legends */}
-        <div className="flex items-center gap-3 text-xs font-semibold text-blue-fantastic/60">
+        <div className="flex items-center gap-3 text-xs font-semibold text-blue-fantastic/60 font-sans">
           <div className="flex items-center gap-1">
-            <div className="h-5 w-5 bg-blue-fantastic text-white rounded-full flex items-center justify-center scale-90"><Eye className="h-3 w-3" /></div>
+            <div className="h-5 w-5 bg-blue-fantastic text-white rounded-full flex items-center justify-center scale-90">
+              <Eye className="h-3 w-3" />
+            </div>
             <span>Inspection</span>
           </div>
           <div className="flex items-center gap-1">
-            <div className="h-5 w-5 bg-emerald-600 text-white rounded-full flex items-center justify-center scale-90"><CheckCircle2 className="h-3 w-3" /></div>
+            <div className="h-5 w-5 bg-emerald-600 text-white rounded-full flex items-center justify-center scale-90">
+              <CheckCircle2 className="h-3 w-3" />
+            </div>
             <span>Approval</span>
           </div>
           <div className="flex items-center gap-1">
-            <div className="h-5 w-5 bg-burning-flame text-blue-fantastic rounded-full flex items-center justify-center scale-90"><Truck className="h-3 w-3" /></div>
+            <div className="h-5 w-5 bg-burning-flame text-blue-fantastic rounded-full flex items-center justify-center scale-90">
+              <Truck className="h-3 w-3" />
+            </div>
             <span>Delivery</span>
           </div>
           <div className="flex items-center gap-1">
-            <div className="h-5 w-5 bg-truffle-trouble text-white rounded-full flex items-center justify-center scale-90"><AlertTriangle className="h-3 w-3" /></div>
+            <div className="h-5 w-5 bg-truffle-trouble text-white rounded-full flex items-center justify-center scale-90">
+              <AlertTriangle className="h-3 w-3" />
+            </div>
             <span>Delay Cause</span>
           </div>
         </div>
@@ -209,16 +222,19 @@ export default function GanttChart({
 
       {/* 2. Scrollable Gantt Chart Container */}
       <div className="border border-blue-fantastic/5 rounded-2xl overflow-hidden shadow-inner bg-oatmeal/10 relative min-h-[320px]">
-        <div 
+        <div
           ref={scrollContainerRef}
           className="overflow-x-auto custom-scrollbar flex min-h-[320px]"
         >
           {/* A. Fixed Stage Sidebar */}
           <div className="w-56 md:w-64 shrink-0 bg-palladian sticky left-0 z-20 border-r border-blue-fantastic/10 shadow-[4px_0_12px_-5px_rgba(27,38,50,0.06)] min-h-[320px]">
             {/* Header placeholder */}
-            <div className="h-10 bg-palladian/45 border-b border-blue-fantastic/10 flex items-center px-4">
+            <div className="h-10 bg-palladian/45 border-b border-blue-fantastic/10 flex items-center justify-between px-4">
               <span className="text-[10px] font-extrabold uppercase tracking-widest text-blue-fantastic/65">
                 Construction Stages
+              </span>
+              <span className="text-[9px] text-blue-fantastic/50 italic font-sans">
+                Click stage to edit
               </span>
             </div>
 
@@ -226,28 +242,40 @@ export default function GanttChart({
             <div className="divide-y divide-blue-fantastic/5">
               {data.stages.map((stage) => {
                 const isActive = stage.status === "in-progress";
+                const isSelected = selectedStageId === stage.id;
+
                 return (
-                  <div 
-                    key={stage.id} 
+                  <div
+                    key={stage.id}
+                    onClick={() => onSelectStage(stage)}
                     className={cn(
-                      "h-24 flex flex-col justify-center px-4 transition-colors",
-                      isActive ? "bg-blue-fantastic/5" : "bg-palladian"
+                      "h-24 flex flex-col justify-center px-4 transition-colors cursor-pointer group",
+                      isSelected
+                        ? "bg-truffle-trouble/10 border-l-4 border-truffle-trouble"
+                        : isActive
+                        ? "bg-blue-fantastic/5"
+                        : "bg-palladian hover:bg-palladian/80"
                     )}
                   >
-                    <div className="flex items-center gap-1.5">
-                      <span className={cn(
-                        "h-2 w-2 rounded-full shrink-0",
-                        stage.status === "completed-on-time" && "bg-emerald-500",
-                        stage.status === "completed-late" && "bg-amber-500",
-                        isActive && "bg-blue-fantastic animate-pulse",
-                        stage.status === "delayed" && "bg-truffle-trouble",
-                        stage.status === "upcoming" && "bg-blue-fantastic/20"
-                      )} />
-                      <h4 className="text-xs font-extrabold text-blue-fantastic truncate">
-                        {stage.name}
-                      </h4>
+                    <div className="flex items-center justify-between gap-1.5">
+                      <div className="flex items-center gap-1.5 truncate">
+                        <span
+                          className={cn(
+                            "h-2 w-2 rounded-full shrink-0",
+                            stage.status === "completed-on-time" && "bg-emerald-500",
+                            stage.status === "completed-late" && "bg-amber-500",
+                            isActive && "bg-blue-fantastic animate-pulse",
+                            stage.status === "delayed" && "bg-truffle-trouble",
+                            stage.status === "upcoming" && "bg-blue-fantastic/20"
+                          )}
+                        />
+                        <h4 className="text-xs font-extrabold text-blue-fantastic truncate font-cream">
+                          {stage.name}
+                        </h4>
+                      </div>
+                      <Edit3 className="h-3 w-3 text-blue-fantastic/30 group-hover:text-truffle-trouble transition-colors shrink-0" />
                     </div>
-                    <p className="text-[10px] text-blue-fantastic/55 line-clamp-1 mt-0.5 pl-3.5">
+                    <p className="text-[10px] text-blue-fantastic/55 line-clamp-1 mt-0.5 pl-3.5 font-sans">
                       {stage.description}
                     </p>
                   </div>
@@ -286,7 +314,7 @@ export default function GanttChart({
 
               {/* Today line overlay */}
               {data.statusFlag !== "not-started" && (
-                <div 
+                <div
                   className="absolute top-0 bottom-0 w-[2px] bg-truffle-trouble z-30 pointer-events-none"
                   style={{ left: `${getPercent(simulatedToday)}%` }}
                 >
@@ -313,10 +341,22 @@ export default function GanttChart({
                 const plannedDays = getDaysBetween(plannedStartStr, plannedEndStr);
                 const actualDays = getDaysBetween(actualStartStr, actualEndStr);
 
-                const isProjected = stage.status === "in-progress" || stage.status === "upcoming" || stage.status === "delayed";
+                const isProjected =
+                  stage.status === "in-progress" ||
+                  stage.status === "upcoming" ||
+                  stage.status === "delayed";
+
+                const isSelected = selectedStageId === stage.id;
 
                 return (
-                  <div key={stage.id} className="h-24 relative hover:bg-palladian/10 transition-colors z-10 hover:z-40 focus-within:z-40">
+                  <div
+                    key={stage.id}
+                    onClick={() => onSelectStage(stage)}
+                    className={cn(
+                      "h-24 relative transition-colors z-10 hover:z-40 focus-within:z-40 cursor-pointer",
+                      isSelected ? "bg-truffle-trouble/5" : "hover:bg-palladian/10"
+                    )}
+                  >
                     {/* The double bars */}
                     <div className="w-full h-full px-4">
                       <TimelineBar
@@ -330,13 +370,13 @@ export default function GanttChart({
                           start: plannedStartStr,
                           end: plannedEndStr,
                           days: plannedDays,
-                          label: "Planned"
+                          label: "Planned",
                         }}
                         actualDetails={{
                           start: actualStartStr,
                           end: actualEndStr,
                           days: actualDays,
-                          label: isProjected ? "Projected" : "Actual"
+                          label: isProjected ? "Projected" : "Actual",
                         }}
                         isProjected={isProjected}
                       />
