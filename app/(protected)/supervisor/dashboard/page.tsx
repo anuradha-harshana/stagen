@@ -1,88 +1,102 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { 
-  Building2, 
-  AlertTriangle, 
-  MessageCircle, 
-  CheckCircle2, 
-  Send, 
-  CalendarDays, 
-  MapPin, 
-  Bell, 
-  Clock, 
-  UserCheck 
+import {
+  Building2,
+  AlertTriangle,
+  MessageCircle,
+  CheckCircle2,
+  Send,
+  CalendarDays,
+  MapPin,
+  Bell,
+  Clock,
+  UserCheck,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { INITIAL_PROJECTS, INITIAL_ACTIVITIES, CustomerQuestion, Project } from "@/lib/db-mock/projectsData";
+import { useUser } from "@/components/Providers/user-provider";
+import type {
+  SupervisorDashboardData,
+  SupervisorQuestion,
+  SupervisorActivity,
+} from "@/lib/tenant/tenantTypes";
 
 export default function SupervisorDashboard() {
-  const [projects, setProjects] = useState<Project[]>(INITIAL_PROJECTS);
-  const [activities, setActivities] = useState(INITIAL_ACTIVITIES);
+  const user = useUser();
+  const [dashboardData, setDashboardData] = useState<SupervisorDashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
   const [activeQuestionId, setActiveQuestionId] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
 
-  // Extract all unanswered questions from all projects
-  const unansweredQuestions = projects.flatMap(p => 
-    p.questions.filter(q => !q.replied).map(q => ({
-      ...q,
-      projectLot: p.id === "lot-104" ? "Lot 104" : p.id === "lot-208" ? "Lot 208" : "Lot 312",
-      projectName: p.clientName,
-      projectId: p.id
-    }))
-  );
+  useEffect(() => {
+    if (!user?.id) {
+      return;
+    }
 
-  // Statistics calculation
-  const totalProjects = projects.length;
-  const delayedProjects = projects.filter(p => p.status === "Delayed").length;
+    setLoading(true);
+    fetch(`/api/supervisor/dashboard?supervisorId=${encodeURIComponent(user.id)}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to load dashboard data");
+        }
+        return res.json() as Promise<SupervisorDashboardData>;
+      })
+      .then((data) => setDashboardData(data))
+      .catch((err) => {
+        console.error(err);
+        toast.error("Unable to load supervisor dashboard data");
+      })
+      .finally(() => setLoading(false));
+  }, [user?.id]);
+
+  const unansweredQuestions: SupervisorQuestion[] = dashboardData?.unansweredQuestions ?? [];
+  const activities: SupervisorActivity[] = dashboardData?.recentActivities ?? [];
+  const totalProjects = dashboardData?.projects.length ?? 0;
+  const delayedProjects = dashboardData?.delayedProjectsCount ?? 0;
   const pendingQuestionsCount = unansweredQuestions.length;
-  const completedStagesCount = projects.reduce((acc, p) => 
-    acc + p.stages.filter(s => s.status === "Completed").length, 0
-  );
+  const completedStagesCount = dashboardData?.completedStagesCount ?? 0;
+  const delayAlert = dashboardData?.delayAlert;
 
-  // Handle submitting a reply
-  const handleSendReply = (questionId: string, projectId: string, customerName: string, lot: string) => {
+  const handleSendReply = (questionId: string, tenantId: string, customerName: string, projectLot: string) => {
     if (!replyText.trim()) {
       toast.error("Please enter a reply message");
       return;
     }
 
-    // Update local projects state
-    setProjects(prev => prev.map(p => {
-      if (p.id === projectId) {
-        return {
-          ...p,
-          questions: p.questions.map(q => {
-            if (q.id === questionId) {
-              return { ...q, replied: true, replyText };
-            }
-            return q;
-          })
-        };
-      }
-      return p;
-    }));
+    setDashboardData((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        unansweredQuestions: prev.unansweredQuestions.filter((q) => q.id !== questionId),
+        recentActivities: [
+          {
+            id: `act-${Date.now()}`,
+            project: projectLot,
+            time: "Just now",
+            text: `Replied to ${customerName}'s question for ${projectLot}`,
+          },
+          ...prev.recentActivities,
+        ],
+      };
+    });
 
-    // Add activity log
-    const newActivity = {
-      id: `act-${Date.now()}`,
-      text: `Replied to ${customerName}'s question regarding ${lot}`,
-      time: "Just now",
-      project: lot
-    };
-    setActivities(prev => [newActivity, ...prev]);
-
-    // Reset state & show toast
     setActiveQuestionId(null);
     setReplyText("");
     toast.success(`Reply sent to ${customerName}!`);
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-120 text-blue-fantastic/70 font-semibold">
+        Loading supervisor dashboard...
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-5 w-full px-6 py-6 font-cream">
@@ -90,10 +104,10 @@ export default function SupervisorDashboard() {
       <div className="flex font-sans justify-between items-center">
         <div>
           <h1 className="text-blue-fantastic text-3xl font-bold font-cream tracking-tight">
-            Welcome back, John
+            Welcome back, {user.username}
           </h1>
           <p className="text-sm text-blue-fantastic/60 font-semibold mt-0.5">
-            Supervisor Dashboard · 3 active construction sites under management
+            Supervisor Dashboard · {totalProjects} active construction site{totalProjects === 1 ? "" : "s"} under management
           </p>
         </div>
         <div className="flex gap-3 h-fit items-center">
@@ -101,14 +115,13 @@ export default function SupervisorDashboard() {
             <Bell className="h-4.5 w-4.5 text-blue-fantastic" />
             <span className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full bg-truffle-trouble border-2 border-oatmeal animate-pulse" />
           </div>
-          <Image 
+          <Image
             src="/images/user.jpg"
             width={40}
             height={40}
             alt="supervisor"
             className="rounded-xl border border-blue-fantastic/20 object-cover"
             onError={(e) => {
-              // Fallback if image doesn't exist
               e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100";
             }}
           />
@@ -130,7 +143,7 @@ export default function SupervisorDashboard() {
           {
             label: "Delayed Projects",
             value: delayedProjects,
-            sub: "Weather or Material impact",
+            sub: "Weather or material impact",
             icon: AlertTriangle,
             iconBg: "bg-burning-flame/15 border-burning-flame/30",
             iconColor: "text-truffle-trouble",
@@ -139,7 +152,7 @@ export default function SupervisorDashboard() {
           {
             label: "Pending Questions",
             value: pendingQuestionsCount,
-            sub: "Requires supervisor response",
+            sub: "Requires your response",
             icon: MessageCircle,
             iconBg: "bg-truffle-trouble/10 border-truffle-trouble/20",
             iconColor: "text-truffle-trouble",
@@ -185,7 +198,7 @@ export default function SupervisorDashboard() {
       </div>
 
       {/* 3. Alerts Banner */}
-      {delayedProjects > 0 && (
+      {delayAlert && (
         <div className="relative overflow-hidden bg-burning-flame/15 border border-burning-flame/30 rounded-2xl p-4 flex gap-3.5 items-start">
           <div className="absolute top-0 left-0 bottom-0 w-1.5 bg-truffle-trouble/70" />
           <div className="h-9 w-9 rounded-xl bg-truffle-trouble/10 flex items-center justify-center shrink-0 border border-truffle-trouble/20">
@@ -196,7 +209,7 @@ export default function SupervisorDashboard() {
               Active Build Site Delay Alert
             </h4>
             <p className="text-xs text-blue-fantastic/90 font-semibold mt-1 leading-relaxed">
-              <strong className="text-truffle-trouble font-bold">Lot 208 (Sarah Jenkins)</strong> has been logged as <span className="font-bold underline">Delayed</span> due to weather &amp; steel reinforcement material shortages. Expected concrete pour is pushed back by 13 calendar days.
+              <strong className="text-truffle-trouble font-bold">{delayAlert.tenantName}</strong> has a delay active at <span className="font-bold underline">{delayAlert.stageName}</span> due to {delayAlert.reason}. The incident window is {delayAlert.fromDate} to {delayAlert.toDate}.
             </p>
           </div>
         </div>
@@ -218,18 +231,18 @@ export default function SupervisorDashboard() {
                 variant="outline"
                 className="ml-auto text-xs text-blue-fantastic/70 border-blue-fantastic/20 bg-blue-fantastic/5 font-semibold"
               >
-                {unansweredQuestions.length} urgent
+                {pendingQuestionsCount} urgent
               </Badge>
             </div>
           </CardHeader>
-          <CardContent className="pt-4 flex flex-col gap-3 min-h-[300px]">
+          <CardContent className="pt-4 flex flex-col gap-3 min-h-75">
             {unansweredQuestions.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center py-10 text-center">
                 <div className="h-12 w-12 rounded-full bg-blue-fantastic/5 flex items-center justify-center mb-3">
                   <UserCheck className="h-6 w-6 text-blue-fantastic/40" />
                 </div>
                 <p className="text-blue-fantastic font-bold text-sm">All Caught Up!</p>
-                <p className="text-xs text-blue-fantastic/60 font-semibold mt-1 max-w-[260px]">
+                <p className="text-xs text-blue-fantastic/60 font-semibold mt-1 max-w-65">
                   There are no pending customer questions requiring your response at this time.
                 </p>
               </div>
@@ -283,7 +296,7 @@ export default function SupervisorDashboard() {
                           </Button>
                           <Button
                             size="sm"
-                            onClick={() => handleSendReply(q.id, q.projectId, q.customerName, q.projectLot)}
+                            onClick={() => handleSendReply(q.id, q.tenantId, q.customerName, q.projectLot)}
                             className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/85 text-xs font-semibold gap-1.5"
                           >
                             <Send className="h-3 w-3" />
@@ -329,9 +342,7 @@ export default function SupervisorDashboard() {
             <div className="relative border-l border-blue-fantastic/15 pl-4 ml-2.5 space-y-4">
               {activities.map((act) => (
                 <div key={act.id} className="relative group">
-                  {/* Timeline dot */}
-                  <span className="absolute -left-[21.5px] top-1 h-2.5 w-2.5 rounded-full border border-palladian bg-truffle-trouble shadow-sm transition-transform duration-200 group-hover:scale-125" />
-                  
+                  <span className="absolute left-[-21.5px] top-1 h-2.5 w-2.5 rounded-full border border-palladian bg-truffle-trouble shadow-sm transition-transform duration-200 group-hover:scale-125" />
                   <div className="flex flex-col gap-0.5">
                     <span className="text-[10px] text-blue-fantastic/55 font-bold uppercase tracking-wider flex items-center gap-1.5">
                       <MapPin className="h-2.5 w-2.5 text-blue-fantastic/40" />

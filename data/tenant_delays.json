@@ -1,0 +1,13 @@
+{
+  "id": "delay-001",
+  "tenant_id": "tenant-lot-104",
+  "date": "Jun 16, 2024",
+  "stage_name": "Frame",
+  "title": "Heavy Storm Delay",
+  "from_date": "Jun 10, 2024",
+  "to_date": "Jun 16, 2024",
+  "reason": "Severe storm conditions paused framing work",
+  "type": "weather",
+  "duration_days": 6,
+  "created_by": "7ab56015-4412-494e-8aff-dbb5095e0097"
+}

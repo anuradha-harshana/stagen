@@ -1,0 +1,11 @@
+{
+  "id": "act-001",
+  "tenant_id": "tenant-lot-104",
+  "title": "Wall frames erection completed & signed off",
+  "description": "Frame stage checklist item marked complete by site supervisor.",
+  "date": "Jul 20, 2026 - 10:50 AM",
+  "stage_id": "frame",
+  "stage_name": "Frame",
+  "type": "success",
+  "created_by": "7ab56015-4412-494e-8aff-dbb5095e0097"
+}

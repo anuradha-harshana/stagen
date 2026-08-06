@@ -1,0 +1,26 @@
+{
+  "tenant_id": "tenant-lot-104",
+  "contract_value": 485000,
+  "amount_paid": 218250,
+  "outstanding": 169750,
+  "next_due": { "amount": 97000, "label": "Stage 3 Lock-up", "due_date": "Aug 17, 2025" },
+  "invoices": [
+    {
+      "id": "INV-001",
+      "description": "Deposit – Contract Signing",
+      "date": "Apr 1, 2025",
+      "due": "Apr 1, 2025",
+      "amount": 97000,
+      "status": "Paid"
+    }
+  ],
+  "payment_milestones": [
+    {
+      "label": "Deposit",
+      "amount": 97000,
+      "date": "Apr 1, 2025",
+      "status": "paid",
+      "pct_of_contract": 20
+    }
+  ]
+}

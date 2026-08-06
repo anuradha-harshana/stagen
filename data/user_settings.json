@@ -1,0 +1,7 @@
+{
+  "user_id": "7ab56015-4412-494e-8aff-dbb5095e0096",
+  "general": { "language": "English", "timezone": "Australia/Melbourne", "date_format": "DD/MM/YYYY", "currency": "AUD", "measurement": "metric" },
+  "notifications": { "project_updates": true, "invoice_reminders": true, "email": true, "push": false },
+  "security": { "two_factor_enabled": true },
+  "site_preferences": null
+}

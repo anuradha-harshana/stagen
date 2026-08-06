@@ -1,0 +1,18 @@
+{
+  "tenant_id": "tenant-lot-104",
+  "display_name": "Lot 104 – Richmond",
+  "client_name": "Anuradha Harshana",
+  "client_user_id": "7ab56015-4412-494e-8aff-dbb5095e0096",
+  "address": "Lot 104, 12 Harrison Street, Richmond VIC",
+  "status": "On Track",
+  "progress": 45,
+  "current_stage": "Frame",
+  "start_date": "Mar 10, 2026",
+  "est_handover": "Nov 15, 2026",
+  "image_gradient": "from-blue-fantastic/40 to-abyssal-blue/80",
+  "contract_value": 485000,
+  "amount_paid": 218250,
+  "outstanding": 169750,
+  "next_due_amount": 97000,
+  "next_due_label": "Stage 3 Lock-up"
+}

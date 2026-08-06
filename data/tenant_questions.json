@@ -1,0 +1,15 @@
+{
+  "id": "q-001",
+  "tenant_id": "tenant-lot-104",
+  "customer_user_id": "7ab56015-4412-494e-8aff-dbb5095e0096",
+  "customer_name": "Anuradha Harshana",
+  "date_asked": "Jul 22, 2026 - 2:30 PM",
+  "category": "Build Progress",
+  "question_title": "When will the wall framing inspection take place?",
+  "question_details": "...",
+  "status": "PENDING",
+  "answer_text": null,
+  "answered_by": null,
+  "answered_date": null,
+  "notify_customer": false
+}
