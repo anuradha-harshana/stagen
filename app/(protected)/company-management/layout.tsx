@@ -1,23 +1,27 @@
 import { Navbar } from '@/components/Navbar/Navbar';
+import { UserProvider } from '@/components/Providers/user-provider';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import React from 'react'
+import { requireRole } from '@/lib/auth/auth';
+import React from 'react';
 
-const companyManagementLayout = ({
-    children,
+export default async function companyManagementLayout({
+  children,
 }: {
-    children: React.ReactNode;
-}) => {
+  children: React.ReactNode;
+}) {
+  const user = await requireRole(["company-management"]);
+
   return (
     <>
       <SidebarProvider>
-        <Navbar role="company-management" />
-        <main className="flex-1 bg-oatmeal">
-            <SidebarTrigger />
-            {children}
+        <Navbar role={user.role} />
+        <main className="pb-10 flex-1 bg-oatmeal h-screen overflow-hidden">
+          <SidebarTrigger />
+          <div className="h-full overflow-y-scroll scrollbar-none">
+            <UserProvider user={user}>{children}</UserProvider>
+          </div>
         </main>
       </SidebarProvider>
     </>
-  )
+  );
 }
-
-export default companyManagementLayout

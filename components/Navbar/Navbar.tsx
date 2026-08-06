@@ -10,7 +10,7 @@ import {
 import Image from "next/image"
 import { NavbarProps } from "@/lib/types/types"
 import { NavbarLinks } from "./NavbarLinks"
-import { LogoutButton } from "../auth/LogoutButton"
+import { LogoutButton } from "../Auth/LogoutButton"
 
 
 type props = {
