@@ -41,6 +41,7 @@ export interface Project {
   stages: Stage[];
   delays: DelayLog[];
   questions: CustomerQuestion[];
+  supervisorName?: string;
 }
 
 export const INITIAL_PROJECTS: Project[] = [
@@ -54,6 +55,7 @@ export const INITIAL_PROJECTS: Project[] = [
     startDate: "Mar 10, 2026",
     estHandover: "Nov 15, 2026",
     imageGradient: "from-blue-fantastic/40 to-abyssal-blue/80",
+    supervisorName: "Eric",
     stages: [
       {
         name: "Site Cut",
@@ -168,6 +170,7 @@ export const INITIAL_PROJECTS: Project[] = [
     startDate: "May 1, 2026",
     estHandover: "Jan 20, 2027",
     imageGradient: "from-truffle-trouble/40 to-abyssal-blue/80",
+    supervisorName: "Eric",
     stages: [
       {
         name: "Site Cut",
