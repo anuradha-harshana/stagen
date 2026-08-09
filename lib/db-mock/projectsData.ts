@@ -32,7 +32,7 @@ export interface Project {
   id: string;
   clientName: string;
   address: string;
-  status: "On Track" | "Delayed" | "Action Required";
+  status: "On Track" | "Delayed" | "Action Required" | "Completed";
   progress: number; // overall progress 0-100
   currentStage: "Site Cut" | "Slab" | "Frame" | "Lockup" | "Fixing" | "Completion" | "Handover";
   startDate: string;
@@ -42,6 +42,10 @@ export interface Project {
   delays: DelayLog[];
   questions: CustomerQuestion[];
   supervisorName?: string;
+  region?: "NSW" | "VIC" | "QLD" | "WA" | "SA";
+  delayDays?: number;
+  lastUpdate?: string;
+  riskSeverity?: "Critical" | "High" | "Medium" | "Low";
 }
 
 export const INITIAL_PROJECTS: Project[] = [
@@ -340,6 +344,122 @@ export const INITIAL_PROJECTS: Project[] = [
         replied: false
       }
     ]
+  },
+  {
+    id: "P-1028",
+    clientName: "John Smith",
+    address: "14 Sydney Harbour Way, Parramatta NSW",
+    status: "Delayed",
+    progress: 62,
+    currentStage: "Lockup",
+    startDate: "Feb 01, 2026",
+    estHandover: "Oct 30, 2026",
+    imageGradient: "from-truffle-trouble/40 to-abyssal-blue/80",
+    supervisorName: "John Smith",
+    region: "NSW",
+    delayDays: 7,
+    lastUpdate: "May 13, 2024",
+    riskSeverity: "Critical",
+    stages: [
+      { name: "Site Cut", status: "Completed", progress: 100, checklist: [] },
+      { name: "Slab", status: "Completed", progress: 100, checklist: [] },
+      { name: "Frame", status: "Completed", progress: 100, checklist: [] },
+      { name: "Lockup", status: "Active", progress: 62, checklist: [] },
+      { name: "Fixing", status: "Pending", progress: 0, checklist: [] },
+      { name: "Completion", status: "Pending", progress: 0, checklist: [] },
+      { name: "Handover", status: "Pending", progress: 0, checklist: [] }
+    ],
+    delays: [
+      { id: "d-1028", type: "Weather", durationDays: 7, description: "Heavy torrential rain damaged external cladding rough-in.", date: "May 10, 2024" }
+    ],
+    questions: []
+  },
+  {
+    id: "P-1033",
+    clientName: "Emily Johnson",
+    address: "78 Collins Street, Melbourne VIC",
+    status: "Delayed",
+    progress: 47,
+    currentStage: "Fixing",
+    startDate: "Jan 12, 2026",
+    estHandover: "Nov 05, 2026",
+    imageGradient: "from-truffle-trouble/40 to-abyssal-blue/80",
+    supervisorName: "David Brown",
+    region: "VIC",
+    delayDays: 5,
+    lastUpdate: "May 12, 2024",
+    riskSeverity: "High",
+    stages: [
+      { name: "Site Cut", status: "Completed", progress: 100, checklist: [] },
+      { name: "Slab", status: "Completed", progress: 100, checklist: [] },
+      { name: "Frame", status: "Completed", progress: 100, checklist: [] },
+      { name: "Lockup", status: "Completed", progress: 100, checklist: [] },
+      { name: "Fixing", status: "Active", progress: 47, checklist: [] },
+      { name: "Completion", status: "Pending", progress: 0, checklist: [] },
+      { name: "Handover", status: "Pending", progress: 0, checklist: [] }
+    ],
+    delays: [
+      { id: "d-1033", type: "Materials", durationDays: 5, description: "Delay in delivery of custom plasterboard sheeting.", date: "May 08, 2024" }
+    ],
+    questions: []
+  },
+  {
+    id: "P-1041",
+    clientName: "Michael Williams",
+    address: "23 Gold Coast Hwy, Surfers Paradise QLD",
+    status: "Action Required",
+    progress: 35,
+    currentStage: "Frame",
+    startDate: "Mar 01, 2026",
+    estHandover: "Dec 12, 2026",
+    imageGradient: "from-burning-flame/40 to-abyssal-blue/80",
+    supervisorName: "Michael Lee",
+    region: "QLD",
+    delayDays: 4,
+    lastUpdate: "May 11, 2024",
+    riskSeverity: "Medium",
+    stages: [
+      { name: "Site Cut", status: "Completed", progress: 100, checklist: [] },
+      { name: "Slab", status: "Completed", progress: 100, checklist: [] },
+      { name: "Frame", status: "Active", progress: 35, checklist: [] },
+      { name: "Lockup", status: "Pending", progress: 0, checklist: [] },
+      { name: "Fixing", status: "Pending", progress: 0, checklist: [] },
+      { name: "Completion", status: "Pending", progress: 0, checklist: [] },
+      { name: "Handover", status: "Pending", progress: 0, checklist: [] }
+    ],
+    delays: [
+      { id: "d-1041", type: "Trade Availability", durationDays: 4, description: "Carpenter shortage on structural framing inspection.", date: "May 07, 2024" }
+    ],
+    questions: []
+  },
+  {
+    id: "P-1048",
+    clientName: "Sarah Brown",
+    address: "5 Ocean Drive, Perth WA",
+    status: "Action Required",
+    progress: 18,
+    currentStage: "Slab",
+    startDate: "Apr 05, 2026",
+    estHandover: "Jan 18, 2027",
+    imageGradient: "from-burning-flame/40 to-abyssal-blue/80",
+    supervisorName: "Sarah Johnson",
+    region: "WA",
+    delayDays: 3,
+    lastUpdate: "May 10, 2024",
+    riskSeverity: "Low",
+    stages: [
+      { name: "Site Cut", status: "Completed", progress: 100, checklist: [] },
+      { name: "Slab", status: "Active", progress: 18, checklist: [] },
+      { name: "Frame", status: "Pending", progress: 0, checklist: [] },
+      { name: "Lockup", status: "Pending", progress: 0, checklist: [] },
+      { name: "Fixing", status: "Pending", progress: 0, checklist: [] },
+      { name: "Completion", status: "Pending", progress: 0, checklist: [] },
+      { name: "Handover", status: "Pending", progress: 0, checklist: [] }
+    ],
+    delays: [
+      { id: "d-1048", type: "Inspections", durationDays: 3, description: "Council certifier delayed soil density signoff.", date: "May 09, 2024" }
+    ],
+    questions: []
   }
 ];
 
