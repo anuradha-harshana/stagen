@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { SupervisorNotificationHeader } from "./supervisor-notification-header"
-import { SupervisorNotificationList } from "./supervisor-notification-list"
-import { SupervisorNotificationSidebar } from "./supervisor-notification-sidebar"
-import { SupervisorFilterCategory } from "./supervisor-notification-filter"
-import { SupervisorNotificationItem } from "./supervisor-notification-card"
+import { SupervisorNotificationHeader } from "./SupervisorNotifiationHeader"
+import { SupervisorNotificationList } from "./SupervisorNotificationList"
+import { SupervisorNotificationSidebar } from "./SupervisorNotificationsidebar"
+import { SupervisorFilterCategory } from "./SupervisorNotificationFilter"
+import { SupervisorNotificationItem } from "./SupervisorNotificationCard"
 
 const INITIAL_SUPERVISOR_NOTIFICATIONS: SupervisorNotificationItem[] = [
   {

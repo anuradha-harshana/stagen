@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertTriangle, Search, ShieldAlert, ArrowUpRight, Wrench, ShieldCheck, CheckCircle } from "lucide-react";
-import { MitigationModal } from "./mitigation-modal";
+import { MitigationModal } from "./MitigationModal";
 
 export default function AtRiskProjectsClient() {
   const [projects, setProjects] = useState<Project[]>(INITIAL_PROJECTS);

@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { CustomerQuery } from "./questions-feed";
+import { CustomerQuery } from "./QuestionsFed";
 
 interface ReplyModalProps {
   query: CustomerQuery | null;

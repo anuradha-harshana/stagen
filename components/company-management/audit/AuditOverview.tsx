@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { ShieldCheck } from "lucide-react";
-import { AuditHeader } from "./audit-header";
-import { AuditStats } from "./audit-stats";
-import { ComplianceReadiness } from "./compliance-readiness";
-import { AuditLogsList, AuditLog } from "./audit-logs-list";
+import { AuditHeader } from "./AuditHeader";
+import { AuditStats } from "./AuditStats";
+import { ComplianceReadiness } from "./ComplianceRediness";
+import { AuditLogsList, AuditLog } from "./AuditLogsList";
 
 const mockAuditLogs: AuditLog[] = [
   {

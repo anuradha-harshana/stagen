@@ -1,7 +1,7 @@
-import ProfileHeader from "@/components/Customer/Profile/profile-header"
-import PersonalInformation from "@/components/Customer/Profile/personal-information"
-import PasswordSecurity from "@/components/Customer/Profile/password-security"
-import LinkedAccounts from "@/components/Customer/Profile/linked-accounts"
+import ProfileHeader from "@/components/Customer/Profile/ProfileHeader"
+import PersonalInformation from "@/components/Customer/Profile/PersonalInformation"
+import PasswordSecurity from "@/components/Customer/Profile/PasswordSecurity"
+import LinkedAccounts from "@/components/Customer/Profile/LinkedAccounts"
 // import SessionCard from "@/components/Customer/Profile/session-card"
 
 export default function ProfilePage() {

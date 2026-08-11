@@ -2,7 +2,7 @@
 
 import React from "react";
 import { TimelinePageData } from "@/lib/timeline/data";
-import { DelayMessage } from "./delays-store";
+import { DelayMessage } from "./DelayStore";
 import { AlertTriangle, Clock, CalendarDays, Send } from "lucide-react";
 
 interface DelayStatsOverviewProps {

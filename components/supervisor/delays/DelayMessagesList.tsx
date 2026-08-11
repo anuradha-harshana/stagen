@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { DelayMessage } from "./delays-store";
+import { DelayMessage } from "./DelayStore";
 import { cn } from "@/lib/utils";
 import { Mail, CheckCheck, Check, Clock, User, ArrowUpRight } from "lucide-react";
 

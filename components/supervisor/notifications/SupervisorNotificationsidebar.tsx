@@ -1,7 +1,7 @@
 "use client"
 
-import { SupervisorNotificationFilter, SupervisorFilterCategory } from "./supervisor-notification-filter"
-import { SupervisorNotificationChannel } from "./supervisor-notification-channel"
+import { SupervisorNotificationFilter, SupervisorFilterCategory } from "./SupervisorNotificationFilter"
+import { SupervisorNotificationChannel } from "./SupervisorNotificationChannel"
 
 interface SupervisorNotificationSidebarProps {
   activeFilter: SupervisorFilterCategory

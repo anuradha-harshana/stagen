@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { INITIAL_PROJECTS, Project } from "@/lib/db-mock/projectsData";
 
-import InsightsHeader from "./insights-header";
-import InsightsStats from "./insights-stats";
-import QuestionsFeed, { CustomerQuery } from "./questions-feed";
-import TopicInsights from "./topic-insights";
-import ReplyModal from "./reply-modal";
+import InsightsHeader from "./InsightsHeader";
+import InsightsStats from "./InsightsStats";
+import QuestionsFeed, { CustomerQuery } from "./QuestionsFed";
+import TopicInsights from "./TopicInsights";
+import ReplyModal from "./ReplyModel";
 
 export default function CustomerInsightsClient() {
   const [projects, setProjects] = useState<Project[]>([]);

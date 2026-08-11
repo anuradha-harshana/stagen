@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Bell, CheckCheck, Inbox, ChevronDown } from "lucide-react"
-import { SupervisorNotificationCard, SupervisorNotificationItem } from "./supervisor-notification-card"
+import { SupervisorNotificationCard, SupervisorNotificationItem } from "./SupervisorNotificationCard"
 
 interface SupervisorNotificationListProps {
   notifications: SupervisorNotificationItem[]

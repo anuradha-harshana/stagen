@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Bell, CheckCheck, Inbox, ChevronDown } from "lucide-react"
-import { NotificationCard, NotificationItem } from "./notification-card"
+import { NotificationCard, NotificationItem } from "./NotificationCard"
 
 interface NotificationListProps {
   notifications: NotificationItem[]

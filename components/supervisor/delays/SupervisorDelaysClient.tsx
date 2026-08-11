@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useUser } from "@/components/Providers/user-provider";
+import { useUser } from "@/components/Providers/UserProvider";
 import { Project } from "@/lib/db-mock/projectsData";
 import { TimelinePageData, DelayLogEntry } from "@/lib/timeline/data";
 import { 
@@ -9,7 +9,7 @@ import {
   recalculateTimelineStats, 
   getAssignedProjects 
 } from "@/components/supervisor/timeline/supervisor-timeline-store";
-import { INITIAL_DELAY_MESSAGES, DelayMessage, getDelayCategoryMeta } from "./delays-store";
+import { INITIAL_DELAY_MESSAGES, DelayMessage, getDelayCategoryMeta } from "./DelayStore";
 import { DelayStatsOverview } from "./DelayStatsOverview";
 import { LogDelayFormModal } from "./LogDelayFormModal";
 import { SendDelayMessageModal } from "./SendDelayMessageModal";

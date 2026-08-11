@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { useUser } from "@/components/Providers/user-provider";
+import { useUser } from "@/components/Providers/UserProvider";
 import { Project } from "@/lib/db-mock/projectsData";
 import { 
   TimelinePageData, 

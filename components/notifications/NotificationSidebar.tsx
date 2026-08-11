@@ -1,7 +1,7 @@
 "use client"
 
-import { NotificationFilter, FilterCategory } from "./notification-filter"
-import { NotificationChannel } from "./notification-channel"
+import { NotificationFilter, FilterCategory } from "./NotificationFilter"
+import { NotificationChannel } from "./NotificationChannel"
 
 interface NotificationSidebarProps {
   activeFilter: FilterCategory

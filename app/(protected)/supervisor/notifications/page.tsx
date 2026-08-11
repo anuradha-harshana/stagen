@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import { Metadata } from "next"
-import { SupervisorNotificationContainer } from "@/components/supervisor/notifications/supervisor-notification-container"
-import { SupervisorNotificationSkeleton } from "@/components/supervisor/notifications/supervisor-notification-skeleton"
+import { SupervisorNotificationContainer } from "@/components/supervisor/notifications/SupervisorNotificationContainer"
+import { SupervisorNotificationSkeleton } from "@/components/supervisor/notifications/SupervisorNotificationSkeleton"
 
 export const metadata: Metadata = {
   title: "Supervisor Notifications | Stagen",

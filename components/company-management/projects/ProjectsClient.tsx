@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, LayoutGrid, List, MapPin, Calendar, Clock, AlertTriangle, Eye, Building2 } from "lucide-react";
-import { ProjectDetailModal } from "./project-detail-modal";
+import { ProjectDetailModal } from "./ProjectDetailModal";
 
 export default function ProjectsOverviewClient() {
   const [projects] = useState<Project[]>(INITIAL_PROJECTS);

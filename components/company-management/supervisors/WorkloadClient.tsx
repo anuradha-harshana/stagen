@@ -6,10 +6,10 @@ import { Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-import WorkloadHeader from "./workload-header";
-import WorkloadStats from "./workload-stats";
-import SupervisorsGrid from "./supervisors-grid";
-import ReassignModal from "./reassign-modal";
+import WorkloadHeader from "./WorkloadHeader";
+import WorkloadStats from "./WorloadStats";
+import SupervisorsGrid from "./SupervisorsGrid";
+import ReassignModal from "./ReassignModal";
 
 interface WorkloadClientProps {
   dbSupervisors: string[];

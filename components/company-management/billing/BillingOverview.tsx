@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import { ShieldCheck } from "lucide-react";
-import { BillingHeader } from "./billing-header";
-import { BillingStats } from "./billing-stats";
-import { BillingCharts } from "./billing-charts";
-import { BillingUsageBreakdown } from "./billing-usage-breakdown";
-import { InvoicesList, Invoice } from "./invoices-list";
+import { BillingHeader } from "./BillingHeader";
+import { BillingStats } from "./BillingStats";
+import { BillingCharts } from "./BillingCharts";
+import { BillingUsageBreakdown } from "./BillingUsageBreakdown";
+import { InvoicesList, Invoice } from "./InvoicesList";
 
 const mockInvoices: Invoice[] = [
   { id: "INV-2026-081", siteName: "Grandview Heights - Phase 2", region: "NSW", plan: "Enterprise", issueDate: "2026-08-01", dueDate: "2026-08-15", amount: 4999, status: "Paid" },

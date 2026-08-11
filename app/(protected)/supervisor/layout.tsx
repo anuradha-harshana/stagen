@@ -1,5 +1,5 @@
 import { Navbar } from '@/components/Navbar/Navbar';
-import { UserProvider } from '@/components/Providers/user-provider';
+import { UserProvider } from '@/components/Providers/UserProvider';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { requireRole } from '@/lib/auth/auth';
 import React from 'react';

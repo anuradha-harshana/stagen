@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import WarrantyHeader from "./warranty-header";
-import WarrantyStats, { DefectItem } from "./warranty-stats";
-import DefectsList from "./defects-list";
-import WarrantyCoverageSummary from "./warranty-coverage-summary";
-import DefectManagementModal from "./defect-management-modal";
+import WarrantyHeader from "./WarrantyHeader";
+import WarrantyStats, { DefectItem } from "./WarrantyStats";
+import DefectsList from "./DefectsList";
+import WarrantyCoverageSummary from "./WarrantyCoverageSummary";
+import DefectManagementModal from "./DefectManagementModal";
 
 const INITIAL_DEFECTS: DefectItem[] = [
   {

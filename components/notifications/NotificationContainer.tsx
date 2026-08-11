@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { NotificationHeader } from "./notification-header"
-import { NotificationList } from "./notification-list"
-import { NotificationSidebar } from "./notification-sidebar"
-import { FilterCategory } from "./notification-filter"
-import { NotificationItem } from "./notification-card"
+import { NotificationHeader } from "./NotificationHeader"
+import { NotificationList } from "./NotificationList"
+import { NotificationSidebar } from "./NotificationSidebar"
+import { FilterCategory } from "./NotificationFilter"
+import { NotificationItem } from "./NotificationCard"
 
 const INITIAL_NOTIFICATIONS: NotificationItem[] = [
   {

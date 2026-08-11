@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import SettingHeader from "@/components/supervisor/setting/setting-header"
-import GeneralSettings from "@/components/supervisor/setting/general-settings"
-import NotificationSettings from "@/components/supervisor/setting/notification-settings"
-import SecuritySettings from "@/components/supervisor/setting/security-settings"
-import SitePreferences from "@/components/supervisor/setting/site-preferences"
+import SettingHeader from "@/components/supervisor/setting/SettingHeader"
+import GeneralSettings from "@/components/supervisor/setting/GeneralSettings"
+import NotificationSettings from "@/components/supervisor/setting/NotificationSettings"
+import SecuritySettings from "@/components/supervisor/setting/SecuritySettings"
+import SitePreferences from "@/components/supervisor/setting/SitePreferences"
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("General")

@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import { ShieldCheck } from "lucide-react";
-import { ReportsHeader } from "./reports-header";
-import { ReportsFilters } from "./reports-filters";
-import { ReportsStats } from "./reports-stats";
-import { ReportsCharts } from "./reports-charts";
-import { RegionalMatrixTable, RegionalReport } from "./regional-matrix-table";
+import { ReportsHeader } from "./ReportsHeader";
+import { ReportsFilters } from "./ReportsFilters";
+import { ReportsStats } from "./ReportsStats";
+import { ReportsCharts } from "./ReportsCharts";
+import { RegionalMatrixTable, RegionalReport } from "./RegionalMatrixTable";
 
 const mockRegionalReports: RegionalReport[] = [
   { region: "NSW (New South Wales)", totalSites: 48, activeSites: 38, onTimePct: 92.4, avgDelayDays: 1.8, supervisors: 12, efficiencyScore: 95 },

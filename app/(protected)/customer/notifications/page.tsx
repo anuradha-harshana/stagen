@@ -1,6 +1,6 @@
 import { Suspense } from "react"
-import { NotificationContainer } from "@/components/notifications/notification-container"
-import { NotificationSkeleton } from "@/components/notifications/notification-skeleton"
+import { NotificationContainer } from "@/components/notifications/NotificationContainer"
+import { NotificationSkeleton } from "@/components/notifications/NotificationSkeleton"
 
 export default function NotificationPage() {
   return (

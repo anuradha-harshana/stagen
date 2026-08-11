@@ -3,14 +3,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Bell, Calendar, ChevronDown, Filter } from "lucide-react";
-import { ExecutiveKpis } from "./executive-kpis";
-import { StageChart } from "./stage-chart";
-import { RegionChart } from "./region-chart";
-import { StatusChart } from "./status-chart";
-import { SupervisorsWidget } from "./supervisors-widget";
-import { AtRiskTable } from "./at-risk-table";
-import { AiInsightsSection } from "./ai-insights-section";
-import { OperationsOverview } from "./operations-overview";
+import { ExecutiveKpis } from "./ExecutiveKpis";
+import { StageChart } from "./StageChart";
+import { RegionChart } from "./RegionChart";
+import { StatusChart } from "./StatusChart";
+import { SupervisorsWidget } from "./SupervisorsWidget";
+import { AtRiskTable } from "./AtRiskTable";
+import { AiInsightsSection } from "./AiInsightsSection";
+import { OperationsOverview } from "./OperationsOverview";
 import { Button } from "@/components/ui/button";
 
 export default function DashboardClient() {

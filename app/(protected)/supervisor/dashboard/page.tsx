@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { useUser } from "@/components/Providers/user-provider";
+import { useUser } from "@/components/Providers/UserProvider";
 import type {
   SupervisorDashboardData,
   SupervisorQuestion,

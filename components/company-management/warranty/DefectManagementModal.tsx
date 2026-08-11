@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DefectItem } from "./warranty-stats";
+import { DefectItem } from "./WarrantyStats";
 
 interface DefectManagementModalProps {
   defect: DefectItem | null;

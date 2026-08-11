@@ -31,7 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { useUser } from "@/components/Providers/user-provider";
+import { useUser } from "@/components/Providers/UserProvider";
 import { Project } from "@/lib/db-mock/projectsData";
 import { 
   SitePhoto, 
