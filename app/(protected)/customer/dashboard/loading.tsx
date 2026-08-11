@@ -1,4 +1,4 @@
-import StatCards from "@/components/Customer/StatCards"
+import StatCards from "@/components/customer/StatCards"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import UserDetails from "@/components/user/userDetails"

@@ -4,7 +4,7 @@ import crypto from "crypto";
 import { User } from "../types/types";
 
 
-const filePath = path.join(process.cwd(), "data", "users.json");
+const filePath = path.join(process.cwd(), "data", "users", "users.json");
 
 export async function getUsers(): Promise<User[]> {
     const fileContents = await fs.readFile(filePath, "utf8");

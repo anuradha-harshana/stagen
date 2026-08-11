@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import { NavbarProps } from "@/lib/types/types"
-import { NavbarLinks } from "./NavbarLinks"
-import { LogoutButton } from "../Auth/LogoutButton"
+import {NavbarLinks} from "@/components/navbar/NavbarLinks"
+import { LogoutButton } from "../auth/LogoutButton"
 
 
 type props = {
@@ -18,12 +18,22 @@ type props = {
 }
 
 export async function Navbar({ role }: props) {
-  const res = await fetch(process.env.APP_URL + "/api/navbar?role=" + role, {
-    cache: "no-store",
-  })
+  let data: NavbarProps[] = []
 
-  const data: NavbarProps[] = await res.json()
+  try {
+    const res = await fetch(`/api/navbar?role=${encodeURIComponent(role)}`, {
+      cache: "no-store",
+    })
 
+    if (res.ok) {
+      data = await res.json()
+    } else {
+      const body = await res.text()
+      console.error("Navbar API request failed", res.status, body)
+    }
+  } catch (error) {
+    console.error("Navbar fetch failed", error)
+  }
 
   return (
     <Sidebar

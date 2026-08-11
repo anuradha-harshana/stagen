@@ -5,6 +5,7 @@ import { Session } from "../types/types";
 const sessionsPath = path.join(
     process.cwd(),
     "data",
+    "sessions",
     "sessions.json"
 );
 
