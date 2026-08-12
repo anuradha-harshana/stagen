@@ -10,7 +10,7 @@ import {
 import Image from "next/image"
 import { NavbarProps } from "@/lib/types/types"
 import { NavbarLinks } from "./NavbarLinks"
-import { LogoutButton } from "../Auth/LogoutButton"
+import { LogoutButton } from "../auth/LogoutButton"
 
 
 type props = {
@@ -18,7 +18,8 @@ type props = {
 }
 
 export async function Navbar({ role }: props) {
-  const res = await fetch(process.env.APP_URL + "/api/navbar?role=" + role, {
+  const baseUrl = process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+  const res = await fetch(`${baseUrl}/api/navbar?role=${role}`, {
     cache: "no-store",
   })
 

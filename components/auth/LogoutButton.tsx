@@ -18,10 +18,15 @@ export function LogoutButton() {
                 return;
             }
 
+            const data = await res.json().catch(() => ({}));
             toast.success("Logged out successfully");
 
-            router.replace("/login");
-            router.refresh();
+            if (data.logoutUrl) {
+                window.location.href = data.logoutUrl;
+            } else {
+                router.replace("/login");
+                router.refresh();
+            }
 
         } catch (error) {
             console.error("Logout error:", error);

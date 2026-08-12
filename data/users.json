@@ -26,5 +26,12 @@
     "email": "management@stagen.com",
     "password": "Stagen@123456",
     "role": "company-management"
+  },
+  {
+    "id": "9dc8743e-7b7d-4a5c-88d2-5ec51b116bb8",
+    "username": "9dc8743e-7b7d-4a5c-88d2-5ec51b116bb8",
+    "email": "9dc8743e-7b7d-4a5c-88d2-5ec51b116bb8",
+    "password": "",
+    "role": "customer"
   }
 ]
