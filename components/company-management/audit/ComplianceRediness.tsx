@@ -11,7 +11,7 @@ export function ComplianceReadiness({ onViewReport }: ComplianceReadinessProps) 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Compliance Rating Card */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 flex flex-col justify-between">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 flex flex-col justify-between">
         <div>
           <h3 className="font-semibold text-base text-blue-fantastic mb-1">
             Compliance Readiness Score
@@ -44,7 +44,7 @@ export function ComplianceReadiness({ onViewReport }: ComplianceReadinessProps) 
       </div>
 
       {/* Category Breakdown Progress */}
-      <div className="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 space-y-4">
+      <div className="lg:col-span-2 bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 space-y-4">
         <h3 className="font-semibold text-base text-blue-fantastic">
           Compliance Categories Breakdown
         </h3>

@@ -44,7 +44,7 @@ export default function DefectsList({ defects, onManageClick }: DefectsListProps
   });
 
   return (
-    <div className="space-y-4 w-full font-cream">
+    <div className="space-y-4 w-full font-sans">
       {/* Search and Filters Bar */}
       <div className="flex flex-col gap-3.5 bg-palladian p-4 rounded-2xl border border-blue-fantastic/10 shadow-sm">
         <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
@@ -65,7 +65,7 @@ export default function DefectsList({ defects, onManageClick }: DefectsListProps
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
-                className={`px-3 py-1 text-[11px] font-bold font-cream transition-all rounded-lg cursor-pointer ${
+                className={`px-3 py-1 text-[11px] font-bold font-sans transition-all rounded-lg cursor-pointer ${
                   statusFilter === status
                     ? "bg-blue-fantastic text-palladian shadow-sm"
                     : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
@@ -87,7 +87,7 @@ export default function DefectsList({ defects, onManageClick }: DefectsListProps
               <button
                 key={prio}
                 onClick={() => setPriorityFilter(prio)}
-                className={`px-2.5 py-1 text-[10px] font-bold font-cream transition-all rounded-md cursor-pointer ${
+                className={`px-2.5 py-1 text-[10px] font-bold font-sans transition-all rounded-md cursor-pointer ${
                   priorityFilter === prio
                     ? "bg-truffle-trouble text-palladian shadow-xs"
                     : "bg-blue-fantastic/4 text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-blue-fantastic/10"

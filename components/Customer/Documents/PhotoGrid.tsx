@@ -22,13 +22,13 @@ const stageColors: Record<string, string> = {
 
 export function PhotoGrid() {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-blue-fantastic/10 flex items-center justify-center">
             <Camera className="h-4 w-4 text-blue-fantastic" />
           </div>
-          <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">Site Photos</CardTitle>
+          <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">Site Photos</CardTitle>
           <Badge
             variant="outline"
             className="ml-auto text-xs text-blue-fantastic/70 border-blue-fantastic/20 bg-blue-fantastic/5 font-semibold"
@@ -66,7 +66,7 @@ export function PhotoGrid() {
 
               {/* bottom label */}
               <div className="absolute bottom-0 left-0 right-0 px-2.5 py-2 bg-gradient-to-t from-abyssal-blue/95 via-abyssal-blue/65 to-transparent">
-                <p className="text-palladian text-xs font-bold leading-tight truncate font-cream">{photo.label}</p>
+                <p className="text-palladian text-xs font-bold leading-tight truncate font-sans">{photo.label}</p>
                 <div className="flex items-center gap-1 mt-0.5">
                   <CalendarDays className="h-2.5 w-2.5 text-oatmeal" />
                   <p className="text-oatmeal text-[10px] font-medium">{photo.date}</p>

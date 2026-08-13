@@ -17,7 +17,7 @@ export function ReportsFilters({
   onTimeframeChange,
 }: ReportsFiltersProps) {
   return (
-    <div className="bg-white rounded-xl p-4 shadow-sm border border-oatmeal/60 flex flex-wrap items-center justify-between gap-4 text-xs">
+    <div className="bg-palladian rounded-xl p-4 shadow-sm border border-blue-fantastic/15 flex flex-wrap items-center justify-between gap-4 text-xs">
       <div className="flex items-center gap-3 flex-wrap">
         <div className="flex items-center gap-1.5 text-blue-fantastic/70 font-medium">
           <Filter className="h-4 w-4 text-truffle-trouble" />
@@ -30,7 +30,7 @@ export function ReportsFilters({
           <select
             value={selectedRegion}
             onChange={(e) => onRegionChange(e.target.value)}
-            className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-blue-fantastic font-semibold focus:outline-none focus:border-truffle-trouble"
+            className="bg-slate-50 border border-blue-fantastic/15 rounded-lg px-3 py-1.5 text-blue-fantastic font-semibold focus:outline-none focus:border-truffle-trouble"
           >
             <option value="All">All Regions (National)</option>
             <option value="NSW">NSW</option>
@@ -46,7 +46,7 @@ export function ReportsFilters({
           <select
             value={selectedTimeframe}
             onChange={(e) => onTimeframeChange(e.target.value)}
-            className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-blue-fantastic font-semibold focus:outline-none focus:border-truffle-trouble"
+            className="bg-slate-50 border border-blue-fantastic/15 rounded-lg px-3 py-1.5 text-blue-fantastic font-semibold focus:outline-none focus:border-truffle-trouble"
           >
             <option value="Last 30 Days">Last 30 Days</option>
             <option value="Q2 2026">Q2 2026</option>

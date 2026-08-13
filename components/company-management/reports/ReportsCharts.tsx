@@ -7,7 +7,7 @@ export function ReportsCharts() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Site Velocity & Completion Area Chart */}
-      <div className="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60">
+      <div className="lg:col-span-2 bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="font-semibold text-base text-blue-fantastic">
@@ -75,7 +75,7 @@ export function ReportsCharts() {
       </div>
 
       {/* Stage Bottlenecks Breakdown */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 flex flex-col justify-between">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 flex flex-col justify-between">
         <div>
           <h3 className="font-semibold text-base text-blue-fantastic">
             Average Days Per Construction Stage

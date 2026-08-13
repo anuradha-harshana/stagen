@@ -52,8 +52,8 @@ export function NewTemplateModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-abyssal-blue/60 backdrop-blur-xs flex items-center justify-center p-4 font-cream animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-xl border border-slate-200 flex flex-col gap-6">
+    <div className="fixed inset-0 z-50 bg-abyssal-blue/60 backdrop-blur-xs flex items-center justify-center p-4 font-sans animate-in fade-in duration-200">
+      <div className="bg-palladian rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-xl border border-blue-fantastic/15 flex flex-col gap-6">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-4">
           <div>
@@ -84,7 +84,7 @@ export function NewTemplateModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Practical Completion Issued"
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
+              className="px-4 py-2.5 rounded-xl border border-blue-fantastic/15 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
             />
           </div>
 
@@ -99,7 +99,7 @@ export function NewTemplateModal({
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold ${
                   channels.includes("email")
                     ? "bg-abyssal-blue text-white border-abyssal-blue"
-                    : "bg-white text-slate-600 border-slate-200"
+                    : "bg-palladian text-slate-600 border-blue-fantastic/15"
                 }`}
               >
                 <Mail className="w-3.5 h-3.5" /> Email
@@ -110,7 +110,7 @@ export function NewTemplateModal({
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold ${
                   channels.includes("in_app")
                     ? "bg-abyssal-blue text-white border-abyssal-blue"
-                    : "bg-white text-slate-600 border-slate-200"
+                    : "bg-palladian text-slate-600 border-blue-fantastic/15"
                 }`}
               >
                 <Bell className="w-3.5 h-3.5" /> In-App
@@ -121,7 +121,7 @@ export function NewTemplateModal({
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold ${
                   channels.includes("push")
                     ? "bg-abyssal-blue text-white border-abyssal-blue"
-                    : "bg-white text-slate-600 border-slate-200"
+                    : "bg-palladian text-slate-600 border-blue-fantastic/15"
                 }`}
               >
                 <Bookmark className="w-3.5 h-3.5" /> Push
@@ -138,7 +138,7 @@ export function NewTemplateModal({
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="e.g. Update regarding {{project_name}}"
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
+              className="px-4 py-2.5 rounded-xl border border-blue-fantastic/15 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
             />
           </div>
 
@@ -151,7 +151,7 @@ export function NewTemplateModal({
               value={body}
               onChange={(e) => setBody(e.target.value)}
               placeholder="Type message content with {{variable}} tags..."
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
+              className="px-4 py-2.5 rounded-xl border border-blue-fantastic/15 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
             />
           </div>
 

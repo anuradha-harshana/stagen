@@ -79,7 +79,7 @@ export default function AIKnowledgeSources({
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full font-cream">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full font-sans">
       {/* AI Guardrails Panel */}
       <div className="bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 flex flex-col justify-between h-full shadow-sm">
         <div>

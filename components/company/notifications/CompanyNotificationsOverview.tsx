@@ -139,7 +139,7 @@ export function CompanyNotificationsOverview() {
   }
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-8 font-cream">
+    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 max-w-7xl mx-auto font-sans">
       {/* Header */}
       <CompanyNotificationsHeader
         activeTab={activeTab}
@@ -148,7 +148,7 @@ export function CompanyNotificationsOverview() {
       />
 
       {/* Tabs Navigation */}
-      <div className="flex items-center gap-8 border-b border-slate-200/80 pt-2">
+      <div className="flex items-center gap-8 border-b border-blue-fantastic/15 pt-2">
         <button
           onClick={() => setActiveTab("templates")}
           className={`pb-3 text-sm font-bold transition-all relative ${

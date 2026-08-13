@@ -67,7 +67,7 @@ export default function LightboxModal({
             <span className="text-[9px] font-extrabold uppercase tracking-widest text-burning-flame bg-burning-flame/10 px-2 py-0.5 rounded-full border border-burning-flame/20">
               {currentPhoto.stageName}
             </span>
-            <h3 className="text-lg font-bold font-cream">{currentPhoto.label}</h3>
+            <h3 className="text-lg font-bold font-sans">{currentPhoto.label}</h3>
           </div>
           
           <button

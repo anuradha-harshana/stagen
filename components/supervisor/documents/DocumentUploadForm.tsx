@@ -147,28 +147,28 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
   }
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <div className="h-7 w-7 rounded-xl bg-burning-flame/15 flex items-center justify-center">
               <Upload className="h-4 w-4 text-truffle-trouble" />
             </div>
-            <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+            <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
               Add Document Details
             </CardTitle>
           </div>
-          <span className="text-xs font-bold text-truffle-trouble bg-burning-flame/15 px-2.5 py-0.5 rounded-full border border-burning-flame/20 font-cream">
+          <span className="text-xs font-bold text-truffle-trouble bg-burning-flame/15 px-2.5 py-0.5 rounded-full border border-burning-flame/20 font-sans">
             {selectedProject.code} {selectedProject.name}
           </span>
         </div>
       </CardHeader>
 
-      <CardContent className="pt-5 font-cream">
+      <CardContent className="pt-5 font-sans">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Document Title */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-cream">
+            <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-sans">
               Document / Update Title <span className="text-burning-flame">*</span>
             </label>
             <input
@@ -177,19 +177,19 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Wall Framing Stage 2 Approval Certificate"
-              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-cream"
+              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans"
             />
           </div>
 
           {/* Document Type */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-cream">
+            <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-sans">
               Document Type <span className="text-burning-flame">*</span>
             </label>
             <select
               value={documentType}
               onChange={(e) => setDocumentType(e.target.value)}
-              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-cream cursor-pointer"
+              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans cursor-pointer"
             >
               {DOCUMENT_TYPES.map((dt) => (
                 <option key={dt} value={dt}>
@@ -202,7 +202,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
           {/* Row 2: Date of Update & Visibility */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-cream">
+              <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-sans">
                 Date of Update <span className="text-burning-flame">*</span>
               </label>
               <input
@@ -210,12 +210,12 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
                 required
                 value={dateOfUpdate}
                 onChange={(e) => setDateOfUpdate(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-cream"
+                className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-cream">
+              <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-sans">
                 Access &amp; Visibility Level
               </label>
               <select
@@ -223,7 +223,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
                 onChange={(e) =>
                   setVisibility(e.target.value as DocumentUploadPayload["visibility"])
                 }
-                className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-cream cursor-pointer"
+                className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans cursor-pointer"
               >
                 <option value="Visible to Customer">Visible to Customer</option>
                 <option value="Internal Team Only">Internal Team Only</option>
@@ -233,7 +233,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
 
           {/* Update Description */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-cream">
+            <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-sans">
               Document Description / Notes
             </label>
             <textarea
@@ -241,13 +241,13 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Add any relevant notes, stage sign-off comments, or document summaries..."
-              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium resize-none font-cream"
+              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium resize-none font-sans"
             />
           </div>
 
           {/* Upload Documents Box */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-cream">
+            <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-sans">
               Upload Document File <span className="text-burning-flame">*</span>
             </label>
             <input
@@ -272,11 +272,11 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
                 <div className="p-3 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 text-truffle-trouble shadow-sm mb-2">
                   <Upload className="h-5 w-5" />
                 </div>
-                <p className="text-sm font-bold text-blue-fantastic font-cream">
+                <p className="text-sm font-bold text-blue-fantastic font-sans">
                   Drag &amp; drop your document here, or{" "}
                   <span className="text-truffle-trouble underline">browse</span>
                 </p>
-                <p className="text-xs text-blue-fantastic/60 mt-1 font-semibold font-cream">
+                <p className="text-xs text-blue-fantastic/60 mt-1 font-semibold font-sans">
                   Supported formats: PDF, Word (DOCX), Excel (XLSX), CAD (DWG) up to 25MB.
                 </p>
               </div>
@@ -287,10 +287,10 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
                     <FileText className="h-5 w-5" />
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-xs font-bold text-blue-fantastic truncate font-cream">
+                    <span className="text-xs font-bold text-blue-fantastic truncate font-sans">
                       {attachedFile.name}
                     </span>
-                    <span className="text-[11px] text-blue-fantastic/60 font-semibold font-cream">
+                    <span className="text-[11px] text-blue-fantastic/60 font-semibold font-sans">
                       {attachedFile.sizeFormatted} • {attachedFile.typeExt.toUpperCase()}
                     </span>
                   </div>
@@ -311,7 +311,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
           <div className="flex items-center justify-end pt-2">
             <Button
               type="submit"
-              className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 rounded-xl px-6 py-2 text-sm font-bold shadow-sm font-cream"
+              className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 rounded-xl px-6 py-2 text-sm font-bold shadow-sm font-sans"
             >
               Upload &amp; Update Progress
             </Button>

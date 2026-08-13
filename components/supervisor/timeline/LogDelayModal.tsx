@@ -83,14 +83,14 @@ export function LogDelayModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md w-[92vw] bg-palladian border-blue-fantastic/20 p-5 font-cream rounded-2xl">
+      <DialogContent className="max-w-md w-[92vw] bg-palladian border-blue-fantastic/20 p-5 font-sans rounded-2xl">
         <DialogHeader className="pb-3 border-b border-blue-fantastic/10 text-left">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-xl bg-truffle-trouble/15 border border-truffle-trouble/30 flex items-center justify-center text-truffle-trouble">
               <AlertTriangle className="h-4 w-4" />
             </div>
             <div>
-              <DialogTitle className="text-blue-fantastic font-cream font-bold text-base leading-tight">
+              <DialogTitle className="text-blue-fantastic font-sans font-bold text-base leading-tight">
                 Log Schedule Adjustment
               </DialogTitle>
               <DialogDescription className="text-xs text-blue-fantastic/60 font-sans mt-0.5">
@@ -103,11 +103,11 @@ export function LogDelayModal({
         <form onSubmit={handleSubmit} className="space-y-4 pt-3 font-sans text-xs">
           {/* Stage Selection */}
           <div>
-            <label className="block text-xs font-bold font-cream text-blue-fantastic mb-1">
+            <label className="block text-xs font-bold font-sans text-blue-fantastic mb-1">
               Affected Construction Stage
             </label>
             <Select value={stageName} onValueChange={setStageName}>
-              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-cream font-bold text-xs h-9 rounded-xl">
+              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl">
                 <SelectValue placeholder="Select Stage..." />
               </SelectTrigger>
               <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
@@ -122,7 +122,7 @@ export function LogDelayModal({
 
           {/* Adjustment Title */}
           <div>
-            <label className="block text-xs font-bold font-cream text-blue-fantastic mb-1">
+            <label className="block text-xs font-bold font-sans text-blue-fantastic mb-1">
               Adjustment Title
             </label>
             <Input
@@ -135,7 +135,7 @@ export function LogDelayModal({
 
           {/* Category */}
           <div>
-            <label className="block text-xs font-bold font-cream text-blue-fantastic mb-1">
+            <label className="block text-xs font-bold font-sans text-blue-fantastic mb-1">
               Delay Category / Type
             </label>
             <Select
@@ -158,7 +158,7 @@ export function LogDelayModal({
           {/* Date Shift */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-bold font-cream text-blue-fantastic/70 mb-1">
+              <label className="block text-[11px] font-bold font-sans text-blue-fantastic/70 mb-1">
                 Original Date
               </label>
               <Input
@@ -169,7 +169,7 @@ export function LogDelayModal({
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold font-cream text-truffle-trouble mb-1">
+              <label className="block text-[11px] font-bold font-sans text-truffle-trouble mb-1">
                 New Adjusted Date
               </label>
               <Input
@@ -183,7 +183,7 @@ export function LogDelayModal({
 
           {/* Description */}
           <div>
-            <label className="block text-xs font-bold font-cream text-blue-fantastic mb-1">
+            <label className="block text-xs font-bold font-sans text-blue-fantastic mb-1">
               Site Reason / Notes
             </label>
             <Textarea
@@ -206,7 +206,7 @@ export function LogDelayModal({
             </Button>
             <Button
               type="submit"
-              className="h-8 text-xs px-4 bg-truffle-trouble hover:bg-truffle-trouble/90 text-palladian font-cream font-bold rounded-xl shadow-xs"
+              className="h-8 text-xs px-4 bg-truffle-trouble hover:bg-truffle-trouble/90 text-palladian font-sans font-bold rounded-xl shadow-xs"
             >
               <Save className="h-3.5 w-3.5 mr-1" />
               Log Adjustment

@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export function CompanyDocumentsSkeleton() {
   return (
-    <div className="flex flex-col gap-5 w-full font-cream">
+    <div className="flex flex-col gap-5 w-full font-sans">
       {/* Header skeleton */}
       <div className="flex items-center justify-between pb-4 border-b border-blue-fantastic/15">
         <div className="flex items-center gap-3">
@@ -18,7 +18,7 @@ export function CompanyDocumentsSkeleton() {
 
       {/* Main Table Card Skeleton */}
       <Card className="bg-palladian border border-blue-fantastic/15 rounded-3xl shadow-sm overflow-hidden">
-        <CardHeader className="bg-white/50 border-b border-blue-fantastic/10 p-4">
+        <CardHeader className="bg-palladian/50 border-b border-blue-fantastic/10 p-4">
           <div className="flex items-center justify-between gap-3">
             <Skeleton className="h-10 flex-1 max-w-xs bg-blue-fantastic/10 rounded-xl" />
             <Skeleton className="h-10 w-32 shrink-0 bg-blue-fantastic/10 rounded-xl" />

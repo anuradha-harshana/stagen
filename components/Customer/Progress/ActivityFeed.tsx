@@ -59,7 +59,7 @@ export default function ActivityFeed({ updates, stageNames }: ActivityFeedProps)
           <div className="h-8 w-8 rounded-xl bg-burning-flame/10 flex items-center justify-center text-burning-flame">
             <RefreshCw className="h-4.5 w-4.5 animate-spin-slow" />
           </div>
-          <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+          <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
             Build Updates Feed
           </CardTitle>
         </div>

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 export function SupervisorNotificationSkeleton() {
   return (
-    <div className="flex flex-col gap-4 w-full font-sans animate-pulse">
+    <div className="flex flex-col gap-4 w-full animate-pulse">
       {/* Header Skeleton */}
       <div className="flex items-start justify-between flex-wrap gap-4 py-1">
         <div className="flex items-center gap-3">

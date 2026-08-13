@@ -79,15 +79,15 @@ export function CompanyDocumentDetailsModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-cream">
-      <div className="bg-white rounded-3xl shadow-2xl border border-oatmeal/30 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
+      <div className="bg-palladian rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-oatmeal/20">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-xl bg-truffle-trouble/10 border border-truffle-trouble/20 flex items-center justify-center text-truffle-trouble">
               <FileText className="h-4.5 w-4.5" />
             </div>
-            <h2 className="text-base font-bold text-blue-fantastic font-cream">
+            <h2 className="text-base font-bold text-blue-fantastic font-sans">
               {mode === "edit" ? "Edit Document Settings" : "Document Details"}
             </h2>
           </div>
@@ -108,7 +108,7 @@ export function CompanyDocumentDetailsModal({
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="bg-white border-oatmeal/50 text-blue-fantastic rounded-xl text-xs h-10 font-cream"
+                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
                 required
               />
             </div>
@@ -118,7 +118,7 @@ export function CompanyDocumentDetailsModal({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as DocumentCategory)}
-                className="w-full h-10 px-3 text-xs font-bold bg-white border border-oatmeal/50 rounded-xl text-blue-fantastic focus:border-truffle-trouble outline-none cursor-pointer font-cream"
+                className="w-full h-10 px-3 text-xs font-bold bg-palladian border border-blue-fantastic/15 rounded-xl text-blue-fantastic focus:border-truffle-trouble outline-none cursor-pointer font-sans"
               >
                 {ALL_CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
@@ -141,7 +141,7 @@ export function CompanyDocumentDetailsModal({
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
                         isSelected
                           ? "bg-blue-fantastic text-palladian border-blue-fantastic shadow-xs"
-                          : "bg-white text-blue-fantastic/70 border-oatmeal/50 hover:bg-palladian/40"
+                          : "bg-palladian text-blue-fantastic/70 border-blue-fantastic/15 hover:bg-palladian/40"
                       }`}
                     >
                       {role}
@@ -151,12 +151,12 @@ export function CompanyDocumentDetailsModal({
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-oatmeal/20">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-blue-fantastic/15">
               <Button
                 type="button"
                 variant="outline"
                 onClick={onClose}
-                className="rounded-xl border-oatmeal/50 text-blue-fantastic font-bold text-xs h-10 px-4"
+                className="rounded-xl border-blue-fantastic/15 text-blue-fantastic font-bold text-xs h-10 px-4"
               >
                 Cancel
               </Button>
@@ -170,7 +170,7 @@ export function CompanyDocumentDetailsModal({
           </form>
         ) : (
           <div className="p-6 space-y-5">
-            <div className="bg-palladian/40 border border-oatmeal/30 rounded-2xl p-4 space-y-3">
+            <div className="bg-palladian/40 border border-blue-fantastic/15 rounded-2xl p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <Badge variant="outline" className="bg-truffle-trouble/15 text-truffle-trouble border-truffle-trouble/30 font-bold">
                   {document.category}
@@ -198,7 +198,7 @@ export function CompanyDocumentDetailsModal({
                     {document.visibleTo.map((role) => (
                       <span
                         key={role}
-                        className="px-2 py-0.5 text-[10px] font-bold bg-palladian text-blue-fantastic border border-oatmeal/50 rounded-md"
+                        className="px-2 py-0.5 text-[10px] font-bold bg-palladian text-blue-fantastic border border-blue-fantastic/15 rounded-md"
                       >
                         {role}
                       </span>
@@ -208,11 +208,11 @@ export function CompanyDocumentDetailsModal({
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-oatmeal/20">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-blue-fantastic/15">
               <Button
                 variant="outline"
                 onClick={handleDownload}
-                className="rounded-xl border-oatmeal/50 text-blue-fantastic font-bold text-xs h-10 px-4 gap-2"
+                className="rounded-xl border-blue-fantastic/15 text-blue-fantastic font-bold text-xs h-10 px-4 gap-2"
               >
                 <Download className="h-4 w-4 text-blue-fantastic/70" />
                 Download File

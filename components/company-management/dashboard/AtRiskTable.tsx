@@ -72,8 +72,8 @@ const MOCK_ROWS: AtRiskProjectRow[] = [
 
 export function AtRiskTable() {
   return (
-    <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl overflow-hidden font-cream">
-      <CardHeader className="pb-4 pt-5 px-6 flex flex-row items-center justify-between border-b border-oatmeal/20">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
+      <CardHeader className="pb-4 pt-5 px-6 flex flex-row items-center justify-between border-b border-blue-fantastic/15">
         <div className="flex items-center gap-2">
           <AlertTriangle className="h-5 w-5 text-truffle-trouble" />
           <CardTitle className="text-base font-bold text-blue-fantastic font-sans">
@@ -91,7 +91,7 @@ export function AtRiskTable() {
       <CardContent className="p-0 overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-palladian/30 text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider border-b border-oatmeal/20">
+            <tr className="bg-palladian/30 text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider border-b border-blue-fantastic/15">
               <th className="py-3 px-6">Project ID</th>
               <th className="py-3 px-4">Project Name</th>
               <th className="py-3 px-4">Customer</th>

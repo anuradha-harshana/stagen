@@ -103,9 +103,9 @@ export function SendDelayMessageModal({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-lg bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans rounded-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader className="space-y-1">
-          <div className="flex items-center gap-2 text-blue-fantastic font-bold font-cream">
+          <div className="flex items-center gap-2 text-blue-fantastic font-bold font-sans">
             <Send className="h-5 w-5 text-truffle-trouble" />
-            <DialogTitle className="text-lg font-black font-cream text-blue-fantastic">
+            <DialogTitle className="text-lg font-black font-sans text-blue-fantastic">
               Send Delay Notice to Customer
             </DialogTitle>
           </div>
@@ -193,7 +193,7 @@ export function SendDelayMessageModal({
             </Button>
             <Button
               type="submit"
-              className="bg-blue-fantastic hover:bg-blue-fantastic/90 text-palladian font-bold font-cream text-xs rounded-xl h-9 px-4 shadow-sm gap-1.5"
+              className="bg-blue-fantastic hover:bg-blue-fantastic/90 text-palladian font-bold font-sans text-xs rounded-xl h-9 px-4 shadow-sm gap-1.5"
             >
               <Send className="h-3.5 w-3.5" />
               <span>Dispatch Notice</span>

@@ -23,14 +23,14 @@ export function StageChart() {
   const maxCount = Math.max(...STAGE_DATA.map((d) => d.count));
 
   return (
-    <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl overflow-hidden font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
       <CardHeader className="pb-2 pt-5 px-6">
         <CardTitle className="text-base font-bold text-blue-fantastic font-sans">
           Projects by Stage
         </CardTitle>
       </CardHeader>
       <CardContent className="px-6 pb-6 pt-2">
-        <div className="h-56 flex items-end justify-between gap-3 pt-6 pb-2 border-b border-oatmeal/20">
+        <div className="h-56 flex items-end justify-between gap-3 pt-6 pb-2 border-b border-blue-fantastic/15">
           {STAGE_DATA.map((item) => {
             const isHovered = hoveredStage === item.stage;
             const heightPercent = (item.count / maxCount) * 100;

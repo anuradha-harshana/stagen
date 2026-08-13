@@ -5,7 +5,7 @@ export function BillingUsageBreakdown() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Sites by Status */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15">
         <h3 className="font-semibold text-base text-blue-fantastic mb-4">
           Sites by Status
         </h3>
@@ -43,7 +43,7 @@ export function BillingUsageBreakdown() {
       </div>
 
       {/* Revenue by Region */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15">
         <h3 className="font-semibold text-base text-blue-fantastic mb-4">
           Revenue by Region
         </h3>

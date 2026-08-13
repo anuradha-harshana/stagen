@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export function CompanyBillingSkeleton() {
   return (
-    <div className="flex flex-col gap-6 w-full font-cream animate-pulse">
+    <div className="flex flex-col gap-6 w-full font-sans animate-pulse">
       {/* Header Skeleton */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-blue-fantastic/15">
         <div className="flex items-center gap-3">

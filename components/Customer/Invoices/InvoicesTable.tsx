@@ -33,13 +33,13 @@ const statusConfig: Record<InvoiceStatus, { badge: string; dot: string }> = {
 
 export function InvoicesTable() {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-blue-fantastic/10 flex items-center justify-center">
             <FileText className="h-4 w-4 text-blue-fantastic" />
           </div>
-          <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">Invoice History</CardTitle>
+          <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">Invoice History</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="pt-2 px-3">

@@ -37,7 +37,7 @@ export function StatusChart() {
   });
 
   return (
-    <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl overflow-hidden font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
       <CardHeader className="pb-2 pt-5 px-6 flex flex-row items-center justify-between">
         <CardTitle className="text-base font-bold text-blue-fantastic font-sans">
           Projects by Status

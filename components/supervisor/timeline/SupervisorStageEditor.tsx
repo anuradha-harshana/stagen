@@ -114,7 +114,7 @@ export function SupervisorStageEditor({
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-96 bg-palladian border-l border-blue-fantastic/20 shadow-2xl p-5 flex flex-col justify-between font-cream overflow-y-auto">
+    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-96 bg-palladian border-l border-blue-fantastic/20 shadow-2xl p-5 flex flex-col justify-between font-sans overflow-y-auto">
       <div>
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-blue-fantastic/10">
@@ -123,7 +123,7 @@ export function SupervisorStageEditor({
               <Edit3 className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="text-blue-fantastic font-cream font-bold text-base leading-tight">
+              <h3 className="text-blue-fantastic font-sans font-bold text-base leading-tight">
                 Manage {stage.name} Stage
               </h3>
               <p className="text-xs text-blue-fantastic/60 font-sans">
@@ -143,11 +143,11 @@ export function SupervisorStageEditor({
         <div className="py-4 space-y-4 font-sans text-xs">
           {/* Status Selector */}
           <div>
-            <label className="block text-xs font-bold font-cream text-blue-fantastic mb-1">
+            <label className="block text-xs font-bold font-sans text-blue-fantastic mb-1">
               Stage Execution Status
             </label>
             <Select value={status} onValueChange={(val: any) => setStatus(val)}>
-              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-cream font-bold text-xs h-9 rounded-xl">
+              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl">
                 <SelectValue placeholder="Select Status..." />
               </SelectTrigger>
               <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
@@ -207,7 +207,7 @@ export function SupervisorStageEditor({
           {/* Milestones Section */}
           <div className="pt-2">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold font-cream text-blue-fantastic flex items-center">
+              <span className="text-xs font-bold font-sans text-blue-fantastic flex items-center">
                 <Tag className="h-3.5 w-3.5 mr-1 text-truffle-trouble" />
                 Stage Milestones ({milestones.length})
               </span>
@@ -309,7 +309,7 @@ export function SupervisorStageEditor({
             type="button"
             onClick={() => onOpenPhotosForStage(stage.name)}
             variant="outline"
-            className="w-full border-blue-fantastic/20 hover:bg-blue-fantastic/10 text-blue-fantastic font-cream font-bold text-xs h-8 rounded-xl justify-center"
+            className="w-full border-blue-fantastic/20 hover:bg-blue-fantastic/10 text-blue-fantastic font-sans font-bold text-xs h-8 rounded-xl justify-center"
           >
             <Camera className="h-3.5 w-3.5 mr-1.5 text-truffle-trouble" />
             View Site Photos for {stage.name}
@@ -319,7 +319,7 @@ export function SupervisorStageEditor({
         <Button
           type="button"
           onClick={handleSave}
-          className="w-full bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-cream font-bold text-xs h-9 rounded-xl justify-center shadow-xs"
+          className="w-full bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-sans font-bold text-xs h-9 rounded-xl justify-center shadow-xs"
         >
           <Save className="h-3.5 w-3.5 mr-1.5 text-burning-flame" />
           Save Stage Changes

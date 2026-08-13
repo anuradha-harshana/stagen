@@ -19,7 +19,7 @@ export default function SupervisorsGrid({
   onReassignClick,
 }: SupervisorsGridProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full font-cream">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full font-sans">
       {supervisors.map((name) => {
         const assignedLots = projects.filter((p) => p.supervisorName === name);
         const avgProgress =
@@ -51,7 +51,7 @@ export default function SupervisorsGrid({
                     <div className="h-8 w-8 rounded-xl bg-blue-fantastic/10 flex items-center justify-center text-blue-fantastic">
                       <UserRound className="h-4.5 w-4.5 text-blue-fantastic" />
                     </div>
-                    <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+                    <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
                       {name}
                     </CardTitle>
                   </div>
@@ -62,7 +62,7 @@ export default function SupervisorsGrid({
               </CardHeader>
 
               {/* Card Body */}
-              <CardContent className="pt-4 space-y-4 font-cream">
+              <CardContent className="pt-4 space-y-4 font-sans">
                 {/* Average progress bar */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between text-xs font-bold text-blue-fantastic/70">

@@ -38,7 +38,7 @@ export function OperationsOverview() {
   });
 
   return (
-    <div className="space-y-6 font-cream pt-8 border-t border-oatmeal/30">
+    <div className="space-y-6 font-sans pt-8 border-t border-blue-fantastic/15">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
@@ -54,7 +54,7 @@ export function OperationsOverview() {
       {/* Top Grid (Supervisor Workload + Warranty Donut) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Supervisor Workload Card */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-6">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-blue-fantastic font-sans">
               Supervisor Workload
@@ -94,7 +94,7 @@ export function OperationsOverview() {
         </Card>
 
         {/* Warranty / Defect Overview Donut */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-6">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6">
           <h3 className="text-sm font-bold text-blue-fantastic font-sans mb-4">
             Warranty / Defect Overview
           </h3>
@@ -160,7 +160,7 @@ export function OperationsOverview() {
       {/* Bottom Grid (Average Resolution Time + Maintenance + Defect Status Summary) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Average Resolution Time */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-6 flex flex-col justify-between">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
               Average Resolution Time
@@ -187,7 +187,7 @@ export function OperationsOverview() {
         </Card>
 
         {/* Upcoming Maintenance */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-6 flex flex-col justify-between">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <h3 className="text-xs font-bold text-blue-fantastic uppercase tracking-wider mb-3">
               Upcoming Maintenance
@@ -198,7 +198,7 @@ export function OperationsOverview() {
                 { id: "P-1012", date: "May 22, 2024" },
                 { id: "P-1020", date: "May 25, 2024" },
               ].map((m) => (
-                <div key={m.id} className="flex items-center justify-between border-b border-oatmeal/15 pb-2">
+                <div key={m.id} className="flex items-center justify-between border-b border-blue-fantastic/15 pb-2">
                   <span className="font-bold text-blue-fantastic">{m.id}</span>
                   <span className="text-blue-fantastic/60 font-medium">{m.date}</span>
                 </div>
@@ -214,7 +214,7 @@ export function OperationsOverview() {
         </Card>
 
         {/* Defect Status Summary */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-6 space-y-3">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 space-y-3">
           <h3 className="text-xs font-bold text-blue-fantastic uppercase tracking-wider">
             Defect Status Summary
           </h3>

@@ -29,13 +29,13 @@ export default function GeneralSettings() {
   }
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream w-[1000px] max-w-2xl">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans w-[1000px] max-w-2xl">
       <CardHeader className="border-b border-blue-fantastic/10 pb-4">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
             <Globe className="h-4 w-4 text-truffle-trouble" />
           </div>
-          <CardTitle className="text-blue-fantastic text-base font-bold font-cream">
+          <CardTitle className="text-blue-fantastic text-base font-bold font-sans">
             General Settings
           </CardTitle>
         </div>
@@ -51,7 +51,7 @@ export default function GeneralSettings() {
             <select
               value={officeBranch}
               onChange={(e) => setOfficeBranch(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="Sydney Head Office (HQ)">Sydney Head Office (HQ)</option>
               <option value="Melbourne Branch (VIC)">Melbourne Branch (VIC)</option>
@@ -69,7 +69,7 @@ export default function GeneralSettings() {
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="English">English</option>
               <option value="Spanish">Español (Spanish)</option>
@@ -86,7 +86,7 @@ export default function GeneralSettings() {
             <select
               value={timeZone}
               onChange={(e) => setTimeZone(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="(AEST) Australia/Sydney">(AEST) Australia/Sydney</option>
               <option value="(AWST) Australia/Perth">(AWST) Australia/Perth</option>
@@ -104,7 +104,7 @@ export default function GeneralSettings() {
             <select
               value={dateFormat}
               onChange={(e) => setDateFormat(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="DD MMM YYYY">DD MMM YYYY (e.g. 23 Jul 2026)</option>
               <option value="DD/MM/YYYY">DD/MM/YYYY (e.g. 23/07/2026)</option>
@@ -121,7 +121,7 @@ export default function GeneralSettings() {
             <select
               value={measurement}
               onChange={(e) => setMeasurement(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="Metric (m², km)">Metric (m², km)</option>
               <option value="Imperial (sq ft, mi)">Imperial (sq ft, mi)</option>

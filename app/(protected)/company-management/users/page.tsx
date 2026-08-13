@@ -85,7 +85,7 @@ export default function CompanyManagementUsersPage() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full px-6 py-6 font-cream max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Toast */}
       {toastMessage && (
         <div className="fixed top-5 right-5 z-50 bg-blue-fantastic text-palladian px-4 py-3 rounded-xl shadow-lg border border-burning-flame/30 flex items-center gap-2 text-sm font-semibold animate-in fade-in slide-in-from-top-2">

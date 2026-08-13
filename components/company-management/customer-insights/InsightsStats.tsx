@@ -17,7 +17,7 @@ export default function InsightsStats({
   const aiRate = 75;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full font-cream">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full font-sans">
       {/* Total Queries Card */}
       <Card className="bg-palladian border border-blue-fantastic/5 hover:border-truffle-trouble/10 shadow-[0_6px_20px_rgba(27,38,50,0.03)] hover:shadow-[0_12px_30px_rgba(27,38,50,0.06)] hover:scale-[1.01] transition-all duration-300 rounded-2xl overflow-hidden group">
         <CardContent className="p-6 flex items-center justify-between">
@@ -25,7 +25,7 @@ export default function InsightsStats({
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               Total Queries
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {totalQueries}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">
@@ -45,7 +45,7 @@ export default function InsightsStats({
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               AI Resolution Rate
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {aiRate}%
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">
@@ -65,7 +65,7 @@ export default function InsightsStats({
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               Customer Satisfaction
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {csat} <span className="text-base text-blue-fantastic/40">/ 5.0</span>
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">

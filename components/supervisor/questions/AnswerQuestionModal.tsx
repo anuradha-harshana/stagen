@@ -61,7 +61,7 @@ export function AnswerQuestionModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 font-cream">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 font-sans">
       <Card className="w-full max-w-2xl bg-palladian border border-blue-fantastic/20 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <CardHeader className="bg-blue-fantastic/5 border-b border-blue-fantastic/10 pb-4">
           <div className="flex items-start justify-between gap-4">
@@ -70,7 +70,7 @@ export function AnswerQuestionModal({
                 <MessageSquare className="h-5 w-5" />
               </div>
               <div>
-                <CardTitle className="text-blue-fantastic text-base font-bold font-cream">
+                <CardTitle className="text-blue-fantastic text-base font-bold font-sans">
                   Respond to Customer Inquiry
                 </CardTitle>
                 <div className="flex items-center gap-2 mt-0.5 text-xs text-blue-fantastic/70 font-semibold">
@@ -96,7 +96,7 @@ export function AnswerQuestionModal({
           </div>
         </CardHeader>
 
-        <CardContent className="p-6 space-y-5 font-cream">
+        <CardContent className="p-6 space-y-5 font-sans">
           {/* Customer Question Card Box */}
           <div className="p-4 bg-blue-fantastic/5 border border-blue-fantastic/15 rounded-2xl space-y-2">
             <div className="flex items-center justify-between gap-2">
@@ -114,7 +114,7 @@ export function AnswerQuestionModal({
           {/* Answer Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-cream flex items-center justify-between">
+              <label className="text-xs font-bold text-blue-fantastic/70 uppercase tracking-wider font-sans flex items-center justify-between">
                 <span>Supervisor Official Answer <span className="text-burning-flame">*</span></span>
                 <span className="text-[11px] text-blue-fantastic/50 lowercase font-medium">Visible in Customer Portal</span>
               </label>
@@ -124,7 +124,7 @@ export function AnswerQuestionModal({
                 value={answerText}
                 onChange={(e) => setAnswerText(e.target.value)}
                 placeholder="Type your detailed, clear response for the customer..."
-                className="w-full px-4 py-3 text-sm bg-palladian border border-blue-fantastic/20 rounded-2xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-cream resize-none"
+                className="w-full px-4 py-3 text-sm bg-palladian border border-blue-fantastic/20 rounded-2xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans resize-none"
               />
             </div>
             

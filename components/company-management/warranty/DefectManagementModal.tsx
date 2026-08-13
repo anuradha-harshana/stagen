@@ -59,9 +59,9 @@ export default function DefectManagementModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold font-cream text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
+          <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             Manage Defect Ticket: {defect.id}
           </DialogTitle>
         </DialogHeader>
@@ -96,13 +96,13 @@ export default function DefectManagementModal({
                 <SelectValue placeholder="Select Status" />
               </SelectTrigger>
               <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
-                <SelectItem value="open" className="text-xs font-bold font-cream">
+                <SelectItem value="open" className="text-xs font-bold font-sans">
                   Open / New
                 </SelectItem>
-                <SelectItem value="in-progress" className="text-xs font-bold font-cream">
+                <SelectItem value="in-progress" className="text-xs font-bold font-sans">
                   In Progress
                 </SelectItem>
-                <SelectItem value="resolved" className="text-xs font-bold font-cream">
+                <SelectItem value="resolved" className="text-xs font-bold font-sans">
                   Resolved
                 </SelectItem>
               </SelectContent>
@@ -120,13 +120,13 @@ export default function DefectManagementModal({
                 <SelectValue placeholder="Select Priority" />
               </SelectTrigger>
               <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
-                <SelectItem value="Low" className="text-xs font-bold font-cream text-blue-700">
+                <SelectItem value="Low" className="text-xs font-bold font-sans text-blue-700">
                   Low
                 </SelectItem>
-                <SelectItem value="Medium" className="text-xs font-bold font-cream text-amber-700">
+                <SelectItem value="Medium" className="text-xs font-bold font-sans text-amber-700">
                   Medium
                 </SelectItem>
-                <SelectItem value="High" className="text-xs font-bold font-cream text-red-700">
+                <SelectItem value="High" className="text-xs font-bold font-sans text-red-700">
                   High Priority
                 </SelectItem>
               </SelectContent>
@@ -144,11 +144,11 @@ export default function DefectManagementModal({
                 <SelectValue placeholder="Select Supervisor" />
               </SelectTrigger>
               <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
-                <SelectItem value="Unassigned" className="text-xs font-bold font-cream text-blue-fantastic/60">
+                <SelectItem value="Unassigned" className="text-xs font-bold font-sans text-blue-fantastic/60">
                   Unassigned
                 </SelectItem>
                 {supervisors.map((sup) => (
-                  <SelectItem key={sup} value={sup} className="text-xs font-bold font-cream">
+                  <SelectItem key={sup} value={sup} className="text-xs font-bold font-sans">
                     {sup}
                   </SelectItem>
                 ))}

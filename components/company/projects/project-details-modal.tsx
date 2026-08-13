@@ -36,7 +36,7 @@ export default function ProjectDetailsModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-2xl bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20 max-h-[85vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-2xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[85vh] overflow-y-auto rounded-2xl">
         <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
           <div className="flex justify-between items-start gap-4">
             <div>
@@ -57,7 +57,7 @@ export default function ProjectDetailsModal({
                   Lot {project.id.toUpperCase()}
                 </Badge>
               </div>
-              <DialogTitle className="text-2xl font-bold font-cream text-blue-fantastic">
+              <DialogTitle className="text-2xl font-bold font-sans text-blue-fantastic">
                 {project.clientName}
               </DialogTitle>
               <DialogDescription className="text-xs text-blue-fantastic/60 font-semibold mt-1 flex items-center gap-1">

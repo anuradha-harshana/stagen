@@ -29,7 +29,7 @@ export default function WarrantyCoverageSummary() {
   ];
 
   return (
-    <div className="space-y-6 w-full font-cream">
+    <div className="space-y-6 w-full font-sans">
       {/* Warranty Periods Overview */}
       <div className="bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
         <div className="flex items-center gap-2 pb-2 border-b border-blue-fantastic/5">

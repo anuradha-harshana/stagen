@@ -12,17 +12,17 @@ import { Button } from "@/components/ui/button"
 
 const PasswordSecurity = () => {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
             <Lock className="h-4 w-4 text-truffle-trouble" />
           </div>
           <div>
-            <CardTitle className="text-blue-fantastic text-base font-bold font-cream">
+            <CardTitle className="text-blue-fantastic text-base font-bold font-sans">
               Password & Security
             </CardTitle>
-            <CardDescription className="text-blue-fantastic/60 text-xs font-medium font-cream mt-0.5">
+            <CardDescription className="text-blue-fantastic/60 text-xs font-medium font-sans mt-0.5">
               Keep your account credentials safe
             </CardDescription>
           </div>

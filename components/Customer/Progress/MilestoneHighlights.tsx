@@ -34,7 +34,7 @@ export default function MilestoneHighlights({ stages }: MilestoneHighlightsProps
           <div className="h-8 w-8 rounded-xl bg-truffle-trouble/10 flex items-center justify-center text-truffle-trouble">
             <Award className="h-4.5 w-4.5" />
           </div>
-          <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+          <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
             Milestone Highlights
           </CardTitle>
         </div>
@@ -110,7 +110,7 @@ export default function MilestoneHighlights({ stages }: MilestoneHighlightsProps
 
                     <div className="text-right shrink-0">
                       {milestone.date ? (
-                        <span className="text-[10px] text-blue-fantastic/55 font-bold font-cream">
+                        <span className="text-[10px] text-blue-fantastic/55 font-bold font-sans">
                           {milestone.date}
                         </span>
                       ) : (

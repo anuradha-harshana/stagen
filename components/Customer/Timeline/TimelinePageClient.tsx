@@ -47,7 +47,7 @@ export default function TimelinePageClient({ user }: TimelinePageClientProps) {
   const simulatedToday = getSimulatedToday();
 
   return (
-    <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-16 font-sans">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Main Timeline Header Widget */}
       <TimelineHeader
         percentage={data.percentage}

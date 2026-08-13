@@ -58,7 +58,7 @@ export default function ProjectsFilters({
             <button
               key={filter}
               onClick={() => onStatusFilterChange(filter)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold font-cream transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold font-sans transition-all ${
                 statusFilter === filter
                   ? "bg-blue-fantastic text-palladian shadow-sm"
                   : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
@@ -71,13 +71,13 @@ export default function ProjectsFilters({
 
         {/* Stage Select Dropdown */}
         <Select value={stageFilter} onValueChange={onStageFilterChange}>
-          <SelectTrigger className="w-44 bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-xs font-bold font-cream focus:ring-truffle-trouble">
+          <SelectTrigger className="w-44 bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-xs font-bold font-sans focus:ring-truffle-trouble">
             <SelectValue placeholder="All Stages" />
           </SelectTrigger>
           <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
-            <SelectItem value="All" className="text-xs font-bold font-cream">All Stages</SelectItem>
+            <SelectItem value="All" className="text-xs font-bold font-sans">All Stages</SelectItem>
             {STAGES.map((stage) => (
-              <SelectItem key={stage} value={stage} className="text-xs font-bold font-cream">
+              <SelectItem key={stage} value={stage} className="text-xs font-bold font-sans">
                 {stage}
               </SelectItem>
             ))}

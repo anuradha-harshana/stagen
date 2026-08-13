@@ -44,7 +44,7 @@ export default function QuestionsFeed({
   });
 
   return (
-    <div className="space-y-4 w-full font-cream">
+    <div className="space-y-4 w-full font-sans">
       <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
         {/* Search */}
         <div className="relative w-full md:w-72">
@@ -63,7 +63,7 @@ export default function QuestionsFeed({
             <button
               key={filter}
               onClick={() => setStatusFilter(filter)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold font-cream transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold font-sans transition-all cursor-pointer ${
                 statusFilter === filter
                   ? "bg-blue-fantastic text-palladian shadow-sm"
                   : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"

@@ -28,7 +28,7 @@ export function BillingOverview() {
   };
 
   return (
-    <div className="p-6 md:p-8 space-y-8 text-blue-fantastic font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-blue-fantastic text-palladian px-4 py-3 rounded-lg shadow-xl border border-burning-flame flex items-center gap-3 animate-bounce">

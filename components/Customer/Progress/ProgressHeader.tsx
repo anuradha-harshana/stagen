@@ -111,7 +111,7 @@ export default function ProgressHeader({
               <span className="text-[10px] font-bold uppercase tracking-wider text-blue-fantastic/50 block">
                 Overall Progress
               </span>
-              <h2 className="text-xl font-extrabold text-blue-fantastic font-cream leading-tight">
+              <h2 className="text-xl font-extrabold text-blue-fantastic font-sans leading-tight">
                 {statusLabel}
               </h2>
               <p className="text-xs text-blue-fantastic/65 font-medium">
@@ -129,7 +129,7 @@ export default function ProgressHeader({
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-fantastic/50 block">
                   Target Finish
                 </span>
-                <h2 className="text-2xl font-extrabold text-blue-fantastic font-cream tracking-tight">
+                <h2 className="text-2xl font-extrabold text-blue-fantastic font-sans tracking-tight">
                   {percentage === 100 ? "Completed ✓" : estimatedCompletion}
                 </h2>
               </div>
@@ -140,7 +140,7 @@ export default function ProgressHeader({
 
             <div className="flex justify-between items-center text-xs border-t border-blue-fantastic/5 pt-3.5 mt-4">
               <span className="text-blue-fantastic/45 font-medium">Started Date:</span>
-              <span className="text-blue-fantastic/80 font-bold font-cream">{startedDate}</span>
+              <span className="text-blue-fantastic/80 font-bold font-sans">{startedDate}</span>
             </div>
           </CardContent>
         </Card>
@@ -153,7 +153,7 @@ export default function ProgressHeader({
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-fantastic/50 block">
                   Time Remaining
                 </span>
-                <h2 className="text-2xl font-extrabold text-blue-fantastic font-cream tracking-tight">
+                <h2 className="text-2xl font-extrabold text-blue-fantastic font-sans tracking-tight">
                   {percentage === 100 ? (
                     <span className="text-emerald-600">0 days</span>
                   ) : percentage === 0 ? (

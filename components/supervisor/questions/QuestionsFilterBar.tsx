@@ -41,7 +41,7 @@ export function QuestionsFilterBar({
   counts,
 }: QuestionsFilterBarProps) {
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-palladian border border-blue-fantastic/15 p-3 rounded-2xl font-cream shadow-xs">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-palladian border border-blue-fantastic/15 p-3 rounded-2xl font-sans shadow-xs">
       {/* Status Pill Tabs */}
       <div className="flex items-center gap-1.5 flex-wrap">
         <button
@@ -92,7 +92,7 @@ export function QuestionsFilterBar({
         <select
           value={categoryFilter}
           onChange={(e) => onCategoryFilterChange(e.target.value as QuestionCategoryFilter)}
-          className="px-3 py-1.5 text-xs font-bold bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer font-cream"
+          className="px-3 py-1.5 text-xs font-bold bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer font-sans"
         >
           {CATEGORIES.map((cat) => (
             <option key={cat} value={cat}>

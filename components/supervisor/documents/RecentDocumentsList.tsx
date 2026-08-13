@@ -58,14 +58,14 @@ export function RecentDocumentsList({
   }
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
               <FileText className="h-4 w-4 text-truffle-trouble" />
             </div>
-            <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+            <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
               Recent Site Documents
             </CardTitle>
           </div>
@@ -78,7 +78,7 @@ export function RecentDocumentsList({
         </div>
       </CardHeader>
 
-      <CardContent className="pt-3 font-cream">
+      <CardContent className="pt-3 font-sans">
         <div className="space-y-2">
           {documents.map((doc) => {
             const style = getFileStyle(doc.fileType)
@@ -128,7 +128,7 @@ export function RecentDocumentsList({
                           toast.success(`Access updated to "${newVis}" for ${doc.title}`)
                         }
                       }}
-                      className="text-[10px] font-bold text-blue-fantastic bg-palladian border border-blue-fantastic/25 rounded-lg px-2 py-0.5 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer hover:border-blue-fantastic/40 transition-colors font-cream"
+                      className="text-[10px] font-bold text-blue-fantastic bg-palladian border border-blue-fantastic/25 rounded-lg px-2 py-0.5 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer hover:border-blue-fantastic/40 transition-colors font-sans"
                       title="Change Access & Visibility Level"
                     >
                       <option value="Visible to Customer">Visible to Customer</option>
@@ -180,7 +180,7 @@ export function RecentDocumentsList({
         <div className="flex justify-end pt-3 border-t border-blue-fantastic/10 mt-3">
           <button
             onClick={onViewAll}
-            className="text-xs font-bold text-truffle-trouble hover:text-blue-fantastic flex items-center gap-0.5 transition-colors font-cream"
+            className="text-xs font-bold text-truffle-trouble hover:text-blue-fantastic flex items-center gap-0.5 transition-colors font-sans"
           >
             View All <ChevronRight className="h-3.5 w-3.5" />
           </button>

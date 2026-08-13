@@ -51,7 +51,7 @@ export default function StageCard({
   const padZero = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
   return (
-    <Card className="group relative overflow-hidden bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-cream">
+    <Card className="group relative overflow-hidden bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-sans">
       {/* Accent Line */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-burning-flame/50 via-truffle-trouble/50 to-transparent" />
 
@@ -63,7 +63,7 @@ export default function StageCard({
               <span className="h-8 w-8 rounded-xl bg-burning-flame/15 border border-burning-flame/20 flex items-center justify-center font-extrabold text-truffle-trouble text-sm shrink-0">
                 {padZero(index + 1)}
               </span>
-              <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream truncate">
+              <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans truncate">
                 {stage.name}
               </CardTitle>
             </div>

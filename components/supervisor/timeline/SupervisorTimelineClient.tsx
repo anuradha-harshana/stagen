@@ -162,7 +162,7 @@ export function SupervisorTimelineClient() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full px-4 sm:px-6 py-6 font-cream max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Header & Project Selector */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-1 border-b border-blue-fantastic/10 pb-5">
         <div className="flex items-center gap-3.5">
@@ -174,7 +174,7 @@ export function SupervisorTimelineClient() {
               <h1 className="text-blue-fantastic text-2xl font-sans font-bold leading-tight">
                 Supervisor Timeline Manager
               </h1>
-              <Badge variant="outline" className="bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 text-xs font-bold font-cream">
+              <Badge variant="outline" className="bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 text-xs font-bold font-sans">
                 Build Progress OS
               </Badge>
             </div>
@@ -190,7 +190,7 @@ export function SupervisorTimelineClient() {
             type="button"
             onClick={() => setIsLogDelayOpen(true)}
             variant="outline"
-            className="border-truffle-trouble/30 hover:bg-truffle-trouble/10 text-truffle-trouble font-cream font-bold text-xs h-9 px-3.5 rounded-xl"
+            className="border-truffle-trouble/30 hover:bg-truffle-trouble/10 text-truffle-trouble font-sans font-bold text-xs h-9 px-3.5 rounded-xl"
           >
             <Plus className="h-4 w-4 mr-1 text-truffle-trouble" />
             Log Schedule Adjustment
@@ -199,7 +199,7 @@ export function SupervisorTimelineClient() {
           <Button
             type="button"
             onClick={handleSaveAllChanges}
-            className="bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-cream font-bold text-xs h-9 px-4 rounded-xl shadow-xs"
+            className="bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-sans font-bold text-xs h-9 px-4 rounded-xl shadow-xs"
           >
             <Save className="h-4 w-4 mr-1.5 text-burning-flame" />
             Save Timeline Changes
@@ -210,21 +210,21 @@ export function SupervisorTimelineClient() {
       {/* 2. Project Selection Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-palladian/40 p-3.5 rounded-2xl border border-blue-fantastic/15">
         <div className="flex items-center gap-2.5 flex-1">
-          <span className="text-xs font-bold font-cream text-blue-fantastic flex items-center shrink-0">
+          <span className="text-xs font-bold font-sans text-blue-fantastic flex items-center shrink-0">
             <Building2 className="h-4 w-4 mr-1.5 text-truffle-trouble" />
             Select Construction Lot:
           </span>
 
           <div className="w-full sm:w-72">
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-cream font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
+              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
                 <SelectValue placeholder="Select Lot..." />
               </SelectTrigger>
               <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
                 {assignedProjects.map((proj: Project) => (
                   <SelectItem key={proj.id} value={proj.id} className="text-xs cursor-pointer">
                     <div className="flex items-center justify-between w-full gap-3">
-                      <span className="font-bold font-cream">{proj.id.toUpperCase()}</span>
+                      <span className="font-bold font-sans">{proj.id.toUpperCase()}</span>
                       <span className="text-blue-fantastic/60 text-[11px] truncate max-w-[140px]">{proj.clientName}</span>
                     </div>
                   </SelectItem>
@@ -244,7 +244,7 @@ export function SupervisorTimelineClient() {
       {/* 3. Stat Cards Row (Matches Customer View) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Card 1: Circular Gauge Ring */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-cream">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-sans">
           <CardContent className="p-4 sm:p-5 flex items-center gap-4">
             <div className="relative h-24 w-24 shrink-0 flex items-center justify-center">
               <svg className="h-24 w-24 transform -rotate-90">
@@ -294,7 +294,7 @@ export function SupervisorTimelineClient() {
         </Card>
 
         {/* Card 2: Projected Completion */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-cream">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-sans">
           <CardContent className="p-4 sm:p-5 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
@@ -317,7 +317,7 @@ export function SupervisorTimelineClient() {
         </Card>
 
         {/* Card 3: Schedule Status */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-cream">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-sans">
           <CardContent className="p-4 sm:p-5 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
@@ -358,7 +358,7 @@ export function SupervisorTimelineClient() {
             <button
               key={filter}
               onClick={() => setStatusFilter(filter)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold font-cream transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold font-sans transition-all ${
                 statusFilter === filter
                   ? "bg-palladian text-blue-fantastic shadow-xs"
                   : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"

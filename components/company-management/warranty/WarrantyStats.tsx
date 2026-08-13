@@ -35,7 +35,7 @@ export default function WarrantyStats({ defects }: WarrantyStatsProps) {
   }).length;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full font-cream">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full font-sans">
       {/* Active Defects Card */}
       <Card className="bg-palladian border border-blue-fantastic/5 hover:border-truffle-trouble/10 shadow-[0_6px_20px_rgba(27,38,50,0.03)] hover:shadow-[0_12px_30px_rgba(27,38,50,0.06)] hover:scale-[1.01] transition-all duration-300 rounded-2xl overflow-hidden group">
         <CardContent className="p-6 flex items-center justify-between">
@@ -43,7 +43,7 @@ export default function WarrantyStats({ defects }: WarrantyStatsProps) {
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               Active Defects
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {activeCount}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">Awaiting final resolution</p>
@@ -61,7 +61,7 @@ export default function WarrantyStats({ defects }: WarrantyStatsProps) {
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               SLA Overdue (&gt;14 days)
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {slaAlertCount}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">Require immediate priority</p>
@@ -79,7 +79,7 @@ export default function WarrantyStats({ defects }: WarrantyStatsProps) {
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               Total Resolved
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {resolvedCount}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">Successfully completed tickets</p>

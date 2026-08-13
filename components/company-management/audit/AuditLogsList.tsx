@@ -36,8 +36,8 @@ export function AuditLogsList({ logs }: AuditLogsListProps) {
   });
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-oatmeal/60 overflow-hidden">
-      <div className="p-6 border-b border-oatmeal/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="bg-palladian rounded-xl shadow-sm border border-blue-fantastic/15 overflow-hidden">
+      <div className="p-6 border-b border-blue-fantastic/15 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="font-semibold text-base text-blue-fantastic">
             Recent System Audit Logs
@@ -61,7 +61,7 @@ export function AuditLogsList({ logs }: AuditLogsListProps) {
               aria-label="Search audit logs"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-4 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-blue-fantastic focus:outline-none focus:border-truffle-trouble w-60"
+              className="pl-9 pr-4 py-1.5 text-xs bg-slate-50 border border-blue-fantastic/15 rounded-lg text-blue-fantastic focus:outline-none focus:border-truffle-trouble w-60"
             />
           </div>
 
@@ -71,7 +71,7 @@ export function AuditLogsList({ logs }: AuditLogsListProps) {
             aria-label="Filter by module"
             value={selectedModule}
             onChange={(e) => setSelectedModule(e.target.value)}
-            className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-blue-fantastic focus:outline-none focus:border-truffle-trouble font-medium"
+            className="px-3 py-1.5 text-xs bg-slate-50 border border-blue-fantastic/15 rounded-lg text-blue-fantastic focus:outline-none focus:border-truffle-trouble font-medium"
           >
             <option value="All">All Modules</option>
             <option value="Projects">Projects</option>
@@ -88,7 +88,7 @@ export function AuditLogsList({ logs }: AuditLogsListProps) {
             aria-label="Filter by severity"
             value={selectedSeverity}
             onChange={(e) => setSelectedSeverity(e.target.value)}
-            className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-blue-fantastic focus:outline-none focus:border-truffle-trouble font-medium"
+            className="px-3 py-1.5 text-xs bg-slate-50 border border-blue-fantastic/15 rounded-lg text-blue-fantastic focus:outline-none focus:border-truffle-trouble font-medium"
           >
             <option value="All">All Severities</option>
             <option value="Info">Info</option>
@@ -102,7 +102,7 @@ export function AuditLogsList({ logs }: AuditLogsListProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50 text-[11px] uppercase tracking-wider text-blue-fantastic/60 border-b border-slate-200">
+            <tr className="bg-slate-50 text-[11px] uppercase tracking-wider text-blue-fantastic/60 border-b border-blue-fantastic/15">
               <th className="py-3 px-6 font-semibold">Date & Time</th>
               <th className="py-3 px-6 font-semibold">User</th>
               <th className="py-3 px-6 font-semibold">Action</th>
@@ -126,7 +126,7 @@ export function AuditLogsList({ logs }: AuditLogsListProps) {
                   {log.action}
                 </td>
                 <td className="py-3.5 px-6">
-                  <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                  <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700 border border-blue-fantastic/15">
                     {log.module}
                   </span>
                 </td>

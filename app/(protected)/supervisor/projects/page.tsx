@@ -43,7 +43,7 @@ export default function SupervisorProjects() {
   });
 
   return (
-    <div className="flex flex-col gap-5 w-full px-6 py-6 font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Header & Quick stats */}
       <div className="flex items-start justify-between flex-wrap gap-4 py-1">
         <div className="flex items-center gap-3">
@@ -77,7 +77,7 @@ export default function SupervisorProjects() {
               <button
                 key={filter}
                 onClick={() => setStatusFilter(filter)}
-                className={`px-3 py-1 rounded-lg text-xs font-bold font-cream transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-bold font-sans transition-all ${
                   statusFilter === filter
                     ? "bg-blue-fantastic text-palladian shadow-sm"
                     : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
@@ -98,7 +98,7 @@ export default function SupervisorProjects() {
           <p className="text-xs text-blue-fantastic/60 mt-1">Try tweaking your search or status filter.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-cream">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredProjects.map((project) => {
             const activeStage = project.stages.find(s => s.status === "Active")?.name || project.currentStage;
             const delayCount = project.delays.length;

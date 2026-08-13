@@ -37,15 +37,15 @@ export function BuyLicencesModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-cream">
-      <div className="bg-white rounded-3xl shadow-2xl border border-oatmeal/30 w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
+      <div className="bg-palladian rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-oatmeal/20">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-xl bg-burning-flame/15 border border-burning-flame/30 flex items-center justify-center text-truffle-trouble">
               <PlusCircle className="h-4.5 w-4.5 text-burning-flame fill-burning-flame/20" />
             </div>
-            <h2 className="text-base font-bold text-blue-fantastic font-cream">
+            <h2 className="text-base font-bold text-blue-fantastic font-sans">
               Purchase Additional Site Licences
             </h2>
           </div>
@@ -94,7 +94,7 @@ export function BuyLicencesModal({
               </button>
 
               <div className="text-center min-w-[90px]">
-                <span className="text-3xl font-bold text-blue-fantastic block font-cream">
+                <span className="text-3xl font-bold text-blue-fantastic block font-sans">
                   +{additionalCount}
                 </span>
                 <span className="text-[11px] text-neutral-400 font-medium">
@@ -147,7 +147,7 @@ export function BuyLicencesModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-oatmeal/20 bg-neutral-50/50">
+        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-blue-fantastic/15 bg-neutral-50/50">
           <Button
             variant="outline"
             onClick={onClose}

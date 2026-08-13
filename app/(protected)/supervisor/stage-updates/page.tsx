@@ -220,7 +220,7 @@ function StageUpdatesContent() {
   };
 
   return (
-    <div className="flex flex-col gap-5 w-full px-6 py-6 font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Header with project selector */}
       <div className="flex items-center justify-between flex-wrap gap-4 py-1">
         <div className="flex items-center gap-3">

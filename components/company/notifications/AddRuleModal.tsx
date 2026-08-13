@@ -73,8 +73,8 @@ export function AddRuleModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-abyssal-blue/60 backdrop-blur-xs flex items-center justify-center p-4 font-cream animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-xl border border-slate-200 flex flex-col gap-6">
+    <div className="fixed inset-0 z-50 bg-abyssal-blue/60 backdrop-blur-xs flex items-center justify-center p-4 font-sans animate-in fade-in duration-200">
+      <div className="bg-palladian rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-xl border border-blue-fantastic/15 flex flex-col gap-6">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-4">
           <div className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export function AddRuleModal({
               value={ruleName}
               onChange={(e) => setRuleName(e.target.value)}
               placeholder="e.g. Auto Notify Customer on Stage Finish"
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
+              className="px-4 py-2.5 rounded-xl border border-blue-fantastic/15 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
             />
           </div>
 
@@ -121,7 +121,7 @@ export function AddRuleModal({
             <select
               value={selectedEvent}
               onChange={(e) => setSelectedEvent(e.target.value as TriggerEventType)}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white text-abyssal-blue focus:outline-none focus:ring-2 focus:ring-burning-flame/40"
+              className="px-4 py-2.5 rounded-xl border border-blue-fantastic/15 text-sm bg-palladian text-abyssal-blue focus:outline-none focus:ring-2 focus:ring-burning-flame/40"
             >
               {TRIGGER_EVENTS.map((ev) => (
                 <option key={ev.type} value={ev.type}>
@@ -138,7 +138,7 @@ export function AddRuleModal({
             <select
               value={selectedTemplateId}
               onChange={(e) => setSelectedTemplateId(e.target.value)}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white text-abyssal-blue focus:outline-none focus:ring-2 focus:ring-burning-flame/40"
+              className="px-4 py-2.5 rounded-xl border border-blue-fantastic/15 text-sm bg-palladian text-abyssal-blue focus:outline-none focus:ring-2 focus:ring-burning-flame/40"
             >
               {templates.map((tmpl) => (
                 <option key={tmpl.id} value={tmpl.id}>
@@ -161,7 +161,7 @@ export function AddRuleModal({
                   className={`px-3 py-1.5 rounded-xl border text-xs font-semibold capitalize ${
                     targetRoles.includes(role)
                       ? "bg-abyssal-blue text-white border-abyssal-blue"
-                      : "bg-white text-slate-600 border-slate-200"
+                      : "bg-palladian text-slate-600 border-blue-fantastic/15"
                   }`}
                 >
                   {role.replace("-", " ")}
@@ -181,7 +181,7 @@ export function AddRuleModal({
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold ${
                   channels.includes("email")
                     ? "bg-abyssal-blue text-white border-abyssal-blue"
-                    : "bg-white text-slate-600 border-slate-200"
+                    : "bg-palladian text-slate-600 border-blue-fantastic/15"
                 }`}
               >
                 <Mail className="w-3.5 h-3.5" /> Email
@@ -192,7 +192,7 @@ export function AddRuleModal({
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold ${
                   channels.includes("in_app")
                     ? "bg-abyssal-blue text-white border-abyssal-blue"
-                    : "bg-white text-slate-600 border-slate-200"
+                    : "bg-palladian text-slate-600 border-blue-fantastic/15"
                 }`}
               >
                 <Bell className="w-3.5 h-3.5" /> In-App
@@ -203,7 +203,7 @@ export function AddRuleModal({
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold ${
                   channels.includes("push")
                     ? "bg-abyssal-blue text-white border-abyssal-blue"
-                    : "bg-white text-slate-600 border-slate-200"
+                    : "bg-palladian text-slate-600 border-blue-fantastic/15"
                 }`}
               >
                 <Bookmark className="w-3.5 h-3.5" /> Push

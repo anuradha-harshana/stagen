@@ -40,7 +40,7 @@ export default function ProjectsOverviewClient() {
   const completedCount = projects.filter((p) => p.status === "Completed").length;
 
   return (
-    <div className="flex flex-col gap-6 w-full p-6 md:p-8 font-cream bg-[#eee9df] min-h-screen">
+    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 max-w-7xl mx-auto font-sans">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -53,7 +53,7 @@ export default function ProjectsOverviewClient() {
         </div>
 
         {/* View mode toggle */}
-        <div className="flex items-center gap-1 bg-white/80 p-1 rounded-xl border border-oatmeal/40 shadow-xs">
+        <div className="flex items-center gap-1 bg-palladian/80 p-1 rounded-xl border border-blue-fantastic/15 shadow-xs">
           <Button
             size="sm"
             variant={viewMode === "grid" ? "default" : "ghost"}
@@ -81,40 +81,40 @@ export default function ProjectsOverviewClient() {
 
       {/* Metric Stats Banner */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-4">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-4">
           <span className="text-[10px] font-bold text-blue-fantastic/50 uppercase tracking-wider">Total Sites</span>
           <div className="text-2xl font-black text-blue-fantastic font-bebas-neue">{totalCount}</div>
         </Card>
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-4">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-4">
           <span className="text-[10px] font-bold text-blue-fantastic/50 uppercase tracking-wider">Active</span>
           <div className="text-2xl font-black text-blue-fantastic font-bebas-neue">{activeCount}</div>
         </Card>
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-4">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-4">
           <span className="text-[10px] font-bold text-red-500 uppercase tracking-wider">Delayed / At-Risk</span>
           <div className="text-2xl font-black text-red-600 font-bebas-neue">{delayedCount}</div>
         </Card>
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-4">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-4">
           <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Completed</span>
           <div className="text-2xl font-black text-emerald-700 font-bebas-neue">{completedCount}</div>
         </Card>
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-oatmeal/40 shadow-sm flex flex-col md:flex-row items-center gap-3">
+      <div className="bg-palladian p-4 rounded-2xl border border-blue-fantastic/15 shadow-sm flex flex-col md:flex-row items-center gap-3">
         <div className="relative flex-1 w-full">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-blue-fantastic/40" />
           <Input
             placeholder="Search by client, lot ID, address or supervisor..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-9 bg-palladian/30 border-oatmeal/40 rounded-xl text-xs text-blue-fantastic placeholder:text-blue-fantastic/40 font-medium h-9"
+            className="pl-9 bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs text-blue-fantastic placeholder:text-blue-fantastic/40 font-medium h-9"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
           {/* Stage Filter */}
           <Select value={selectedStage} onValueChange={setSelectedStage}>
-            <SelectTrigger className="w-36 bg-palladian/30 border-oatmeal/40 rounded-xl text-xs font-bold text-blue-fantastic h-9">
+            <SelectTrigger className="w-36 bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
               <SelectValue placeholder="Stage: All" />
             </SelectTrigger>
             <SelectContent>
@@ -131,7 +131,7 @@ export default function ProjectsOverviewClient() {
 
           {/* Region Filter */}
           <Select value={selectedRegion} onValueChange={setSelectedRegion}>
-            <SelectTrigger className="w-32 bg-palladian/30 border-oatmeal/40 rounded-xl text-xs font-bold text-blue-fantastic h-9">
+            <SelectTrigger className="w-32 bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
               <SelectValue placeholder="Region: All" />
             </SelectTrigger>
             <SelectContent>
@@ -146,7 +146,7 @@ export default function ProjectsOverviewClient() {
 
           {/* Status Filter */}
           <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-            <SelectTrigger className="w-36 bg-palladian/30 border-oatmeal/40 rounded-xl text-xs font-bold text-blue-fantastic h-9">
+            <SelectTrigger className="w-36 bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
               <SelectValue placeholder="Status: All" />
             </SelectTrigger>
             <SelectContent>
@@ -166,7 +166,7 @@ export default function ProjectsOverviewClient() {
           {filteredProjects.map((project) => (
             <Card
               key={project.id}
-              className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl overflow-hidden hover:shadow-md hover:border-blue-fantastic/30 transition-all flex flex-col justify-between"
+              className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden hover:shadow-md hover:border-blue-fantastic/30 transition-all flex flex-col justify-between"
             >
               <CardContent className="p-5 space-y-4">
                 {/* Top Badge row */}
@@ -208,7 +208,7 @@ export default function ProjectsOverviewClient() {
                 </div>
 
                 {/* Progress & Stage */}
-                <div className="space-y-1.5 bg-palladian/30 p-3 rounded-xl border border-oatmeal/20">
+                <div className="space-y-1.5 bg-palladian/30 p-3 rounded-xl border border-blue-fantastic/15">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-blue-fantastic">Stage: {project.currentStage}</span>
                     <span className="font-extrabold text-blue-fantastic">{project.progress}%</span>
@@ -228,7 +228,7 @@ export default function ProjectsOverviewClient() {
                 </div>
 
                 {/* Supervisor & Est Handover */}
-                <div className="flex items-center justify-between text-xs pt-1 border-t border-oatmeal/15 text-blue-fantastic/70">
+                <div className="flex items-center justify-between text-xs pt-1 border-t border-blue-fantastic/15 text-blue-fantastic/70">
                   <span>Supervisor: <strong className="text-blue-fantastic">{project.supervisorName || "Unassigned"}</strong></span>
                   <span>Handover: <strong className="text-blue-fantastic">{project.estHandover}</strong></span>
                 </div>
@@ -248,11 +248,11 @@ export default function ProjectsOverviewClient() {
         </div>
       ) : (
         /* Table View */
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl overflow-hidden font-cream">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-palladian/40 text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider border-b border-oatmeal/20">
+                <tr className="bg-palladian/40 text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider border-b border-blue-fantastic/15">
                   <th className="py-3 px-6">Lot / ID</th>
                   <th className="py-3 px-4">Client Name</th>
                   <th className="py-3 px-4">Current Stage</th>

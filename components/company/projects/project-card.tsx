@@ -32,7 +32,7 @@ export default function ProjectCard({
   const delayCount = project.delays?.length || 0;
 
   return (
-    <Card className="group relative overflow-hidden bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-cream">
+    <Card className="group relative overflow-hidden bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-sans">
       {/* Top accent strip */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-burning-flame/50 via-truffle-trouble/50 to-transparent" />
 
@@ -44,7 +44,7 @@ export default function ProjectCard({
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+                <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
                   {project.clientName}
                 </CardTitle>
                 <Badge

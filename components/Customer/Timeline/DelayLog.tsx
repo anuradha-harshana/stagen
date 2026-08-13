@@ -21,7 +21,7 @@ export default function DelayLog({ logs }: DelayLogProps) {
             <CalendarClock className="h-4.5 w-4.5" />
           </div>
           <div>
-            <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream leading-tight">
+            <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans leading-tight">
               Schedule Adjustments Log
             </CardTitle>
             <p className="text-[10px] text-blue-fantastic/55 font-bold uppercase tracking-wider mt-0.5">

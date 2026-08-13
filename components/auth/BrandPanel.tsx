@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function BrandPanel() {
   return (
-    <div className="font-cream relative hidden h-full bg-blue-fantastic md:block">
+    <div className="font-sans relative hidden h-full bg-blue-fantastic md:block">
       <Image
         src="/images/building.png"
         alt=""

@@ -35,8 +35,8 @@ export function SendTestModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-abyssal-blue/60 backdrop-blur-xs flex items-center justify-center p-4 font-cream animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-xl border border-slate-200 flex flex-col gap-6">
+    <div className="fixed inset-0 z-50 bg-abyssal-blue/60 backdrop-blur-xs flex items-center justify-center p-4 font-sans animate-in fade-in duration-200">
+      <div className="bg-palladian rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-xl border border-blue-fantastic/15 flex flex-col gap-6">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-4">
           <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ export function SendTestModal({
 
         {/* Content */}
         <form onSubmit={handleSend} className="flex flex-col gap-4">
-          <div className="p-4 rounded-2xl bg-palladian/40 border border-oatmeal/60 flex flex-col gap-2">
+          <div className="p-4 rounded-2xl bg-palladian/40 border border-blue-fantastic/15 flex flex-col gap-2">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
               Selected Channels
             </span>
@@ -70,7 +70,7 @@ export function SendTestModal({
               {template.channels.map((ch) => (
                 <span
                   key={ch}
-                  className="px-2.5 py-1 text-xs font-semibold bg-white border border-slate-200 text-abyssal-blue rounded-lg capitalize"
+                  className="px-2.5 py-1 text-xs font-semibold bg-palladian border border-blue-fantastic/15 text-abyssal-blue rounded-lg capitalize"
                 >
                   {ch.replace("_", " ")}
                 </span>
@@ -90,7 +90,7 @@ export function SendTestModal({
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
                 placeholder="test@example.com"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-blue-fantastic/15 text-sm focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame"
               />
             </div>
           </div>

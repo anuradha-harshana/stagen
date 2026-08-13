@@ -154,7 +154,7 @@ export default function TimelineHeader({
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-fantastic/50 block">
                   Original Baseline
                 </span>
-                <h2 className="text-xl font-extrabold text-blue-fantastic font-cream tracking-tight">
+                <h2 className="text-xl font-extrabold text-blue-fantastic font-sans tracking-tight">
                   {originalEstCompletion}
                 </h2>
               </div>
@@ -165,7 +165,7 @@ export default function TimelineHeader({
 
             <div className="flex justify-between items-center text-xs border-t border-blue-fantastic/5 pt-3.5 mt-4">
               <span className="text-blue-fantastic/45 font-medium">Start Date:</span>
-              <span className="text-blue-fantastic/80 font-bold font-cream">{startDate}</span>
+              <span className="text-blue-fantastic/80 font-bold font-sans">{startDate}</span>
             </div>
           </CardContent>
         </Card>
@@ -179,7 +179,7 @@ export default function TimelineHeader({
                   Projected Finish
                 </span>
                 <h2 className={cn(
-                  "text-xl font-extrabold font-cream tracking-tight",
+                  "text-xl font-extrabold font-sans tracking-tight",
                   statusFlag === "delayed" ? "text-truffle-trouble" : statusFlag === "ahead" ? "text-emerald-700" : "text-blue-fantastic"
                 )}>
                   {currentProjectedCompletion}
@@ -200,7 +200,7 @@ export default function TimelineHeader({
             <div className="flex justify-between items-center text-xs border-t border-blue-fantastic/5 pt-3.5 mt-4">
               <span className="text-blue-fantastic/45 font-medium">Variance:</span>
               <span className={cn(
-                "font-bold font-cream",
+                "font-bold font-sans",
                 statusFlag === "delayed" ? "text-truffle-trouble" : statusFlag === "ahead" ? "text-emerald-700" : "text-blue-fantastic/60"
               )}>
                 {statusFlag === "delayed" 

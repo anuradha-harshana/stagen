@@ -164,7 +164,7 @@ export function SupervisorGanttChart({
   }, [zoomScale, simulatedToday, data.statusFlag]);
 
   return (
-    <div className="w-full bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl p-6 space-y-6 font-cream">
+    <div className="w-full bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl p-6 space-y-6 font-sans">
       {/* 1. Timeline Legends */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-blue-fantastic/5 pb-4">
         {/* Status Legends */}
@@ -269,7 +269,7 @@ export function SupervisorGanttChart({
                             stage.status === "upcoming" && "bg-blue-fantastic/20"
                           )}
                         />
-                        <h4 className="text-xs font-extrabold text-blue-fantastic truncate font-cream">
+                        <h4 className="text-xs font-extrabold text-blue-fantastic truncate font-sans">
                           {stage.name}
                         </h4>
                       </div>

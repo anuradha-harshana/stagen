@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function RegisterPanel() {
   return (
-    <div className="font-cream relative hidden h-full flex-col bg-palladian p-10 md:flex">
+    <div className="font-sans relative hidden h-full flex-col bg-palladian p-10 md:flex">
       <span className="text-6xl font-serif leading-none text-burning-flame">
         "
       </span>

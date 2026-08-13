@@ -59,15 +59,15 @@ export function UpdatePaymentMethodModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-cream">
-      <div className="bg-white rounded-3xl shadow-2xl border border-oatmeal/30 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
+      <div className="bg-palladian rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-oatmeal/20">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-xl bg-blue-fantastic/10 border border-blue-fantastic/20 flex items-center justify-center text-blue-fantastic">
               <CreditCard className="h-4.5 w-4.5" />
             </div>
-            <h2 className="text-base font-bold text-blue-fantastic font-cream">
+            <h2 className="text-base font-bold text-blue-fantastic font-sans">
               Update Payment Method
             </h2>
           </div>
@@ -88,7 +88,7 @@ export function UpdatePaymentMethodModal({
               value={cardholderName}
               onChange={(e) => setCardholderName(e.target.value)}
               placeholder="e.g. Jane Smith"
-              className="bg-white border-oatmeal/50 text-blue-fantastic rounded-xl text-xs h-10 font-cream"
+              className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
               required
             />
           </div>
@@ -101,7 +101,7 @@ export function UpdatePaymentMethodModal({
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
                 placeholder="4242 4242 4242 4242"
-                className="bg-white border-oatmeal/50 text-blue-fantastic rounded-xl text-xs h-10 font-cream pr-10"
+                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans pr-10"
                 required
               />
               <CreditCard className="absolute right-3 top-2.5 h-5 w-5 text-neutral-400" />
@@ -117,7 +117,7 @@ export function UpdatePaymentMethodModal({
                 onChange={(e) => setExpMonth(e.target.value)}
                 placeholder="MM"
                 maxLength={2}
-                className="bg-white border-oatmeal/50 text-blue-fantastic rounded-xl text-xs h-10 font-cream text-center"
+                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
                 required
               />
             </div>
@@ -130,7 +130,7 @@ export function UpdatePaymentMethodModal({
                 onChange={(e) => setExpYear(e.target.value)}
                 placeholder="YY"
                 maxLength={2}
-                className="bg-white border-oatmeal/50 text-blue-fantastic rounded-xl text-xs h-10 font-cream text-center"
+                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
                 required
               />
             </div>
@@ -143,7 +143,7 @@ export function UpdatePaymentMethodModal({
                 onChange={(e) => setCvc(e.target.value)}
                 placeholder="123"
                 maxLength={4}
-                className="bg-white border-oatmeal/50 text-blue-fantastic rounded-xl text-xs h-10 font-cream text-center"
+                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
                 required
               />
             </div>
@@ -156,7 +156,7 @@ export function UpdatePaymentMethodModal({
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
               placeholder="e.g. 2000"
-              className="bg-white border-oatmeal/50 text-blue-fantastic rounded-xl text-xs h-10 font-cream"
+              className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
               required
             />
           </div>
@@ -167,7 +167,7 @@ export function UpdatePaymentMethodModal({
           </div>
 
           {/* Footer Actions */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-oatmeal/20">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-blue-fantastic/15">
             <Button
               type="button"
               variant="outline"

@@ -165,9 +165,9 @@ export default function ProjectFormModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold font-cream text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
+          <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             {isEdit ? "Edit Build Lot" : "Create New Build Lot"}
           </DialogTitle>
         </DialogHeader>
@@ -235,9 +235,9 @@ export default function ProjectFormModal({
                 <SelectValue placeholder="Select Supervisor" />
               </SelectTrigger>
               <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
-                <SelectItem value="Unassigned" className="text-xs font-bold font-cream">Unassigned</SelectItem>
+                <SelectItem value="Unassigned" className="text-xs font-bold font-sans">Unassigned</SelectItem>
                 {supervisors.map((sup) => (
-                  <SelectItem key={sup.id} value={sup.username} className="text-xs font-bold font-cream">
+                  <SelectItem key={sup.id} value={sup.username} className="text-xs font-bold font-sans">
                     {sup.username}
                   </SelectItem>
                 ))}
@@ -256,9 +256,9 @@ export default function ProjectFormModal({
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
                 <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
-                  <SelectItem value="On Track" className="text-xs font-bold font-cream">On Track</SelectItem>
-                  <SelectItem value="Delayed" className="text-xs font-bold font-cream">Delayed</SelectItem>
-                  <SelectItem value="Action Required" className="text-xs font-bold font-cream">Action Required</SelectItem>
+                  <SelectItem value="On Track" className="text-xs font-bold font-sans">On Track</SelectItem>
+                  <SelectItem value="Delayed" className="text-xs font-bold font-sans">Delayed</SelectItem>
+                  <SelectItem value="Action Required" className="text-xs font-bold font-sans">Action Required</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -274,7 +274,7 @@ export default function ProjectFormModal({
                 </SelectTrigger>
                 <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
                   {STAGES.map((stg) => (
-                    <SelectItem key={stg} value={stg} className="text-xs font-bold font-cream">
+                    <SelectItem key={stg} value={stg} className="text-xs font-bold font-sans">
                       {stg}
                     </SelectItem>
                   ))}

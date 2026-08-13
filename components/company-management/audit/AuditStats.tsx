@@ -5,7 +5,7 @@ import React from "react";
 export function AuditStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 hover:shadow-md transition-shadow">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
         <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
           Compliance Score
         </span>
@@ -18,7 +18,7 @@ export function AuditStats() {
         <p className="text-xs text-blue-fantastic/60 mt-2">ISO 27001 & Safety Verified</p>
       </div>
 
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 hover:shadow-md transition-shadow">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
         <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
           Open Compliance Flags
         </span>
@@ -31,7 +31,7 @@ export function AuditStats() {
         <p className="text-xs text-blue-fantastic/60 mt-2">2 Safety, 1 Document Gap</p>
       </div>
 
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 hover:shadow-md transition-shadow">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
         <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
           Audits Completed
         </span>
@@ -41,7 +41,7 @@ export function AuditStats() {
         <p className="text-xs text-blue-fantastic/60 mt-2">YTD Site & Financial Audits</p>
       </div>
 
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 hover:shadow-md transition-shadow">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
         <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
           Data Integrity Score
         </span>

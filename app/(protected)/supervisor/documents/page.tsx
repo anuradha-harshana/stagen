@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function SupervisorDocumentsPage() {
   return (
-    <div className="flex flex-col gap-4 w-full px-5">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       <Suspense fallback={<SupervisorDocumentsSkeleton />}>
         <SupervisorDocumentsOverview />
       </Suspense>

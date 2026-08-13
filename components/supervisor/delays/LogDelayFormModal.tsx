@@ -114,9 +114,9 @@ export function LogDelayFormModal({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-lg bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans rounded-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader className="space-y-1">
-          <div className="flex items-center gap-2 text-truffle-trouble font-bold font-cream">
+          <div className="flex items-center gap-2 text-truffle-trouble font-bold font-sans">
             <AlertTriangle className="h-5 w-5" />
-            <DialogTitle className="text-lg font-black font-cream text-blue-fantastic">
+            <DialogTitle className="text-lg font-black font-sans text-blue-fantastic">
               {initialEntry ? "Edit Delay Incident" : "Log New Schedule Delay"}
             </DialogTitle>
           </div>
@@ -131,7 +131,7 @@ export function LogDelayFormModal({
             <div className="space-y-1.5">
               <Label className="text-xs font-bold text-blue-fantastic">Affected Construction Stage</Label>
               <Select value={stageName} onValueChange={setStageName}>
-                <SelectTrigger className="bg-palladian border-blue-fantastic/20 text-xs font-bold font-cream text-blue-fantastic h-9 rounded-xl">
+                <SelectTrigger className="bg-palladian border-blue-fantastic/20 text-xs font-bold font-sans text-blue-fantastic h-9 rounded-xl">
                   <SelectValue placeholder="Select stage..." />
                 </SelectTrigger>
                 <SelectContent className="bg-palladian border-blue-fantastic/20">
@@ -147,7 +147,7 @@ export function LogDelayFormModal({
             <div className="space-y-1.5">
               <Label className="text-xs font-bold text-blue-fantastic">Delay Category / Cause</Label>
               <Select value={type} onValueChange={(val) => setType(val as DelayLogEntry["type"])}>
-                <SelectTrigger className="bg-palladian border-blue-fantastic/20 text-xs font-bold font-cream text-blue-fantastic h-9 rounded-xl">
+                <SelectTrigger className="bg-palladian border-blue-fantastic/20 text-xs font-bold font-sans text-blue-fantastic h-9 rounded-xl">
                   <SelectValue placeholder="Category..." />
                 </SelectTrigger>
                 <SelectContent className="bg-palladian border-blue-fantastic/20">
@@ -267,7 +267,7 @@ export function LogDelayFormModal({
             </Button>
             <Button
               type="submit"
-              className="bg-truffle-trouble hover:bg-truffle-trouble/90 text-palladian font-bold font-cream text-xs rounded-xl h-9 px-4 shadow-sm"
+              className="bg-truffle-trouble hover:bg-truffle-trouble/90 text-palladian font-bold font-sans text-xs rounded-xl h-9 px-4 shadow-sm"
             >
               {initialEntry ? "Save Changes" : "Log Delay Incident"}
             </Button>

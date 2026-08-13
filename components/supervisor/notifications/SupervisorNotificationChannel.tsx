@@ -28,12 +28,12 @@ export function SupervisorNotificationChannel() {
   ]
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans rounded-2xl overflow-hidden p-0">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm  rounded-2xl overflow-hidden p-0">
       <div className="border-b border-blue-fantastic/10 px-4 py-3 flex items-center gap-2">
         <div className="h-6 w-6 rounded-lg bg-truffle-trouble/10 flex items-center justify-center">
           <SlidersHorizontal className="h-3.5 w-3.5 text-truffle-trouble" />
         </div>
-        <h2 className="text-blue-fantastic text-sm font-bold font-sans">
+        <h2 className="text-blue-fantastic text-sm font-bold ">
           Notification Channels
         </h2>
       </div>
@@ -50,10 +50,10 @@ export function SupervisorNotificationChannel() {
               <div className="flex items-center gap-2.5 min-w-0">
                 <Icon className="h-4 w-4 text-blue-fantastic/60 group-hover:text-blue-fantastic shrink-0" />
                 <div className="flex flex-col min-w-0">
-                  <span className="text-xs font-semibold text-blue-fantastic font-sans">
+                  <span className="text-xs font-semibold text-blue-fantastic ">
                     {label}
                   </span>
-                  <span className="text-[10px] text-blue-fantastic/50 font-sans truncate">
+                  <span className="text-[10px] text-blue-fantastic/50  truncate">
                     {subLabel}
                   </span>
                 </div>

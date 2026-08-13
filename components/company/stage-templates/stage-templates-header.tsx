@@ -10,7 +10,7 @@ interface StageTemplatesHeaderProps {
 
 export default function StageTemplatesHeader({ onAddClick }: StageTemplatesHeaderProps) {
   return (
-    <div className="flex flex-col gap-3 pb-4 border-b border-blue-fantastic/15 font-cream w-full">
+    <div className="flex flex-col gap-3 pb-4 border-b border-blue-fantastic/15 font-sans w-full">
       <div className="flex items-center justify-between flex-wrap gap-4 w-full">
         {/* Left: Icon + Title + Subtitle */}
         <div className="flex items-center gap-3">
@@ -18,10 +18,10 @@ export default function StageTemplatesHeader({ onAddClick }: StageTemplatesHeade
             <ListOrdered className="h-5 w-5 text-burning-flame" />
           </div>
           <div>
-            <h1 className="text-blue-fantastic text-2xl font-bold leading-tight font-cream">
+            <h1 className="text-blue-fantastic text-2xl font-bold leading-tight font-sans">
               Stage Templates
             </h1>
-            <p className="text-blue-fantastic/60 text-sm mt-0.5 font-medium font-cream">
+            <p className="text-blue-fantastic/60 text-sm mt-0.5 font-medium font-sans">
               Configure default construction phases and quality assurance checklists.
             </p>
           </div>

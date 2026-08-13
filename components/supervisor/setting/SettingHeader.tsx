@@ -17,7 +17,7 @@ interface SettingHeaderProps {
 
 export default function SettingHeader({ activeTab, setActiveTab }: SettingHeaderProps) {
   return (
-    <div className="flex flex-col gap-4 border-b border-blue-fantastic/15 pb-1 font-cream">
+    <div className="flex flex-col gap-4 border-b border-blue-fantastic/15 pb-1 font-sans">
       {/* Title Section */}
       <div className="flex items-start justify-between flex-wrap gap-4 pt-1 px-1">
         <div className="flex items-center gap-3">
@@ -25,10 +25,10 @@ export default function SettingHeader({ activeTab, setActiveTab }: SettingHeader
             <Settings className="h-5 w-5 text-burning-flame" />
           </div>
           <div>
-            <h1 className="text-blue-fantastic text-2xl font-bold leading-tight font-cream">
+            <h1 className="text-blue-fantastic text-2xl font-bold leading-tight font-sans">
               Supervisor Settings
             </h1>
-            <p className="text-blue-fantastic/60 text-sm mt-0.5 font-medium font-cream">
+            <p className="text-blue-fantastic/60 text-sm mt-0.5 font-medium font-sans">
               Manage your region, notification alerts, security, and site configurations
             </p>
           </div>
@@ -44,7 +44,7 @@ export default function SettingHeader({ activeTab, setActiveTab }: SettingHeader
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={cn(
-                "relative pb-3 text-sm font-semibold transition-all duration-200 font-cream focus:outline-none whitespace-nowrap cursor-pointer",
+                "relative pb-3 text-sm font-semibold transition-all duration-200 font-sans focus:outline-none whitespace-nowrap cursor-pointer",
                 isActive
                   ? "text-truffle-trouble"
                   : "text-blue-fantastic/60 hover:text-blue-fantastic"

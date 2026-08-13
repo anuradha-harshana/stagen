@@ -15,9 +15,9 @@ export function AiInsightsSection() {
   const maxVal = 300;
 
   return (
-    <div className="space-y-6 font-cream">
+    <div className="space-y-6 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-oatmeal/30 pt-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-blue-fantastic/15 pt-8">
         <div>
           <h2 className="text-xl font-bold text-blue-fantastic font-sans">
             Communication & AI Insights
@@ -31,7 +31,7 @@ export function AiInsightsSection() {
       {/* KPI Cards Row (4 Cards) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Questions */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-5">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
             Total Questions
           </span>
@@ -44,7 +44,7 @@ export function AiInsightsSection() {
         </Card>
 
         {/* Answered */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-5">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
             Answered
           </span>
@@ -57,7 +57,7 @@ export function AiInsightsSection() {
         </Card>
 
         {/* Pending */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-5">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
             Pending
           </span>
@@ -70,7 +70,7 @@ export function AiInsightsSection() {
         </Card>
 
         {/* Avg. Response Time */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-5">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
             Avg. Response Time
           </span>
@@ -84,7 +84,7 @@ export function AiInsightsSection() {
       </div>
 
       {/* Customer Questions Over Time (Line Chart) */}
-      <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-6">
+      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6">
         <CardHeader className="p-0 pb-4">
           <CardTitle className="text-sm font-bold text-blue-fantastic font-sans">
             Customer Questions Over Time
@@ -138,7 +138,7 @@ export function AiInsightsSection() {
             </div>
 
             {/* Legend */}
-            <div className="flex items-center gap-6 mt-4 pt-2 border-t border-oatmeal/20 text-xs font-bold">
+            <div className="flex items-center gap-6 mt-4 pt-2 border-t border-blue-fantastic/15 text-xs font-bold">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#1b2632]" />
                 <span className="text-blue-fantastic">Asked</span>
@@ -155,7 +155,7 @@ export function AiInsightsSection() {
       {/* Top FAQ Topics & AI Assistant Insights (2 Columns) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Top FAQ Topics */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-6 flex flex-col justify-between">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <h3 className="text-sm font-bold text-blue-fantastic font-sans mb-4">
               Top FAQ Topics
@@ -168,7 +168,7 @@ export function AiInsightsSection() {
                 { topic: "Variations", count: 156 },
                 { topic: "PCI Process", count: 134 },
               ].map((item) => (
-                <div key={item.topic} className="flex items-center justify-between text-xs py-1 border-b border-oatmeal/15">
+                <div key={item.topic} className="flex items-center justify-between text-xs py-1 border-b border-blue-fantastic/15">
                   <span className="font-semibold text-blue-fantastic">{item.topic}</span>
                   <span className="font-extrabold text-blue-fantastic/80 font-bebas-neue text-sm">{item.count}</span>
                 </div>
@@ -184,7 +184,7 @@ export function AiInsightsSection() {
         </Card>
 
         {/* AI Assistant Insights */}
-        <Card className="bg-white border border-oatmeal/40 shadow-sm rounded-2xl p-6 space-y-4">
+        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 space-y-4">
           <h3 className="text-sm font-bold text-blue-fantastic font-sans">
             AI Assistant Insights
           </h3>
@@ -197,7 +197,7 @@ export function AiInsightsSection() {
               <span className="text-xl font-extrabold text-blue-fantastic font-bebas-neue">842</span>
             </div>
 
-            <div className="flex items-center justify-between border-t border-oatmeal/15 pt-2">
+            <div className="flex items-center justify-between border-t border-blue-fantastic/15 pt-2">
               <div>
                 <span className="font-bold text-blue-fantastic block">Resolution Rate</span>
                 <span className="text-emerald-600 text-[11px] font-bold">↑ 5% vs last month</span>
@@ -205,7 +205,7 @@ export function AiInsightsSection() {
               <span className="text-xl font-extrabold text-blue-fantastic font-bebas-neue">72%</span>
             </div>
 
-            <div className="flex items-center justify-between border-t border-oatmeal/15 pt-2">
+            <div className="flex items-center justify-between border-t border-blue-fantastic/15 pt-2">
               <div>
                 <span className="font-bold text-blue-fantastic block">Satisfaction Rate</span>
                 <span className="text-emerald-600 text-[11px] font-bold">+ 0.2 rating</span>
@@ -213,7 +213,7 @@ export function AiInsightsSection() {
               <span className="text-xl font-extrabold text-blue-fantastic font-bebas-neue">4.6 / 5</span>
             </div>
 
-            <div className="border-t border-oatmeal/15 pt-2 space-y-1.5">
+            <div className="border-t border-blue-fantastic/15 pt-2 space-y-1.5">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-blue-fantastic">Escalated to Human</span>
                 <span className="font-extrabold text-blue-fantastic font-bebas-neue text-base">128</span>

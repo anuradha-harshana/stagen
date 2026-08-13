@@ -23,7 +23,7 @@ export default function StageTemplatesStats({ stages }: StageTemplatesStatsProps
   const isWeightValid = totalWeight === 100;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full font-cream">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full font-sans">
       {/* Total Stages Card */}
       <Card className="bg-palladian border border-blue-fantastic/5 hover:border-truffle-trouble/10 shadow-[0_6px_20px_rgba(27,38,50,0.03)] hover:shadow-[0_12px_30px_rgba(27,38,50,0.06)] hover:scale-[1.01] transition-all duration-300 rounded-2xl overflow-hidden group">
         <CardContent className="p-6 flex items-center justify-between">
@@ -31,7 +31,7 @@ export default function StageTemplatesStats({ stages }: StageTemplatesStatsProps
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               Total Stages
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {totalStages}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">Standard build phases</p>
@@ -49,7 +49,7 @@ export default function StageTemplatesStats({ stages }: StageTemplatesStatsProps
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               Checklist Tasks
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {totalItems}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">Quality assurance checkpoints</p>
@@ -70,7 +70,7 @@ export default function StageTemplatesStats({ stages }: StageTemplatesStatsProps
                 <AlertCircle className="h-3.5 w-3.5 text-burning-flame shrink-0" />
               )}
             </span>
-            <h2 className={`text-3xl font-extrabold font-cream tracking-tight transition-colors duration-300 ${
+            <h2 className={`text-3xl font-extrabold font-sans tracking-tight transition-colors duration-300 ${
               isWeightValid ? "text-blue-fantastic group-hover:text-truffle-trouble" : "text-burning-flame"
             }`}>
               {totalWeight}%

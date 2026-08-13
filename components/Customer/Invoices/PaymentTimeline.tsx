@@ -30,13 +30,13 @@ export function PaymentTimeline() {
   const paid = MILESTONES.filter((m) => m.status === "paid").length
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-burning-flame/15 flex items-center justify-center">
             <CreditCard className="h-4 w-4 text-truffle-trouble" />
           </div>
-          <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">Payment Schedule</CardTitle>
+          <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">Payment Schedule</CardTitle>
           <span className="ml-auto text-xs text-blue-fantastic/70 font-semibold">
             {paid}/{MILESTONES.length} milestones
           </span>

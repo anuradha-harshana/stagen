@@ -25,7 +25,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-2xl bg-white border border-oatmeal/40 rounded-3xl p-6 font-cream max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl bg-palladian border border-blue-fantastic/15 rounded-3xl p-6 font-sans max-h-[90vh] overflow-y-auto">
         <DialogHeader className="space-y-1 text-left">
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="bg-blue-fantastic/10 text-blue-fantastic font-bold">
@@ -60,7 +60,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
         </DialogHeader>
 
         {/* Info Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-palladian/30 rounded-2xl border border-oatmeal/20 text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-palladian/30 rounded-2xl border border-blue-fantastic/15 text-xs">
           <div>
             <span className="text-blue-fantastic/50 font-bold block uppercase text-[10px]">Supervisor</span>
             <span className="font-extrabold text-blue-fantastic">{project.supervisorName || "Unassigned"}</span>
@@ -88,7 +88,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
             {project.stages.map((stage) => (
               <div
                 key={stage.name}
-                className="p-3 rounded-xl border border-oatmeal/20 bg-white flex items-center justify-between text-xs"
+                className="p-3 rounded-xl border border-blue-fantastic/15 bg-palladian flex items-center justify-between text-xs"
               >
                 <div className="flex items-center gap-2.5">
                   {stage.status === "Completed" ? (
@@ -126,7 +126,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
         {/* Delay Incident History if any */}
         {project.delays && project.delays.length > 0 && (
-          <div className="space-y-2 pt-2 border-t border-oatmeal/20">
+          <div className="space-y-2 pt-2 border-t border-blue-fantastic/15">
             <h4 className="text-xs font-bold uppercase tracking-wider text-red-600 flex items-center gap-1.5">
               <AlertTriangle className="h-4 w-4" />
               Recorded Delay Incidents ({project.delays.length})
@@ -146,7 +146,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
           </div>
         )}
 
-        <DialogFooter className="mt-4 pt-3 border-t border-oatmeal/20 flex gap-2">
+        <DialogFooter className="mt-4 pt-3 border-t border-blue-fantastic/15 flex gap-2">
           <Button variant="outline" onClick={onClose} className="rounded-xl text-xs font-bold">
             Close
           </Button>

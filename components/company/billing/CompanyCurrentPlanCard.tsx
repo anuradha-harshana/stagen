@@ -20,7 +20,7 @@ export function CompanyCurrentPlanCard({
   onUpgradePlan,
 }: CompanyCurrentPlanCardProps) {
   return (
-    <div className="bg-blue-fantastic rounded-3xl p-6 sm:p-8 shadow-lg border border-white/10 text-palladian font-cream flex flex-col justify-between relative overflow-hidden h-full min-h-[220px]">
+    <div className="bg-blue-fantastic rounded-3xl p-6 sm:p-8 shadow-lg border border-blue-fantastic/15 text-palladian font-sans flex flex-col justify-between relative overflow-hidden h-full min-h-[220px]">
       {/* Background subtle glow effect */}
       <div className="absolute -top-24 -right-24 w-60 h-60 bg-burning-flame/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -31,7 +31,7 @@ export function CompanyCurrentPlanCard({
             Current Plan
           </span>
           <div className="flex items-baseline flex-wrap">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-palladian leading-tight font-cream">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-palladian leading-tight font-sans">
               {planName}
             </h2>
             <span className="text-sm sm:text-lg text-oatmeal/80 font-normal ml-2 sm:ml-3">
@@ -50,7 +50,7 @@ export function CompanyCurrentPlanCard({
       </div>
 
       {/* Bottom Metadata */}
-      <div className="flex items-center gap-8 sm:gap-12 mt-6 pt-4 border-t border-white/10 text-xs sm:text-sm z-10">
+      <div className="flex items-center gap-8 sm:gap-12 mt-6 pt-4 border-t border-blue-fantastic/15 text-xs sm:text-sm z-10">
         <div>
           <span className="text-oatmeal/60 font-medium block text-[11px] sm:text-xs">
             Next Renewal

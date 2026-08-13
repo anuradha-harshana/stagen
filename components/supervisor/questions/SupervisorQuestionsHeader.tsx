@@ -28,17 +28,17 @@ export function SupervisorQuestionsHeader({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   return (
-    <div className="flex flex-col gap-4 pb-4 border-b border-blue-fantastic/15 font-cream">
+    <div className="flex flex-col gap-4 pb-4 border-b border-blue-fantastic/15 font-sans">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
           <div className="h-11 w-11 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
             <MessageCircle className="h-5 w-5 text-burning-flame" />
           </div>
           <div>
-            <h1 className="text-blue-fantastic text-2xl font-bold leading-tight font-cream">
+            <h1 className="text-blue-fantastic text-2xl font-bold leading-tight font-sans">
               Customer Questions &amp; Answers
             </h1>
-            <p className="text-blue-fantastic/60 text-sm mt-0.5 font-medium font-cream">
+            <p className="text-blue-fantastic/60 text-sm mt-0.5 font-medium font-sans">
               Review, manage, and respond to site questions from home buyers
             </p>
           </div>
@@ -54,7 +54,7 @@ export function SupervisorQuestionsHeader({
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search questions or customers..."
-              className="pl-8 pr-3 py-1.5 bg-palladian border border-blue-fantastic/15 rounded-2xl text-xs font-medium text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all w-56 font-cream"
+              className="pl-8 pr-3 py-1.5 bg-palladian border border-blue-fantastic/15 rounded-2xl text-xs font-medium text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all w-56 font-sans"
             />
           </div>
 
@@ -73,7 +73,7 @@ export function SupervisorQuestionsHeader({
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 top-full mt-2 w-60 bg-palladian rounded-2xl shadow-xl border border-blue-fantastic/15 py-2 z-30 font-cream">
+              <div className="absolute right-0 top-full mt-2 w-60 bg-palladian rounded-2xl shadow-xl border border-blue-fantastic/15 py-2 z-30 font-sans">
                 {SUPERVISOR_PROJECTS.map((proj) => (
                   <button
                     key={proj.code}

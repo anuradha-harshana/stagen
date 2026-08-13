@@ -76,7 +76,7 @@ export default function StageCard({
               <div className="flex flex-wrap items-center gap-2">
                 <h3
                   className={cn(
-                    "text-base md:text-lg font-extrabold leading-none font-cream",
+                    "text-base md:text-lg font-extrabold leading-none font-sans",
                     isCompleted && "text-blue-fantastic/90",
                     isInProgress && "text-truffle-trouble text-lg md:text-xl",
                     isUpcoming && "text-blue-fantastic/40"

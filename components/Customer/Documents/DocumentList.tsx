@@ -31,13 +31,13 @@ function FileIcon({ type, category }: { type: string; category: string }) {
 
 export function DocumentList() {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
             <FileText className="h-4 w-4 text-truffle-trouble" />
           </div>
-          <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">Project Documents</CardTitle>
+          <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">Project Documents</CardTitle>
           <Badge
             variant="outline"
             className="ml-auto text-xs text-blue-fantastic/70 border-blue-fantastic/20 bg-blue-fantastic/5 font-semibold"

@@ -36,7 +36,7 @@ export function CustomerQuestionsList({
   }
 
   return (
-    <div className="space-y-3 font-cream">
+    <div className="space-y-3 font-sans">
       {questions.map((q) => {
         const statusCfg = getStatusBadge(q.status)
 
@@ -45,7 +45,7 @@ export function CustomerQuestionsList({
             key={q.id}
             className="bg-palladian border border-blue-fantastic/15 shadow-xs hover:shadow-md hover:border-blue-fantastic/25 transition-all duration-200"
           >
-            <CardContent className="p-5 flex flex-col gap-4 font-cream">
+            <CardContent className="p-5 flex flex-col gap-4 font-sans">
               {/* Header: Customer Info & Status */}
               <div className="flex items-start justify-between flex-wrap gap-3">
                 <div className="flex items-center gap-3">
@@ -82,7 +82,7 @@ export function CustomerQuestionsList({
 
               {/* Question Body */}
               <div className="space-y-1 pl-1 border-l-2 border-burning-flame/40">
-                <h3 className="text-base font-bold text-blue-fantastic font-cream">{q.questionTitle}</h3>
+                <h3 className="text-base font-bold text-blue-fantastic font-sans">{q.questionTitle}</h3>
                 <p className="text-xs text-blue-fantastic/80 leading-relaxed font-medium">
                   {q.questionDetails}
                 </p>
@@ -165,7 +165,7 @@ export function CustomerQuestionsList({
       })}
 
       {questions.length === 0 && (
-        <div className="py-12 text-center border border-dashed border-blue-fantastic/20 rounded-2xl bg-palladian/50 flex flex-col items-center justify-center gap-2 font-cream">
+        <div className="py-12 text-center border border-dashed border-blue-fantastic/20 rounded-2xl bg-palladian/50 flex flex-col items-center justify-center gap-2 font-sans">
           <MessageSquare className="h-8 w-8 text-blue-fantastic/30" />
           <p className="text-sm font-bold text-blue-fantastic">No customer questions match your filter.</p>
           <p className="text-xs text-blue-fantastic/60 font-semibold">

@@ -18,8 +18,8 @@ interface RegionalMatrixTableProps {
 
 export function RegionalMatrixTable({ reports }: RegionalMatrixTableProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-oatmeal/60 overflow-hidden">
-      <div className="p-6 border-b border-oatmeal/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="bg-palladian rounded-xl shadow-sm border border-blue-fantastic/15 overflow-hidden">
+      <div className="p-6 border-b border-blue-fantastic/15 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="font-semibold text-base text-blue-fantastic">
             Regional Operational Matrix
@@ -33,7 +33,7 @@ export function RegionalMatrixTable({ reports }: RegionalMatrixTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50 text-[11px] uppercase tracking-wider text-blue-fantastic/60 border-b border-slate-200">
+            <tr className="bg-slate-50 text-[11px] uppercase tracking-wider text-blue-fantastic/60 border-b border-blue-fantastic/15">
               <th className="py-3 px-6 font-semibold">Region / State</th>
               <th className="py-3 px-6 font-semibold">Total Sites</th>
               <th className="py-3 px-6 font-semibold">Active Sites</th>

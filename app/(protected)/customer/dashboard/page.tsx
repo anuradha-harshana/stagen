@@ -15,11 +15,13 @@ export default async function page() {
   const user = await requireAuth();
   const data = mockDashboardData;
 
+  console.log(user.role);
+
   // Check if there is an urgent notification to trigger the header ping
   const hasUrgent = data.notifications.some((n) => n.type === "urgent");
 
   return (
-    <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-12">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header Greeting Section */}
       <DashboardHeader username={user.username} email={user.email} role={user.role} percentage={data.overallProgress.percentage} />
 

@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export function SupervisorQuestionsSkeleton() {
   return (
-    <div className="flex flex-col gap-4 w-full font-cream">
+    <div className="flex flex-col gap-4 w-full font-sans">
       {/* Header skeleton */}
       <div className="flex items-center justify-between pb-4 border-b border-blue-fantastic/10">
         <div className="flex items-center gap-3">

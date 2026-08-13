@@ -184,7 +184,7 @@ export function SupervisorNotificationCard({
           <div className="flex items-center gap-2 flex-wrap">
             <h3
               className={cn(
-                "text-sm font-bold font-sans truncate transition-colors",
+                "text-sm font-bold truncate transition-colors",
                 notification.read
                   ? "text-blue-fantastic/80 group-hover:text-blue-fantastic"
                   : "text-blue-fantastic font-extrabold"
@@ -200,14 +200,14 @@ export function SupervisorNotificationCard({
 
             {/* Lot Badge */}
             {notification.lot && (
-              <Badge variant="outline" className="text-[10px] h-4.5 px-2 font-bold font-cream border-truffle-trouble/30 text-truffle-trouble bg-truffle-trouble/5">
+              <Badge variant="outline" className="text-[10px] h-4.5 px-2 font-bold font-sans border-truffle-trouble/30 text-truffle-trouble bg-truffle-trouble/5">
                 {notification.lot}
               </Badge>
             )}
 
             {/* Client Badge */}
             {notification.clientName && (
-              <span className="text-[11px] font-semibold text-blue-fantastic/60 font-sans truncate">
+              <span className="text-[11px] font-semibold text-blue-fantastic/60 truncate">
                 · {notification.clientName}
               </span>
             )}
@@ -228,7 +228,7 @@ export function SupervisorNotificationCard({
             )}
           </div>
 
-          <p className="text-blue-fantastic/70 text-xs mt-1 font-sans leading-relaxed">
+          <p className="text-blue-fantastic/70 text-xs mt-1 leading-relaxed">
             {notification.description}
           </p>
 
@@ -247,7 +247,7 @@ export function SupervisorNotificationCard({
           {notification.resolved && (
             <div className="mt-2 bg-emerald-500/10 border border-emerald-500/25 rounded-xl px-2.5 py-1.5 flex items-center gap-1.5 w-fit">
               <Check className="h-3.5 w-3.5 text-emerald-600" />
-              <span className="text-[11px] font-bold text-emerald-700 font-sans">
+              <span className="text-[11px] font-bold text-emerald-700">
                 Delay Resolved &amp; Noted
               </span>
             </div>
@@ -367,7 +367,7 @@ export function SupervisorNotificationCard({
               value={replyMessage}
               onChange={(e) => setReplyMessage(e.target.value)}
               placeholder="Type your response here..."
-              className="min-h-[70px] pr-10 text-xs font-sans bg-white border-blue-fantastic/15 text-blue-fantastic focus-visible:ring-truffle-trouble/20 focus-visible:border-truffle-trouble"
+              className="min-h-[70px] pr-10 text-xs bg-white border-blue-fantastic/15 text-blue-fantastic focus-visible:ring-truffle-trouble/20 focus-visible:border-truffle-trouble"
             />
             <Button
               type="submit"

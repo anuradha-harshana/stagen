@@ -154,13 +154,13 @@ export function SupervisorDelaysClient() {
   };
 
   return (
-    <div className="space-y-6 font-cream p-4 sm:p-6 max-w-7xl mx-auto">
+    <div className="space-y-6 font-sans p-4 sm:p-6 max-w-7xl mx-auto">
       {/* 1. Header Row & Project Selector */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-fantastic/10 pb-5">
         <div>
-          <div className="flex items-center gap-2 text-truffle-trouble font-bold font-cream">
+          <div className="flex items-center gap-2 text-truffle-trouble font-bold">
             <AlertTriangle className="h-5 w-5" />
-            <h1 className="text-2xl font-black font-cream text-blue-fantastic tracking-tight">
+            <h1 className="text-2xl font-bold font-sans text-blue-fantastic tracking-tight">
               Delay Management
             </h1>
           </div>
@@ -174,14 +174,14 @@ export function SupervisorDelaysClient() {
           <div className="flex items-center gap-2">
             <Building2 className="h-4 w-4 text-blue-fantastic/50" />
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-              <SelectTrigger className="w-64 bg-palladian border-blue-fantastic/20 text-blue-fantastic font-cream font-bold text-xs h-10 rounded-xl">
+              <SelectTrigger className="w-64 bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-10 rounded-xl">
                 <SelectValue placeholder="Select Lot..." />
               </SelectTrigger>
               <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
                 {assignedProjects.map((proj: Project) => (
                   <SelectItem key={proj.id} value={proj.id} className="text-xs cursor-pointer">
                     <div className="flex items-center justify-between w-full gap-3">
-                      <span className="font-bold font-cream">{proj.id.toUpperCase()}</span>
+                      <span className="font-bold font-sans">{proj.id.toUpperCase()}</span>
                       <span className="text-blue-fantastic/60 text-[11px] truncate max-w-[130px]">
                         {proj.clientName}
                       </span>
@@ -194,7 +194,7 @@ export function SupervisorDelaysClient() {
 
           <Button
             onClick={handleOpenNewDelay}
-            className="bg-truffle-trouble hover:bg-truffle-trouble/90 text-palladian font-bold font-cream text-xs rounded-xl h-10 px-4 shadow-sm gap-1.5"
+            className="bg-truffle-trouble hover:bg-truffle-trouble/90 text-palladian font-bold font-sans text-xs rounded-xl h-10 px-4 shadow-sm gap-1.5"
           >
             <Plus className="h-4 w-4" />
             <span>Log New Delay</span>
@@ -212,7 +212,7 @@ export function SupervisorDelaysClient() {
           <button
             onClick={() => setActiveTab("log")}
             className={cn(
-              "px-4 py-1.5 rounded-lg text-xs font-bold font-cream transition-all flex items-center gap-1.5",
+              "px-4 py-1.5 rounded-lg text-xs font-bold font-sans transition-all flex items-center gap-1.5",
               activeTab === "log"
                 ? "bg-palladian text-blue-fantastic shadow-xs"
                 : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
@@ -225,7 +225,7 @@ export function SupervisorDelaysClient() {
           <button
             onClick={() => setActiveTab("notices")}
             className={cn(
-              "px-4 py-1.5 rounded-lg text-xs font-bold font-cream transition-all flex items-center gap-1.5",
+              "px-4 py-1.5 rounded-lg text-xs font-bold font-sans transition-all flex items-center gap-1.5",
               activeTab === "notices"
                 ? "bg-palladian text-blue-fantastic shadow-xs"
                 : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
@@ -253,7 +253,7 @@ export function SupervisorDelaysClient() {
           {!currentTimeline.delayLog || currentTimeline.delayLog.length === 0 ? (
             <div className="bg-palladian border border-blue-fantastic/10 rounded-2xl p-8 text-center space-y-2">
               <AlertTriangle className="h-8 w-8 text-blue-fantastic/30 mx-auto" />
-              <h4 className="text-sm font-extrabold text-blue-fantastic font-cream">
+              <h4 className="text-sm font-extrabold text-blue-fantastic font-sans">
                 No Delay Log Entries
               </h4>
               <p className="text-xs text-blue-fantastic/60 font-sans max-w-sm mx-auto">
@@ -303,7 +303,7 @@ export function SupervisorDelaysClient() {
                           </span>
                         </div>
 
-                        <h4 className="text-sm font-extrabold text-blue-fantastic font-cream">
+                        <h4 className="text-sm font-extrabold text-blue-fantastic font-sans">
                           {entry.title}
                         </h4>
 
@@ -320,7 +320,7 @@ export function SupervisorDelaysClient() {
                         <span className="text-[9px] font-extrabold uppercase tracking-wider text-blue-fantastic/50 block text-center font-sans">
                           Schedule Impact
                         </span>
-                        <div className="flex items-center gap-2 text-xs font-extrabold text-blue-fantastic font-cream">
+                        <div className="flex items-center gap-2 text-xs font-extrabold text-blue-fantastic font-sans">
                           <span className="text-blue-fantastic/50 line-through">
                             {entry.fromDate}
                           </span>

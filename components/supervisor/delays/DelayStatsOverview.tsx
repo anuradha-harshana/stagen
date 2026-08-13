@@ -25,14 +25,14 @@ export function DelayStatsOverview({ timelineData, messages }: DelayStatsOvervie
   const readCount = messages.filter((m) => m.status === "read").length;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-cream">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans">
       {/* 1. Total Delays Logged */}
       <div className="bg-palladian rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
         <div className="space-y-1">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-fantastic/60 font-sans">
             Total Delays
           </span>
-          <div className="text-2xl font-black text-blue-fantastic font-cream">
+          <div className="text-2xl font-black text-blue-fantastic font-sans">
             {totalDelays} {totalDelays === 1 ? "Incident" : "Incidents"}
           </div>
           <p className="text-[11px] text-blue-fantastic/65 font-sans">
@@ -50,7 +50,7 @@ export function DelayStatsOverview({ timelineData, messages }: DelayStatsOvervie
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-fantastic/60 font-sans">
             Cumulative Delay
           </span>
-          <div className="text-2xl font-black text-truffle-trouble font-cream">
+          <div className="text-2xl font-black text-truffle-trouble font-sans">
             +{totalDays} Days
           </div>
           <p className="text-[11px] text-blue-fantastic/65 font-sans">
@@ -68,7 +68,7 @@ export function DelayStatsOverview({ timelineData, messages }: DelayStatsOvervie
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-fantastic/60 font-sans">
             Latest Event
           </span>
-          <div className="text-base font-extrabold text-blue-fantastic truncate font-cream">
+          <div className="text-base font-extrabold text-blue-fantastic truncate font-sans">
             {latestEntry ? latestEntry.stageName + " Stage" : "No Delays"}
           </div>
           <p className="text-[11px] text-blue-fantastic/65 font-sans truncate">
@@ -86,7 +86,7 @@ export function DelayStatsOverview({ timelineData, messages }: DelayStatsOvervie
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-fantastic/60 font-sans">
             Customer Notices
           </span>
-          <div className="text-2xl font-black text-blue-fantastic font-cream">
+          <div className="text-2xl font-black text-blue-fantastic font-sans">
             {sentCount} Sent
           </div>
           <p className="text-[11px] text-emerald-700 font-bold font-sans">

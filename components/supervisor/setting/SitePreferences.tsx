@@ -28,13 +28,13 @@ export default function SitePreferences() {
   }
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream w-[1000px] max-w-2xl">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans w-[1000px] max-w-2xl">
       <CardHeader className="border-b border-blue-fantastic/10 pb-4">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
             <ClipboardCheck className="h-4 w-4 text-truffle-trouble" />
           </div>
-          <CardTitle className="text-blue-fantastic text-base font-bold font-cream">
+          <CardTitle className="text-blue-fantastic text-base font-bold font-sans">
             Site Preferences
           </CardTitle>
         </div>
@@ -50,7 +50,7 @@ export default function SitePreferences() {
             <select
               value={defaultChecklist}
               onChange={(e) => setDefaultChecklist(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="Standard Frame Inspection">Standard Frame Inspection</option>
               <option value="Structural Concrete Pour">Structural Concrete Pour</option>
@@ -67,7 +67,7 @@ export default function SitePreferences() {
             <select
               value={autoDelayThreshold}
               onChange={(e) => setAutoDelayThreshold(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="3 Days">Notify after 3 days of site inactivity</option>
               <option value="5 Days">Notify after 5 days of site inactivity</option>
@@ -84,7 +84,7 @@ export default function SitePreferences() {
             <select
               value={photoQuality}
               onChange={(e) => setPhotoQuality(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="Ultra-HD (Uncompressed)">Ultra-HD (Uncompressed - WiFi required)</option>
               <option value="Standard High-Res">Standard High-Res (Optimized size)</option>
@@ -100,7 +100,7 @@ export default function SitePreferences() {
             <select
               value={weatherRadius}
               onChange={(e) => setWeatherRadius(e.target.value)}
-              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-cream"
+              className="w-full h-10 rounded-xl border border-blue-fantastic/15 bg-white text-blue-fantastic px-3 py-1.5 text-sm outline-none transition-all duration-200 focus-visible:border-truffle-trouble focus-visible:ring-2 focus-visible:ring-truffle-trouble/20 font-sans"
             >
               <option value="5km Radius">Within 5km of build site</option>
               <option value="10km Radius">Within 10km of build site</option>

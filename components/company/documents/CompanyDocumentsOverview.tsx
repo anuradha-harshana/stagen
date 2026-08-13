@@ -105,7 +105,7 @@ export function CompanyDocumentsOverview() {
   }
 
   return (
-    <div className="flex flex-col gap-5 w-full font-cream">
+    <div className="flex flex-col gap-5 w-full font-sans">
       {/* Header */}
       <CompanyDocumentsHeader
         onOpenUploadModal={() => setIsUploadModalOpen(true)}

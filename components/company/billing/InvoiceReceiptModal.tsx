@@ -23,16 +23,16 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-cream">
-      <div className="bg-white rounded-3xl shadow-2xl border border-oatmeal/30 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
+      <div className="bg-palladian rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-oatmeal/20 bg-neutral-50/50">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15 bg-neutral-50/50">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-xl bg-blue-fantastic/10 flex items-center justify-center text-blue-fantastic font-bold">
               <Building2 className="h-4.5 w-4.5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-blue-fantastic font-cream">
+              <h2 className="text-base font-bold text-blue-fantastic font-sans">
                 Receipt {invoice.invoiceNumber}
               </h2>
               <span className="text-xs text-neutral-400 font-medium">Billed on {invoice.date}</span>
@@ -54,7 +54,7 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
               <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 block mb-1">
                 Total Amount Paid
               </span>
-              <span className="text-2xl sm:text-3xl font-bold text-blue-fantastic font-cream">
+              <span className="text-2xl sm:text-3xl font-bold text-blue-fantastic font-sans">
                 ${invoice.amount.toFixed(2)}
               </span>
             </div>
@@ -108,7 +108,7 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between px-6 py-4 border-t border-oatmeal/20 bg-neutral-50/50">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-blue-fantastic/15 bg-neutral-50/50">
           <Button
             variant="outline"
             onClick={handlePrint}

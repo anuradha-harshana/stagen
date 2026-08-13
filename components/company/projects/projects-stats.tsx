@@ -23,7 +23,7 @@ export default function ProjectsStats({ projects }: ProjectsStatsProps) {
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               Total Projects
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {total}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">Active construction lots</p>
@@ -41,7 +41,7 @@ export default function ProjectsStats({ projects }: ProjectsStatsProps) {
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               On Track
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {onTrack}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">Running according to schedule</p>
@@ -59,7 +59,7 @@ export default function ProjectsStats({ projects }: ProjectsStatsProps) {
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
               Delayed / Attention
             </span>
-            <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+            <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {delayed}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">Requires supervisor check</p>

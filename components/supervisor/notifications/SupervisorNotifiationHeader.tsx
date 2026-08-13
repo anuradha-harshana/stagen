@@ -28,7 +28,7 @@ export function SupervisorNotificationHeader({
           <Bell className="h-5 w-5 text-burning-flame" />
         </div>
         <div>
-          <h1 className="text-blue-fantastic text-2xl font-sans font-bold leading-tight">
+          <h1 className="text-blue-fantastic text-2xl font-bold leading-tight">
             Supervisor Notifications
           </h1>
           <p className="text-blue-fantastic/50 text-sm mt-0.5 font-sans">
@@ -60,14 +60,14 @@ export function SupervisorNotificationHeader({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by lot, client, text..."
-            className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm font-sans w-52 focus-visible:ring-blue-fantastic/20"
+            className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm w-52 focus-visible:ring-blue-fantastic/20"
           />
         </div>
 
         <Button
           onClick={onMarkAllAsRead}
           disabled={unreadCount === 0}
-          className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/85 disabled:opacity-50 gap-2 font-sans font-semibold shadow-sm h-8 text-xs cursor-pointer"
+          className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/85 disabled:opacity-50 gap-2 font-semibold shadow-sm h-8 text-xs cursor-pointer"
           size="sm"
         >
           <CheckCheck className="h-3.5 w-3.5" />

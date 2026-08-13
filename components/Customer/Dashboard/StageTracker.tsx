@@ -90,7 +90,7 @@ export default function StageTracker({ stages, className }: StageTrackerProps) {
                     className={cn(
                       "text-[13px] font-bold transition-all duration-300",
                       isCompleted && "text-blue-fantastic/80",
-                      isInProgress && "text-truffle-trouble font-cream text-[14px]",
+                      isInProgress && "text-truffle-trouble font-sans text-[14px]",
                       isUpcoming && "text-blue-fantastic/40"
                     )}
                   >
@@ -164,7 +164,7 @@ export default function StageTracker({ stages, className }: StageTrackerProps) {
                   className={cn(
                     "text-sm font-bold leading-none",
                     isCompleted && "text-blue-fantastic/80",
-                    isInProgress && "text-truffle-trouble font-cream text-base",
+                    isInProgress && "text-truffle-trouble font-sans text-base",
                     isUpcoming && "text-blue-fantastic/40"
                   )}
                 >

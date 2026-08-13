@@ -43,7 +43,7 @@ export function MitigationModal({ project, isOpen, onClose, onSaveAction }: Miti
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-lg bg-white border border-oatmeal/40 rounded-3xl p-6 font-cream">
+      <DialogContent className="max-w-lg bg-palladian border border-blue-fantastic/15 rounded-3xl p-6 font-sans">
         <DialogHeader className="space-y-1 text-left">
           <div className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-truffle-trouble" />
@@ -80,7 +80,7 @@ export function MitigationModal({ project, isOpen, onClose, onSaveAction }: Miti
             <div className="space-y-1">
               <label className="text-xs font-bold text-blue-fantastic block">Updated Severity Level</label>
               <Select value={newSeverity} onValueChange={setNewSeverity}>
-                <SelectTrigger className="bg-palladian/30 border-oatmeal/40 rounded-xl text-xs font-bold text-blue-fantastic h-9">
+                <SelectTrigger className="bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
                   <SelectValue placeholder="Select severity" />
                 </SelectTrigger>
                 <SelectContent>
@@ -100,7 +100,7 @@ export function MitigationModal({ project, isOpen, onClose, onSaveAction }: Miti
                 placeholder="Detail action taken (e.g. Expedited bricklayer trade assignment, arranged weekend site work)..."
                 value={actionNote}
                 onChange={(e) => setActionNote(e.target.value)}
-                className="bg-palladian/30 border-oatmeal/40 rounded-xl text-xs text-blue-fantastic placeholder:text-blue-fantastic/40 font-medium"
+                className="bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs text-blue-fantastic placeholder:text-blue-fantastic/40 font-medium"
               />
             </div>
 

@@ -31,13 +31,13 @@ function DefectIcon({ status }: { status: DefectStatus }) {
 
 export function DefectLog() {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-red-500/10 flex items-center justify-center">
             <AlertTriangle className="h-4 w-4 text-red-600" />
           </div>
-          <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">Defect Log</CardTitle>
+          <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">Defect Log</CardTitle>
           <Button
             size="xs"
             className="ml-auto bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 gap-1.5 shadow-sm font-bold h-7 px-2.5"
@@ -47,7 +47,7 @@ export function DefectLog() {
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="pt-3 font-cream">
+      <CardContent className="pt-3 font-sans">
         {DEFECTS.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-10 text-center gap-2">
             <div className="h-12 w-12 rounded-2xl bg-truffle-trouble/10 flex items-center justify-center">

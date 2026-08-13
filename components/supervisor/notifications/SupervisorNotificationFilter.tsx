@@ -47,12 +47,12 @@ export function SupervisorNotificationFilter({
   counts,
 }: SupervisorNotificationFilterProps) {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans rounded-2xl overflow-hidden p-0">
+    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden p-0">
       <div className="border-b border-blue-fantastic/10 px-4 py-3 flex items-center gap-2">
         <div className="h-6 w-6 rounded-lg bg-blue-fantastic/10 flex items-center justify-center">
           <Filter className="h-3.5 w-3.5 text-blue-fantastic" />
         </div>
-        <h2 className="text-blue-fantastic text-sm font-bold font-sans">
+        <h2 className="text-blue-fantastic text-sm font-bold">
           Filter Activity
         </h2>
       </div>
@@ -67,7 +67,7 @@ export function SupervisorNotificationFilter({
               key={label}
               onClick={() => onSelectFilter(label)}
               className={cn(
-                "w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold font-sans transition-all duration-200 cursor-pointer border-0 outline-none",
+                "w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer border-0 outline-none",
                 isActive
                   ? "bg-blue-fantastic text-palladian shadow-xs font-bold"
                   : "text-blue-fantastic/75 hover:bg-blue-fantastic/8 hover:text-blue-fantastic"

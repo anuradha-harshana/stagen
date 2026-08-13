@@ -44,7 +44,7 @@ export default function PhotoCard({ photo }: PhotoCardProps) {
 
       {/* Info Section */}
       <div className="p-3.5 border-t border-blue-fantastic/[0.04] bg-white flex flex-col justify-between">
-        <h4 className="text-[13px] font-bold text-blue-fantastic truncate font-cream">
+        <h4 className="text-[13px] font-bold text-blue-fantastic truncate font-sans">
           {photo.label}
         </h4>
         <div className="flex items-center gap-1.5 mt-1 text-blue-fantastic/50 text-[10px] font-medium">

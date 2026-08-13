@@ -6,7 +6,7 @@ import { TrendingUp, TrendingDown } from "lucide-react";
 export function ReportsStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 hover:shadow-md transition-shadow">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
         <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
           Total Active Sites
         </span>
@@ -19,7 +19,7 @@ export function ReportsStats() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 hover:shadow-md transition-shadow">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
         <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
           Avg Stage Duration
         </span>
@@ -32,7 +32,7 @@ export function ReportsStats() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 hover:shadow-md transition-shadow">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
         <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
           Site Completion Rate
         </span>
@@ -45,7 +45,7 @@ export function ReportsStats() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-oatmeal/60 hover:shadow-md transition-shadow">
+      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
         <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
           Operational Score
         </span>

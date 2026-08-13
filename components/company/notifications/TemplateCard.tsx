@@ -24,15 +24,15 @@ export function TemplateCard({
   return (
     <div
       onClick={onSelect}
-      className={`group relative flex flex-col justify-between p-5 rounded-2xl bg-white transition-all cursor-pointer border ${
+      className={`group relative flex flex-col justify-between p-5 rounded-2xl bg-palladian transition-all cursor-pointer border ${
         isSelected
           ? "border-burning-flame ring-2 ring-burning-flame/30 shadow-md"
-          : "border-slate-200/80 hover:border-burning-flame/60 hover:shadow-sm"
+          : "border-blue-fantastic/15 hover:border-burning-flame/60 hover:shadow-sm"
       }`}
     >
       {/* Top Section */}
       <div className="flex items-start justify-between gap-3 mb-6">
-        <h3 className="text-lg font-bold text-abyssal-blue font-cream leading-tight">
+        <h3 className="text-lg font-bold text-abyssal-blue font-sans leading-tight">
           {template.title}
         </h3>
 
@@ -66,7 +66,7 @@ export function TemplateCard({
           className={`flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold py-2 px-3 rounded-xl border transition-all ${
             isSelected
               ? "border-burning-flame bg-burning-flame/10 text-abyssal-blue"
-              : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300"
+              : "border-blue-fantastic/15 bg-palladian text-slate-700 hover:bg-slate-50 hover:border-slate-300"
           }`}
         >
           <Pencil className="w-3.5 h-3.5" />

@@ -43,7 +43,7 @@ export default function FAQList({ articles, onEdit, onDelete }: FAQListProps) {
   const categories = Array.from(new Set(articles.map((art) => art.category)));
 
   return (
-    <div className="space-y-4 w-full font-cream">
+    <div className="space-y-4 w-full font-sans">
       {/* Search Input */}
       <div className="relative w-full">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-fantastic/40 pointer-events-none" />
@@ -70,7 +70,7 @@ export default function FAQList({ articles, onEdit, onDelete }: FAQListProps) {
             {/* Category Header */}
             <button
               onClick={() => toggleCategory(category)}
-              className="w-full flex items-center justify-between p-4 bg-palladian hover:bg-palladian/80 text-blue-fantastic text-sm font-extrabold font-cream border-b border-blue-fantastic/5 transition-all text-left cursor-pointer"
+              className="w-full flex items-center justify-between p-4 bg-palladian hover:bg-palladian/80 text-blue-fantastic text-sm font-extrabold font-sans border-b border-blue-fantastic/5 transition-all text-left cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <HelpCircle className="h-4 w-4 text-truffle-trouble" />

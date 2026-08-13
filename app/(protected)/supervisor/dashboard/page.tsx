@@ -99,11 +99,11 @@ export default function SupervisorDashboard() {
   }
 
   return (
-    <div className="flex flex-col gap-5 w-full px-6 py-6 font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Header greeting */}
-      <div className="flex font-sans justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap gap-4">
         <div>
-          <h1 className="text-blue-fantastic text-3xl font-bold font-cream tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold text-blue-fantastic font-sans tracking-tight">
             Welcome back, {user.username}
           </h1>
           <p className="text-sm text-blue-fantastic/60 font-semibold mt-0.5">
@@ -129,7 +129,7 @@ export default function SupervisorDashboard() {
       </div>
 
       {/* 2. Interactive KPI Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 font-cream">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         {[
           {
             label: "Total Projects",

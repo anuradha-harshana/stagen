@@ -51,7 +51,7 @@ export function SupervisorQuestionsSummaryCards({
   ]
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 font-cream">
+    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 font-sans">
       {SUMMARY.map((item) => {
         const Icon = item.icon
         return (
@@ -69,7 +69,7 @@ export function SupervisorQuestionsSummaryCards({
                 </div>
               </div>
               <div>
-                <p className={`text-xl md:text-2xl font-bold font-cream tracking-tight ${item.valueColor} truncate`}>
+                <p className={`text-xl md:text-2xl font-bold font-sans tracking-tight ${item.valueColor} truncate`}>
                   {item.value}
                 </p>
                 <p className="text-xs text-blue-fantastic/70 font-semibold mt-0.5 truncate">{item.sub}</p>

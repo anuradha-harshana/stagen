@@ -88,14 +88,14 @@ export default function CompanyProfileClient() {
   };
 
   return (
-    <div className="w-full min-h-screen p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 font-sans text-[#2c3b4d]">
+    <div className="w-full min-h-screen p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 font-sans text-blue-fantastic">
       {/* ================= HEADER SECTION ================= */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-heading font-semibold text-[#2c3b4d] tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-sans font-semibold text-blue-fantastic tracking-tight">
             Company Profile
           </h1>
-          <p className="text-sm text-[#2c3b4d]/70 mt-0.5">
+          <p className="text-sm text-blue-fantastic/70 mt-0.5">
             Manage your company details and core settings.
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function CompanyProfileClient() {
               type="button"
               variant="outline"
               onClick={handleReset}
-              className="rounded-xl border-[#2c3b4d]/20 text-[#2c3b4d] hover:bg-[#2c3b4d]/5 text-xs font-medium h-10 px-4"
+              className="rounded-xl border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/5 text-xs font-medium h-10 px-4"
             >
               <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
               Reset
@@ -118,11 +118,11 @@ export default function CompanyProfileClient() {
             type="button"
             onClick={() => handleSave()}
             disabled={isSaving}
-            className="bg-[#ffb162] hover:bg-[#ffb162]/90 text-[#2c3b4d] font-semibold rounded-xl h-10 px-5 shadow-xs transition-all flex items-center gap-2 text-xs sm:text-sm"
+            className="bg-[#ffb162] hover:bg-[#ffb162]/90 text-blue-fantastic font-semibold rounded-xl h-10 px-5 shadow-xs transition-all flex items-center gap-2 text-xs sm:text-sm"
           >
             {isSaving ? (
               <span className="flex items-center gap-2">
-                <span className="h-4 w-4 border-2 border-[#2c3b4d] border-t-transparent rounded-full animate-spin" />
+                <span className="h-4 w-4 border-2 border-blue-fantastic border-t-transparent rounded-full animate-spin" />
                 Saving...
               </span>
             ) : (
@@ -136,7 +136,7 @@ export default function CompanyProfileClient() {
           {/* User Avatar Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="h-9 w-9 rounded-full bg-[#2c3b4d] text-white text-xs font-semibold flex items-center justify-center border-2 border-white shadow-xs hover:opacity-90 transition-opacity">
+              <button className="h-9 w-9 rounded-full bg-blue-fantastic text-white text-xs font-semibold flex items-center justify-center border-2 border-white shadow-xs hover:opacity-90 transition-opacity">
                 ST
               </button>
             </DropdownMenuTrigger>
@@ -157,7 +157,7 @@ export default function CompanyProfileClient() {
       </div>
 
       {/* ================= MAIN PROFILE FORM CARD ================= */}
-      <Card className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-xs border border-white/60">
+      <Card className="bg-palladian rounded-3xl p-6 sm:p-8 md:p-10 shadow-xs border border-blue-fantastic/15">
         <CardContent className="p-0">
           <form onSubmit={handleSave} className="space-y-6">
             
@@ -166,13 +166,13 @@ export default function CompanyProfileClient() {
               <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16 border-2 border-gray-100 shadow-xs bg-[#eee9df]">
                   <AvatarImage src={profile.logoUrl} alt="Company Logo" />
-                  <AvatarFallback className="bg-[#2c3b4d] text-white font-bold text-lg">
+                  <AvatarFallback className="bg-blue-fantastic text-white font-bold text-lg">
                     ST
                   </AvatarFallback>
                 </Avatar>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-lg font-heading font-semibold text-[#2c3b4d]">
+                    <h2 className="text-lg font-sans font-semibold text-blue-fantastic">
                       {profile.companyName || "STAGEN Constructions"}
                     </h2>
                     <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-none text-[11px] font-medium">
@@ -189,7 +189,7 @@ export default function CompanyProfileClient() {
                 type="button"
                 variant="outline"
                 onClick={() => toast.info("Brand Logo update dialog opened.")}
-                className="rounded-xl border-gray-200 text-xs text-[#2c3b4d] hover:bg-gray-50 h-9"
+                className="rounded-xl border-gray-200 text-xs text-blue-fantastic hover:bg-gray-50 h-9"
               >
                 <Upload className="mr-1.5 h-3.5 w-3.5" />
                 Change Logo
@@ -200,7 +200,7 @@ export default function CompanyProfileClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
               {/* Field 1: Company Name */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-[#2c3b4d] flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-blue-fantastic flex items-center gap-1.5">
                   <Building2 className="h-3.5 w-3.5 text-gray-400" />
                   Company Name
                 </label>
@@ -209,13 +209,13 @@ export default function CompanyProfileClient() {
                   value={profile.companyName}
                   onChange={(e) => handleChange("companyName", e.target.value)}
                   placeholder="Enter company name"
-                  className="rounded-xl border-gray-200 focus:border-[#2c3b4d] text-xs h-11 bg-white shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
                 />
               </div>
 
               {/* Field 2: ABN / Registration No. */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-[#2c3b4d] flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-blue-fantastic flex items-center gap-1.5">
                   <FileText className="h-3.5 w-3.5 text-gray-400" />
                   ABN / Registration No.
                 </label>
@@ -224,13 +224,13 @@ export default function CompanyProfileClient() {
                   value={profile.abn}
                   onChange={(e) => handleChange("abn", e.target.value)}
                   placeholder="e.g. 98 123 456 789"
-                  className="rounded-xl border-gray-200 focus:border-[#2c3b4d] text-xs h-11 bg-white shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
                 />
               </div>
 
               {/* Field 3: Business Address (Full width across 2 cols) */}
               <div className="space-y-2 md:col-span-2">
-                <label className="text-xs font-semibold text-[#2c3b4d] flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-blue-fantastic flex items-center gap-1.5">
                   <MapPin className="h-3.5 w-3.5 text-gray-400" />
                   Business Address
                 </label>
@@ -239,13 +239,13 @@ export default function CompanyProfileClient() {
                   value={profile.businessAddress}
                   onChange={(e) => handleChange("businessAddress", e.target.value)}
                   placeholder="Street address, suburb, state, postcode"
-                  className="rounded-xl border-gray-200 focus:border-[#2c3b4d] text-xs h-11 bg-white shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
                 />
               </div>
 
               {/* Field 4: Contact Number */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-[#2c3b4d] flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-blue-fantastic flex items-center gap-1.5">
                   <Phone className="h-3.5 w-3.5 text-gray-400" />
                   Contact Number
                 </label>
@@ -254,13 +254,13 @@ export default function CompanyProfileClient() {
                   value={profile.contactNumber}
                   onChange={(e) => handleChange("contactNumber", e.target.value)}
                   placeholder="+61 3 9876 5432"
-                  className="rounded-xl border-gray-200 focus:border-[#2c3b4d] text-xs h-11 bg-white shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
                 />
               </div>
 
               {/* Field 5: Primary Email */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-[#2c3b4d] flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-blue-fantastic flex items-center gap-1.5">
                   <Mail className="h-3.5 w-3.5 text-gray-400" />
                   Primary Email
                 </label>
@@ -269,13 +269,13 @@ export default function CompanyProfileClient() {
                   value={profile.primaryEmail}
                   onChange={(e) => handleChange("primaryEmail", e.target.value)}
                   placeholder="admin@company.com.au"
-                  className="rounded-xl border-gray-200 focus:border-[#2c3b4d] text-xs h-11 bg-white shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
                 />
               </div>
 
               {/* Field 6: Website URL */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-[#2c3b4d] flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-blue-fantastic flex items-center gap-1.5">
                   <Globe className="h-3.5 w-3.5 text-gray-400" />
                   Website URL
                 </label>
@@ -284,13 +284,13 @@ export default function CompanyProfileClient() {
                   value={profile.websiteUrl}
                   onChange={(e) => handleChange("websiteUrl", e.target.value)}
                   placeholder="https://yourwebsite.com.au"
-                  className="rounded-xl border-gray-200 focus:border-[#2c3b4d] text-xs h-11 bg-white shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
                 />
               </div>
 
               {/* Field 7: Timezone */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-[#2c3b4d] flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-blue-fantastic flex items-center gap-1.5">
                   <Clock className="h-3.5 w-3.5 text-gray-400" />
                   Timezone
                 </label>
@@ -298,7 +298,7 @@ export default function CompanyProfileClient() {
                   value={profile.timezone}
                   onValueChange={(val) => handleChange("timezone", val)}
                 >
-                  <SelectTrigger className="rounded-xl border-gray-200 focus:border-[#2c3b4d] text-xs h-11 bg-white shadow-2xs">
+                  <SelectTrigger className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs">
                     <SelectValue placeholder="Select Timezone" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl text-xs">
@@ -313,7 +313,7 @@ export default function CompanyProfileClient() {
 
               {/* Field 8: Default Currency */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-[#2c3b4d] flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-blue-fantastic flex items-center gap-1.5">
                   <DollarSign className="h-3.5 w-3.5 text-gray-400" />
                   Default Currency
                 </label>
@@ -321,7 +321,7 @@ export default function CompanyProfileClient() {
                   value={profile.defaultCurrency}
                   onValueChange={(val) => handleChange("defaultCurrency", val)}
                 >
-                  <SelectTrigger className="rounded-xl border-gray-200 focus:border-[#2c3b4d] text-xs h-11 bg-white shadow-2xs">
+                  <SelectTrigger className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs">
                     <SelectValue placeholder="Select Currency" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl text-xs">
@@ -345,7 +345,7 @@ export default function CompanyProfileClient() {
               <Button
                 type="submit"
                 disabled={isSaving}
-                className="bg-[#ffb162] hover:bg-[#ffb162]/90 text-[#2c3b4d] font-semibold rounded-xl h-10 px-6 shadow-xs text-xs sm:text-sm"
+                className="bg-[#ffb162] hover:bg-[#ffb162]/90 text-blue-fantastic font-semibold rounded-xl h-10 px-6 shadow-xs text-xs sm:text-sm"
               >
                 {isSaving ? "Saving Changes..." : "Save Changes"}
               </Button>

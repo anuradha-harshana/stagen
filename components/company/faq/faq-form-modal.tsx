@@ -99,9 +99,9 @@ export default function FAQFormModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold font-cream text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
+          <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             {isEdit ? "Edit FAQ Article" : "Create New FAQ Article"}
           </DialogTitle>
         </DialogHeader>
@@ -117,11 +117,11 @@ export default function FAQFormModal({
                 </SelectTrigger>
                 <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
                   {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat} className="text-xs font-bold font-cream">
+                    <SelectItem key={cat} value={cat} className="text-xs font-bold font-sans">
                       {cat}
                     </SelectItem>
                   ))}
-                  <SelectItem value="NEW_CATEGORY" className="text-xs font-bold font-cream text-truffle-trouble">
+                  <SelectItem value="NEW_CATEGORY" className="text-xs font-bold font-sans text-truffle-trouble">
                     + Add New Category
                   </SelectItem>
                 </SelectContent>

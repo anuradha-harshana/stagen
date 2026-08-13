@@ -14,7 +14,7 @@ export function DelayMessagesList({ messages }: DelayMessagesListProps) {
     return (
       <div className="bg-palladian border border-blue-fantastic/10 rounded-2xl p-8 text-center space-y-2">
         <Mail className="h-8 w-8 text-blue-fantastic/30 mx-auto" />
-        <h4 className="text-sm font-extrabold text-blue-fantastic font-cream">
+        <h4 className="text-sm font-extrabold text-blue-fantastic font-sans">
           No Customer Delay Notices Sent
         </h4>
         <p className="text-xs text-blue-fantastic/60 font-sans max-w-sm mx-auto">
@@ -48,7 +48,7 @@ export function DelayMessagesList({ messages }: DelayMessagesListProps) {
   };
 
   return (
-    <div className="space-y-3 font-cream">
+    <div className="space-y-3 font-sans">
       {messages.map((msg) => (
         <div
           key={msg.id}

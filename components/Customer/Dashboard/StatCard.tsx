@@ -50,7 +50,7 @@ export default function StatCard({
               {title}
             </span>
             <div className="flex items-baseline gap-2 mt-1">
-              <h2 className="text-3xl font-extrabold text-blue-fantastic font-cream tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
+              <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
                 {value}
               </h2>
               {badgeText && (
@@ -104,7 +104,7 @@ export default function StatCard({
           {bottomLabel && (
             <div className="flex flex-col sm:flex-row sm:items-center gap-1">
               <span className="text-blue-fantastic/45 font-medium">{bottomLabel}:</span>
-              <span className="text-blue-fantastic/80 font-bold font-cream">{bottomValue}</span>
+              <span className="text-blue-fantastic/80 font-bold font-sans">{bottomValue}</span>
             </div>
           )}
           {bottomLabel2 && (

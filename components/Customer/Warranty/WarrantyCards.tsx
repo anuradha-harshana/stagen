@@ -72,7 +72,7 @@ const statusConfig: Record<WarrantyStatus, { badge: string; dot: string }> = {
 
 export function WarrantyCards() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-cream">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-sans">
       {WARRANTIES.map((item) => {
         const Icon = item.icon
         const cfg = statusConfig[item.status]
@@ -93,7 +93,7 @@ export function WarrantyCards() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">{item.title}</CardTitle>
+                    <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">{item.title}</CardTitle>
                     <div className="flex items-center gap-1">
                       <span className={`h-1.5 w-1.5 rounded-full ${cfg.dot}`} />
                       <Badge variant="outline" className={`text-xs border ${cfg.badge}`}>

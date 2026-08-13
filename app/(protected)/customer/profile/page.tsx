@@ -6,7 +6,7 @@ import LinkedAccounts from "@/components/Customer/Profile/LinkedAccounts"
 
 export default function ProfilePage() {
   return (
-    <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-16">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       <ProfileHeader />
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-6">

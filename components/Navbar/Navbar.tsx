@@ -21,15 +21,17 @@ export async function Navbar({ role }: props) {
   let data: NavbarProps[] = []
 
   try {
-    const res = await fetch(`/api/navbar?role=${encodeURIComponent(role)}`, {
-      cache: "no-store",
+    const baseUrl = process.env.APP_URL || 'http://localhost:3000'
+    const url = `${baseUrl}/api/navbar?role=${encodeURIComponent(role)}`
+    
+    const res = await fetch(url, {
+      cache: "no-store"
     })
 
     if (res.ok) {
       data = await res.json()
     } else {
-      const body = await res.text()
-      console.error("Navbar API request failed", res.status, body)
+      console.error("Navbar API request failed", res.status)
     }
   } catch (error) {
     console.error("Navbar fetch failed", error)
@@ -40,7 +42,7 @@ export async function Navbar({ role }: props) {
       side="left"
       variant="sidebar"
       collapsible="icon"
-      className="border-r-2 border-truffle-trouble bg-blue-fantastic text-white font-cream"
+      className="border-r-2 border-truffle-trouble bg-blue-fantastic text-white font-sans"
     >
       <SidebarHeader>
         <div className="flex items-center gap-3 mx-3 mt-5 mb-4 group-data-[collapsible=icon]:mx-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0">
