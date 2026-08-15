@@ -3,12 +3,12 @@ import { Home, Calendar, ArrowRight, Camera, Bell, RefreshCw } from "lucide-reac
 import { requireAuth } from "@/lib/auth/auth";
 import { mockDashboardData } from "@/lib/dashboard/data";
 
-import DashboardHeader from "@/components/customer/Dashboard/DashboardHeader";
-import StatCard from "@/components/customer/Dashboard/StatCard";
-import StageTracker from "@/components/customer/Dashboard/StageTracker";
-import UpdateItem from "@/components/customer/Dashboard/UpdateItem";
-import NotificationItem from "@/components/customer/Dashboard/NotificationItem";
-import PhotoCard from "@/components/customer/Dashboard/PhotoCard";
+import DashboardHeader from "@/components/Customer/Dashboard/DashboardHeader";
+import StatCard from "@/components/Customer/Dashboard/StatCard";
+import StageTracker from "@/components/Customer/Dashboard/StageTracker";
+import UpdateItem from "@/components/Customer/Dashboard/UpdateItem";
+import NotificationItem from "@/components/Customer/Dashboard/NotificationItem";
+import PhotoCard from "@/components/Customer/Dashboard/PhotoCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function page() {
@@ -21,7 +21,7 @@ export default async function page() {
   const hasUrgent = data.notifications.some((n) => n.type === "urgent");
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-cream">
       {/* Header Greeting Section */}
       <DashboardHeader username={user.username} email={user.email} role={user.role} percentage={data.overallProgress.percentage} />
 
