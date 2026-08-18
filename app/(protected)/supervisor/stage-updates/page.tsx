@@ -224,7 +224,7 @@ function StageUpdatesContent() {
       {/* 1. Header with project selector */}
       <div className="flex items-center justify-between flex-wrap gap-4 py-1">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
+          <div className="h-12 w-12 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
             <ListChecks className="h-5 w-5 text-burning-flame" />
           </div>
           <div>
@@ -313,7 +313,7 @@ function StageUpdatesContent() {
                 <ListChecks className="h-4 w-4 text-blue-fantastic" />
               </div>
               <div>
-                <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+                <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
                   {selectedStageName} Stage Details
                 </CardTitle>
                 <CardDescription className="text-[11px] text-blue-fantastic/60 font-semibold mt-0.5">
@@ -415,7 +415,7 @@ function StageUpdatesContent() {
                   <Button
                     type="button"
                     variant="outline"
-                    className="text-xs border-blue-fantastic/25 text-blue-fantastic hover:bg-blue-fantastic/10 h-7 px-2 font-cream font-bold gap-1"
+                    className="text-xs border-blue-fantastic/25 text-blue-fantastic hover:bg-blue-fantastic/10 h-7 px-2 font-sans font-bold gap-1"
                   >
                     <Plus className="h-3.5 w-3.5 text-blue-fantastic/60" />
                     Attach Photos

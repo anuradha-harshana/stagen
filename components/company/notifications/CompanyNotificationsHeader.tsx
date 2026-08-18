@@ -1,12 +1,14 @@
-"use client"
+"use client";
 
-import React from "react"
-import { Plus } from "lucide-react"
+import React from "react";
+import { Bell, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import PageHeader from "@/components/shared/PageHeader";
 
 interface CompanyNotificationsHeaderProps {
-  activeTab: "templates" | "rules"
-  onNewTemplate: () => void
-  onNewRule: () => void
+  activeTab: "templates" | "rules";
+  onNewTemplate: () => void;
+  onNewRule: () => void;
 }
 
 export function CompanyNotificationsHeader({
@@ -15,35 +17,29 @@ export function CompanyNotificationsHeader({
   onNewRule,
 }: CompanyNotificationsHeaderProps) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
-      <div>
-        <h1 className="text-3xl font-bold text-abyssal-blue font-sans tracking-tight">
-          Notifications & Rules
-        </h1>
-        <p className="text-sm text-abyssal-blue/70 font-sans mt-1">
-          Configure automated communication and alerts.
-        </p>
-      </div>
-
-      <div>
-        {activeTab === "templates" ? (
-          <button
+    <PageHeader
+      icon={<Bell className="h-5 w-5 text-burning-flame" />}
+      title="Notifications & Rules"
+      subtitle="Configure automated communication templates and alert rules."
+      rightContent={
+        activeTab === "templates" ? (
+          <Button
             onClick={onNewTemplate}
-            className="inline-flex items-center justify-center gap-2 bg-burning-flame hover:bg-burning-flame/90 text-abyssal-blue font-semibold px-5 py-2.5 rounded-xl shadow-sm hover:shadow transition-all text-sm font-sans"
+            className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/95 text-xs font-semibold h-10 rounded-xl shadow-sm"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="mr-1.5 h-4 w-4" />
             New Template
-          </button>
+          </Button>
         ) : (
-          <button
+          <Button
             onClick={onNewRule}
-            className="inline-flex items-center justify-center gap-2 bg-burning-flame hover:bg-burning-flame/90 text-abyssal-blue font-semibold px-5 py-2.5 rounded-xl shadow-sm hover:shadow transition-all text-sm font-sans"
+            className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/95 text-xs font-semibold h-10 rounded-xl shadow-sm"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="mr-1.5 h-4 w-4" />
             Add Rule
-          </button>
-        )}
-      </div>
-    </div>
-  )
+          </Button>
+        )
+      }
+    />
+  );
 }

@@ -8,6 +8,8 @@ import SecuritySettings from "@/components/Customer/Setting/SecuritySettings"
 import PrivacySettings from "@/components/Customer/Setting/PrivacySettings"
 import BillingSettings from "@/components/Customer/Setting/BillingSettings"
 
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell"
+
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("General")
 
@@ -30,7 +32,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className={PAGE_SHELL_CLASS}>
       <SettingHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="w-full mt-2 flex justify-center">
         {renderActiveSetting()}

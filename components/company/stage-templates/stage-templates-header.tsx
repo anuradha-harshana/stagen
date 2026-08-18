@@ -14,7 +14,7 @@ export default function StageTemplatesHeader({ onAddClick }: StageTemplatesHeade
       <div className="flex items-center justify-between flex-wrap gap-4 w-full">
         {/* Left: Icon + Title + Subtitle */}
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
+          <div className="h-12 w-12 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
             <ListOrdered className="h-5 w-5 text-burning-flame" />
           </div>
           <div>

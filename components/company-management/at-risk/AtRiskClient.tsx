@@ -7,8 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AlertTriangle, Search, ShieldAlert, ArrowUpRight, Wrench, ShieldCheck, CheckCircle } from "lucide-react";
+import { AlertTriangle, Search } from "lucide-react";
 import { MitigationModal } from "./MitigationModal";
+import PageHeader from "@/components/shared/PageHeader";
 
 export default function AtRiskProjectsClient() {
   const [projects, setProjects] = useState<Project[]>(INITIAL_PROJECTS);
@@ -53,19 +54,12 @@ export default function AtRiskProjectsClient() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 max-w-7xl mx-auto font-sans">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight flex items-center gap-2.5">
-            <AlertTriangle className="h-7 w-7 text-truffle-trouble" />
-            At-Risk & Delayed Projects
-          </h1>
-          <p className="text-xs text-blue-fantastic/70 font-medium">
-            Priority monitoring, risk severity alerts, and delay mitigation workflow
-          </p>
-        </div>
-      </div>
+    <div className="flex flex-col gap-6 w-full font-sans">
+      <PageHeader
+        icon={<AlertTriangle className="h-5 w-5 text-burning-flame" />}
+        title="At-Risk & Delayed Projects"
+        subtitle="Priority monitoring, risk severity alerts, and delay mitigation workflow"
+      />
 
       {/* Risk Alert KPI Banner (4 Stat Cards) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

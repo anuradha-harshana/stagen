@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Plus, MoreHorizontalIcon } from "lucide-react";
+import { Search, Plus, MoreHorizontalIcon, Users } from "lucide-react";
 
 import {
   Table,
@@ -32,6 +32,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import PageHeader from "@/components/shared/PageHeader";
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
+
 const users = [
   {
     name: "STAGEN Constructions",
@@ -41,7 +44,6 @@ const users = [
     joined: "2025-01-15",
     active: "2026-06-24",
   },
-
   {
     name: "Alex Johnson",
     email: "alex@stagen.com",
@@ -50,7 +52,6 @@ const users = [
     joined: "2025-02-20",
     active: "2026-06-23",
   },
-
   {
     name: "Mia Wong",
     email: "mia@stagen.com",
@@ -59,7 +60,6 @@ const users = [
     joined: "2025-03-10",
     active: "2026-06-22",
   },
-
   {
     name: "Tom Smith",
     email: "tom@trade.com",
@@ -68,7 +68,6 @@ const users = [
     joined: "2025-05-05",
     active: "2026-06-20",
   },
-
   {
     name: "David Lee",
     email: "david@stagen.com",
@@ -81,153 +80,145 @@ const users = [
 
 export default function UserPage() {
   return (
-    <div className="min-h-screen p-8">
-      {/* HEADER */}
-      <div className="flex justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold">User Management</h1>
+    <div className={PAGE_SHELL_CLASS}>
+      <PageHeader
+        icon={<Users className="h-5 w-5 text-burning-flame" />}
+        title="User Management"
+        subtitle="Manage users, roles, and project assignments."
+        rightContent={
+          <Button className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold h-10 rounded-xl shadow-sm">
+            <Plus className="mr-1.5 h-4 w-4" />
+            Add User
+          </Button>
+        }
+      />
 
-          <p className="text-sm text-gray-600">
-            Manage users, roles, and project assignments.
-          </p>
-        </div>
-
-        <Button className="px-6.5 py-5 text-base bg-truffle-trouble/70 hover:bg-truffle-trouble/90">
-          <Plus size={20} />
-          Add User
-        </Button>
-      </div>
-
-      {/* CARD */}
-      <div className="bg-white rounded-2xl p-6">
-        {/* FILTER AREA */}
-
-        <div className="flex justify-between mb-6">
-          <div className="relative w-96">
-            <Search className="absolute left-3 top-3 text-gray-400" size={16} />
-
+      <div className="bg-palladian border border-blue-fantastic/15 rounded-2xl p-6 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-4 mb-6">
+          <div className="relative w-full lg:w-96">
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-fantastic/40 h-4 w-4"
+            />
             <Input
               placeholder="Search users by name or email..."
-              className="pl-10"
+              className="pl-9 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-10 text-xs"
             />
           </div>
 
           <div className="flex gap-3">
             <Select>
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-40 border-blue-fantastic/15 text-blue-fantastic h-10 text-xs">
                 <SelectValue placeholder="All Roles" />
               </SelectTrigger>
-
               <SelectContent>
                 <SelectItem value="all">All Roles</SelectItem>
-
                 <SelectItem value="admin">Admin</SelectItem>
-
                 <SelectItem value="supervisor">Supervisor</SelectItem>
               </SelectContent>
             </Select>
 
             <Select>
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-40 border-blue-fantastic/15 text-blue-fantastic h-10 text-xs">
                 <SelectValue placeholder="All Statuses" />
               </SelectTrigger>
-
               <SelectContent>
                 <SelectItem value="active">Active</SelectItem>
-
                 <SelectItem value="inactive">Inactive</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
 
-        {/* TABLE */}
-
-        <Table>
-          <TableHeader className="bg-[#e8dfd1]">
-            <TableRow>
-              <TableHead>User</TableHead>
-
-              <TableHead>Role</TableHead>
-
-              <TableHead>Status</TableHead>
-
-              <TableHead>Date Joined</TableHead>
-
-              <TableHead>Last Active</TableHead>
-
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-
-          <TableBody>
-            {users.map((user, index) => (
-              <TableRow key={index}>
-                {/* USER */}
-
-                <TableCell>
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarFallback>{user.name[0]}</AvatarFallback>
-                    </Avatar>
-
-                    <div>
-                      <p className="font-medium">{user.name}</p>
-
-                      <p className="text-xs text-gray-500">{user.email}</p>
-                    </div>
-                  </div>
-                </TableCell>
-
-                {/* ROLE */}
-
-                <TableCell>
-                  <Badge variant="outline" className="bg-[#eee8dc]">
-                    {user.role}
-                  </Badge>
-                </TableCell>
-
-                {/* STATUS */}
-
-                <TableCell>
-                  <Badge
-                    className={
-                      user.status === "Active"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-orange-100 text-orange-700"
-                    }
-                  >
-                    {user.status}
-                  </Badge>
-                </TableCell>
-
-                <TableCell>{user.joined}</TableCell>
-
-                <TableCell>{user.active}</TableCell>
-
-                {/* ACTION */}
-
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontalIcon />
-                      </Button>
-                    </DropdownMenuTrigger>
-
-                    <DropdownMenuContent>
-                      <DropdownMenuItem>Edit User</DropdownMenuItem>
-
-                      <DropdownMenuItem className="text-red-500">
-                        Deactive User
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
+        <div className="overflow-x-auto rounded-xl border border-blue-fantastic/10">
+          <Table>
+            <TableHeader className="bg-blue-fantastic/5 border-b border-blue-fantastic/10">
+              <TableRow className="hover:bg-transparent">
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider">
+                  User
+                </TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider">
+                  Role
+                </TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider">
+                  Status
+                </TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider">
+                  Date Joined
+                </TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider">
+                  Last Active
+                </TableHead>
+                <TableHead className="text-right text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider">
+                  Actions
+                </TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+
+            <TableBody className="divide-y divide-blue-fantastic/10">
+              {users.map((user, index) => (
+                <TableRow key={index} className="hover:bg-blue-fantastic/3">
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-9 w-9 border border-blue-fantastic/10">
+                        <AvatarFallback className="bg-blue-fantastic/10 text-blue-fantastic text-xs font-bold">
+                          {user.name[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-semibold text-sm text-blue-fantastic">{user.name}</p>
+                        <p className="text-xs text-blue-fantastic/60">{user.email}</p>
+                      </div>
+                    </div>
+                  </TableCell>
+
+                  <TableCell>
+                    <Badge
+                      variant="outline"
+                      className="bg-blue-fantastic/5 border-blue-fantastic/15 text-blue-fantastic text-[10px]"
+                    >
+                      {user.role}
+                    </Badge>
+                  </TableCell>
+
+                  <TableCell>
+                    <Badge
+                      className={
+                        user.status === "Active"
+                          ? "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 text-[10px]"
+                          : "bg-burning-flame/15 text-truffle-trouble border-burning-flame/30 text-[10px]"
+                      }
+                    >
+                      {user.status}
+                    </Badge>
+                  </TableCell>
+
+                  <TableCell className="text-xs text-blue-fantastic/80">{user.joined}</TableCell>
+                  <TableCell className="text-xs text-blue-fantastic/80">{user.active}</TableCell>
+
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-blue-fantastic hover:bg-blue-fantastic/10"
+                        >
+                          <MoreHorizontalIcon className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>Edit User</DropdownMenuItem>
+                        <DropdownMenuItem className="text-truffle-trouble">
+                          Deactivate User
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   );

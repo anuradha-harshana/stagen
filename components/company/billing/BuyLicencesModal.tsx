@@ -88,7 +88,7 @@ export function BuyLicencesModal({
                 type="button"
                 onClick={handleDecrement}
                 disabled={additionalCount <= 1}
-                className="h-11 w-11 rounded-2xl bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 flex items-center justify-center text-blue-fantastic font-bold disabled:opacity-40 cursor-pointer transition-colors"
+                className="h-12 w-12 rounded-2xl bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 flex items-center justify-center text-blue-fantastic font-bold disabled:opacity-40 cursor-pointer transition-colors"
               >
                 <Minus className="h-4 w-4" />
               </button>
@@ -105,7 +105,7 @@ export function BuyLicencesModal({
               <button
                 type="button"
                 onClick={handleIncrement}
-                className="h-11 w-11 rounded-2xl bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 flex items-center justify-center text-blue-fantastic font-bold cursor-pointer transition-colors"
+                className="h-12 w-12 rounded-2xl bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 flex items-center justify-center text-blue-fantastic font-bold cursor-pointer transition-colors"
               >
                 <Plus className="h-4 w-4" />
               </button>

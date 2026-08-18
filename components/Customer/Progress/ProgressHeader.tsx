@@ -3,7 +3,7 @@
 import React from "react";
 import { Calendar, Hourglass, CheckCircle, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import PageHeader from "../PageHeader";
+import PageHeader from "../Dashboard/PageHeader";
 import { cn } from "@/lib/utils";
 
 interface ProgressHeaderProps {

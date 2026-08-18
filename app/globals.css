@@ -29,7 +29,7 @@
   --color-burning-flame: var(--burning-flame);
   --color-truffle-trouble: var(--truffle-trouble);
   --color-abyssal-blue: var(--abyssal-blue); /* color pallete ends */
-  --font-cream: var(--font-cream);
+  --font-sans: var(--font-sans);
   --font-bebas-neue: var(--font-bebas-neue);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
@@ -73,7 +73,7 @@
 }
 
 :root {
-  --font-cream: "Cream", sans-serif;
+  --font-sans: "Cream", sans-serif;
   --font-bebas-neue: "Bebas Neue", sans-serif;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

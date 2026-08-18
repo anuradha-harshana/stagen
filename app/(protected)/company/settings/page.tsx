@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { RefreshCw } from "lucide-react"
+import { RefreshCw, Settings } from "lucide-react"
+import PageHeader from "@/components/shared/PageHeader"
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell"
 
 // Import modular settings components
 import { Toast } from "@/components/ui/SettingsPage/Toast"
@@ -116,61 +118,55 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="relative min-h-screen p-6 md:p-8 font-sans text-[#2c3b4d] max-w-7xl mx-auto">
-      
-      {/* Toast Alert */}
-      <Toast 
-        show={toast.show} 
-        message={toast.message} 
-        type={toast.type} 
+    <div className={PAGE_SHELL_CLASS}>
+      <PageHeader
+        icon={<Settings className="h-5 w-5 text-burning-flame" />}
+        title="Company Settings"
+        subtitle="Configure your brand identity, regional formats, and localization settings for Australia."
+        rightContent={
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              className="border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/5 rounded-xl font-medium text-xs h-10"
+              onClick={() => {
+                applyPreset({
+                  name: "Stagen Classic",
+                  primary: "#ffb162",
+                  secondary: "#2c3b4d",
+                  accent: "#a35139",
+                  textColor: "#eee9df"
+                })
+                setSelectedLocale("en-AU")
+                setSelectedTimezone("Australia/Sydney")
+                showToast("Settings reset to defaults.", "info")
+              }}
+            >
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Reset Changes
+            </Button>
+            <Button
+              className="bg-blue-fantastic text-palladian hover:bg-blue-fantastic/90 rounded-xl font-medium shadow-sm text-xs h-10"
+              disabled={isSaving}
+              onClick={handleSave}
+            >
+              {isSaving ? (
+                <span className="flex items-center gap-2">
+                  <span className="h-4 w-4 border-2 border-palladian border-t-transparent rounded-full animate-spin"></span>
+                  Saving...
+                </span>
+              ) : (
+                "Save Settings"
+              )}
+            </Button>
+          </div>
+        }
       />
 
-      {/* Header */}
-      <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-heading font-semibold text-[#2c3b4d] leading-tight">
-            Company Settings
-          </h1>
-          <p className="text-sm text-[#2c3b4d]/70 mt-1">
-            Configure your brand identity, regional formats, and localization settings for Australia.
-          </p>
-        </div>
-        <div className="flex gap-3">
-          <Button 
-            variant="outline"
-            className="border-[#2c3b4d]/20 text-[#2c3b4d] hover:bg-[#2c3b4d]/5 rounded-2xl font-medium"
-            onClick={() => {
-              applyPreset({
-                name: "Stagen Classic",
-                primary: "#ffb162",
-                secondary: "#2c3b4d",
-                accent: "#a35139",
-                textColor: "#eee9df"
-              })
-              setSelectedLocale("en-AU")
-              setSelectedTimezone("Australia/Sydney")
-              showToast("Settings reset to defaults.", "info")
-            }}
-          >
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Reset Changes
-          </Button>
-          <Button 
-            className="bg-[#2c3b4d] text-white hover:bg-[#2c3b4d]/90 rounded-2xl font-medium shadow-md transition-all duration-200"
-            disabled={isSaving}
-            onClick={handleSave}
-          >
-            {isSaving ? (
-              <span className="flex items-center gap-2">
-                <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                Saving...
-              </span>
-            ) : (
-              "Save Settings"
-            )}
-          </Button>
-        </div>
-      </div>
+      <Toast
+        show={toast.show}
+        message={toast.message}
+        type={toast.type}
+      />
 
       {/* Grid Layout: Config on Left, Live Mockup Preview on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

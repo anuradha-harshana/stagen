@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   Save,
   RotateCcw,
@@ -15,9 +14,10 @@ import {
   FileText,
   Upload,
   CheckCircle2,
-  Bell
 } from "lucide-react";
 import { toast } from "sonner";
+import PageHeader from "@/components/shared/PageHeader";
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,14 +31,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const INITIAL_PROFILE = {
   companyName: "STAGEN Constructions",
@@ -53,7 +45,6 @@ const INITIAL_PROFILE = {
 };
 
 export default function CompanyProfileClient() {
-  const router = useRouter();
 
   // Form State
   const [profile, setProfile] = useState(INITIAL_PROFILE);
@@ -88,76 +79,49 @@ export default function CompanyProfileClient() {
   };
 
   return (
-    <div className="w-full min-h-screen p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 font-sans text-blue-fantastic">
-      {/* ================= HEADER SECTION ================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-sans font-semibold text-blue-fantastic tracking-tight">
-            Company Profile
-          </h1>
-          <p className="text-sm text-blue-fantastic/70 mt-0.5">
-            Manage your company details and core settings.
-          </p>
-        </div>
+    <div className={PAGE_SHELL_CLASS}>
+      <PageHeader
+        icon={<Building2 className="h-5 w-5 text-burning-flame" />}
+        title="Company Profile"
+        subtitle="Manage your company details and core settings."
+        rightContent={
+          <div className="flex items-center gap-3">
+            {hasChanges && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleReset}
+                className="rounded-xl border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/5 text-xs font-semibold h-10 px-4"
+              >
+                <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                Reset
+              </Button>
+            )}
 
-        {/* Action Header Controls */}
-        <div className="flex items-center gap-3 self-end sm:self-auto">
-          {hasChanges && (
             <Button
               type="button"
-              variant="outline"
-              onClick={handleReset}
-              className="rounded-xl border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/5 text-xs font-medium h-10 px-4"
+              onClick={() => handleSave()}
+              disabled={isSaving}
+              className="bg-truffle-trouble hover:bg-truffle-trouble/90 text-palladian font-semibold rounded-xl h-10 px-5 shadow-sm text-xs sm:text-sm"
             >
-              <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-              Reset
+              {isSaving ? (
+                <span className="flex items-center gap-2">
+                  <span className="h-4 w-4 border-2 border-palladian border-t-transparent rounded-full animate-spin" />
+                  Saving...
+                </span>
+              ) : (
+                <>
+                  <Save className="h-4 w-4 mr-1.5" />
+                  Save Changes
+                </>
+              )}
             </Button>
-          )}
-
-          <Button
-            type="button"
-            onClick={() => handleSave()}
-            disabled={isSaving}
-            className="bg-[#ffb162] hover:bg-[#ffb162]/90 text-blue-fantastic font-semibold rounded-xl h-10 px-5 shadow-xs transition-all flex items-center gap-2 text-xs sm:text-sm"
-          >
-            {isSaving ? (
-              <span className="flex items-center gap-2">
-                <span className="h-4 w-4 border-2 border-blue-fantastic border-t-transparent rounded-full animate-spin" />
-                Saving...
-              </span>
-            ) : (
-              <>
-                <Save className="h-4 w-4" />
-                Save Changes
-              </>
-            )}
-          </Button>
-
-          {/* User Avatar Menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="h-9 w-9 rounded-full bg-blue-fantastic text-white text-xs font-semibold flex items-center justify-center border-2 border-white shadow-xs hover:opacity-90 transition-opacity">
-                ST
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48 rounded-2xl">
-              <DropdownMenuLabel className="font-normal text-xs text-gray-500">
-                STAGEN Admin
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push("/company/dashboard")} className="cursor-pointer">
-                <Building2 className="mr-2 h-4 w-4" /> Dashboard
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/company/settings")} className="cursor-pointer">
-                <Globe className="mr-2 h-4 w-4" /> Settings
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
+          </div>
+        }
+      />
 
       {/* ================= MAIN PROFILE FORM CARD ================= */}
-      <Card className="bg-palladian rounded-3xl p-6 sm:p-8 md:p-10 shadow-xs border border-blue-fantastic/15">
+      <Card className="bg-palladian rounded-2xl p-6 sm:p-8 shadow-sm border border-blue-fantastic/15">
         <CardContent className="p-0">
           <form onSubmit={handleSave} className="space-y-6">
             
@@ -345,7 +309,7 @@ export default function CompanyProfileClient() {
               <Button
                 type="submit"
                 disabled={isSaving}
-                className="bg-[#ffb162] hover:bg-[#ffb162]/90 text-blue-fantastic font-semibold rounded-xl h-10 px-6 shadow-xs text-xs sm:text-sm"
+                className="bg-truffle-trouble hover:bg-truffle-trouble/90 text-palladian font-semibold rounded-xl h-10 px-6 shadow-sm text-xs sm:text-sm"
               >
                 {isSaving ? "Saving Changes..." : "Save Changes"}
               </Button>

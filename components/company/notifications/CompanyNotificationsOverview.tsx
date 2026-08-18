@@ -139,7 +139,7 @@ export function CompanyNotificationsOverview() {
   }
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 max-w-7xl mx-auto font-sans">
+    <div className="flex flex-col gap-6 w-full font-sans">
       {/* Header */}
       <CompanyNotificationsHeader
         activeTab={activeTab}
@@ -148,18 +148,18 @@ export function CompanyNotificationsOverview() {
       />
 
       {/* Tabs Navigation */}
-      <div className="flex items-center gap-8 border-b border-blue-fantastic/15 pt-2">
+      <div className="flex items-center gap-6 border-b border-blue-fantastic/15">
         <button
           onClick={() => setActiveTab("templates")}
           className={`pb-3 text-sm font-bold transition-all relative ${
             activeTab === "templates"
-              ? "text-abyssal-blue"
-              : "text-slate-500 hover:text-abyssal-blue"
+              ? "text-blue-fantastic"
+              : "text-blue-fantastic/60 hover:text-blue-fantastic"
           }`}
         >
           Message Templates
           {activeTab === "templates" && (
-            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-burning-flame rounded-full animate-in fade-in" />
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-burning-flame rounded-full" />
           )}
         </button>
 
@@ -167,13 +167,13 @@ export function CompanyNotificationsOverview() {
           onClick={() => setActiveTab("rules")}
           className={`pb-3 text-sm font-bold transition-all relative ${
             activeTab === "rules"
-              ? "text-abyssal-blue"
-              : "text-slate-500 hover:text-abyssal-blue"
+              ? "text-blue-fantastic"
+              : "text-blue-fantastic/60 hover:text-blue-fantastic"
           }`}
         >
           Automation Rules
           {activeTab === "rules" && (
-            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-burning-flame rounded-full animate-in fade-in" />
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-burning-flame rounded-full" />
           )}
         </button>
       </div>

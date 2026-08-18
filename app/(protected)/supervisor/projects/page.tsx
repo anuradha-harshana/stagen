@@ -47,7 +47,7 @@ export default function SupervisorProjects() {
       {/* 1. Header & Quick stats */}
       <div className="flex items-start justify-between flex-wrap gap-4 py-1">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
+          <div className="h-12 w-12 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
             <Building2 className="h-5 w-5 text-burning-flame" />
           </div>
           <div>
@@ -118,7 +118,7 @@ export default function SupervisorProjects() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+                        <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
                           {project.clientName}
                         </CardTitle>
                         <Badge
@@ -209,7 +209,7 @@ export default function SupervisorProjects() {
       {/* 3. Project Detail Modal */}
       <Dialog open={selectedProject !== null} onOpenChange={(open) => !open && setSelectedProject(null)}>
         {selectedProject && (
-          <DialogContent className="max-w-2xl bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20 max-h-[85vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[85vh] overflow-y-auto">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <div className="flex justify-between items-start gap-4">
                 <div>
@@ -223,7 +223,7 @@ export default function SupervisorProjects() {
                   >
                     {selectedProject.status}
                   </Badge>
-                  <DialogTitle className="text-2xl font-bold font-cream text-blue-fantastic">
+                  <DialogTitle className="text-2xl font-bold font-sans text-blue-fantastic">
                     {selectedProject.clientName}
                   </DialogTitle>
                   <DialogDescription className="text-xs text-blue-fantastic/60 font-semibold mt-1 flex items-center gap-1">

@@ -27,7 +27,7 @@ export function SupervisorDocumentsHeader({
     <div className="flex flex-col gap-3 pb-4 border-b border-blue-fantastic/15 font-sans">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
+          <div className="h-12 w-12 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
             <FolderOpen className="h-5 w-5 text-burning-flame" />
           </div>
           <div>

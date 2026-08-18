@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MOCK_ORGANIZATION_USERS, OrganizationUser } from "@/lib/db-mock/companyData";
-import PageHeader from "@/components/Customer/PageHeader";
+import PageHeader from "@/components/shared/PageHeader";
 
 export default function CompanyManagementUsersPage() {
   const [users, setUsers] = useState<OrganizationUser[]>(MOCK_ORGANIZATION_USERS);
@@ -292,10 +292,10 @@ export default function CompanyManagementUsersPage() {
       {/* User Details Inspector Modal */}
       <Dialog open={selectedUser !== null} onOpenChange={(open) => !open && setSelectedUser(null)}>
         {selectedUser && (
-          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20">
+          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <div className="flex items-center gap-3">
-                <div className={`h-11 w-11 rounded-full ${selectedUser.avatarBg} flex items-center justify-center text-palladian font-bold text-sm shrink-0`}>
+                <div className={`h-12 w-12 rounded-full ${selectedUser.avatarBg} flex items-center justify-center text-palladian font-bold text-sm shrink-0`}>
                   {selectedUser.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
@@ -375,7 +375,7 @@ export default function CompanyManagementUsersPage() {
 
       {/* Invite User Dialog */}
       <Dialog open={isInviteOpen} onOpenChange={setIsInviteOpen}>
-        <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20">
+        <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
           <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
             <DialogTitle className="text-lg font-bold text-blue-fantastic flex items-center gap-2">
               <UserPlus className="h-5 w-5 text-truffle-trouble" />

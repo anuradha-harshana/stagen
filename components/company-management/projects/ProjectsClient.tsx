@@ -7,8 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, LayoutGrid, List, MapPin, Calendar, Clock, AlertTriangle, Eye, Building2 } from "lucide-react";
+import { Search, LayoutGrid, List, MapPin, Eye, FolderKanban } from "lucide-react";
 import { ProjectDetailModal } from "./ProjectDetailModal";
+import PageHeader from "@/components/shared/PageHeader";
 
 export default function ProjectsOverviewClient() {
   const [projects] = useState<Project[]>(INITIAL_PROJECTS);
@@ -40,44 +41,38 @@ export default function ProjectsOverviewClient() {
   const completedCount = projects.filter((p) => p.status === "Completed").length;
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 max-w-7xl mx-auto font-sans">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight">
-            Projects Overview
-          </h1>
-          <p className="text-xs text-blue-fantastic/70 font-medium">
-            Real-time tracking and stage progression across all active construction sites
-          </p>
-        </div>
-
-        {/* View mode toggle */}
-        <div className="flex items-center gap-1 bg-palladian/80 p-1 rounded-xl border border-blue-fantastic/15 shadow-xs">
-          <Button
-            size="sm"
-            variant={viewMode === "grid" ? "default" : "ghost"}
-            onClick={() => setViewMode("grid")}
-            className={`h-8 px-3 rounded-lg text-xs font-bold ${
-              viewMode === "grid" ? "bg-blue-fantastic text-white" : "text-blue-fantastic/70"
-            }`}
-          >
-            <LayoutGrid className="h-3.5 w-3.5 mr-1" />
-            Grid
-          </Button>
-          <Button
-            size="sm"
-            variant={viewMode === "table" ? "default" : "ghost"}
-            onClick={() => setViewMode("table")}
-            className={`h-8 px-3 rounded-lg text-xs font-bold ${
-              viewMode === "table" ? "bg-blue-fantastic text-white" : "text-blue-fantastic/70"
-            }`}
-          >
-            <List className="h-3.5 w-3.5 mr-1" />
-            Table
-          </Button>
-        </div>
-      </div>
+    <div className="flex flex-col gap-6 w-full font-sans">
+      <PageHeader
+        icon={<FolderKanban className="h-5 w-5 text-burning-flame" />}
+        title="Projects Overview"
+        subtitle="Real-time tracking and stage progression across all active construction sites"
+        rightContent={
+          <div className="flex items-center gap-1 bg-palladian p-1 rounded-xl border border-blue-fantastic/15 shadow-sm">
+            <Button
+              size="sm"
+              variant={viewMode === "grid" ? "default" : "ghost"}
+              onClick={() => setViewMode("grid")}
+              className={`h-8 px-3 rounded-lg text-xs font-bold ${
+                viewMode === "grid" ? "bg-blue-fantastic text-palladian" : "text-blue-fantastic/70"
+              }`}
+            >
+              <LayoutGrid className="h-3.5 w-3.5 mr-1" />
+              Grid
+            </Button>
+            <Button
+              size="sm"
+              variant={viewMode === "table" ? "default" : "ghost"}
+              onClick={() => setViewMode("table")}
+              className={`h-8 px-3 rounded-lg text-xs font-bold ${
+                viewMode === "table" ? "bg-blue-fantastic text-palladian" : "text-blue-fantastic/70"
+              }`}
+            >
+              <List className="h-3.5 w-3.5 mr-1" />
+              Table
+            </Button>
+          </div>
+        }
+      />
 
       {/* Metric Stats Banner */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

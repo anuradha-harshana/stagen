@@ -15,7 +15,7 @@ export default function NotificationItem({ notification }: NotificationItemProps
   return (
     <div
       className={cn(
-        "flex items-start gap-3.5 p-4 rounded-2xl transition-all duration-300 border",
+        "flex items-center gap-3.5 p-4 rounded-2xl transition-all duration-300 border font-sans",
         isUrgent
           ? "bg-truffle-trouble/5 border-truffle-trouble/20 border-l-4 border-l-truffle-trouble hover:bg-truffle-trouble/[0.08]"
           : "bg-white border-blue-fantastic/[0.03] hover:border-truffle-trouble/10 hover:shadow-[0_4px_12px_rgba(27,38,50,0.02)]"

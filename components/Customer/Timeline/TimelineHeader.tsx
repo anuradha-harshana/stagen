@@ -3,7 +3,7 @@
 import React from "react";
 import { Calendar, AlertTriangle, CheckCircle, Clock, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import PageHeader from "../PageHeader";
+import PageHeader from "../Dashboard/PageHeader";
 import { cn } from "@/lib/utils";
 import { TimelineStage } from "@/lib/timeline/data";
 

@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MOCK_AUDIT_LOGS, AuditLogItem } from "@/lib/db-mock/companyData";
-import PageHeader from "@/components/Customer/PageHeader";
+import PageHeader from "@/components/shared/PageHeader";
 
 export default function CompanyAuditLogsPage() {
   const [logs, setLogs] = useState<AuditLogItem[]>(MOCK_AUDIT_LOGS);
@@ -280,7 +280,7 @@ export default function CompanyAuditLogsPage() {
       {/* Log Detail Dialog */}
       <Dialog open={selectedLog !== null} onOpenChange={(open) => !open && setSelectedLog(null)}>
         {selectedLog && (
-          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20">
+          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <div className="flex items-center gap-2 mb-1">
                 <Badge

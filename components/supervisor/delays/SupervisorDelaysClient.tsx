@@ -157,16 +157,18 @@ export function SupervisorDelaysClient() {
     <div className="space-y-6 font-sans p-4 sm:p-6 max-w-7xl mx-auto">
       {/* 1. Header Row & Project Selector */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-fantastic/10 pb-5">
-        <div>
-          <div className="flex items-center gap-2 text-truffle-trouble font-bold">
-            <AlertTriangle className="h-5 w-5" />
+        <div className="flex gap-3 items-center">
+          <div className="h-12 w-12 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
+              <AlertTriangle className="h-5 w-5 text-burning-flame" />
+          </div>
+          <div className="flex flex-col items-start">
             <h1 className="text-2xl font-bold font-sans text-blue-fantastic tracking-tight">
               Delay Management
             </h1>
+            <p className="text-blue-fantastic/60 text-xs sm:text-sm mt-0.5 font-sans">
+              Log official schedule adjustments, update target dates, and notify clients.
+            </p>
           </div>
-          <p className="text-xs text-blue-fantastic/70 font-sans mt-0.5">
-            Log official schedule adjustments, update target dates, and notify clients.
-          </p>
         </div>
 
         {/* Project Selector & New Action */}

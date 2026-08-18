@@ -24,7 +24,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MOCK_TRANSLATION_KEYS, TranslationKey } from "@/lib/db-mock/companyData";
-import PageHeader from "@/components/Customer/PageHeader";
+import PageHeader from "@/components/shared/PageHeader";
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 
 export default function CompanyLocalisationPage() {
   const [translationKeys, setTranslationKeys] = useState<TranslationKey[]>(MOCK_TRANSLATION_KEYS);
@@ -89,7 +90,7 @@ export default function CompanyLocalisationPage() {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className={PAGE_SHELL_CLASS}>
       {/* Notification Toast */}
       {toastMessage && (
         <div className="fixed top-5 right-5 z-50 bg-blue-fantastic text-palladian px-4 py-3 rounded-xl shadow-lg border border-burning-flame/30 flex items-center gap-2 text-sm font-semibold animate-in fade-in slide-in-from-top-2">
@@ -344,7 +345,7 @@ export default function CompanyLocalisationPage() {
       {/* Edit Translation Dialog */}
       <Dialog open={selectedKey !== null} onOpenChange={(open) => !open && setSelectedKey(null)}>
         {selectedKey && (
-          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20">
+          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <DialogTitle className="text-xl font-bold text-blue-fantastic flex items-center gap-2">
                 <Edit3 className="h-5 w-5 text-truffle-trouble" />

@@ -17,17 +17,18 @@ import {
   CheckCircle2,
   AlertCircle,
   X,
-  ExternalLink,
   Building2,
-  Sparkles
+  LayoutDashboard,
 } from "lucide-react";
 import { toast } from "sonner";
+import PageHeader from "@/components/shared/PageHeader";
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import {
   Table,
@@ -240,108 +241,99 @@ export default function CompanyDashboardClient() {
   );
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
-      {/* ================= HEADER SECTION ================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-sans font-semibold text-blue-fantastic tracking-tight">
-            Welcome back, STAGEN,
-          </h1>
-          <p className="text-sm text-blue-fantastic/70 mt-0.5">
-            here&apos;s what&apos;s happening on your sites today
-          </p>
-        </div>
-
-        {/* Header Actions (Notifications & User Avatar) */}
-        <div className="flex items-center gap-3 self-end sm:self-auto">
-          {/* Notification Bell Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="relative rounded-full bg-palladian border border-blue-fantastic/15 shadow-xs hover:bg-blue-fantastic/5 h-9 w-9 text-blue-fantastic"
-              >
-                <Bell className="h-4 w-4" />
-                {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#ffb162] text-[10px] font-bold text-blue-fantastic">
-                    {unreadCount}
-                  </span>
-                )}
-                {unreadCount === 0 && (
-                  <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-amber-400" />
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80 p-2 rounded-2xl">
-              <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100">
-                <span className="text-xs font-semibold text-blue-fantastic">Notifications</span>
-                {unreadCount > 0 && (
-                  <button
-                    onClick={handleMarkAllNotificationsRead}
-                    className="text-[11px] text-[#a35139] hover:underline"
-                  >
-                    Mark all read
-                  </button>
-                )}
-              </div>
-              <div className="py-1">
-                {notifications.map((n) => (
-                  <div
-                    key={n.id}
-                    className={`flex items-start gap-2 p-2.5 rounded-xl text-xs transition-colors ${
-                      n.unread ? "bg-amber-50/60 font-medium" : "hover:bg-gray-50 text-gray-600"
-                    }`}
-                  >
-                    <span className="h-2 w-2 rounded-full bg-[#a35139] mt-1 shrink-0" />
-                    <div className="flex-1">
-                      <p className="text-blue-fantastic text-xs">{n.title}</p>
-                      <span className="text-[10px] text-gray-400">{n.time}</span>
+    <div className={PAGE_SHELL_CLASS}>
+      <PageHeader
+        icon={<LayoutDashboard className="h-5 w-5 text-burning-flame" />}
+        title="Welcome back, STAGEN"
+        subtitle="Here's what's happening on your sites today."
+        rightContent={
+          <div className="flex items-center gap-3">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="relative rounded-xl bg-palladian border border-blue-fantastic/15 shadow-sm hover:bg-blue-fantastic/5 h-10 w-10 text-blue-fantastic"
+                >
+                  <Bell className="h-4 w-4" />
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-burning-flame text-[10px] font-bold text-blue-fantastic">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80 p-2 rounded-2xl">
+                <div className="flex items-center justify-between px-3 py-2 border-b border-blue-fantastic/10">
+                  <span className="text-xs font-semibold text-blue-fantastic">Notifications</span>
+                  {unreadCount > 0 && (
+                    <button
+                      onClick={handleMarkAllNotificationsRead}
+                      className="text-[11px] text-truffle-trouble hover:underline"
+                    >
+                      Mark all read
+                    </button>
+                  )}
+                </div>
+                <div className="py-1">
+                  {notifications.map((n) => (
+                    <div
+                      key={n.id}
+                      className={`flex items-start gap-2 p-2.5 rounded-xl text-xs transition-colors ${
+                        n.unread
+                          ? "bg-burning-flame/10 font-medium"
+                          : "hover:bg-blue-fantastic/5 text-blue-fantastic/70"
+                      }`}
+                    >
+                      <span className="h-2 w-2 rounded-full bg-truffle-trouble mt-1 shrink-0" />
+                      <div className="flex-1">
+                        <p className="text-blue-fantastic text-xs">{n.title}</p>
+                        <span className="text-[10px] text-blue-fantastic/50">{n.time}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                className="text-center justify-center text-xs text-blue-fantastic font-medium cursor-pointer"
-                onClick={() => router.push("/company/notifications")}
-              >
-                View all notifications
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  ))}
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="text-center justify-center text-xs text-blue-fantastic font-medium cursor-pointer"
+                  onClick={() => router.push("/company/notifications")}
+                >
+                  View all notifications
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-          {/* User Avatar Menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="h-9 w-9 rounded-full bg-blue-fantastic text-white text-xs font-semibold flex items-center justify-center border-2 border-white shadow-xs hover:opacity-90 transition-opacity">
-                ST
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48 rounded-2xl">
-              <DropdownMenuLabel className="font-normal text-xs text-gray-500">
-                Logged in as <strong className="text-blue-fantastic">STAGEN Admin</strong>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push("/company/profile")} className="cursor-pointer">
-                <Building2 className="mr-2 h-4 w-4" /> Company Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/company/settings")} className="cursor-pointer">
-                <Shield className="mr-2 h-4 w-4" /> Settings
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => toast.info("Logout triggered")} className="text-red-600 cursor-pointer">
-                Log Out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="h-10 w-10 rounded-xl bg-blue-fantastic text-palladian text-xs font-semibold flex items-center justify-center border border-blue-fantastic/15 shadow-sm hover:opacity-90 transition-opacity">
+                  ST
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 rounded-2xl">
+                <DropdownMenuLabel className="font-normal text-xs text-blue-fantastic/60">
+                  Logged in as <strong className="text-blue-fantastic">STAGEN Admin</strong>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => router.push("/company/profile")} className="cursor-pointer">
+                  <Building2 className="mr-2 h-4 w-4" /> Company Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push("/company/settings")} className="cursor-pointer">
+                  <Shield className="mr-2 h-4 w-4" /> Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => toast.info("Logout triggered")} className="text-truffle-trouble cursor-pointer">
+                  Log Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        }
+      />
 
       {/* ================= METRICS ROW (3 Cards) ================= */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {/* Metric 1: Active Projects */}
-        <Card className="bg-palladian rounded-3xl p-6 shadow-xs border border-blue-fantastic/15 hover:shadow-md transition-shadow">
+        <Card className="bg-palladian rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
           <CardContent className="p-0 flex flex-col justify-between h-full">
             <span className="text-4xl sm:text-5xl font-bold font-sans text-blue-fantastic tracking-tight">
               8
@@ -358,7 +350,7 @@ export default function CompanyDashboardClient() {
         </Card>
 
         {/* Metric 2: Total Users */}
-        <Card className="bg-palladian rounded-3xl p-6 shadow-xs border border-blue-fantastic/15 hover:shadow-md transition-shadow">
+        <Card className="bg-palladian rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
           <CardContent className="p-0 flex flex-col justify-between h-full">
             <span className="text-4xl sm:text-5xl font-bold font-sans text-blue-fantastic tracking-tight">
               8
@@ -375,7 +367,7 @@ export default function CompanyDashboardClient() {
         </Card>
 
         {/* Metric 3: Subscription Status */}
-        <Card className="bg-palladian rounded-3xl p-6 shadow-xs border border-blue-fantastic/15 hover:shadow-md transition-shadow">
+        <Card className="bg-palladian rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
           <CardContent className="p-0 flex flex-col justify-between h-full">
             <span className="text-3xl sm:text-4xl font-bold font-sans text-[#16a34a] tracking-tight">
               Active
@@ -395,7 +387,7 @@ export default function CompanyDashboardClient() {
       {/* ================= MIDDLE ROW (Recent Activity & Quick Actions) ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Left: Recent Activity (lg:col-span-7) */}
-        <Card className="lg:col-span-7 bg-palladian rounded-3xl shadow-xs border border-blue-fantastic/15 p-6 flex flex-col justify-between">
+        <Card className="lg:col-span-7 bg-palladian rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-lg font-sans font-semibold text-blue-fantastic">
@@ -454,7 +446,7 @@ export default function CompanyDashboardClient() {
         </Card>
 
         {/* Right: Quick Actions (lg:col-span-5) */}
-        <Card className="lg:col-span-5 bg-palladian rounded-3xl shadow-xs border border-blue-fantastic/15 p-6 flex flex-col justify-between">
+        <Card className="lg:col-span-5 bg-palladian rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 flex flex-col justify-between">
           <div>
             <h2 className="text-lg font-sans font-semibold text-blue-fantastic mb-5">
               Quick Actions
@@ -511,7 +503,7 @@ export default function CompanyDashboardClient() {
       </div>
 
       {/* ================= PROJECTS OVERVIEW SECTION ================= */}
-      <Card className="bg-palladian rounded-3xl shadow-xs border border-blue-fantastic/15 p-6 overflow-hidden">
+      <Card className="bg-palladian rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
             <h2 className="text-lg font-sans font-semibold text-blue-fantastic">
@@ -552,17 +544,17 @@ export default function CompanyDashboardClient() {
         </div>
 
         {/* Responsive Table */}
-        <div className="overflow-x-auto rounded-xl border border-gray-100">
+        <div className="overflow-x-auto rounded-xl border border-blue-fantastic/10">
           <Table>
-            <TableHeader className="bg-[#4b6a8a] text-white">
-              <TableRow className="hover:bg-[#4b6a8a] border-none">
-                <TableHead className="text-white font-semibold text-xs py-3.5">Project ID</TableHead>
-                <TableHead className="text-white font-semibold text-xs py-3.5">Project Name</TableHead>
-                <TableHead className="text-white font-semibold text-xs py-3.5">Stage</TableHead>
-                <TableHead className="text-white font-semibold text-xs py-3.5">Progress</TableHead>
-                <TableHead className="text-white font-semibold text-xs py-3.5">Next Milestone</TableHead>
-                <TableHead className="text-white font-semibold text-xs py-3.5">Due Date</TableHead>
-                <TableHead className="text-white font-semibold text-xs py-3.5">Status</TableHead>
+            <TableHeader className="bg-blue-fantastic/5 border-b border-blue-fantastic/10">
+              <TableRow className="hover:bg-transparent border-none">
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider py-3.5">Project ID</TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider py-3.5">Project Name</TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider py-3.5">Stage</TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider py-3.5">Progress</TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider py-3.5">Next Milestone</TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider py-3.5">Due Date</TableHead>
+                <TableHead className="text-blue-fantastic/70 font-bold text-[10px] uppercase tracking-wider py-3.5">Status</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

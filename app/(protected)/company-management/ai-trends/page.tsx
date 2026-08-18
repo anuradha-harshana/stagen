@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MOCK_AI_FAQ_TRENDS, AIFaqTrend } from "@/lib/db-mock/companyData";
-import PageHeader from "@/components/Customer/PageHeader";
+import PageHeader from "@/components/shared/PageHeader";
 
 export default function CompanyManagementAiTrendsPage() {
   const [trends, setTrends] = useState<AIFaqTrend[]>(MOCK_AI_FAQ_TRENDS);
@@ -305,7 +305,7 @@ export default function CompanyManagementAiTrendsPage() {
       {/* Detail Dialog */}
       <Dialog open={selectedFaq !== null} onOpenChange={(open) => !open && setSelectedFaq(null)}>
         {selectedFaq && (
-          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20">
+          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <div className="flex items-center gap-2 mb-1">
                 <Badge className="text-[10px] bg-blue-fantastic/10 border-blue-fantastic/20 text-blue-fantastic font-bold">

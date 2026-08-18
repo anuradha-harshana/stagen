@@ -174,9 +174,6 @@ export function SupervisorTimelineClient() {
               <h1 className="text-blue-fantastic text-2xl font-sans font-bold leading-tight">
                 Supervisor Timeline Manager
               </h1>
-              <Badge variant="outline" className="bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 text-xs font-bold font-sans">
-                Build Progress OS
-              </Badge>
             </div>
             <p className="text-blue-fantastic/60 text-xs sm:text-sm mt-0.5 font-sans">
               Update construction milestone dates, status flags, and customer delay logs

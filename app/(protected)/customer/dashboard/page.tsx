@@ -15,13 +15,11 @@ export default async function page() {
   const user = await requireAuth();
   const data = mockDashboardData;
 
-  console.log(user.role);
-
   // Check if there is an urgent notification to trigger the header ping
   const hasUrgent = data.notifications.some((n) => n.type === "urgent");
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header Greeting Section */}
       <DashboardHeader username={user.username} email={user.email} role={user.role} percentage={data.overallProgress.percentage} />
 
@@ -79,7 +77,7 @@ export default async function page() {
                 <div className="h-8 w-8 rounded-xl bg-burning-flame/10 flex items-center justify-center">
                   <RefreshCw className="h-4.5 w-4.5 text-burning-flame animate-spin-slow" />
                 </div>
-                <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+                <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
                   Recent Updates
                 </CardTitle>
               </div>
@@ -105,7 +103,7 @@ export default async function page() {
                 <div className="h-8 w-8 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
                   <Bell className="h-4.5 w-4.5 text-truffle-trouble" />
                 </div>
-                <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+                <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
                   Notifications
                 </CardTitle>
               </div>
@@ -133,7 +131,7 @@ export default async function page() {
               <div className="h-8 w-8 rounded-xl bg-emerald-50 flex items-center justify-center">
                 <Camera className="h-4.5 w-4.5 text-emerald-600" />
               </div>
-              <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+              <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
                 Site Photos (Latest)
               </CardTitle>
             </div>

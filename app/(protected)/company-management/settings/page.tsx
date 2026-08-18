@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { MOCK_GOVERNANCE_SETTINGS } from "@/lib/db-mock/companyData";
-import PageHeader from "@/components/Customer/PageHeader";
+import PageHeader from "@/components/shared/PageHeader";
 
 export default function CompanyManagementSettingsPage() {
   const [settings, setSettings] = useState(MOCK_GOVERNANCE_SETTINGS);

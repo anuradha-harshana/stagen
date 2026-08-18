@@ -49,7 +49,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-abyssal-blue p-6">
-      <div className="font-cream grid w-full max-w-4xl grid-cols-1 overflow-hidden rounded-2xl shadow-2xl md:grid-cols-2">
+      <div className="font-sans grid w-full max-w-4xl grid-cols-1 overflow-hidden rounded-2xl shadow-2xl md:grid-cols-2">
         <div className="flex flex-col justify-center gap-5 bg-oatmeal px-10 py-10">
           <AuthLogo />
 
