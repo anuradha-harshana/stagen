@@ -76,7 +76,7 @@ export default function WorkloadClient({ dbSupervisors }: WorkloadClientProps) {
         </div>
 
         {/* Right Sidebar: All Lots Workload Status */}
-        <div className="lg:col-span-4 w-full bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
+        <div className="lg:col-span-4 w-full bg-white p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
           <div className="flex items-center gap-2 pb-2 border-b border-blue-fantastic/5">
             <Building2 className="h-4.5 w-4.5 text-truffle-trouble" />
             <h3 className="text-xs font-bold text-blue-fantastic uppercase tracking-wider">

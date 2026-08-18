@@ -28,7 +28,7 @@ export function NotificationChannel() {
   ]
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans rounded-2xl overflow-hidden p-0">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans rounded-2xl overflow-hidden p-0">
       <div className="border-b border-blue-fantastic/10 px-4 py-3 flex items-center gap-2">
         <div className="h-6 w-6 rounded-lg bg-truffle-trouble/10 flex items-center justify-center">
           <SlidersHorizontal className="h-3.5 w-3.5 text-truffle-trouble" />
@@ -60,7 +60,7 @@ export function NotificationChannel() {
                 }`}
               >
                 <div
-                  className={`bg-palladian w-3.5 h-3.5 rounded-full shadow-md transform transition-transform duration-200 ease-in-out ${
+                  className={`bg-white w-3.5 h-3.5 rounded-full shadow-md transform transition-transform duration-200 ease-in-out ${
                     enabled ? "translate-x-3.5" : "translate-x-0"
                   }`}
                 />

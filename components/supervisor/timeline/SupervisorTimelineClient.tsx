@@ -205,7 +205,7 @@ export function SupervisorTimelineClient() {
       </div>
 
       {/* 2. Project Selection Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-palladian/40 p-3.5 rounded-2xl border border-blue-fantastic/15">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-inset p-3.5 rounded-2xl border border-blue-fantastic/15">
         <div className="flex items-center gap-2.5 flex-1">
           <span className="text-xs font-bold font-sans text-blue-fantastic flex items-center shrink-0">
             <Building2 className="h-4 w-4 mr-1.5 text-truffle-trouble" />
@@ -214,10 +214,10 @@ export function SupervisorTimelineClient() {
 
           <div className="w-full sm:w-72">
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
+              <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
                 <SelectValue placeholder="Select Lot..." />
               </SelectTrigger>
-              <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
+              <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
                 {assignedProjects.map((proj: Project) => (
                   <SelectItem key={proj.id} value={proj.id} className="text-xs cursor-pointer">
                     <div className="flex items-center justify-between w-full gap-3">
@@ -241,7 +241,7 @@ export function SupervisorTimelineClient() {
       {/* 3. Stat Cards Row (Matches Customer View) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Card 1: Circular Gauge Ring */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-sans">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-xs font-sans">
           <CardContent className="p-4 sm:p-5 flex items-center gap-4">
             <div className="relative h-24 w-24 shrink-0 flex items-center justify-center">
               <svg className="h-24 w-24 transform -rotate-90">
@@ -291,7 +291,7 @@ export function SupervisorTimelineClient() {
         </Card>
 
         {/* Card 2: Projected Completion */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-sans">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-xs font-sans">
           <CardContent className="p-4 sm:p-5 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
@@ -314,7 +314,7 @@ export function SupervisorTimelineClient() {
         </Card>
 
         {/* Card 3: Schedule Status */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-sans">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-xs font-sans">
           <CardContent className="p-4 sm:p-5 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
@@ -357,7 +357,7 @@ export function SupervisorTimelineClient() {
               onClick={() => setStatusFilter(filter)}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold font-sans transition-all ${
                 statusFilter === filter
-                  ? "bg-palladian text-blue-fantastic shadow-xs"
+                  ? "bg-white text-blue-fantastic shadow-xs"
                   : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
               }`}
             >

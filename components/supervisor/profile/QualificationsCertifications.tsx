@@ -103,7 +103,7 @@ export function QualificationsCertifications({
                 <div className="absolute top-4 right-4 flex items-center gap-1.5">
                   <button
                     onClick={() => handleOpenEdit(cert)}
-                    className="p-1.5 rounded-lg text-blue-fantastic/40 hover:text-blue-fantastic hover:bg-palladian/30 transition-colors"
+                    className="p-1.5 rounded-lg text-blue-fantastic/40 hover:text-blue-fantastic hover:bg-surface-inset/30 transition-colors"
                     title="Edit Certification"
                   >
                     <Edit3 className="h-3.5 w-3.5" />
@@ -175,7 +175,7 @@ export function QualificationsCertifications({
 
                 {/* Attachment File Section */}
                 {cert.fileName && (
-                  <div className="mt-4 p-2.5 rounded-xl bg-palladian/30 border border-oatmeal/20 flex items-center justify-between">
+                  <div className="mt-4 p-2.5 rounded-xl bg-surface-inset border border-oatmeal/20 flex items-center justify-between">
                     <div className="flex items-center gap-2 min-w-0">
                       {cert.fileName.endsWith(".pdf") ? (
                         <FileText className="h-4 w-4 text-truffle-trouble shrink-0" />

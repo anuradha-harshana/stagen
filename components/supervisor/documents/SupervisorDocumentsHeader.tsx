@@ -46,7 +46,7 @@ export function SupervisorDocumentsHeader({
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 bg-palladian border border-blue-fantastic/15 px-3.5 py-1.5 rounded-2xl shadow-sm hover:border-blue-fantastic/30 hover:bg-blue-fantastic/5 transition-all text-xs font-bold text-blue-fantastic"
+              className="flex items-center gap-2 bg-white border border-blue-fantastic/15 px-3.5 py-1.5 rounded-2xl shadow-sm hover:border-blue-fantastic/30 hover:bg-blue-fantastic/5 transition-all text-xs font-bold text-blue-fantastic"
             >
               <span>
                 {selectedProject.code} {selectedProject.name}
@@ -55,7 +55,7 @@ export function SupervisorDocumentsHeader({
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 top-full mt-2 w-60 bg-palladian rounded-2xl shadow-xl border border-blue-fantastic/15 py-2 z-30 font-sans">
+              <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-xl border border-blue-fantastic/15 py-2 z-30 font-sans">
                 {SUPERVISOR_PROJECTS.map((proj) => (
                   <button
                     key={proj.code}

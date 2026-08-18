@@ -54,7 +54,7 @@ export function SupervisorQuestionsHeader({
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search questions or customers..."
-              className="pl-8 pr-3 py-1.5 bg-palladian border border-blue-fantastic/15 rounded-2xl text-xs font-medium text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all w-56 font-sans"
+              className="pl-8 pr-3 py-1.5 bg-white border border-blue-fantastic/15 rounded-2xl text-xs font-medium text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all w-56 font-sans"
             />
           </div>
 
@@ -62,7 +62,7 @@ export function SupervisorQuestionsHeader({
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 bg-palladian border border-blue-fantastic/15 px-3.5 py-1.5 rounded-2xl shadow-sm hover:border-blue-fantastic/30 hover:bg-blue-fantastic/5 transition-all text-xs font-bold text-blue-fantastic"
+              className="flex items-center gap-2 bg-white border border-blue-fantastic/15 px-3.5 py-1.5 rounded-2xl shadow-sm hover:border-blue-fantastic/30 hover:bg-blue-fantastic/5 transition-all text-xs font-bold text-blue-fantastic"
             >
               <span>
                 {selectedProject.code === "ALL"
@@ -73,7 +73,7 @@ export function SupervisorQuestionsHeader({
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 top-full mt-2 w-60 bg-palladian rounded-2xl shadow-xl border border-blue-fantastic/15 py-2 z-30 font-sans">
+              <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-xl border border-blue-fantastic/15 py-2 z-30 font-sans">
                 {SUPERVISOR_PROJECTS.map((proj) => (
                   <button
                     key={proj.code}

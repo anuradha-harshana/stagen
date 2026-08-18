@@ -59,7 +59,7 @@ export default function DefectManagementModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             Manage Defect Ticket: {defect.id}
@@ -92,10 +92,10 @@ export default function DefectManagementModal({
               value={status}
               onValueChange={(val: "open" | "in-progress" | "resolved") => setStatus(val)}
             >
-              <SelectTrigger className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
+              <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
                 <SelectValue placeholder="Select Status" />
               </SelectTrigger>
-              <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+              <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
                 <SelectItem value="open" className="text-xs font-bold font-sans">
                   Open / New
                 </SelectItem>
@@ -116,10 +116,10 @@ export default function DefectManagementModal({
               value={priority}
               onValueChange={(val: "Low" | "Medium" | "High") => setPriority(val)}
             >
-              <SelectTrigger className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
+              <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
                 <SelectValue placeholder="Select Priority" />
               </SelectTrigger>
-              <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+              <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
                 <SelectItem value="Low" className="text-xs font-bold font-sans text-blue-700">
                   Low
                 </SelectItem>
@@ -140,10 +140,10 @@ export default function DefectManagementModal({
               value={assignedSupervisor}
               onValueChange={(val) => setAssignedSupervisor(val)}
             >
-              <SelectTrigger className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
+              <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
                 <SelectValue placeholder="Select Supervisor" />
               </SelectTrigger>
-              <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+              <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
                 <SelectItem value="Unassigned" className="text-xs font-bold font-sans text-blue-fantastic/60">
                   Unassigned
                 </SelectItem>

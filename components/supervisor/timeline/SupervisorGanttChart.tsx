@@ -164,7 +164,7 @@ export function SupervisorGanttChart({
   }, [zoomScale, simulatedToday, data.statusFlag]);
 
   return (
-    <div className="w-full bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl p-6 space-y-6 font-sans">
+    <div className="w-full bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl p-6 space-y-6 font-sans">
       {/* 1. Timeline Legends */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-blue-fantastic/5 pb-4">
         {/* Status Legends */}
@@ -227,9 +227,9 @@ export function SupervisorGanttChart({
           className="overflow-x-auto custom-scrollbar flex min-h-[320px]"
         >
           {/* A. Fixed Stage Sidebar */}
-          <div className="w-56 md:w-64 shrink-0 bg-palladian sticky left-0 z-20 border-r border-blue-fantastic/10 shadow-[4px_0_12px_-5px_rgba(27,38,50,0.06)] min-h-[320px]">
+          <div className="w-56 md:w-64 shrink-0 bg-white sticky left-0 z-20 border-r border-blue-fantastic/10 shadow-[4px_0_12px_-5px_rgba(27,38,50,0.06)] min-h-[320px]">
             {/* Header placeholder */}
-            <div className="h-10 bg-palladian/45 border-b border-blue-fantastic/10 flex items-center justify-between px-4">
+            <div className="h-10 bg-surface-inset border-b border-blue-fantastic/10 flex items-center justify-between px-4">
               <span className="text-[10px] font-extrabold uppercase tracking-widest text-blue-fantastic/65">
                 Construction Stages
               </span>
@@ -254,7 +254,7 @@ export function SupervisorGanttChart({
                         ? "bg-truffle-trouble/10 border-l-4 border-truffle-trouble"
                         : isActive
                         ? "bg-blue-fantastic/5"
-                        : "bg-palladian hover:bg-palladian/80"
+                        : "bg-white hover:bg-surface-inset/80"
                     )}
                   >
                     <div className="flex items-center justify-between gap-1.5">
@@ -285,9 +285,9 @@ export function SupervisorGanttChart({
           </div>
 
           {/* B. Dynamic Gantt Grid */}
-          <div className={cn("relative bg-palladian min-h-[320px]", getGanttWidthClass())}>
+          <div className={cn("relative bg-white min-h-[320px]", getGanttWidthClass())}>
             {/* Grid Header Columns */}
-            <div className="h-10 bg-palladian/45 border-b border-blue-fantastic/10 relative">
+            <div className="h-10 bg-surface-inset border-b border-blue-fantastic/10 relative">
               {gridColumns.map((col, index) => (
                 <div
                   key={index}
@@ -354,7 +354,7 @@ export function SupervisorGanttChart({
                     onClick={() => onSelectStage(stage)}
                     className={cn(
                       "h-24 relative transition-colors z-10 hover:z-40 focus-within:z-40 cursor-pointer",
-                      isSelected ? "bg-truffle-trouble/5" : "hover:bg-palladian/10"
+                      isSelected ? "bg-truffle-trouble/5" : "hover:bg-surface-inset/10"
                     )}
                   >
                     {/* The double bars */}

@@ -253,7 +253,7 @@ export default function CompanyDashboardClient() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="relative rounded-xl bg-palladian border border-blue-fantastic/15 shadow-sm hover:bg-blue-fantastic/5 h-10 w-10 text-blue-fantastic"
+                  className="relative rounded-xl bg-white border border-blue-fantastic/15 shadow-sm hover:bg-blue-fantastic/5 h-10 w-10 text-blue-fantastic"
                 >
                   <Bell className="h-4 w-4" />
                   {unreadCount > 0 && (
@@ -333,7 +333,7 @@ export default function CompanyDashboardClient() {
       {/* ================= METRICS ROW (3 Cards) ================= */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {/* Metric 1: Active Projects */}
-        <Card className="bg-palladian rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
+        <Card className="bg-white rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
           <CardContent className="p-0 flex flex-col justify-between h-full">
             <span className="text-4xl sm:text-5xl font-bold font-sans text-blue-fantastic tracking-tight">
               8
@@ -350,7 +350,7 @@ export default function CompanyDashboardClient() {
         </Card>
 
         {/* Metric 2: Total Users */}
-        <Card className="bg-palladian rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
+        <Card className="bg-white rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
           <CardContent className="p-0 flex flex-col justify-between h-full">
             <span className="text-4xl sm:text-5xl font-bold font-sans text-blue-fantastic tracking-tight">
               8
@@ -367,7 +367,7 @@ export default function CompanyDashboardClient() {
         </Card>
 
         {/* Metric 3: Subscription Status */}
-        <Card className="bg-palladian rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
+        <Card className="bg-white rounded-2xl p-6 shadow-sm border border-blue-fantastic/15 hover:shadow-md transition-shadow">
           <CardContent className="p-0 flex flex-col justify-between h-full">
             <span className="text-3xl sm:text-4xl font-bold font-sans text-[#16a34a] tracking-tight">
               Active
@@ -387,7 +387,7 @@ export default function CompanyDashboardClient() {
       {/* ================= MIDDLE ROW (Recent Activity & Quick Actions) ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Left: Recent Activity (lg:col-span-7) */}
-        <Card className="lg:col-span-7 bg-palladian rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 flex flex-col justify-between">
+        <Card className="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-lg font-sans font-semibold text-blue-fantastic">
@@ -446,7 +446,7 @@ export default function CompanyDashboardClient() {
         </Card>
 
         {/* Right: Quick Actions (lg:col-span-5) */}
-        <Card className="lg:col-span-5 bg-palladian rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 flex flex-col justify-between">
+        <Card className="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 flex flex-col justify-between">
           <div>
             <h2 className="text-lg font-sans font-semibold text-blue-fantastic mb-5">
               Quick Actions
@@ -457,7 +457,7 @@ export default function CompanyDashboardClient() {
               {/* Action 1: Add User */}
               <button
                 onClick={() => setIsAddUserOpen(true)}
-                className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-palladian hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
+                className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-white hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
               >
                 <div className="p-3 rounded-full bg-gray-50 group-hover:bg-blue-fantastic group-hover:text-white transition-colors">
                   <UserPlus className="h-5 w-5 stroke-[1.75]" />
@@ -468,7 +468,7 @@ export default function CompanyDashboardClient() {
               {/* Action 2: Create Project */}
               <button
                 onClick={() => setIsCreateProjectOpen(true)}
-                className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-palladian hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
+                className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-white hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
               >
                 <div className="p-3 rounded-full bg-gray-50 group-hover:bg-blue-fantastic group-hover:text-white transition-colors">
                   <FolderPlus className="h-5 w-5 stroke-[1.75]" />
@@ -479,7 +479,7 @@ export default function CompanyDashboardClient() {
               {/* Action 3: View Billing */}
               <button
                 onClick={() => router.push("/company/billing")}
-                className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-palladian hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
+                className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-white hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
               >
                 <div className="p-3 rounded-full bg-gray-50 group-hover:bg-blue-fantastic group-hover:text-white transition-colors">
                   <CreditCard className="h-5 w-5 stroke-[1.75]" />
@@ -490,7 +490,7 @@ export default function CompanyDashboardClient() {
               {/* Action 4: Manage Roles */}
               <button
                 onClick={() => router.push("/company/users")}
-                className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-palladian hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
+                className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-white hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
               >
                 <div className="p-3 rounded-full bg-gray-50 group-hover:bg-blue-fantastic group-hover:text-white transition-colors">
                   <Shield className="h-5 w-5 stroke-[1.75]" />
@@ -503,7 +503,7 @@ export default function CompanyDashboardClient() {
       </div>
 
       {/* ================= PROJECTS OVERVIEW SECTION ================= */}
-      <Card className="bg-palladian rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 overflow-hidden">
+      <Card className="bg-white rounded-2xl shadow-sm border border-blue-fantastic/15 p-6 overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
             <h2 className="text-lg font-sans font-semibold text-blue-fantastic">
@@ -522,7 +522,7 @@ export default function CompanyDashboardClient() {
                 placeholder="Search projects..."
                 value={projectSearch}
                 onChange={(e) => setProjectSearch(e.target.value)}
-                className="pl-9 h-9 text-xs rounded-xl bg-gray-50 border-gray-200 focus:bg-palladian"
+                className="pl-9 h-9 text-xs rounded-xl bg-gray-50 border-gray-200 focus:bg-surface-input"
               />
               {projectSearch && (
                 <button
@@ -608,7 +608,7 @@ export default function CompanyDashboardClient() {
       </Card>
 
       {/* ================= USER ACTIVITY SUMMARY SECTION ================= */}
-      <Card className="bg-palladian rounded-3xl shadow-xs border border-blue-fantastic/15 p-6">
+      <Card className="bg-white rounded-3xl shadow-xs border border-blue-fantastic/15 p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-sans font-semibold text-blue-fantastic">
             User Activity Summary
@@ -649,7 +649,7 @@ export default function CompanyDashboardClient() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-medium bg-palladian px-3 py-1 rounded-full border border-gray-200/80 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] text-gray-500 font-medium bg-white px-3 py-1 rounded-full border border-gray-200/80 shadow-2xs">
                     <Clock className="h-3 w-3 text-gray-400" />
                     <span>{user.status}</span>
                   </div>

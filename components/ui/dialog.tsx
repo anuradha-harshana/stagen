@@ -54,7 +54,7 @@ export function DialogContent({ className, children, onClose, ...props }: Dialog
   return (
     <div
       className={cn(
-        "relative flex flex-col gap-4 rounded-3xl bg-palladian border border-blue-fantastic/20 p-6 shadow-lg outline-none",
+        "relative flex flex-col gap-4 rounded-3xl bg-white border border-blue-fantastic/20 p-6 shadow-lg outline-none",
         className
       )}
       {...props}

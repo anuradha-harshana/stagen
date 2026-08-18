@@ -47,7 +47,7 @@ export default function ReplyModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             Respond to {query.customerName}
@@ -78,7 +78,7 @@ export default function ReplyModal({
                 setReplyText(e.target.value);
                 setError("");
               }}
-              className={`bg-palladian border-blue-fantastic/15 min-h-[120px] focus-visible:ring-truffle-trouble rounded-xl ${
+              className={`bg-white border-blue-fantastic/15 min-h-[120px] focus-visible:ring-truffle-trouble rounded-xl ${
                 error ? "border-red-500" : ""
               }`}
             />

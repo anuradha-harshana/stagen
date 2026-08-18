@@ -112,7 +112,7 @@ export default function CompanyManagementUsersPage() {
 
       {/* Overview Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
               <UserRoundPen className="h-5 w-5 text-blue-fantastic" />
@@ -125,7 +125,7 @@ export default function CompanyManagementUsersPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-truffle-trouble/15 border border-truffle-trouble/20 flex items-center justify-center shrink-0">
               <Briefcase className="h-5 w-5 text-truffle-trouble" />
@@ -140,7 +140,7 @@ export default function CompanyManagementUsersPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-burning-flame/15 border border-burning-flame/20 flex items-center justify-center shrink-0">
               <Clock className="h-5 w-5 text-truffle-trouble" />
@@ -155,7 +155,7 @@ export default function CompanyManagementUsersPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
               <Building2 className="h-5 w-5 text-blue-fantastic" />
@@ -170,7 +170,7 @@ export default function CompanyManagementUsersPage() {
       </div>
 
       {/* Main User Directory Table */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
         <CardHeader className="pb-4 border-b border-blue-fantastic/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <CardTitle className="text-base font-bold text-blue-fantastic">
@@ -188,7 +188,7 @@ export default function CompanyManagementUsersPage() {
                 placeholder="Search user name or email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-52 focus-visible:ring-truffle-trouble"
+                className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-52 focus-visible:ring-truffle-trouble"
               />
             </div>
 
@@ -292,7 +292,7 @@ export default function CompanyManagementUsersPage() {
       {/* User Details Inspector Modal */}
       <Dialog open={selectedUser !== null} onOpenChange={(open) => !open && setSelectedUser(null)}>
         {selectedUser && (
-          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
+          <DialogContent className="max-w-xl bg-white text-blue-fantastic font-sans border border-blue-fantastic/20">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <div className="flex items-center gap-3">
                 <div className={`h-12 w-12 rounded-full ${selectedUser.avatarBg} flex items-center justify-center text-palladian font-bold text-sm shrink-0`}>
@@ -335,7 +335,7 @@ export default function CompanyManagementUsersPage() {
                 </h4>
                 <div className="space-y-1.5">
                   {selectedUser.assignedProjects.map((proj, idx) => (
-                    <div key={idx} className="p-2 bg-palladian border border-blue-fantastic/15 rounded-lg text-xs font-semibold text-blue-fantastic flex items-center justify-between">
+                    <div key={idx} className="p-2 bg-white border border-blue-fantastic/15 rounded-lg text-xs font-semibold text-blue-fantastic flex items-center justify-between">
                       <span className="flex items-center gap-2">
                         <Building2 className="h-3.5 w-3.5 text-truffle-trouble" />
                         {proj}
@@ -375,7 +375,7 @@ export default function CompanyManagementUsersPage() {
 
       {/* Invite User Dialog */}
       <Dialog open={isInviteOpen} onOpenChange={setIsInviteOpen}>
-        <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
+        <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20">
           <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
             <DialogTitle className="text-lg font-bold text-blue-fantastic flex items-center gap-2">
               <UserPlus className="h-5 w-5 text-truffle-trouble" />
@@ -394,7 +394,7 @@ export default function CompanyManagementUsersPage() {
                 placeholder="e.g. John Doe"
                 value={inviteForm.name}
                 onChange={(e) => setInviteForm({ ...inviteForm, name: e.target.value })}
-                className="bg-palladian border-blue-fantastic/20 text-xs"
+                className="bg-white border-blue-fantastic/20 text-xs"
               />
             </div>
 
@@ -406,7 +406,7 @@ export default function CompanyManagementUsersPage() {
                 placeholder="john@stagenhomes.com.au"
                 value={inviteForm.email}
                 onChange={(e) => setInviteForm({ ...inviteForm, email: e.target.value })}
-                className="bg-palladian border-blue-fantastic/20 text-xs"
+                className="bg-white border-blue-fantastic/20 text-xs"
               />
             </div>
 
@@ -415,7 +415,7 @@ export default function CompanyManagementUsersPage() {
               <select
                 value={inviteForm.role}
                 onChange={(e: any) => setInviteForm({ ...inviteForm, role: e.target.value })}
-                className="w-full bg-palladian border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
+                className="w-full bg-white border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
               >
                 <option value="Site Supervisor">Site Supervisor</option>
                 <option value="Executive Management">Executive Management</option>
@@ -430,7 +430,7 @@ export default function CompanyManagementUsersPage() {
                 placeholder="e.g. Lot 42 Greenvale"
                 value={inviteForm.assignedProjects}
                 onChange={(e) => setInviteForm({ ...inviteForm, assignedProjects: e.target.value })}
-                className="bg-palladian border-blue-fantastic/20 text-xs"
+                className="bg-white border-blue-fantastic/20 text-xs"
               />
             </div>
 

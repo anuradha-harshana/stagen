@@ -114,7 +114,7 @@ export function SupervisorStageEditor({
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-96 bg-palladian border-l border-blue-fantastic/20 shadow-2xl p-5 flex flex-col justify-between font-sans overflow-y-auto">
+    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-96 bg-white border-l border-blue-fantastic/20 shadow-2xl p-5 flex flex-col justify-between font-sans overflow-y-auto">
       <div>
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-blue-fantastic/10">
@@ -147,10 +147,10 @@ export function SupervisorStageEditor({
               Stage Execution Status
             </label>
             <Select value={status} onValueChange={(val: any) => setStatus(val)}>
-              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl">
+              <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl">
                 <SelectValue placeholder="Select Status..." />
               </SelectTrigger>
-              <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
+              <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
                 <SelectItem value="upcoming" className="text-xs cursor-pointer">
                   ⚪ Not Started (Upcoming)
                 </SelectItem>
@@ -171,7 +171,7 @@ export function SupervisorStageEditor({
           </div>
 
           {/* Planned vs Actual Start Date */}
-          <div className="grid grid-cols-2 gap-3 bg-palladian/60 p-3 rounded-xl border border-blue-fantastic/10">
+          <div className="grid grid-cols-2 gap-3 bg-surface-muted p-3 rounded-xl border border-blue-fantastic/10">
             <div>
               <span className="block text-[10px] text-blue-fantastic/50 uppercase font-semibold">Planned Start</span>
               <span className="font-bold text-blue-fantastic">{stage.plannedStart}</span>
@@ -182,13 +182,13 @@ export function SupervisorStageEditor({
                 type="date"
                 value={actualStart}
                 onChange={(e) => setActualStart(e.target.value)}
-                className="bg-palladian border-blue-fantastic/20 text-blue-fantastic h-7 text-xs font-sans rounded-lg"
+                className="bg-white border-blue-fantastic/20 text-blue-fantastic h-7 text-xs font-sans rounded-lg"
               />
             </div>
           </div>
 
           {/* Planned vs Actual End Date */}
-          <div className="grid grid-cols-2 gap-3 bg-palladian/60 p-3 rounded-xl border border-blue-fantastic/10">
+          <div className="grid grid-cols-2 gap-3 bg-surface-muted p-3 rounded-xl border border-blue-fantastic/10">
             <div>
               <span className="block text-[10px] text-blue-fantastic/50 uppercase font-semibold">Planned End</span>
               <span className="font-bold text-blue-fantastic">{stage.plannedEnd}</span>
@@ -199,7 +199,7 @@ export function SupervisorStageEditor({
                 type="date"
                 value={actualEnd}
                 onChange={(e) => setActualEnd(e.target.value)}
-                className="bg-palladian border-truffle-trouble/30 text-blue-fantastic h-7 text-xs font-sans rounded-lg"
+                className="bg-white border-truffle-trouble/30 text-blue-fantastic h-7 text-xs font-sans rounded-lg"
               />
             </div>
           </div>
@@ -223,25 +223,25 @@ export function SupervisorStageEditor({
 
             {/* Add Milestone Inline Form */}
             {showAddMilestone && (
-              <div className="p-3 bg-palladian border border-truffle-trouble/30 rounded-xl space-y-2 mb-3">
+              <div className="p-3 bg-white border border-truffle-trouble/30 rounded-xl space-y-2 mb-3">
                 <Input
                   placeholder="Milestone title (e.g. Frame Sign-off)"
                   value={newMilestoneName}
                   onChange={(e) => setNewMilestoneName(e.target.value)}
-                  className="bg-palladian border-blue-fantastic/20 text-xs h-7 rounded-lg"
+                  className="bg-white border-blue-fantastic/20 text-xs h-7 rounded-lg"
                 />
                 <div className="grid grid-cols-2 gap-2">
                   <Input
                     type="date"
                     value={newMilestoneDate}
                     onChange={(e) => setNewMilestoneDate(e.target.value)}
-                    className="bg-palladian border-blue-fantastic/20 text-xs h-7 rounded-lg"
+                    className="bg-white border-blue-fantastic/20 text-xs h-7 rounded-lg"
                   />
                   <Select value={newMilestoneType} onValueChange={(v: any) => setNewMilestoneType(v)}>
-                    <SelectTrigger className="bg-palladian border-blue-fantastic/20 text-xs h-7 rounded-lg">
+                    <SelectTrigger className="bg-white border-blue-fantastic/20 text-xs h-7 rounded-lg">
                       <SelectValue placeholder="Type" />
                     </SelectTrigger>
-                    <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
+                    <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
                       <SelectItem value="inspection" className="text-xs">Inspection</SelectItem>
                       <SelectItem value="approval" className="text-xs">Approval</SelectItem>
                       <SelectItem value="delivery" className="text-xs">Delivery</SelectItem>
@@ -259,14 +259,14 @@ export function SupervisorStageEditor({
             {/* Milestones List */}
             <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
               {milestones.length === 0 ? (
-                <p className="text-[11px] text-blue-fantastic/50 italic py-2 text-center bg-palladian/40 rounded-xl border border-dashed border-blue-fantastic/10">
+                <p className="text-[11px] text-blue-fantastic/50 italic py-2 text-center bg-surface-inset rounded-xl border border-dashed border-blue-fantastic/10">
                   No milestone events recorded yet.
                 </p>
               ) : (
                 milestones.map((m, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between p-2 rounded-xl bg-palladian/60 border border-blue-fantastic/10 text-[11px]"
+                    className="flex items-center justify-between p-2 rounded-xl bg-surface-muted border border-blue-fantastic/10 text-[11px]"
                   >
                     <div className="flex items-center gap-2 truncate pr-2">
                       <button

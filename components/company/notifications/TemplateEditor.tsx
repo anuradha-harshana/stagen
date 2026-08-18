@@ -35,7 +35,7 @@ export function TemplateEditor({
 
   if (!formData) {
     return (
-      <div className="bg-palladian rounded-3xl p-12 border border-blue-fantastic/15 flex flex-col items-center justify-center text-center font-sans h-full min-h-[400px]">
+      <div className="bg-white rounded-3xl p-12 border border-blue-fantastic/15 flex flex-col items-center justify-center text-center font-sans h-full min-h-[400px]">
         <div className="w-12 h-12 rounded-full bg-oatmeal/30 flex items-center justify-center text-abyssal-blue mb-4">
           <Bell className="w-6 h-6" />
         </div>
@@ -96,7 +96,7 @@ export function TemplateEditor({
   }
 
   return (
-    <div className="bg-palladian rounded-3xl p-6 sm:p-8 border border-blue-fantastic/15 shadow-sm flex flex-col gap-6 font-sans">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-blue-fantastic/15 shadow-sm flex flex-col gap-6 font-sans">
       {/* Top Header Row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
         <div>
@@ -111,7 +111,7 @@ export function TemplateEditor({
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsPreviewOpen(!isPreviewOpen)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-blue-fantastic/15 bg-palladian hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-all shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-blue-fantastic/15 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-all shadow-xs"
           >
             <Eye className="w-3.5 h-3.5 text-slate-500" />
             {isPreviewOpen ? "Hide Preview" : "Live Preview"}
@@ -119,7 +119,7 @@ export function TemplateEditor({
 
           <button
             onClick={() => onSendTest(formData)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-300 bg-palladian hover:bg-slate-50 text-abyssal-blue font-semibold text-xs transition-all shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-abyssal-blue font-semibold text-xs transition-all shadow-xs"
           >
             <Send className="w-3.5 h-3.5" />
             Send Test
@@ -137,7 +137,7 @@ export function TemplateEditor({
 
       {/* Live Preview Box */}
       {isPreviewOpen && (
-        <div className="p-5 rounded-2xl bg-palladian/40 border border-blue-fantastic/15 flex flex-col gap-3 transition-all animate-in fade-in duration-200">
+        <div className="p-5 rounded-2xl bg-surface-inset border border-blue-fantastic/15 flex flex-col gap-3 transition-all animate-in fade-in duration-200">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-abyssal-blue">
               Sample Customer View Preview
@@ -153,7 +153,7 @@ export function TemplateEditor({
               ))}
             </div>
           </div>
-          <div className="bg-palladian p-4 rounded-xl border border-blue-fantastic/15 text-sm shadow-xs">
+          <div className="bg-white p-4 rounded-xl border border-blue-fantastic/15 text-sm shadow-xs">
             <p className="font-bold text-abyssal-blue border-b border-slate-100 pb-2 mb-2">
               {renderPreviewText(formData.subject || "(No Subject)")}
             </p>
@@ -176,7 +176,7 @@ export function TemplateEditor({
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold transition-all ${
               formData.channels.includes("email")
                 ? "border-abyssal-blue bg-abyssal-blue text-white shadow-xs"
-                : "border-blue-fantastic/15 bg-palladian text-slate-600 hover:bg-slate-50"
+                : "border-blue-fantastic/15 bg-white text-slate-600 hover:bg-slate-50"
             }`}
           >
             <Mail className="w-3.5 h-3.5" />
@@ -190,7 +190,7 @@ export function TemplateEditor({
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold transition-all ${
               formData.channels.includes("in_app")
                 ? "border-abyssal-blue bg-abyssal-blue text-white shadow-xs"
-                : "border-blue-fantastic/15 bg-palladian text-slate-600 hover:bg-slate-50"
+                : "border-blue-fantastic/15 bg-white text-slate-600 hover:bg-slate-50"
             }`}
           >
             <Bell className="w-3.5 h-3.5" />
@@ -204,7 +204,7 @@ export function TemplateEditor({
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold transition-all ${
               formData.channels.includes("push")
                 ? "border-abyssal-blue bg-abyssal-blue text-white shadow-xs"
-                : "border-blue-fantastic/15 bg-palladian text-slate-600 hover:bg-slate-50"
+                : "border-blue-fantastic/15 bg-white text-slate-600 hover:bg-slate-50"
             }`}
           >
             <Bookmark className="w-3.5 h-3.5" />
@@ -224,7 +224,7 @@ export function TemplateEditor({
             setFormData((prev) => (prev ? { ...prev, subject: e.target.value } : null))
           }
           placeholder="Enter notification subject..."
-          className="w-full px-4 py-2.5 rounded-xl border border-blue-fantastic/15 bg-palladian text-sm text-abyssal-blue focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame transition-all"
+          className="w-full px-4 py-2.5 rounded-xl border border-blue-fantastic/15 bg-white text-sm text-abyssal-blue focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame transition-all"
         />
       </div>
 
@@ -245,7 +245,7 @@ export function TemplateEditor({
               type="button"
               onClick={() => handleInsertVariable(v.key)}
               title={`Click to insert ${v.label}`}
-              className="px-2.5 py-1 bg-palladian border border-blue-fantastic/15 rounded-lg text-xs font-mono text-slate-700 hover:border-burning-flame hover:bg-burning-flame/10 hover:text-abyssal-blue transition-all shadow-2xs"
+              className="px-2.5 py-1 bg-white border border-blue-fantastic/15 rounded-lg text-xs font-mono text-slate-700 hover:border-burning-flame hover:bg-burning-flame/10 hover:text-abyssal-blue transition-all shadow-2xs"
             >
               {v.key}
             </button>
@@ -261,7 +261,7 @@ export function TemplateEditor({
             setFormData((prev) => (prev ? { ...prev, body: e.target.value } : null))
           }
           placeholder="Type your message body here..."
-          className="w-full p-4 rounded-2xl border border-blue-fantastic/15 bg-palladian text-sm text-abyssal-blue focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame transition-all leading-relaxed font-sans"
+          className="w-full p-4 rounded-2xl border border-blue-fantastic/15 bg-white text-sm text-abyssal-blue focus:outline-none focus:ring-2 focus:ring-burning-flame/40 focus:border-burning-flame transition-all leading-relaxed font-sans"
         />
       </div>
     </div>

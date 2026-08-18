@@ -60,7 +60,7 @@ export default function ProgressHeader({
       {/* Stats Cards Row (Body Content below Header - kept exactly identical) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1: Circular Progress Gauge */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden md:col-span-1">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden md:col-span-1">
           <CardContent className="p-6 flex items-center justify-between gap-4">
             <div className="relative w-28 h-28 shrink-0 flex items-center justify-center">
               {/* Outer Glow */}
@@ -122,7 +122,7 @@ export default function ProgressHeader({
         </Card>
 
         {/* Card 2: Estimated Completion */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
           <CardContent className="p-6 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -146,7 +146,7 @@ export default function ProgressHeader({
         </Card>
 
         {/* Card 3: Days Remaining */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
           <CardContent className="p-6 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div className="space-y-1">

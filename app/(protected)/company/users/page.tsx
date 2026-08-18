@@ -93,7 +93,7 @@ export default function UserPage() {
         }
       />
 
-      <div className="bg-palladian border border-blue-fantastic/15 rounded-2xl p-6 shadow-sm">
+      <div className="bg-white border border-blue-fantastic/15 rounded-2xl p-6 shadow-sm">
         <div className="flex flex-col lg:flex-row lg:justify-between gap-4 mb-6">
           <div className="relative w-full lg:w-96">
             <Search
@@ -101,7 +101,7 @@ export default function UserPage() {
             />
             <Input
               placeholder="Search users by name or email..."
-              className="pl-9 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-10 text-xs"
+              className="pl-9 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-10 text-xs"
             />
           </div>
 

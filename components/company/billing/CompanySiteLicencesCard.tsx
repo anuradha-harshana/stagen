@@ -18,7 +18,7 @@ export function CompanySiteLicencesCard({
   const remaining = Math.max(0, licences.total - licences.used)
 
   return (
-    <div className="bg-palladian rounded-3xl p-6 shadow-sm border border-blue-fantastic/15 font-sans flex flex-col justify-between h-full min-h-[220px]">
+    <div className="bg-white rounded-3xl p-6 shadow-sm border border-blue-fantastic/15 font-sans flex flex-col justify-between h-full min-h-[220px]">
       <div>
         {/* Title and Badge */}
         <div className="flex items-center justify-between gap-2 mb-4">

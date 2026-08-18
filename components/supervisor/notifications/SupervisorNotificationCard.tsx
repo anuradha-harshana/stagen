@@ -167,7 +167,7 @@ export function SupervisorNotificationCard({
         }
       }}
       className={cn(
-        "group flex flex-col gap-3 p-4 rounded-2xl border transition-all duration-200 cursor-pointer bg-palladian/40",
+        "group flex flex-col gap-3 p-4 rounded-2xl border transition-all duration-200 cursor-pointer bg-surface-inset",
         notification.read
           ? "border-blue-fantastic/10 hover:bg-blue-fantastic/5 hover:border-blue-fantastic/15"
           : "border-blue-fantastic/20 bg-white/70 hover:bg-white shadow-xs"

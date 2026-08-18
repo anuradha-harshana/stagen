@@ -27,7 +27,7 @@ export function SupervisorDelayLog({
 }: SupervisorDelayLogProps) {
   if (!delayLog || delayLog.length === 0) {
     return (
-      <Card className="bg-palladian/40 border border-blue-fantastic/15 shadow-xs font-sans">
+      <Card className="bg-surface-inset border border-blue-fantastic/15 shadow-xs font-sans">
         <CardContent className="py-8 px-4 text-center">
           <div className="h-10 w-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-700 mx-auto mb-2">
             <Clock className="h-5 w-5" />
@@ -78,11 +78,11 @@ export function SupervisorDelayLog({
         {delayLog.map((entry) => (
           <Card
             key={entry.id}
-            className="bg-palladian border border-blue-fantastic/15 shadow-xs hover:border-truffle-trouble/40 transition-all font-sans overflow-hidden"
+            className="bg-white border border-blue-fantastic/15 shadow-xs hover:border-truffle-trouble/40 transition-all font-sans overflow-hidden"
           >
             <CardContent className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-start gap-3.5 flex-1">
-                <div className="h-10 w-10 rounded-2xl bg-palladian/90 border border-blue-fantastic/15 flex items-center justify-center shrink-0 shadow-xs">
+                <div className="h-10 w-10 rounded-2xl bg-white/90 border border-blue-fantastic/15 flex items-center justify-center shrink-0 shadow-xs">
                   {getCategoryIcon(entry.type)}
                 </div>
 
@@ -108,7 +108,7 @@ export function SupervisorDelayLog({
 
               {/* Impact Card & Delete */}
               <div className="flex items-center gap-3 shrink-0 self-end md:self-center">
-                <div className="bg-palladian/80 border border-truffle-trouble/30 px-3.5 py-2 rounded-xl text-right">
+                <div className="bg-surface-muted border border-truffle-trouble/30 px-3.5 py-2 rounded-xl text-right">
                   <span className="text-[9px] text-blue-fantastic/50 uppercase tracking-wider font-semibold block">
                     Schedule Impact
                   </span>

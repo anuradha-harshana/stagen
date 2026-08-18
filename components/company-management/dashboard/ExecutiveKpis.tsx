@@ -7,7 +7,7 @@ export function ExecutiveKpis() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans">
       {/* Total Projects */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5 hover:border-blue-fantastic/20 transition-all">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-5 hover:border-blue-fantastic/20 transition-all">
         <CardContent className="p-0 text-center">
           <span className="text-xs font-bold text-blue-fantastic/60 uppercase tracking-wider block">
             Total Projects
@@ -22,7 +22,7 @@ export function ExecutiveKpis() {
       </Card>
 
       {/* Active Projects */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5 hover:border-blue-fantastic/20 transition-all">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-5 hover:border-blue-fantastic/20 transition-all">
         <CardContent className="p-0 text-center">
           <span className="text-xs font-bold text-blue-fantastic/60 uppercase tracking-wider block">
             Active Projects
@@ -37,7 +37,7 @@ export function ExecutiveKpis() {
       </Card>
 
       {/* Delayed Projects */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5 hover:border-red-300 transition-all">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-5 hover:border-red-300 transition-all">
         <CardContent className="p-0 text-center">
           <span className="text-xs font-bold text-blue-fantastic/60 uppercase tracking-wider block">
             Delayed Projects
@@ -52,7 +52,7 @@ export function ExecutiveKpis() {
       </Card>
 
       {/* Completed */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5 hover:border-blue-fantastic/20 transition-all">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-5 hover:border-blue-fantastic/20 transition-all">
         <CardContent className="p-0 text-center">
           <span className="text-xs font-bold text-blue-fantastic/60 uppercase tracking-wider block">
             Completed

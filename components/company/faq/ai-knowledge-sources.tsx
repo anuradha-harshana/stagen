@@ -81,7 +81,7 @@ export default function AIKnowledgeSources({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full font-sans">
       {/* AI Guardrails Panel */}
-      <div className="bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 flex flex-col justify-between h-full shadow-sm">
+      <div className="bg-white p-6 rounded-2xl border border-blue-fantastic/10 flex flex-col justify-between h-full shadow-sm">
         <div>
           <div className="flex items-center gap-2 pb-3 border-b border-blue-fantastic/5 mb-4">
             <ShieldAlert className="h-5 w-5 text-truffle-trouble" />
@@ -119,7 +119,7 @@ export default function AIKnowledgeSources({
             placeholder="Add new prompt guardrail..."
             value={newGuardrail}
             onChange={(e) => setNewGuardrail(e.target.value)}
-            className="bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-xs font-sans w-full focus-visible:ring-truffle-trouble rounded-xl"
+            className="bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-xs font-sans w-full focus-visible:ring-truffle-trouble rounded-xl"
           />
           <Button
             type="submit"
@@ -132,7 +132,7 @@ export default function AIKnowledgeSources({
       </div>
 
       {/* Uploaded AI Documents Panel */}
-      <div className="bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 flex flex-col justify-between h-full shadow-sm">
+      <div className="bg-white p-6 rounded-2xl border border-blue-fantastic/10 flex flex-col justify-between h-full shadow-sm">
         <div>
           <div className="flex items-center gap-2 pb-3 border-b border-blue-fantastic/5 mb-4">
             <FileText className="h-5 w-5 text-burning-flame" />

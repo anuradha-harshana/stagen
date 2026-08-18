@@ -71,7 +71,7 @@ export default async function page() {
         <div className="lg:col-span-7 flex flex-col gap-6 w-full">
 
           {/* Recent Updates Card */}
-          <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+          <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
             <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6 flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-xl bg-burning-flame/10 flex items-center justify-center">
@@ -97,7 +97,7 @@ export default async function page() {
           </Card>
 
           {/* Notifications Card */}
-          <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+          <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
             <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6 flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
@@ -125,7 +125,7 @@ export default async function page() {
         </div>
 
         {/* Right Column: Site Photos (Latest) */}
-        <Card className="lg:col-span-5 bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden w-full self-stretch flex flex-col">
+        <Card className="lg:col-span-5 bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden w-full self-stretch flex flex-col">
           <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6 flex flex-row items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-xl bg-emerald-50 flex items-center justify-center">

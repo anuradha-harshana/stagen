@@ -31,7 +31,7 @@ function DefectIcon({ status }: { status: DefectStatus }) {
 
 export function DefectLog() {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-red-500/10 flex items-center justify-center">

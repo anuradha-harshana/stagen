@@ -47,7 +47,7 @@ export function SupervisorNotificationFilter({
   counts,
 }: SupervisorNotificationFilterProps) {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden p-0">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden p-0">
       <div className="border-b border-blue-fantastic/10 px-4 py-3 flex items-center gap-2">
         <div className="h-6 w-6 rounded-lg bg-blue-fantastic/10 flex items-center justify-center">
           <Filter className="h-3.5 w-3.5 text-blue-fantastic" />

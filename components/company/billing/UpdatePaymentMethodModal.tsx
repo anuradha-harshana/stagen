@@ -60,7 +60,7 @@ export function UpdatePaymentMethodModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
-      <div className="bg-palladian rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15">
           <div className="flex items-center gap-2.5">
@@ -73,7 +73,7 @@ export function UpdatePaymentMethodModal({
           </div>
           <button
             onClick={onClose}
-            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-palladian transition-colors cursor-pointer"
+            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-surface-inset transition-colors cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>
@@ -88,7 +88,7 @@ export function UpdatePaymentMethodModal({
               value={cardholderName}
               onChange={(e) => setCardholderName(e.target.value)}
               placeholder="e.g. Jane Smith"
-              className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
+              className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
               required
             />
           </div>
@@ -101,7 +101,7 @@ export function UpdatePaymentMethodModal({
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
                 placeholder="4242 4242 4242 4242"
-                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans pr-10"
+                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans pr-10"
                 required
               />
               <CreditCard className="absolute right-3 top-2.5 h-5 w-5 text-neutral-400" />
@@ -117,7 +117,7 @@ export function UpdatePaymentMethodModal({
                 onChange={(e) => setExpMonth(e.target.value)}
                 placeholder="MM"
                 maxLength={2}
-                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
+                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
                 required
               />
             </div>
@@ -130,7 +130,7 @@ export function UpdatePaymentMethodModal({
                 onChange={(e) => setExpYear(e.target.value)}
                 placeholder="YY"
                 maxLength={2}
-                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
+                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
                 required
               />
             </div>
@@ -143,7 +143,7 @@ export function UpdatePaymentMethodModal({
                 onChange={(e) => setCvc(e.target.value)}
                 placeholder="123"
                 maxLength={4}
-                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
+                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
                 required
               />
             </div>
@@ -156,7 +156,7 @@ export function UpdatePaymentMethodModal({
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
               placeholder="e.g. 2000"
-              className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
+              className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
               required
             />
           </div>

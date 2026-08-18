@@ -15,14 +15,14 @@ export function CompanyPaymentMethodCard({
   onUpdatePaymentMethod,
 }: CompanyPaymentMethodCardProps) {
   return (
-    <div className="bg-palladian rounded-3xl p-6 shadow-sm border border-blue-fantastic/15 font-sans flex flex-col justify-between h-full min-h-[220px]">
+    <div className="bg-white rounded-3xl p-6 shadow-sm border border-blue-fantastic/15 font-sans flex flex-col justify-between h-full min-h-[220px]">
       <div>
         <h3 className="text-lg sm:text-xl font-bold text-blue-fantastic mb-4 font-sans">
           Payment Method
         </h3>
 
         <div className="bg-neutral-50/90 border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
-          <div className="h-10 w-12 rounded-xl bg-palladian border border-neutral-200 flex items-center justify-center text-blue-fantastic shadow-2xs shrink-0">
+          <div className="h-10 w-12 rounded-xl bg-white border border-neutral-200 flex items-center justify-center text-blue-fantastic shadow-2xs shrink-0">
             <CreditCard className="h-5 w-5 text-blue-fantastic" />
           </div>
 

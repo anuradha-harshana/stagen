@@ -14,7 +14,7 @@ export default function DelayLog({ logs }: DelayLogProps) {
   const hasLogs = logs.length > 0;
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+    <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
       <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6">
         <div className="flex items-center gap-2.5">
           <div className="h-8 w-8 rounded-xl bg-truffle-trouble/10 flex items-center justify-center text-truffle-trouble">

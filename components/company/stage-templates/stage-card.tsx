@@ -51,7 +51,7 @@ export default function StageCard({
   const padZero = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
   return (
-    <Card className="group relative overflow-hidden bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-sans">
+    <Card className="group relative overflow-hidden bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-sans">
       {/* Accent Line */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-burning-flame/50 via-truffle-trouble/50 to-transparent" />
 
@@ -116,7 +116,7 @@ export default function StageCard({
               placeholder="Add checklist item..."
               value={newItemText}
               onChange={(e) => setNewItemText(e.target.value)}
-              className="bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-full focus-visible:ring-truffle-trouble"
+              className="bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-full focus-visible:ring-truffle-trouble"
             />
             <Button
               type="submit"

@@ -68,7 +68,7 @@ export function SupervisorDocumentsSummaryCards({
         return (
           <Card
             key={item.label}
-            className="sm:col-span-3 bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
+            className="sm:col-span-3 bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
           >
             <CardContent className="pt-5 pb-4 px-5 flex flex-col gap-3">
               <div className="flex items-center justify-between">

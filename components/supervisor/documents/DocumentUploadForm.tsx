@@ -147,7 +147,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
   }
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
@@ -177,7 +177,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Wall Framing Stage 2 Approval Certificate"
-              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans"
+              className="w-full px-3.5 py-2.5 text-sm bg-white border border-blue-fantastic/20 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans"
             />
           </div>
 
@@ -189,7 +189,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
             <select
               value={documentType}
               onChange={(e) => setDocumentType(e.target.value)}
-              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans cursor-pointer"
+              className="w-full px-3.5 py-2.5 text-sm bg-white border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans cursor-pointer"
             >
               {DOCUMENT_TYPES.map((dt) => (
                 <option key={dt} value={dt}>
@@ -210,7 +210,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
                 required
                 value={dateOfUpdate}
                 onChange={(e) => setDateOfUpdate(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans"
+                className="w-full px-3.5 py-2.5 text-sm bg-white border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans"
               />
             </div>
 
@@ -223,7 +223,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
                 onChange={(e) =>
                   setVisibility(e.target.value as DocumentUploadPayload["visibility"])
                 }
-                className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans cursor-pointer"
+                className="w-full px-3.5 py-2.5 text-sm bg-white border border-blue-fantastic/20 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans cursor-pointer"
               >
                 <option value="Visible to Customer">Visible to Customer</option>
                 <option value="Internal Team Only">Internal Team Only</option>
@@ -241,7 +241,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Add any relevant notes, stage sign-off comments, or document summaries..."
-              className="w-full px-3.5 py-2.5 text-sm bg-palladian border border-blue-fantastic/20 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium resize-none font-sans"
+              className="w-full px-3.5 py-2.5 text-sm bg-white border border-blue-fantastic/20 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium resize-none font-sans"
             />
           </div>
 
@@ -283,7 +283,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
             ) : (
               <div className="border border-truffle-trouble/30 bg-truffle-trouble/10 rounded-xl p-3 flex items-center justify-between">
                 <div className="flex items-center gap-3 min-w-0 pr-2">
-                  <div className="p-2 rounded-xl bg-palladian text-truffle-trouble shrink-0 shadow-sm border border-blue-fantastic/15">
+                  <div className="p-2 rounded-xl bg-white text-truffle-trouble shrink-0 shadow-sm border border-blue-fantastic/15">
                     <FileText className="h-5 w-5" />
                   </div>
                   <div className="flex flex-col min-w-0">

@@ -110,7 +110,7 @@ export default function CompanyProjectsClient({
 
       {/* Project Card Grid */}
       {filteredProjects.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 bg-palladian/40 border border-dashed border-blue-fantastic/20 rounded-2xl">
+        <div className="flex flex-col items-center justify-center py-16 bg-surface-inset border border-dashed border-blue-fantastic/20 rounded-2xl">
           <Building2 className="h-10 w-10 text-blue-fantastic/30 mb-2" />
           <p className="text-sm font-bold text-blue-fantastic">No Projects Found</p>
           <p className="text-xs text-blue-fantastic/60 mt-1">Try tweaking your search or filter selection.</p>

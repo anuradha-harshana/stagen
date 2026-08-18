@@ -62,7 +62,7 @@ export function AnswerQuestionModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 font-sans">
-      <Card className="w-full max-w-2xl bg-palladian border border-blue-fantastic/20 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <Card className="w-full max-w-2xl bg-white border border-blue-fantastic/20 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <CardHeader className="bg-blue-fantastic/5 border-b border-blue-fantastic/10 pb-4">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
@@ -124,7 +124,7 @@ export function AnswerQuestionModal({
                 value={answerText}
                 onChange={(e) => setAnswerText(e.target.value)}
                 placeholder="Type your detailed, clear response for the customer..."
-                className="w-full px-4 py-3 text-sm bg-palladian border border-blue-fantastic/20 rounded-2xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans resize-none"
+                className="w-full px-4 py-3 text-sm bg-white border border-blue-fantastic/20 rounded-2xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all font-medium font-sans resize-none"
               />
             </div>
             

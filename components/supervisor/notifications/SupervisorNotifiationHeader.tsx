@@ -60,7 +60,7 @@ export function SupervisorNotificationHeader({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by lot, client, text..."
-            className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm w-52 focus-visible:ring-blue-fantastic/20"
+            className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm w-52 focus-visible:ring-blue-fantastic/20"
           />
         </div>
 

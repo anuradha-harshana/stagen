@@ -39,7 +39,7 @@ export default function ProjectsFilters({
   onStageFilterChange,
 }: ProjectsFiltersProps) {
   return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full bg-palladian p-4 rounded-2xl border border-blue-fantastic/5 shadow-sm">
+    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full bg-white p-4 rounded-2xl border border-blue-fantastic/5 shadow-sm">
       {/* Search Input */}
       <div className="relative w-full md:w-80">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-fantastic/40 pointer-events-none" />
@@ -47,7 +47,7 @@ export default function ProjectsFilters({
           placeholder="Search lot, client or address..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-9 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-sm font-sans w-full focus-visible:ring-truffle-trouble"
+          className="pl-9 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-sm font-sans w-full focus-visible:ring-truffle-trouble"
         />
       </div>
 
@@ -71,10 +71,10 @@ export default function ProjectsFilters({
 
         {/* Stage Select Dropdown */}
         <Select value={stageFilter} onValueChange={onStageFilterChange}>
-          <SelectTrigger className="w-44 bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-xs font-bold font-sans focus:ring-truffle-trouble">
+          <SelectTrigger className="w-44 bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-xs font-bold font-sans focus:ring-truffle-trouble">
             <SelectValue placeholder="All Stages" />
           </SelectTrigger>
-          <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+          <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
             <SelectItem value="All" className="text-xs font-bold font-sans">All Stages</SelectItem>
             {STAGES.map((stage) => (
               <SelectItem key={stage} value={stage} className="text-xs font-bold font-sans">

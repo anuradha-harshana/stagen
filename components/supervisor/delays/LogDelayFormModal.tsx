@@ -112,7 +112,7 @@ export function LogDelayFormModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans rounded-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-lg bg-white border-blue-fantastic/20 text-blue-fantastic font-sans rounded-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader className="space-y-1">
           <div className="flex items-center gap-2 text-truffle-trouble font-bold font-sans">
             <AlertTriangle className="h-5 w-5" />
@@ -131,10 +131,10 @@ export function LogDelayFormModal({
             <div className="space-y-1.5">
               <Label className="text-xs font-bold text-blue-fantastic">Affected Construction Stage</Label>
               <Select value={stageName} onValueChange={setStageName}>
-                <SelectTrigger className="bg-palladian border-blue-fantastic/20 text-xs font-bold font-sans text-blue-fantastic h-9 rounded-xl">
+                <SelectTrigger className="bg-white border-blue-fantastic/20 text-xs font-bold font-sans text-blue-fantastic h-9 rounded-xl">
                   <SelectValue placeholder="Select stage..." />
                 </SelectTrigger>
-                <SelectContent className="bg-palladian border-blue-fantastic/20">
+                <SelectContent className="bg-white border-blue-fantastic/20">
                   {stages.map((stg) => (
                     <SelectItem key={stg.id} value={stg.name} className="text-xs">
                       {stg.name} Stage
@@ -147,10 +147,10 @@ export function LogDelayFormModal({
             <div className="space-y-1.5">
               <Label className="text-xs font-bold text-blue-fantastic">Delay Category / Cause</Label>
               <Select value={type} onValueChange={(val) => setType(val as DelayLogEntry["type"])}>
-                <SelectTrigger className="bg-palladian border-blue-fantastic/20 text-xs font-bold font-sans text-blue-fantastic h-9 rounded-xl">
+                <SelectTrigger className="bg-white border-blue-fantastic/20 text-xs font-bold font-sans text-blue-fantastic h-9 rounded-xl">
                   <SelectValue placeholder="Category..." />
                 </SelectTrigger>
-                <SelectContent className="bg-palladian border-blue-fantastic/20">
+                <SelectContent className="bg-white border-blue-fantastic/20">
                   <SelectItem value="weather" className="text-xs">Weather / Storm</SelectItem>
                   <SelectItem value="materials" className="text-xs">Material Delivery</SelectItem>
                   <SelectItem value="labor" className="text-xs">Labor Availability</SelectItem>
@@ -168,7 +168,7 @@ export function LogDelayFormModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Heavy Storm Site Closure / Framing Timber Delay"
-              className="bg-palladian border-blue-fantastic/20 text-xs font-semibold text-blue-fantastic h-9 rounded-xl"
+              className="bg-white border-blue-fantastic/20 text-xs font-semibold text-blue-fantastic h-9 rounded-xl"
             />
           </div>
 
@@ -184,7 +184,7 @@ export function LogDelayFormModal({
                   type="date"
                   value={fromDate}
                   onChange={(e) => setFromDate(e.target.value)}
-                  className="bg-palladian border-blue-fantastic/20 text-xs h-8 rounded-lg"
+                  className="bg-white border-blue-fantastic/20 text-xs h-8 rounded-lg"
                 />
               </div>
               <div className="space-y-1">
@@ -193,7 +193,7 @@ export function LogDelayFormModal({
                   type="date"
                   value={toDate}
                   onChange={(e) => setToDate(e.target.value)}
-                  className="bg-palladian border-blue-fantastic/20 text-xs h-8 rounded-lg font-bold text-truffle-trouble"
+                  className="bg-white border-blue-fantastic/20 text-xs h-8 rounded-lg font-bold text-truffle-trouble"
                 />
               </div>
             </div>
@@ -207,7 +207,7 @@ export function LogDelayFormModal({
               onChange={(e) => setReason(e.target.value)}
               rows={3}
               placeholder="Provide context regarding the site conditions, safety precautions, or supplier communication..."
-              className="bg-palladian border-blue-fantastic/20 text-xs text-blue-fantastic rounded-xl resize-none"
+              className="bg-white border-blue-fantastic/20 text-xs text-blue-fantastic rounded-xl resize-none"
             />
           </div>
 
@@ -215,7 +215,7 @@ export function LogDelayFormModal({
           <div className="space-y-1.5">
             <Label className="text-xs font-bold text-blue-fantastic">Supporting Site Photo (Optional)</Label>
             {attachedPhoto ? (
-              <div className="flex items-center justify-between p-2.5 bg-palladian border border-blue-fantastic/20 rounded-xl">
+              <div className="flex items-center justify-between p-2.5 bg-white border border-blue-fantastic/20 rounded-xl">
                 <div className="flex items-center gap-2 truncate">
                   <ImageIcon className="h-4 w-4 text-emerald-600 shrink-0" />
                   <span className="text-xs font-semibold text-blue-fantastic truncate">site_inspection_photo.jpg</span>
@@ -231,7 +231,7 @@ export function LogDelayFormModal({
                 </Button>
               </div>
             ) : (
-              <label className="flex flex-col items-center justify-center p-3 bg-palladian border border-dashed border-blue-fantastic/20 rounded-xl cursor-pointer hover:bg-blue-fantastic/5 transition-colors">
+              <label className="flex flex-col items-center justify-center p-3 bg-white border border-dashed border-blue-fantastic/20 rounded-xl cursor-pointer hover:bg-blue-fantastic/5 transition-colors">
                 <Upload className="h-4 w-4 text-blue-fantastic/50 mb-1" />
                 <span className="text-[11px] font-bold text-blue-fantastic/70">Click to upload photo evidence</span>
                 <span className="text-[9px] text-blue-fantastic/50">PNG, JPG up to 10MB</span>
@@ -261,7 +261,7 @@ export function LogDelayFormModal({
               type="button"
               variant="outline"
               onClick={onClose}
-              className="bg-palladian border-blue-fantastic/20 text-blue-fantastic font-bold text-xs rounded-xl h-9"
+              className="bg-white border-blue-fantastic/20 text-blue-fantastic font-bold text-xs rounded-xl h-9"
             >
               Cancel
             </Button>

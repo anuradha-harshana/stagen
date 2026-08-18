@@ -24,7 +24,7 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
-      <div className="bg-palladian rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15 bg-neutral-50/50">
           <div className="flex items-center gap-2.5">
@@ -40,7 +40,7 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
           </div>
           <button
             onClick={onClose}
-            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-palladian transition-colors cursor-pointer"
+            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-surface-inset transition-colors cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>

@@ -202,7 +202,7 @@ export default function SupervisorSitePhotosPage() {
         </div>
 
         {/* Stats summary pill */}
-        <div className="flex items-center gap-3 bg-palladian border border-blue-fantastic/15 p-2 px-4 rounded-2xl shadow-xs self-start md:self-auto">
+        <div className="flex items-center gap-3 bg-white border border-blue-fantastic/15 p-2 px-4 rounded-2xl shadow-xs self-start md:self-auto">
           <div className="text-center pr-3 border-r border-blue-fantastic/15">
             <p className="text-[10px] text-blue-fantastic/60 font-sans uppercase tracking-wider font-semibold">Assigned Lots</p>
             <p className="text-base font-bold text-blue-fantastic">{assignedProjects.length}</p>
@@ -219,7 +219,7 @@ export default function SupervisorSitePhotosPage() {
       </div>
 
       {/* 2. Enhanced Controls Bar: Responsive Project Selector (Tabs + Dropdown for 4+ Projects) */}
-      <div className="flex flex-col gap-3 bg-palladian/40 p-3.5 rounded-2xl border border-blue-fantastic/15">
+      <div className="flex flex-col gap-3 bg-surface-inset p-3.5 rounded-2xl border border-blue-fantastic/15">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           {/* Left: Project Selector Controls */}
           <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap flex-1">
@@ -252,13 +252,13 @@ export default function SupervisorSitePhotosPage() {
             {/* Project Selection Dropdown */}
             <div className="w-full sm:w-72">
               <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-                <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
+                <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
                   <div className="flex items-center gap-2 truncate">
                     <Building2 className="h-3.5 w-3.5 text-truffle-trouble shrink-0" />
                     <SelectValue placeholder="Select Project Lot..." />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
+                <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
                   {assignedProjects.map((proj) => {
                     const count = photos.filter((p) => p.projectId === proj.id).length;
                     return (
@@ -290,7 +290,7 @@ export default function SupervisorSitePhotosPage() {
                 placeholder="Search captions or file names..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/40 h-9 text-xs font-sans focus-visible:ring-truffle-trouble rounded-xl"
+                className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/40 h-9 text-xs font-sans focus-visible:ring-truffle-trouble rounded-xl"
               />
             </div>
 
@@ -314,7 +314,7 @@ export default function SupervisorSitePhotosPage() {
       </div>
 
       {/* 3. Active Project Info Card */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-sans overflow-hidden">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-xs font-sans overflow-hidden">
         <CardContent className="p-4 sm:p-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -370,10 +370,10 @@ export default function SupervisorSitePhotosPage() {
           return (
             <Card
               key={stageName}
-              className="bg-palladian/40 border border-blue-fantastic/15 shadow-xs font-sans overflow-hidden transition-all"
+              className="bg-surface-inset border border-blue-fantastic/15 shadow-xs font-sans overflow-hidden transition-all"
             >
               {/* Stage Header Bar */}
-              <CardHeader className="p-4 sm:px-6 bg-palladian border-b border-blue-fantastic/10 flex flex-row items-center justify-between space-y-0 cursor-pointer select-none">
+              <CardHeader className="p-4 sm:px-6 bg-white border-b border-blue-fantastic/10 flex flex-row items-center justify-between space-y-0 cursor-pointer select-none">
                 <div
                   onClick={() => toggleStageExpand(stageName)}
                   className="flex items-center gap-3 flex-1"

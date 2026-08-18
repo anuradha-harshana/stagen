@@ -83,7 +83,7 @@ export function LogDelayModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md w-[92vw] bg-palladian border-blue-fantastic/20 p-5 font-sans rounded-2xl">
+      <DialogContent className="max-w-md w-[92vw] bg-white border-blue-fantastic/20 p-5 font-sans rounded-2xl">
         <DialogHeader className="pb-3 border-b border-blue-fantastic/10 text-left">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-xl bg-truffle-trouble/15 border border-truffle-trouble/30 flex items-center justify-center text-truffle-trouble">
@@ -107,10 +107,10 @@ export function LogDelayModal({
               Affected Construction Stage
             </label>
             <Select value={stageName} onValueChange={setStageName}>
-              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl">
+              <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl">
                 <SelectValue placeholder="Select Stage..." />
               </SelectTrigger>
-              <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
+              <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
                 {stages.map((s) => (
                   <SelectItem key={s.id} value={s.name} className="text-xs cursor-pointer">
                     {s.name} Stage
@@ -129,7 +129,7 @@ export function LogDelayModal({
               placeholder="e.g. Slab Concrete Pour Postponed"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-palladian border-blue-fantastic/20 text-blue-fantastic placeholder:text-blue-fantastic/40 h-9 text-xs font-sans rounded-xl focus-visible:ring-truffle-trouble"
+              className="bg-white border-blue-fantastic/20 text-blue-fantastic placeholder:text-blue-fantastic/40 h-9 text-xs font-sans rounded-xl focus-visible:ring-truffle-trouble"
             />
           </div>
 
@@ -142,10 +142,10 @@ export function LogDelayModal({
               value={category}
               onValueChange={(val: any) => setCategory(val)}
             >
-              <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans text-xs h-9 rounded-xl">
+              <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans text-xs h-9 rounded-xl">
                 <SelectValue placeholder="Select Category..." />
               </SelectTrigger>
-              <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
+              <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
                 <SelectItem value="weather" className="text-xs">🌧️ Weather Impact</SelectItem>
                 <SelectItem value="materials" className="text-xs">📦 Materials Supply Delay</SelectItem>
                 <SelectItem value="permits" className="text-xs">📋 Council Permits / Inspection</SelectItem>
@@ -165,7 +165,7 @@ export function LogDelayModal({
                 type="date"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
-                className="bg-palladian border-blue-fantastic/20 text-blue-fantastic h-8 text-xs font-sans rounded-xl"
+                className="bg-white border-blue-fantastic/20 text-blue-fantastic h-8 text-xs font-sans rounded-xl"
               />
             </div>
             <div>
@@ -176,7 +176,7 @@ export function LogDelayModal({
                 type="date"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
-                className="bg-palladian border-truffle-trouble/30 text-blue-fantastic h-8 text-xs font-sans rounded-xl"
+                className="bg-white border-truffle-trouble/30 text-blue-fantastic h-8 text-xs font-sans rounded-xl"
               />
             </div>
           </div>
@@ -190,7 +190,7 @@ export function LogDelayModal({
               placeholder="Explain cause of delay (e.g. 3 days of torrential rain prevented concrete truck site access)..."
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              className="bg-palladian border-blue-fantastic/20 text-blue-fantastic placeholder:text-blue-fantastic/40 min-h-[75px] text-xs font-sans rounded-xl focus-visible:ring-truffle-trouble"
+              className="bg-white border-blue-fantastic/20 text-blue-fantastic placeholder:text-blue-fantastic/40 min-h-[75px] text-xs font-sans rounded-xl focus-visible:ring-truffle-trouble"
             />
           </div>
 

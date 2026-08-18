@@ -47,7 +47,7 @@ export function PhotoGalleryGrid({
 }: PhotoGalleryGridProps) {
   if (photos.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-10 px-4 bg-palladian/30 border border-dashed border-blue-fantastic/20 rounded-2xl text-center">
+      <div className="flex flex-col items-center justify-center py-10 px-4 bg-surface-inset border border-dashed border-blue-fantastic/20 rounded-2xl text-center">
         <div className="h-12 w-12 rounded-2xl bg-blue-fantastic/10 flex items-center justify-center text-blue-fantastic/50 mb-3">
           <Camera className="h-6 w-6" />
         </div>
@@ -75,7 +75,7 @@ export function PhotoGalleryGrid({
       {photos.map((photo) => (
         <Card
           key={photo.id}
-          className="group relative bg-palladian/60 border border-blue-fantastic/15 shadow-xs hover:shadow-md hover:border-truffle-trouble/40 transition-all duration-200 overflow-hidden flex flex-col font-sans"
+          className="group relative bg-surface-muted border border-blue-fantastic/15 shadow-xs hover:shadow-md hover:border-truffle-trouble/40 transition-all duration-200 overflow-hidden flex flex-col font-sans"
         >
           {/* Image Thumbnail Container */}
           <div className="relative aspect-4/3 w-full bg-abyssal-blue/10 overflow-hidden">
@@ -104,7 +104,7 @@ export function PhotoGalleryGrid({
                 type="button"
                 onClick={() => onPhotoClick(photo)}
                 size="sm"
-                className="bg-palladian/90 hover:bg-palladian text-blue-fantastic font-sans font-bold text-xs h-8 px-3 rounded-xl backdrop-blur-xs shadow-sm"
+                className="bg-white/90 hover:bg-surface-inset text-blue-fantastic font-sans font-bold text-xs h-8 px-3 rounded-xl backdrop-blur-xs shadow-sm"
               >
                 <ZoomIn className="h-3.5 w-3.5 mr-1" />
                 View
@@ -122,7 +122,7 @@ export function PhotoGalleryGrid({
                     <MoreVertical className="h-3.5 w-3.5" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-44 font-sans bg-palladian border-blue-fantastic/20">
+                <DropdownMenuContent align="end" className="w-44 font-sans bg-white border-blue-fantastic/20">
                   <DropdownMenuItem onClick={() => onPhotoClick(photo)} className="cursor-pointer text-xs">
                     <ZoomIn className="h-3.5 w-3.5 mr-2 text-blue-fantastic" />
                     View Details

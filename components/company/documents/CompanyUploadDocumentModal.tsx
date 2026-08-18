@@ -195,14 +195,14 @@ export function CompanyUploadDocumentModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
-      <div className="bg-palladian rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15">
           <h2 className="text-lg font-bold text-blue-fantastic font-sans">Upload Document</h2>
           <button
             onClick={onClose}
             type="button"
-            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-palladian transition-colors"
+            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-surface-inset transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -221,7 +221,7 @@ export function CompanyUploadDocumentModal({
                 ? "border-truffle-trouble bg-truffle-trouble/5 scale-[0.99]"
                 : attachedFile
                 ? "border-emerald-500/50 bg-emerald-500/5"
-                : "border-blue-fantastic/15 bg-palladian/30 hover:border-blue-fantastic/40 hover:bg-palladian/60"
+                : "border-blue-fantastic/15 bg-surface-inset hover:border-blue-fantastic/40 hover:bg-surface-muted"
             }`}
           >
             <input
@@ -233,7 +233,7 @@ export function CompanyUploadDocumentModal({
             />
 
             {attachedFile ? (
-              <div className="flex items-center gap-3 w-full justify-between bg-palladian p-3 rounded-xl border border-emerald-500/30 shadow-xs">
+              <div className="flex items-center gap-3 w-full justify-between bg-white p-3 rounded-xl border border-emerald-500/30 shadow-xs">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0">
                     <CheckCircle2 className="h-5 w-5" />
@@ -281,7 +281,7 @@ export function CompanyUploadDocumentModal({
               value={documentName}
               onChange={(e) => setDocumentName(e.target.value)}
               placeholder="e.g. Site Safety Manual"
-              className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 focus:border-truffle-trouble focus:ring-truffle-trouble/20 font-sans"
+              className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 focus:border-truffle-trouble focus:ring-truffle-trouble/20 font-sans"
               required
             />
           </div>
@@ -294,7 +294,7 @@ export function CompanyUploadDocumentModal({
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value as DocumentCategory)}
-              className="w-full h-10 px-3 text-xs font-bold bg-palladian border border-blue-fantastic/15 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer font-sans"
+              className="w-full h-10 px-3 text-xs font-bold bg-white border border-blue-fantastic/15 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer font-sans"
             >
               {ALL_CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -320,7 +320,7 @@ export function CompanyUploadDocumentModal({
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 border ${
                       isSelected
                         ? "bg-blue-fantastic text-palladian border-blue-fantastic shadow-xs"
-                        : "bg-palladian text-blue-fantastic/70 border-blue-fantastic/15 hover:bg-palladian/40 hover:text-blue-fantastic"
+                        : "bg-white text-blue-fantastic/70 border-blue-fantastic/15 hover:bg-surface-inset hover:text-blue-fantastic"
                     }`}
                   >
                     {role}
@@ -336,7 +336,7 @@ export function CompanyUploadDocumentModal({
               type="button"
               variant="outline"
               onClick={onClose}
-              className="rounded-xl border-blue-fantastic/15 text-blue-fantastic font-bold text-xs h-10 px-5 hover:bg-palladian/30"
+              className="rounded-xl border-blue-fantastic/15 text-blue-fantastic font-bold text-xs h-10 px-5 hover:bg-surface-inset/30"
             >
               Cancel
             </Button>

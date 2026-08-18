@@ -53,7 +53,7 @@ export default function QuestionsFeed({
             placeholder="Search queries, lot or customer..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-9 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-xs font-sans w-full focus-visible:ring-truffle-trouble rounded-xl"
+            className="pl-9 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-xs font-sans w-full focus-visible:ring-truffle-trouble rounded-xl"
           />
         </div>
 
@@ -78,7 +78,7 @@ export default function QuestionsFeed({
       {/* Feed List */}
       <div className="space-y-4 max-h-[500px] overflow-y-auto pr-1">
         {filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 bg-palladian/40 border border-dashed border-blue-fantastic/20 rounded-2xl">
+          <div className="flex flex-col items-center justify-center py-16 bg-surface-inset border border-dashed border-blue-fantastic/20 rounded-2xl">
             <MessageSquare className="h-10 w-10 text-blue-fantastic/30 mb-2" />
             <p className="text-sm font-bold text-blue-fantastic">No Customer Queries</p>
             <p className="text-xs text-blue-fantastic/60 mt-1">
@@ -89,7 +89,7 @@ export default function QuestionsFeed({
           filtered.map((query) => (
             <div
               key={query.questionId}
-              className="p-4 bg-palladian border border-blue-fantastic/10 rounded-2xl hover:border-blue-fantastic/20 transition-all space-y-3"
+              className="p-4 bg-white border border-blue-fantastic/10 rounded-2xl hover:border-blue-fantastic/20 transition-all space-y-3"
             >
               {/* Card Header */}
               <div className="flex justify-between items-start flex-wrap gap-2">

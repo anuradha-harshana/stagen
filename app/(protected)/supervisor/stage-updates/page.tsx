@@ -243,7 +243,7 @@ function StageUpdatesContent() {
           <select
             value={selectedProjectId}
             onChange={(e) => handleProjectChange(e.target.value)}
-            className="bg-palladian border border-blue-fantastic/15 text-blue-fantastic font-semibold py-1.5 px-3 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-truffle-trouble cursor-pointer"
+            className="bg-white border border-blue-fantastic/15 text-blue-fantastic font-semibold py-1.5 px-3 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-truffle-trouble cursor-pointer"
           >
             {projects.map(p => (
               <option key={p.id} value={p.id}>
@@ -255,7 +255,7 @@ function StageUpdatesContent() {
       </div>
 
       {/* 2. Visual Stepper for 7 stages */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
         <CardContent className="py-4">
           <div className="flex items-center justify-between overflow-x-auto gap-4 py-1 scrollbar-none">
             {activeProject.stages.map((stage, idx) => {
@@ -306,7 +306,7 @@ function StageUpdatesContent() {
       {/* 3. Stage Checklist Panel & Note Log split */}
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-5">
         {/* Left: Stage Checklist Card (3 cols) */}
-        <Card className="lg:col-span-3 bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="lg:col-span-3 bg-white border border-blue-fantastic/15 shadow-sm">
           <CardHeader className="border-b border-blue-fantastic/10 pb-3">
             <div className="flex items-center gap-2">
               <div className="h-7 w-7 rounded-xl bg-blue-fantastic/10 flex items-center justify-center">
@@ -340,7 +340,7 @@ function StageUpdatesContent() {
                     className={`flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer ${
                       item.completed 
                         ? "bg-blue-fantastic/4 border-blue-fantastic/10 text-blue-fantastic/50" 
-                        : "bg-palladian border-blue-fantastic/15 text-blue-fantastic hover:border-blue-fantastic/30"
+                        : "bg-white border-blue-fantastic/15 text-blue-fantastic hover:border-blue-fantastic/30"
                     }`}
                   >
                     <Checkbox
@@ -394,7 +394,7 @@ function StageUpdatesContent() {
         {/* Right: Logging forms (2 cols) */}
         <div className="lg:col-span-2 flex flex-col gap-4">
           {/* Note Upload Form */}
-          <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+          <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
             <CardHeader className="pb-2 border-b border-blue-fantastic/10">
               <CardTitle className="text-blue-fantastic text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                 <Camera className="h-4 w-4 text-blue-fantastic" />
@@ -407,7 +407,7 @@ function StageUpdatesContent() {
                   placeholder="E.g., Framing passed inspector checks today. Electrical starts tomorrow morning..."
                   value={progressNote}
                   onChange={(e) => setProgressNote(e.target.value)}
-                  className="bg-palladian border-blue-fantastic/20 text-xs text-blue-fantastic placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble font-sans"
+                  className="bg-white border-blue-fantastic/20 text-xs text-blue-fantastic placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble font-sans"
                   rows={3}
                 />
                 
@@ -432,7 +432,7 @@ function StageUpdatesContent() {
           </Card>
 
           {/* Delay Log Form */}
-          <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+          <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
             <CardHeader className="pb-2 border-b border-blue-fantastic/10">
               <CardTitle className="text-blue-fantastic text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                 <AlertTriangle className="h-4 w-4 text-truffle-trouble" />
@@ -447,7 +447,7 @@ function StageUpdatesContent() {
                     <select
                       value={delayType}
                       onChange={(e) => setDelayType(e.target.value as any)}
-                      className="bg-palladian border border-blue-fantastic/20 text-blue-fantastic font-semibold py-1 px-2 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-truffle-trouble cursor-pointer"
+                      className="bg-white border border-blue-fantastic/20 text-blue-fantastic font-semibold py-1 px-2 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-truffle-trouble cursor-pointer"
                     >
                       <option value="Weather">Weather</option>
                       <option value="Materials">Materials</option>
@@ -461,7 +461,7 @@ function StageUpdatesContent() {
                       type="number"
                       value={delayDays}
                       onChange={(e) => setDelayDays(Number(e.target.value))}
-                      className="bg-palladian border-blue-fantastic/20 text-xs text-blue-fantastic h-7 font-sans focus-visible:ring-truffle-trouble"
+                      className="bg-white border-blue-fantastic/20 text-xs text-blue-fantastic h-7 font-sans focus-visible:ring-truffle-trouble"
                       min={1}
                     />
                   </div>
@@ -473,7 +473,7 @@ function StageUpdatesContent() {
                     placeholder="Describe what caused the delay (e.g., Heavy rain flooded site)..."
                     value={delayDesc}
                     onChange={(e) => setDelayDesc(e.target.value)}
-                    className="bg-palladian border-blue-fantastic/20 text-xs text-blue-fantastic placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble font-sans"
+                    className="bg-white border-blue-fantastic/20 text-xs text-blue-fantastic placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble font-sans"
                     rows={2}
                   />
                 </div>

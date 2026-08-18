@@ -20,7 +20,7 @@ export function CompanyInvoiceHistoryCard({
   }
 
   return (
-    <div className="bg-palladian rounded-3xl p-6 shadow-sm border border-blue-fantastic/15 font-sans flex flex-col justify-between h-full">
+    <div className="bg-white rounded-3xl p-6 shadow-sm border border-blue-fantastic/15 font-sans flex flex-col justify-between h-full">
       <div>
         <div className="flex items-center justify-between gap-4 mb-5">
           <h3 className="text-lg sm:text-xl font-bold text-blue-fantastic font-sans">

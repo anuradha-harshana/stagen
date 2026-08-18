@@ -75,7 +75,7 @@ export default function CompanyManagementAiTrendsPage() {
 
       {/* Executive Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
               <Bot className="h-5 w-5 text-blue-fantastic" />
@@ -91,7 +91,7 @@ export default function CompanyManagementAiTrendsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-truffle-trouble/15 border border-truffle-trouble/20 flex items-center justify-center shrink-0">
               <CheckCircle2 className="h-5 w-5 text-truffle-trouble" />
@@ -104,7 +104,7 @@ export default function CompanyManagementAiTrendsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-burning-flame/15 border border-burning-flame/20 flex items-center justify-center shrink-0">
               <DollarSign className="h-5 w-5 text-truffle-trouble" />
@@ -117,7 +117,7 @@ export default function CompanyManagementAiTrendsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
               <ThumbsUp className="h-5 w-5 text-blue-fantastic" />
@@ -132,7 +132,7 @@ export default function CompanyManagementAiTrendsPage() {
       </div>
 
       {/* Query Intent Breakdown Visual Bar */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm relative overflow-hidden">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm relative overflow-hidden">
         <CardHeader className="pb-3">
           <CardTitle className="text-sm font-bold text-blue-fantastic flex items-center gap-2">
             <Zap className="h-4 w-4 text-burning-flame" />
@@ -179,7 +179,7 @@ export default function CompanyManagementAiTrendsPage() {
       </Card>
 
       {/* Top Customer Questions & FAQ Performance Table */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
         <CardHeader className="pb-4 border-b border-blue-fantastic/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <CardTitle className="text-base font-bold text-blue-fantastic flex items-center gap-2">
@@ -198,7 +198,7 @@ export default function CompanyManagementAiTrendsPage() {
                 placeholder="Search FAQ question..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-52 focus-visible:ring-truffle-trouble"
+                className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-52 focus-visible:ring-truffle-trouble"
               />
             </div>
 
@@ -305,7 +305,7 @@ export default function CompanyManagementAiTrendsPage() {
       {/* Detail Dialog */}
       <Dialog open={selectedFaq !== null} onOpenChange={(open) => !open && setSelectedFaq(null)}>
         {selectedFaq && (
-          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
+          <DialogContent className="max-w-xl bg-white text-blue-fantastic font-sans border border-blue-fantastic/20">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <div className="flex items-center gap-2 mb-1">
                 <Badge className="text-[10px] bg-blue-fantastic/10 border-blue-fantastic/20 text-blue-fantastic font-bold">
@@ -343,7 +343,7 @@ export default function CompanyManagementAiTrendsPage() {
                   onChange={(e) =>
                     setSelectedFaq({ ...selectedFaq, sampleAnswer: e.target.value })
                   }
-                  className="w-full bg-palladian border border-blue-fantastic/20 rounded-xl p-3 text-xs text-blue-fantastic focus:outline-none h-24"
+                  className="w-full bg-white border border-blue-fantastic/20 rounded-xl p-3 text-xs text-blue-fantastic focus:outline-none h-24"
                 />
               </div>
             </div>

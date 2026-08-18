@@ -73,7 +73,7 @@ export default function NotificationSettings() {
   ]
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans w-[1000px] max-w-2xl">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans w-[1000px] max-w-2xl">
       <CardHeader className="border-b border-blue-fantastic/10 pb-4">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
@@ -124,7 +124,7 @@ export default function NotificationSettings() {
                 >
                   <span
                     className={cn(
-                      "pointer-events-none inline-block h-4.5 w-4.5 transform rounded-full bg-palladian shadow-md ring-0 transition duration-200 ease-in-out",
+                      "pointer-events-none inline-block h-4.5 w-4.5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out",
                       item.checked ? "translate-x-5" : "translate-x-0"
                     )}
                   />

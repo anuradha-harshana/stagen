@@ -176,10 +176,10 @@ export function SupervisorDelaysClient() {
           <div className="flex items-center gap-2">
             <Building2 className="h-4 w-4 text-blue-fantastic/50" />
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-              <SelectTrigger className="w-64 bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-10 rounded-xl">
+              <SelectTrigger className="w-64 bg-white border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-10 rounded-xl">
                 <SelectValue placeholder="Select Lot..." />
               </SelectTrigger>
-              <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
+              <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
                 {assignedProjects.map((proj: Project) => (
                   <SelectItem key={proj.id} value={proj.id} className="text-xs cursor-pointer">
                     <div className="flex items-center justify-between w-full gap-3">
@@ -216,7 +216,7 @@ export function SupervisorDelaysClient() {
             className={cn(
               "px-4 py-1.5 rounded-lg text-xs font-bold font-sans transition-all flex items-center gap-1.5",
               activeTab === "log"
-                ? "bg-palladian text-blue-fantastic shadow-xs"
+                ? "bg-white text-blue-fantastic shadow-xs"
                 : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
             )}
           >
@@ -229,7 +229,7 @@ export function SupervisorDelaysClient() {
             className={cn(
               "px-4 py-1.5 rounded-lg text-xs font-bold font-sans transition-all flex items-center gap-1.5",
               activeTab === "notices"
-                ? "bg-palladian text-blue-fantastic shadow-xs"
+                ? "bg-white text-blue-fantastic shadow-xs"
                 : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
             )}
           >
@@ -242,7 +242,7 @@ export function SupervisorDelaysClient() {
         <Button
           variant="outline"
           onClick={() => handleOpenSendMessage()}
-          className="bg-palladian border-blue-fantastic/20 text-blue-fantastic font-bold text-xs rounded-xl h-9 gap-1.5 self-start sm:self-auto"
+          className="bg-white border-blue-fantastic/20 text-blue-fantastic font-bold text-xs rounded-xl h-9 gap-1.5 self-start sm:self-auto"
         >
           <Send className="h-3.5 w-3.5 text-truffle-trouble" />
           <span>Send Customer Notice</span>
@@ -253,7 +253,7 @@ export function SupervisorDelaysClient() {
       {activeTab === "log" ? (
         <div className="space-y-4">
           {!currentTimeline.delayLog || currentTimeline.delayLog.length === 0 ? (
-            <div className="bg-palladian border border-blue-fantastic/10 rounded-2xl p-8 text-center space-y-2">
+            <div className="bg-white border border-blue-fantastic/10 rounded-2xl p-8 text-center space-y-2">
               <AlertTriangle className="h-8 w-8 text-blue-fantastic/30 mx-auto" />
               <h4 className="text-sm font-extrabold text-blue-fantastic font-sans">
                 No Delay Log Entries
@@ -271,7 +271,7 @@ export function SupervisorDelaysClient() {
                 return (
                   <div
                     key={entry.id}
-                    className="bg-palladian border border-blue-fantastic/10 rounded-2xl p-4 md:p-5 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4 transition-all hover:border-blue-fantastic/20"
+                    className="bg-white border border-blue-fantastic/10 rounded-2xl p-4 md:p-5 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4 transition-all hover:border-blue-fantastic/20"
                   >
                     {/* Left Icon + Text details */}
                     <div className="flex items-start gap-3.5 min-w-0 flex-1">
@@ -318,7 +318,7 @@ export function SupervisorDelaysClient() {
                     {/* Schedule Impact (Exact Customer View Matching) + Actions */}
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
                       {/* SCHEDULE IMPACT Box */}
-                      <div className="bg-palladian/40 border border-blue-fantastic/10 px-4 py-2.5 rounded-xl flex flex-col items-center justify-center gap-0.5 min-w-[180px]">
+                      <div className="bg-surface-inset border border-blue-fantastic/10 px-4 py-2.5 rounded-xl flex flex-col items-center justify-center gap-0.5 min-w-[180px]">
                         <span className="text-[9px] font-extrabold uppercase tracking-wider text-blue-fantastic/50 block text-center font-sans">
                           Schedule Impact
                         </span>

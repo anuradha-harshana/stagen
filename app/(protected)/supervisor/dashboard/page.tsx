@@ -167,7 +167,7 @@ export default function SupervisorDashboard() {
           return (
             <Card
               key={item.label}
-              className="bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
+              className="bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
             >
               <CardContent className="pt-4 pb-3.5 px-4 flex flex-col gap-2">
                 <div className="flex items-center justify-between">
@@ -213,7 +213,7 @@ export default function SupervisorDashboard() {
       {/* 4. Two Column Workspace Layout */}
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-5">
         {/* Left Column: Customer Inquiries (3 cols) */}
-        <Card className="lg:col-span-3 bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="lg:col-span-3 bg-white border border-blue-fantastic/15 shadow-sm">
           <CardHeader className="border-b border-blue-fantastic/10 pb-3">
             <div className="flex items-center gap-2">
               <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
@@ -264,7 +264,7 @@ export default function SupervisorDashboard() {
                       </div>
                     </div>
 
-                    <p className="text-xs text-blue-fantastic/90 font-semibold italic bg-palladian/60 p-2.5 rounded-xl border border-blue-fantastic/5 leading-relaxed">
+                    <p className="text-xs text-blue-fantastic/90 font-semibold italic bg-surface-muted p-2.5 rounded-xl border border-blue-fantastic/5 leading-relaxed">
                       "{q.questionText}"
                     </p>
 
@@ -274,7 +274,7 @@ export default function SupervisorDashboard() {
                           placeholder="Type your reply to the customer here..."
                           value={replyText}
                           onChange={(e) => setReplyText(e.target.value)}
-                          className="bg-palladian border-blue-fantastic/20 text-xs text-blue-fantastic font-sans placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble"
+                          className="bg-white border-blue-fantastic/20 text-xs text-blue-fantastic font-sans placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble"
                           rows={3}
                         />
                         <div className="flex gap-2 justify-end">
@@ -322,7 +322,7 @@ export default function SupervisorDashboard() {
         </Card>
 
         {/* Right Column: Recent Activities (2 cols) */}
-        <Card className="lg:col-span-2 bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="lg:col-span-2 bg-white border border-blue-fantastic/15 shadow-sm">
           <CardHeader className="border-b border-blue-fantastic/10 pb-3">
             <div className="flex items-center gap-2">
               <div className="h-7 w-7 rounded-xl bg-blue-fantastic/10 flex items-center justify-center">

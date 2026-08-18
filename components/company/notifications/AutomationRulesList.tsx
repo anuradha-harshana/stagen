@@ -19,7 +19,7 @@ export function AutomationRulesList({
 }: AutomationRulesListProps) {
   if (rules.length === 0) {
     return (
-      <div className="bg-palladian rounded-3xl p-12 border border-blue-fantastic/15 text-center font-sans">
+      <div className="bg-white rounded-3xl p-12 border border-blue-fantastic/15 text-center font-sans">
         <Zap className="w-10 h-10 text-burning-flame mx-auto mb-3" />
         <h3 className="text-lg font-bold text-abyssal-blue">No Automation Rules Configured</h3>
         <p className="text-sm text-slate-500 mt-1">
@@ -34,7 +34,7 @@ export function AutomationRulesList({
       {rules.map((rule) => (
         <div
           key={rule.id}
-          className={`p-6 rounded-2xl bg-palladian border transition-all ${
+          className={`p-6 rounded-2xl bg-white border transition-all ${
             rule.active
               ? "border-blue-fantastic/15 shadow-xs"
               : "border-blue-fantastic/15/50 bg-slate-50/50 opacity-80"
@@ -79,7 +79,7 @@ export function AutomationRulesList({
                   <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
                     Target Template:
                   </span>
-                  <span className="px-2.5 py-0.5 bg-palladian/60 text-abyssal-blue text-xs font-semibold rounded-lg border border-blue-fantastic/15">
+                  <span className="px-2.5 py-0.5 bg-surface-muted text-abyssal-blue text-xs font-semibold rounded-lg border border-blue-fantastic/15">
                     {rule.templateName}
                   </span>
 

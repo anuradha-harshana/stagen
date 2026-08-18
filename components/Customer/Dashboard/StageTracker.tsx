@@ -22,7 +22,7 @@ export default function StageTracker({ stages, className }: StageTrackerProps) {
   return (
     <div
       className={cn(
-        "bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl p-6 md:p-8 font-sans relative overflow-hidden",
+        "bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl p-6 md:p-8 font-sans relative overflow-hidden",
         className
       )}
     >
@@ -37,7 +37,7 @@ export default function StageTracker({ stages, className }: StageTrackerProps) {
       {/* Desktop Horizontal Tracker (md and up) */}
       <div className="hidden md:block relative z-10 my-6">
         {/* Background Track Line */}
-        <div className="absolute top-5 left-8 right-8 h-[3px] bg-palladian/60 -translate-y-1/2 z-0" />
+        <div className="absolute top-5 left-8 right-8 h-[3px] bg-surface-muted -translate-y-1/2 z-0" />
         
         {/* Progress Fill Line */}
         <div
@@ -116,7 +116,7 @@ export default function StageTracker({ stages, className }: StageTrackerProps) {
       {/* Mobile Vertical Tracker (sm and down) */}
       <div className="md:hidden flex flex-col gap-6 relative z-10 pl-2">
         {/* Continuous Track Line for Vertical */}
-        <div className="absolute top-5 bottom-5 left-7 w-[2px] bg-palladian/60 z-0" />
+        <div className="absolute top-5 bottom-5 left-7 w-[2px] bg-surface-muted z-0" />
         
         {/* Animated Progress Fill Line for Vertical */}
         <div

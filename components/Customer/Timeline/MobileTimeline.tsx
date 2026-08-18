@@ -86,7 +86,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
           const delayVariance = actualDays - plannedDays;
 
           // Badges classes
-          let badgeColor = "bg-palladian text-blue-fantastic border-blue-fantastic/10";
+          let badgeColor = "bg-white text-blue-fantastic border-blue-fantastic/10";
           let badgeText = "Upcoming";
 
           if (stage.status === "completed-on-time") {
@@ -107,14 +107,14 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
             <Card 
               key={stage.id} 
               className={cn(
-                "border overflow-hidden transition-all duration-300 rounded-2xl shadow-sm bg-palladian",
+                "border overflow-hidden transition-all duration-300 rounded-2xl shadow-sm bg-white",
                 isExpanded ? "border-blue-600/30 ring-1 ring-blue-600/10" : "border-blue-fantastic/5 hover:border-blue-fantastic/10"
               )}
             >
               {/* Header Tab */}
               <div
                 onClick={() => toggleStage(stage.id)}
-                className="p-4 flex items-center justify-between cursor-pointer select-none active:bg-palladian/20"
+                className="p-4 flex items-center justify-between cursor-pointer select-none active:bg-surface-inset"
               >
                 <div className="flex items-center gap-3">
                   <div className={cn(
@@ -123,7 +123,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
                     stage.status === "completed-late" && "bg-amber-50 border-amber-200 text-amber-600",
                     stage.status === "in-progress" && "bg-blue-50 border-blue-200 text-blue-700",
                     stage.status === "delayed" && "bg-truffle-trouble/10 border-truffle-trouble/20 text-truffle-trouble",
-                    stage.status === "upcoming" && "bg-palladian/40 border-blue-fantastic/5 text-blue-fantastic/40"
+                    stage.status === "upcoming" && "bg-surface-inset border-blue-fantastic/5 text-blue-fantastic/40"
                   )}>
                     0{index + 1}
                   </div>
@@ -203,7 +203,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
                         {stage.milestones.map((m, mIdx) => (
                           <div key={mIdx} className="p-3 flex items-center justify-between gap-3 text-xs">
                             <div className="flex items-center gap-2.5 min-w-0">
-                              <div className="h-7 w-7 rounded-full bg-palladian/40 flex items-center justify-center shrink-0">
+                              <div className="h-7 w-7 rounded-full bg-surface-inset flex items-center justify-center shrink-0">
                                 {getMilestoneIcon(m.type)}
                               </div>
                               <div className="min-w-0">

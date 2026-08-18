@@ -17,7 +17,7 @@ export function ReportsFilters({
   onTimeframeChange,
 }: ReportsFiltersProps) {
   return (
-    <div className="bg-palladian rounded-xl p-4 shadow-sm border border-blue-fantastic/15 flex flex-wrap items-center justify-between gap-4 text-xs">
+    <div className="bg-white rounded-xl p-4 shadow-sm border border-blue-fantastic/15 flex flex-wrap items-center justify-between gap-4 text-xs">
       <div className="flex items-center gap-3 flex-wrap">
         <div className="flex items-center gap-1.5 text-blue-fantastic/70 font-medium">
           <Filter className="h-4 w-4 text-truffle-trouble" />

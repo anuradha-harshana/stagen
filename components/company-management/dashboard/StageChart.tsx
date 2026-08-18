@@ -23,7 +23,7 @@ export function StageChart() {
   const maxCount = Math.max(...STAGE_DATA.map((d) => d.count));
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
       <CardHeader className="pb-2 pt-5 px-6">
         <CardTitle className="text-base font-bold text-blue-fantastic font-sans">
           Projects by Stage

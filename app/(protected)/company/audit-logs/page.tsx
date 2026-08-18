@@ -82,7 +82,7 @@ export default function CompanyAuditLogsPage() {
 
       {/* Overview Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
               <ScrollText className="h-5 w-5 text-blue-fantastic" />
@@ -95,7 +95,7 @@ export default function CompanyAuditLogsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-truffle-trouble/15 border border-truffle-trouble/20 flex items-center justify-center shrink-0">
               <ShieldCheck className="h-5 w-5 text-truffle-trouble" />
@@ -108,7 +108,7 @@ export default function CompanyAuditLogsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-burning-flame/15 border border-burning-flame/20 flex items-center justify-center shrink-0">
               <ShieldAlert className="h-5 w-5 text-truffle-trouble" />
@@ -121,7 +121,7 @@ export default function CompanyAuditLogsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
               <Lock className="h-5 w-5 text-blue-fantastic" />
@@ -136,7 +136,7 @@ export default function CompanyAuditLogsPage() {
       </div>
 
       {/* Main Audit Log Table Card */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
         <CardHeader className="pb-4 border-b border-blue-fantastic/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <CardTitle className="text-base font-bold text-blue-fantastic">
@@ -155,7 +155,7 @@ export default function CompanyAuditLogsPage() {
                 placeholder="Search user, action, IP..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-52 focus-visible:ring-truffle-trouble"
+                className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-52 focus-visible:ring-truffle-trouble"
               />
             </div>
 
@@ -163,7 +163,7 @@ export default function CompanyAuditLogsPage() {
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
-              className="bg-palladian border border-blue-fantastic/15 text-xs font-bold text-blue-fantastic rounded-lg h-8 px-2 focus:outline-none"
+              className="bg-white border border-blue-fantastic/15 text-xs font-bold text-blue-fantastic rounded-lg h-8 px-2 focus:outline-none"
             >
               <option value="All">All Severities</option>
               <option value="Info">Info</option>
@@ -280,7 +280,7 @@ export default function CompanyAuditLogsPage() {
       {/* Log Detail Dialog */}
       <Dialog open={selectedLog !== null} onOpenChange={(open) => !open && setSelectedLog(null)}>
         {selectedLog && (
-          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20">
+          <DialogContent className="max-w-xl bg-white text-blue-fantastic font-sans border border-blue-fantastic/20">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <div className="flex items-center gap-2 mb-1">
                 <Badge

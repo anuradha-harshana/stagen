@@ -37,7 +37,7 @@ export function StatusChart() {
   });
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
       <CardHeader className="pb-2 pt-5 px-6 flex flex-row items-center justify-between">
         <CardTitle className="text-base font-bold text-blue-fantastic font-sans">
           Projects by Status
@@ -101,7 +101,7 @@ export function StatusChart() {
                   onMouseEnter={() => setActiveItem(item)}
                   onMouseLeave={() => setActiveItem(null)}
                   className={`flex items-center justify-between p-1.5 rounded-lg transition-colors cursor-pointer text-xs ${
-                    isHovered ? "bg-palladian/60 font-bold" : "hover:bg-palladian/30"
+                    isHovered ? "bg-surface-muted font-bold" : "hover:bg-surface-inset/30"
                   }`}
                 >
                   <div className="flex items-center gap-2">

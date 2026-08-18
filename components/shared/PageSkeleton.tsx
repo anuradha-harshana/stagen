@@ -26,7 +26,7 @@ export function PageSkeleton({ statCards = 3, contentRows = 5 }: PageSkeletonPro
           {Array.from({ length: statCards }).map((_, index) => (
             <Card
               key={index}
-              className="bg-palladian border border-blue-fantastic/15 shadow-sm"
+              className="bg-white border border-blue-fantastic/15 shadow-sm"
             >
               <CardContent className="p-4 space-y-3">
                 <Skeleton className="h-4 w-1/3 bg-blue-fantastic/10" />
@@ -38,7 +38,7 @@ export function PageSkeleton({ statCards = 3, contentRows = 5 }: PageSkeletonPro
         </div>
       )}
 
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
         <CardHeader>
           <Skeleton className="h-5 w-1/4 bg-blue-fantastic/10" />
         </CardHeader>

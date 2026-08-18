@@ -38,7 +38,7 @@ export default function StatCard({
   return (
     <Card
       className={cn(
-        "bg-palladian border border-blue-fantastic/5 hover:border-truffle-trouble/10 shadow-[0_6px_20px_rgba(27,38,50,0.03)] hover:shadow-[0_12px_30px_rgba(27,38,50,0.06)] hover:scale-[1.01] transition-all duration-300 rounded-2xl flex flex-col justify-between overflow-hidden group",
+        "bg-white border border-blue-fantastic/5 hover:border-truffle-trouble/10 shadow-[0_6px_20px_rgba(27,38,50,0.03)] hover:shadow-[0_12px_30px_rgba(27,38,50,0.06)] hover:scale-[1.01] transition-all duration-300 rounded-2xl flex flex-col justify-between overflow-hidden group",
         className
       )}
     >
@@ -76,7 +76,7 @@ export default function StatCard({
             <div
               className={cn(
                 "relative flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-300 group-hover:rotate-6",
-                iconBgClass || "bg-palladian/30 text-blue-fantastic"
+                iconBgClass || "bg-surface-inset text-blue-fantastic"
               )}
             >
               {icon}
@@ -87,7 +87,7 @@ export default function StatCard({
         {/* Progress Bar (Optional) */}
         {progress !== undefined && (
           <div className="w-full my-4">
-            <div className="h-3 w-full bg-palladian/55 rounded-full overflow-hidden p-[2px] border border-blue-fantastic/5">
+            <div className="h-3 w-full bg-surface-muted rounded-full overflow-hidden p-[2px] border border-blue-fantastic/5">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-burning-flame to-truffle-trouble transition-all duration-1000 ease-out"
                 style={{ width: `${progress}%` }}

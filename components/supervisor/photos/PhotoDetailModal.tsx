@@ -89,7 +89,7 @@ export function PhotoDetailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-4xl w-[92vw] max-h-[90vh] overflow-y-auto bg-palladian border-blue-fantastic/20 p-0 font-sans sm:rounded-2xl">
+      <DialogContent className="max-w-4xl w-[92vw] max-h-[90vh] overflow-y-auto bg-white border-blue-fantastic/20 p-0 font-sans sm:rounded-2xl">
         <input
           ref={fileReplaceInputRef}
           type="file"
@@ -120,7 +120,7 @@ export function PhotoDetailModal({
           </div>
 
           {/* Right / Bottom: Metadata & Actions Panel */}
-          <div className="w-full lg:w-80 p-5 flex flex-col justify-between bg-palladian border-t lg:border-t-0 lg:border-l border-blue-fantastic/15 font-sans">
+          <div className="w-full lg:w-80 p-5 flex flex-col justify-between bg-white border-t lg:border-t-0 lg:border-l border-blue-fantastic/15 font-sans">
             <div>
               <DialogHeader className="pb-3 border-b border-blue-fantastic/10 text-left">
                 <DialogTitle className="text-blue-fantastic font-sans font-bold text-lg leading-tight">
@@ -197,7 +197,7 @@ export function PhotoDetailModal({
                       value={captionText}
                       onChange={(e) => setCaptionText(e.target.value)}
                       placeholder="Add an optional site observation or note..."
-                      className="bg-palladian/80 border-blue-fantastic/20 text-xs font-sans text-blue-fantastic placeholder:text-blue-fantastic/40 focus-visible:ring-truffle-trouble min-h-[90px]"
+                      className="bg-surface-muted border-blue-fantastic/20 text-xs font-sans text-blue-fantastic placeholder:text-blue-fantastic/40 focus-visible:ring-truffle-trouble min-h-[90px]"
                     />
                     <div className="flex gap-2 justify-end">
                       <Button
@@ -222,7 +222,7 @@ export function PhotoDetailModal({
                     </div>
                   </div>
                 ) : (
-                  <p className="text-xs text-blue-fantastic/80 leading-relaxed bg-palladian/60 p-3 rounded-xl border border-blue-fantastic/10 italic">
+                  <p className="text-xs text-blue-fantastic/80 leading-relaxed bg-surface-muted p-3 rounded-xl border border-blue-fantastic/10 italic">
                     {photo.caption || "No note recorded for this photo."}
                   </p>
                 )}

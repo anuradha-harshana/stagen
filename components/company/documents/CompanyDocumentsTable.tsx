@@ -80,9 +80,9 @@ export function CompanyDocumentsTable({
   }
 
   return (
-    <div className="bg-palladian border border-blue-fantastic/15 rounded-3xl shadow-sm overflow-hidden font-sans">
+    <div className="bg-white border border-blue-fantastic/15 rounded-3xl shadow-sm overflow-hidden font-sans">
       {/* Top Filter Bar inside Card */}
-      <div className="p-4 bg-palladian border-b border-blue-fantastic/15 flex items-center justify-between gap-3">
+      <div className="p-4 bg-white border-b border-blue-fantastic/15 flex items-center justify-between gap-3">
         {/* Search Bar Input */}
         <div className="relative flex-1 max-w-xs sm:max-w-sm">
           <label htmlFor="search-documents" className="sr-only">
@@ -96,7 +96,7 @@ export function CompanyDocumentsTable({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search documents..."
-            className="w-full pl-9 pr-3 py-2 text-xs font-medium bg-palladian/40 border border-blue-fantastic/15 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all"
+            className="w-full pl-9 pr-3 py-2 text-xs font-medium bg-surface-inset border border-blue-fantastic/15 rounded-xl text-blue-fantastic placeholder:text-blue-fantastic/40 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none transition-all"
           />
         </div>
 
@@ -110,7 +110,7 @@ export function CompanyDocumentsTable({
             aria-label="Filter by category"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-3 py-2 text-xs font-bold bg-palladian/40 border border-blue-fantastic/15 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer"
+            className="px-3 py-2 text-xs font-bold bg-surface-inset border border-blue-fantastic/15 rounded-xl text-blue-fantastic focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer"
           >
             <option value="All Categories">All Categories</option>
             {ALL_CATEGORIES.map((cat) => (
@@ -126,7 +126,7 @@ export function CompanyDocumentsTable({
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-palladian/50 border-b border-blue-fantastic/15 text-[11px] font-bold text-blue-fantastic/70 uppercase tracking-wider">
+            <tr className="bg-surface-muted border-b border-blue-fantastic/15 text-[11px] font-bold text-blue-fantastic/70 uppercase tracking-wider">
               <th className="py-3 px-5">Document Name</th>
               <th className="py-3 px-4">Category</th>
               <th className="py-3 px-4">Visible To</th>
@@ -139,12 +139,12 @@ export function CompanyDocumentsTable({
               filteredDocuments.map((doc) => (
                 <tr
                   key={doc.id}
-                  className="hover:bg-palladian/20 transition-colors duration-150 group"
+                  className="hover:bg-surface-inset transition-colors duration-150 group"
                 >
                   {/* Document Name */}
                   <td className="py-4 px-5">
                     <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-lg bg-palladian/80 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
+                      <div className="h-8 w-8 rounded-lg bg-surface-muted border border-blue-fantastic/15 flex items-center justify-center shrink-0">
                         {getFileIcon(doc.fileType)}
                       </div>
                       <div className="flex flex-col">
@@ -176,7 +176,7 @@ export function CompanyDocumentsTable({
                       {doc.visibleTo.map((role) => (
                         <span
                           key={role}
-                          className="px-2 py-0.5 text-[10px] font-bold bg-palladian/70 text-blue-fantastic/90 border border-blue-fantastic/15 rounded-md"
+                          className="px-2 py-0.5 text-[10px] font-bold bg-surface-muted text-blue-fantastic/90 border border-blue-fantastic/15 rounded-md"
                         >
                           {role}
                         </span>
@@ -195,21 +195,21 @@ export function CompanyDocumentsTable({
                       <button
                         onClick={() => onPreviewDocument(doc)}
                         title="View details"
-                        className="p-1.5 text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-palladian/60 rounded-lg transition-colors"
+                        className="p-1.5 text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-surface-muted rounded-lg transition-colors"
                       >
                         <Eye className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDownload(doc)}
                         title="Download file"
-                        className="p-1.5 text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-palladian/60 rounded-lg transition-colors"
+                        className="p-1.5 text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-surface-muted rounded-lg transition-colors"
                       >
                         <Download className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => onEditDocument(doc)}
                         title="Edit document"
-                        className="p-1.5 text-blue-fantastic/60 hover:text-truffle-trouble hover:bg-palladian/60 rounded-lg transition-colors"
+                        className="p-1.5 text-blue-fantastic/60 hover:text-truffle-trouble hover:bg-surface-muted rounded-lg transition-colors"
                       >
                         <Pencil className="h-4 w-4" />
                       </button>

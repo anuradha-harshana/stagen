@@ -25,14 +25,14 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-2xl bg-palladian border border-blue-fantastic/15 rounded-3xl p-6 font-sans max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl bg-white border border-blue-fantastic/15 rounded-3xl p-6 font-sans max-h-[90vh] overflow-y-auto">
         <DialogHeader className="space-y-1 text-left">
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="bg-blue-fantastic/10 text-blue-fantastic font-bold">
               {project.id}
             </Badge>
             {project.region && (
-              <Badge className="bg-palladian text-blue-fantastic font-bold border-none">
+              <Badge className="bg-white text-blue-fantastic font-bold border-none">
                 {project.region}
               </Badge>
             )}
@@ -60,7 +60,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
         </DialogHeader>
 
         {/* Info Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-palladian/30 rounded-2xl border border-blue-fantastic/15 text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-surface-inset rounded-2xl border border-blue-fantastic/15 text-xs">
           <div>
             <span className="text-blue-fantastic/50 font-bold block uppercase text-[10px]">Supervisor</span>
             <span className="font-extrabold text-blue-fantastic">{project.supervisorName || "Unassigned"}</span>
@@ -88,7 +88,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
             {project.stages.map((stage) => (
               <div
                 key={stage.name}
-                className="p-3 rounded-xl border border-blue-fantastic/15 bg-palladian flex items-center justify-between text-xs"
+                className="p-3 rounded-xl border border-blue-fantastic/15 bg-white flex items-center justify-between text-xs"
               >
                 <div className="flex items-center gap-2.5">
                   {stage.status === "Completed" ? (

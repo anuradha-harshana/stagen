@@ -51,7 +51,7 @@ export default function FAQList({ articles, onEdit, onDelete }: FAQListProps) {
           placeholder="Search questions or answers..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-9 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-sm font-sans w-full focus-visible:ring-truffle-trouble rounded-xl shadow-sm"
+          className="pl-9 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-sm font-sans w-full focus-visible:ring-truffle-trouble rounded-xl shadow-sm"
         />
       </div>
 
@@ -65,12 +65,12 @@ export default function FAQList({ articles, onEdit, onDelete }: FAQListProps) {
         return (
           <div
             key={category}
-            className="border border-blue-fantastic/10 rounded-2xl bg-palladian/40 overflow-hidden shadow-sm transition-all"
+            className="border border-blue-fantastic/10 rounded-2xl bg-surface-inset overflow-hidden shadow-sm transition-all"
           >
             {/* Category Header */}
             <button
               onClick={() => toggleCategory(category)}
-              className="w-full flex items-center justify-between p-4 bg-palladian hover:bg-palladian/80 text-blue-fantastic text-sm font-extrabold font-sans border-b border-blue-fantastic/5 transition-all text-left cursor-pointer"
+              className="w-full flex items-center justify-between p-4 bg-white hover:bg-surface-inset/80 text-blue-fantastic text-sm font-extrabold font-sans border-b border-blue-fantastic/5 transition-all text-left cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <HelpCircle className="h-4 w-4 text-truffle-trouble" />
@@ -85,11 +85,11 @@ export default function FAQList({ articles, onEdit, onDelete }: FAQListProps) {
 
             {/* Category FAQ items */}
             {isExpanded && (
-              <div className="p-4 space-y-3 bg-palladian/10">
+              <div className="p-4 space-y-3 bg-surface-inset/60">
                 {catArticles.map((art) => (
                   <div
                     key={art.id}
-                    className="p-4 rounded-xl bg-palladian border border-blue-fantastic/5 flex justify-between items-start gap-4 hover:border-blue-fantastic/15 transition-all group"
+                    className="p-4 rounded-xl bg-white border border-blue-fantastic/5 flex justify-between items-start gap-4 hover:border-blue-fantastic/15 transition-all group"
                   >
                     <div className="space-y-2 flex-1 min-w-0">
                       <h4 className="text-xs font-bold text-blue-fantastic flex items-start gap-1.5 leading-normal">
@@ -132,7 +132,7 @@ export default function FAQList({ articles, onEdit, onDelete }: FAQListProps) {
 
       {/* No results state */}
       {filteredArticles.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-16 bg-palladian/40 border border-dashed border-blue-fantastic/20 rounded-2xl">
+        <div className="flex flex-col items-center justify-center py-16 bg-surface-inset border border-dashed border-blue-fantastic/20 rounded-2xl">
           <HelpCircle className="h-10 w-10 text-blue-fantastic/30 mb-2" />
           <p className="text-sm font-bold text-blue-fantastic">No FAQs Found</p>
           <p className="text-xs text-blue-fantastic/60 mt-1">Try refining your search keyword.</p>

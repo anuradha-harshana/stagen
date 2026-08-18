@@ -19,7 +19,7 @@ export function MessageTemplatesList({
 }: MessageTemplatesListProps) {
   if (templates.length === 0) {
     return (
-      <div className="p-8 rounded-2xl bg-palladian border border-blue-fantastic/15 text-center font-sans">
+      <div className="p-8 rounded-2xl bg-white border border-blue-fantastic/15 text-center font-sans">
         <p className="text-sm text-slate-500">No message templates found.</p>
       </div>
     )

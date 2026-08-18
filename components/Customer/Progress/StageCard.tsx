@@ -62,7 +62,7 @@ export default function StageCard({
       <Card
         onClick={onToggle}
         className={cn(
-        "flex-1 bg-palladian border cursor-pointer select-none transition-all duration-300 rounded-2xl overflow-hidden shadow-sm",
+        "flex-1 bg-white border cursor-pointer select-none transition-all duration-300 rounded-2xl overflow-hidden shadow-sm",
           isCompleted && "border-blue-fantastic/5 hover:border-emerald-600/20 hover:shadow-[0_8px_20px_rgba(27,38,50,0.04)]",
           isInProgress && "border-burning-flame/35 shadow-[0_6px_20px_rgba(255,177,98,0.06)] ring-1 ring-burning-flame/10 hover:shadow-[0_12px_25px_rgba(255,177,98,0.1)]",
           isUpcoming && "border-blue-fantastic/5 opacity-65 hover:opacity-85 hover:border-blue-fantastic/10"
@@ -91,7 +91,7 @@ export default function StageCard({
                     "text-[9px] px-2 py-0.5 rounded-full font-bold border uppercase tracking-wider shrink-0",
                     isCompleted && "bg-emerald-50 text-emerald-700 border-emerald-200",
                     isInProgress && "bg-burning-flame/15 text-truffle-trouble border-burning-flame/20 animate-pulse",
-                    isUpcoming && "bg-palladian/30 text-blue-fantastic/30 border-blue-fantastic/5"
+                    isUpcoming && "bg-surface-inset text-blue-fantastic/30 border-blue-fantastic/5"
                   )}
                 >
                   {stage.status === "in-progress" ? "In Progress" : stage.status}
@@ -112,7 +112,7 @@ export default function StageCard({
             {/* Expand / Collapse Icon */}
             <div
               className={cn(
-                "h-8 w-8 rounded-full border border-blue-fantastic/5 bg-palladian/15 flex items-center justify-center text-blue-fantastic/40 transition-all duration-300",
+                "h-8 w-8 rounded-full border border-blue-fantastic/5 bg-surface-inset/80 flex items-center justify-center text-blue-fantastic/40 transition-all duration-300",
                 isExpanded && "rotate-180 bg-truffle-trouble/10 border-truffle-trouble/10 text-truffle-trouble"
               )}
             >
@@ -157,7 +157,7 @@ export default function StageCard({
                           ? "bg-emerald-50/20 border-emerald-500/10 text-emerald-800"
                           : milestone.status === "scheduled"
                           ? "bg-burning-flame/5 border-burning-flame/15 text-truffle-trouble"
-                          : "bg-palladian/10 border-blue-fantastic/[0.03] text-blue-fantastic/40"
+                          : "bg-surface-inset/60 border-blue-fantastic/[0.03] text-blue-fantastic/40"
                       )}
                     >
                       <span className="font-bold">{milestone.name}</span>
@@ -184,7 +184,7 @@ export default function StageCard({
                           e.stopPropagation(); // Prevent card toggle
                           onPhotoClick(photo);
                         }}
-                        className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-palladian/35 border border-blue-fantastic/5 shadow-sm hover:shadow-md transition-all duration-300 cursor-zoom-in"
+                        className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-surface-inset border border-blue-fantastic/5 shadow-sm hover:shadow-md transition-all duration-300 cursor-zoom-in"
                       >
                         <Image
                           src={photo.url}
@@ -213,7 +213,7 @@ export default function StageCard({
                     {stageUpdates.map((update) => (
                       <div
                         key={update.id}
-                        className="bg-palladian/25 rounded-xl p-3 border border-blue-fantastic/[0.02] flex flex-col gap-0.5 text-xs"
+                        className="bg-surface-inset rounded-xl p-3 border border-blue-fantastic/[0.02] flex flex-col gap-0.5 text-xs"
                       >
                         <div className="flex justify-between items-center">
                           <span className="font-bold text-blue-fantastic">{update.title}</span>

@@ -41,7 +41,7 @@ export default function SupervisorsGrid({
         return (
           <Card
             key={name}
-            className="bg-palladian border border-blue-fantastic/10 shadow-sm flex flex-col justify-between h-full"
+            className="bg-white border border-blue-fantastic/10 shadow-sm flex flex-col justify-between h-full"
           >
             <div>
               {/* Card Header */}

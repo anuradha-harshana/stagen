@@ -26,7 +26,7 @@ export default function DashboardClient() {
         subtitle="Overview of company performance and project health"
         rightContent={
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-palladian border border-blue-fantastic/15 px-3.5 py-1.5 rounded-xl text-xs font-bold text-blue-fantastic shadow-sm">
+            <div className="flex items-center gap-2 bg-white border border-blue-fantastic/15 px-3.5 py-1.5 rounded-xl text-xs font-bold text-blue-fantastic shadow-sm">
               <Calendar className="h-3.5 w-3.5 text-truffle-trouble" />
               <span>{dateRange}</span>
               <ChevronDown className="h-3 w-3 text-blue-fantastic/40 ml-1" />
@@ -34,7 +34,7 @@ export default function DashboardClient() {
 
             <button
               type="button"
-              className="w-10 h-10 rounded-xl bg-palladian border border-blue-fantastic/15 flex items-center justify-center text-blue-fantastic hover:bg-blue-fantastic/5 transition-all relative"
+              className="w-10 h-10 rounded-xl bg-white border border-blue-fantastic/15 flex items-center justify-center text-blue-fantastic hover:bg-blue-fantastic/5 transition-all relative"
             >
               <Bell className="h-4 w-4" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-truffle-trouble" />
@@ -54,7 +54,7 @@ export default function DashboardClient() {
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeTab === "overview"
               ? "bg-blue-fantastic text-white shadow-xs"
-              : "text-blue-fantastic/70 hover:bg-palladian/60"
+              : "text-blue-fantastic/70 hover:bg-surface-muted"
           }`}
         >
           Executive Overview
@@ -64,7 +64,7 @@ export default function DashboardClient() {
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeTab === "insights"
               ? "bg-blue-fantastic text-white shadow-xs"
-              : "text-blue-fantastic/70 hover:bg-palladian/60"
+              : "text-blue-fantastic/70 hover:bg-surface-muted"
           }`}
         >
           AI & Communication Insights
@@ -74,7 +74,7 @@ export default function DashboardClient() {
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeTab === "operations"
               ? "bg-blue-fantastic text-white shadow-xs"
-              : "text-blue-fantastic/70 hover:bg-palladian/60"
+              : "text-blue-fantastic/70 hover:bg-surface-muted"
           }`}
         >
           Operations & Warranty

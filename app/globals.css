@@ -63,6 +63,10 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-surface-card: var(--surface-card);
+  --color-surface-inset: var(--surface-inset);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-input: var(--surface-input);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -85,6 +89,10 @@
   --abyssal-blue: #1b2632; /* color pallete ends */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
+  --surface-card: oklch(1 0 0);
+  --surface-inset: oklch(0.98 0.004 85);
+  --surface-muted: oklch(0.96 0.006 85);
+  --surface-input: oklch(0.985 0.003 85);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);

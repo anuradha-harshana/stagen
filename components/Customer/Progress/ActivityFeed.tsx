@@ -53,7 +53,7 @@ export default function ActivityFeed({ updates, stageNames }: ActivityFeedProps)
   });
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden w-full flex flex-col">
+    <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden w-full flex flex-col">
       <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-xl bg-burning-flame/10 flex items-center justify-center text-burning-flame">
@@ -74,7 +74,7 @@ export default function ActivityFeed({ updates, stageNames }: ActivityFeedProps)
             placeholder="Search updates..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-1.5 rounded-xl border border-blue-fantastic/10 bg-palladian/10 text-xs font-medium placeholder-blue-fantastic/30 focus:outline-none focus:ring-1 focus:ring-truffle-trouble focus:border-truffle-trouble transition-all duration-200"
+            className="w-full pl-9 pr-4 py-1.5 rounded-xl border border-blue-fantastic/10 bg-surface-inset/60 text-xs font-medium placeholder-blue-fantastic/30 focus:outline-none focus:ring-1 focus:ring-truffle-trouble focus:border-truffle-trouble transition-all duration-200"
           />
         </div>
       </CardHeader>
@@ -89,7 +89,7 @@ export default function ActivityFeed({ updates, stageNames }: ActivityFeedProps)
                 "px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0 transition-all duration-200 cursor-pointer",
                 selectedStage === "all"
                   ? "bg-truffle-trouble text-white"
-                  : "bg-palladian/30 text-blue-fantastic/60 hover:bg-palladian/50"
+                  : "bg-surface-inset text-blue-fantastic/60 hover:bg-surface-inset/50"
               )}
             >
               All Stages
@@ -104,7 +104,7 @@ export default function ActivityFeed({ updates, stageNames }: ActivityFeedProps)
                     "px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0 transition-all duration-200 cursor-pointer",
                     selectedStage === id
                       ? "bg-truffle-trouble text-white"
-                      : "bg-palladian/30 text-blue-fantastic/60 hover:bg-palladian/50"
+                      : "bg-surface-inset text-blue-fantastic/60 hover:bg-surface-inset/50"
                   )}
                 >
                   {name}

@@ -121,7 +121,7 @@ export default function CompanyProfileClient() {
       />
 
       {/* ================= MAIN PROFILE FORM CARD ================= */}
-      <Card className="bg-palladian rounded-2xl p-6 sm:p-8 shadow-sm border border-blue-fantastic/15">
+      <Card className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-blue-fantastic/15">
         <CardContent className="p-0">
           <form onSubmit={handleSave} className="space-y-6">
             
@@ -173,7 +173,7 @@ export default function CompanyProfileClient() {
                   value={profile.companyName}
                   onChange={(e) => handleChange("companyName", e.target.value)}
                   placeholder="Enter company name"
-                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-white shadow-2xs"
                 />
               </div>
 
@@ -188,7 +188,7 @@ export default function CompanyProfileClient() {
                   value={profile.abn}
                   onChange={(e) => handleChange("abn", e.target.value)}
                   placeholder="e.g. 98 123 456 789"
-                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-white shadow-2xs"
                 />
               </div>
 
@@ -203,7 +203,7 @@ export default function CompanyProfileClient() {
                   value={profile.businessAddress}
                   onChange={(e) => handleChange("businessAddress", e.target.value)}
                   placeholder="Street address, suburb, state, postcode"
-                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-white shadow-2xs"
                 />
               </div>
 
@@ -218,7 +218,7 @@ export default function CompanyProfileClient() {
                   value={profile.contactNumber}
                   onChange={(e) => handleChange("contactNumber", e.target.value)}
                   placeholder="+61 3 9876 5432"
-                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-white shadow-2xs"
                 />
               </div>
 
@@ -233,7 +233,7 @@ export default function CompanyProfileClient() {
                   value={profile.primaryEmail}
                   onChange={(e) => handleChange("primaryEmail", e.target.value)}
                   placeholder="admin@company.com.au"
-                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-white shadow-2xs"
                 />
               </div>
 
@@ -248,7 +248,7 @@ export default function CompanyProfileClient() {
                   value={profile.websiteUrl}
                   onChange={(e) => handleChange("websiteUrl", e.target.value)}
                   placeholder="https://yourwebsite.com.au"
-                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs"
+                  className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-white shadow-2xs"
                 />
               </div>
 
@@ -262,7 +262,7 @@ export default function CompanyProfileClient() {
                   value={profile.timezone}
                   onValueChange={(val) => handleChange("timezone", val)}
                 >
-                  <SelectTrigger className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs">
+                  <SelectTrigger className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-white shadow-2xs">
                     <SelectValue placeholder="Select Timezone" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl text-xs">
@@ -285,7 +285,7 @@ export default function CompanyProfileClient() {
                   value={profile.defaultCurrency}
                   onValueChange={(val) => handleChange("defaultCurrency", val)}
                 >
-                  <SelectTrigger className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-palladian shadow-2xs">
+                  <SelectTrigger className="rounded-xl border-gray-200 focus:border-blue-fantastic text-xs h-11 bg-white shadow-2xs">
                     <SelectValue placeholder="Select Currency" />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl text-xs">

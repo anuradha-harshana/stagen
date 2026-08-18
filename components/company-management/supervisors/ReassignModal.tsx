@@ -51,7 +51,7 @@ export default function ReassignModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             Reassign Supervisor: Lot {project.id}
@@ -71,10 +71,10 @@ export default function ReassignModal({
               Select Site Construction Supervisor
             </Label>
             <Select value={selectedSupervisor} onValueChange={setSelectedSupervisor}>
-              <SelectTrigger className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
+              <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
                 <SelectValue placeholder="Select Supervisor" />
               </SelectTrigger>
-              <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+              <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
                 <SelectItem value="Unassigned" className="text-xs font-bold font-sans text-blue-fantastic/60">
                   Unassigned
                 </SelectItem>

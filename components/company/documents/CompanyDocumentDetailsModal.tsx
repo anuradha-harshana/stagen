@@ -80,7 +80,7 @@ export function CompanyDocumentDetailsModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
-      <div className="bg-palladian rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15">
           <div className="flex items-center gap-2.5">
@@ -93,7 +93,7 @@ export function CompanyDocumentDetailsModal({
           </div>
           <button
             onClick={onClose}
-            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-palladian transition-colors"
+            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-surface-inset transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -108,7 +108,7 @@ export function CompanyDocumentDetailsModal({
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="bg-palladian border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
+                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
                 required
               />
             </div>
@@ -118,7 +118,7 @@ export function CompanyDocumentDetailsModal({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as DocumentCategory)}
-                className="w-full h-10 px-3 text-xs font-bold bg-palladian border border-blue-fantastic/15 rounded-xl text-blue-fantastic focus:border-truffle-trouble outline-none cursor-pointer font-sans"
+                className="w-full h-10 px-3 text-xs font-bold bg-white border border-blue-fantastic/15 rounded-xl text-blue-fantastic focus:border-truffle-trouble outline-none cursor-pointer font-sans"
               >
                 {ALL_CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
@@ -141,7 +141,7 @@ export function CompanyDocumentDetailsModal({
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
                         isSelected
                           ? "bg-blue-fantastic text-palladian border-blue-fantastic shadow-xs"
-                          : "bg-palladian text-blue-fantastic/70 border-blue-fantastic/15 hover:bg-palladian/40"
+                          : "bg-white text-blue-fantastic/70 border-blue-fantastic/15 hover:bg-surface-inset"
                       }`}
                     >
                       {role}
@@ -170,7 +170,7 @@ export function CompanyDocumentDetailsModal({
           </form>
         ) : (
           <div className="p-6 space-y-5">
-            <div className="bg-palladian/40 border border-blue-fantastic/15 rounded-2xl p-4 space-y-3">
+            <div className="bg-surface-inset border border-blue-fantastic/15 rounded-2xl p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <Badge variant="outline" className="bg-truffle-trouble/15 text-truffle-trouble border-truffle-trouble/30 font-bold">
                   {document.category}
@@ -198,7 +198,7 @@ export function CompanyDocumentDetailsModal({
                     {document.visibleTo.map((role) => (
                       <span
                         key={role}
-                        className="px-2 py-0.5 text-[10px] font-bold bg-palladian text-blue-fantastic border border-blue-fantastic/15 rounded-md"
+                        className="px-2 py-0.5 text-[10px] font-bold bg-white text-blue-fantastic border border-blue-fantastic/15 rounded-md"
                       >
                         {role}
                       </span>

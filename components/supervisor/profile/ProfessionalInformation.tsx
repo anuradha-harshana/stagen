@@ -87,7 +87,7 @@ export function ProfessionalInformation({
           </Button>
         </CardHeader>
         <CardContent className="pt-6 flex flex-col gap-6">
-          <div className="flex items-start gap-4 p-4 rounded-2xl bg-palladian/30 border border-oatmeal/20 w-fit">
+          <div className="flex items-start gap-4 p-4 rounded-2xl bg-surface-inset border border-oatmeal/20 w-fit">
             <div className="text-5xl font-extrabold text-blue-fantastic leading-none">
               {yearsOfExperience}
             </div>
@@ -120,7 +120,7 @@ export function ProfessionalInformation({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-abyssal-blue/40 backdrop-blur-sm animate-fade-in">
           <div className="bg-white rounded-3xl w-full max-w-md shadow-xl border border-oatmeal/30 overflow-hidden transform transition-all">
-            <div className="flex justify-between items-center px-6 py-4 border-b border-oatmeal/10 bg-palladian/30">
+            <div className="flex justify-between items-center px-6 py-4 border-b border-oatmeal/10 bg-surface-inset">
               <h3 className="font-bold text-blue-fantastic text-base">Edit Professional Info</h3>
               <button
                 onClick={() => setIsOpen(false)}

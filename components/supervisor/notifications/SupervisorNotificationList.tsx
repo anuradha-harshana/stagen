@@ -31,7 +31,7 @@ export function SupervisorNotificationList({
   const visibleNotifications = notifications.slice(0, visibleCount)
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2">
@@ -95,7 +95,7 @@ export function SupervisorNotificationList({
                 <Button
                   variant="outline"
                   onClick={handleLoadMore}
-                  className="w-full bg-palladian border-blue-fantastic/15 text-blue-fantastic hover:bg-blue-fantastic/8 hover:border-blue-fantastic/25 font-semibold text-xs h-9 rounded-xl gap-1.5 shadow-2xs cursor-pointer"
+                  className="w-full bg-white border-blue-fantastic/15 text-blue-fantastic hover:bg-blue-fantastic/8 hover:border-blue-fantastic/25 font-semibold text-xs h-9 rounded-xl gap-1.5 shadow-2xs cursor-pointer"
                 >
                   <ChevronDown className="h-3.5 w-3.5" />
                   Load More ({notifications.length - visibleCount} remaining)

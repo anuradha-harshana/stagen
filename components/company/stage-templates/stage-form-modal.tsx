@@ -62,7 +62,7 @@ export default function StageFormModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             {isEdit ? "Edit Stage Details" : "Create New Stage"}
@@ -80,7 +80,7 @@ export default function StageFormModal({
               placeholder="e.g. Slab, Frame, Lockup"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                 errors.name ? "border-red-500" : ""
               }`}
             />
@@ -100,7 +100,7 @@ export default function StageFormModal({
               placeholder="e.g. 15"
               value={weight || ""}
               onChange={(e) => setWeight(Number(e.target.value))}
-              className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                 errors.weight ? "border-red-500" : ""
               }`}
             />

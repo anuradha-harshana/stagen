@@ -22,7 +22,7 @@ const stageColors: Record<string, string> = {
 
 export function PhotoGrid() {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-blue-fantastic/10 flex items-center justify-center">
@@ -57,7 +57,7 @@ export function PhotoGrid() {
               {/* hover overlay */}
               <div className="absolute inset-0 bg-abyssal-blue/0 group-hover:bg-abyssal-blue/60 transition-all duration-300 flex items-center justify-center">
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-1">
-                  <div className="h-8 w-8 rounded-full bg-palladian/20 backdrop-blur-sm flex items-center justify-center border border-palladian/30">
+                  <div className="h-8 w-8 rounded-full bg-surface-inset backdrop-blur-sm flex items-center justify-center border border-palladian/30">
                     <ZoomIn className="h-4 w-4 text-palladian" />
                   </div>
                   <span className="text-palladian text-[10px] font-semibold">View</span>
@@ -75,7 +75,7 @@ export function PhotoGrid() {
 
               {/* top-right stage badge */}
               <div className="absolute top-2 right-2">
-                <span className={`inline-flex text-[9px] font-bold px-1.5 py-0.5 rounded-full border backdrop-blur-sm bg-palladian/90 ${stageColors[photo.stage]}`}>
+                <span className={`inline-flex text-[9px] font-bold px-1.5 py-0.5 rounded-full border backdrop-blur-sm bg-white/90 ${stageColors[photo.stage]}`}>
                   {photo.stage}
                 </span>
               </div>

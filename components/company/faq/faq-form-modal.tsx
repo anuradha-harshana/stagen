@@ -99,7 +99,7 @@ export default function FAQFormModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             {isEdit ? "Edit FAQ Article" : "Create New FAQ Article"}
@@ -112,10 +112,10 @@ export default function FAQFormModal({
             <Label className="text-xs font-bold text-blue-fantastic/70">Category</Label>
             {!isCustomCat ? (
               <Select value={category} onValueChange={handleCategorySelect}>
-                <SelectTrigger className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
+                <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
-                <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+                <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
                   {categories.map((cat) => (
                     <SelectItem key={cat} value={cat} className="text-xs font-bold font-sans">
                       {cat}
@@ -132,7 +132,7 @@ export default function FAQFormModal({
                   placeholder="Enter new category name..."
                   value={customCategory}
                   onChange={(e) => setCustomCategory(e.target.value)}
-                  className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble flex-1"
+                  className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble flex-1"
                 />
                 <Button
                   variant="outline"
@@ -156,7 +156,7 @@ export default function FAQFormModal({
               placeholder="e.g. Can we arrange a site walkthrough?"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
-              className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                 errors.question ? "border-red-500" : ""
               }`}
             />
@@ -173,7 +173,7 @@ export default function FAQFormModal({
               placeholder="Provide a detailed, helpful answer..."
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
-              className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic min-h-[120px] focus-visible:ring-truffle-trouble rounded-xl ${
+              className={`bg-white border-blue-fantastic/15 text-blue-fantastic min-h-[120px] focus-visible:ring-truffle-trouble rounded-xl ${
                 errors.answer ? "border-red-500" : ""
               }`}
             />

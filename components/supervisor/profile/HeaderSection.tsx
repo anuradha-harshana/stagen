@@ -54,7 +54,7 @@ export function HeaderSection({
             <span className="text-truffle-trouble font-bold text-xs tracking-wider uppercase">
               Lead Site Supervisor
             </span>
-            <Badge variant="outline" className="bg-palladian/30 border-oatmeal/50 text-blue-fantastic font-semibold text-[10px]">
+            <Badge variant="outline" className="bg-surface-inset border-oatmeal/50 text-blue-fantastic font-semibold text-[10px]">
               {employeeId}
             </Badge>
           </div>
@@ -76,7 +76,7 @@ export function HeaderSection({
                 className={`px-4 py-1.5 rounded-full text-xs font-bold border-2 transition-all ${
                   availability === "Available"
                     ? "border-emerald-500 bg-emerald-50 text-emerald-600 shadow-sm"
-                    : "border-oatmeal/40 bg-white text-blue-fantastic/70 hover:bg-palladian/20"
+                    : "border-oatmeal/40 bg-white text-blue-fantastic/70 hover:bg-surface-inset"
                 }`}
               >
                 Available
@@ -89,7 +89,7 @@ export function HeaderSection({
                 className={`px-4 py-1.5 rounded-full text-xs font-bold border-2 transition-all ${
                   availability === "Onsite"
                     ? "border-blue-fantastic bg-blue-fantastic/5 text-blue-fantastic shadow-sm"
-                    : "border-oatmeal/40 bg-white text-blue-fantastic/70 hover:bg-palladian/20"
+                    : "border-oatmeal/40 bg-white text-blue-fantastic/70 hover:bg-surface-inset"
                 }`}
               >
                 Onsite
@@ -102,7 +102,7 @@ export function HeaderSection({
                 className={`px-4 py-1.5 rounded-full text-xs font-bold border-2 transition-all ${
                   availability === "Leave"
                     ? "border-truffle-trouble bg-truffle-trouble/5 text-truffle-trouble shadow-sm"
-                    : "border-oatmeal/40 bg-white text-blue-fantastic/70 hover:bg-palladian/20"
+                    : "border-oatmeal/40 bg-white text-blue-fantastic/70 hover:bg-surface-inset"
                 }`}
               >
                 Leave

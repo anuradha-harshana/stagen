@@ -31,7 +31,7 @@ export default function WarrantyCoverageSummary() {
   return (
     <div className="space-y-6 w-full font-sans">
       {/* Warranty Periods Overview */}
-      <div className="bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
+      <div className="bg-white p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
         <div className="flex items-center gap-2 pb-2 border-b border-blue-fantastic/5">
           <Shield className="h-4.5 w-4.5 text-truffle-trouble" />
           <h3 className="text-xs font-bold text-blue-fantastic uppercase tracking-wider">
@@ -85,7 +85,7 @@ export default function WarrantyCoverageSummary() {
       </div>
 
       {/* SLA Policy reminder */}
-      <div className="bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-3">
+      <div className="bg-white p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-blue-fantastic/5">
           <ShieldAlert className="h-4.5 w-4.5 text-burning-flame" />
           <h3 className="text-xs font-bold text-blue-fantastic uppercase tracking-wider">

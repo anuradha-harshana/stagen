@@ -6,7 +6,7 @@ import { DollarSign, TrendingUp, Clock, Building2 } from "lucide-react";
 export function BillingStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 flex items-center justify-between hover:shadow-md transition-shadow">
+      <div className="bg-white rounded-xl p-6 shadow-sm border border-blue-fantastic/15 flex items-center justify-between hover:shadow-md transition-shadow">
         <div>
           <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
             Monthly Revenue
@@ -24,7 +24,7 @@ export function BillingStats() {
         </div>
       </div>
 
-      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 flex items-center justify-between hover:shadow-md transition-shadow">
+      <div className="bg-white rounded-xl p-6 shadow-sm border border-blue-fantastic/15 flex items-center justify-between hover:shadow-md transition-shadow">
         <div>
           <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
             Outstanding Invoices
@@ -41,7 +41,7 @@ export function BillingStats() {
         </div>
       </div>
 
-      <div className="bg-palladian rounded-xl p-6 shadow-sm border border-blue-fantastic/15 flex items-center justify-between hover:shadow-md transition-shadow">
+      <div className="bg-white rounded-xl p-6 shadow-sm border border-blue-fantastic/15 flex items-center justify-between hover:shadow-md transition-shadow">
         <div>
           <span className="text-xs uppercase font-semibold text-blue-fantastic/60 tracking-wider">
             Active Sites

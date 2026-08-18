@@ -165,7 +165,7 @@ export default function ProjectFormModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-palladian text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
             {isEdit ? "Edit Build Lot" : "Create New Build Lot"}
@@ -184,7 +184,7 @@ export default function ProjectFormModal({
               value={id}
               onChange={(e) => setId(e.target.value.toLowerCase())}
               disabled={isEdit}
-              className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                 errors.id ? "border-red-500" : ""
               }`}
             />
@@ -201,7 +201,7 @@ export default function ProjectFormModal({
               placeholder="e.g. Anuradha Harshana"
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
-              className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                 errors.clientName ? "border-red-500" : ""
               }`}
             />
@@ -218,7 +218,7 @@ export default function ProjectFormModal({
               placeholder="e.g. Lot 104, 12 Harrison Street, Richmond VIC"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                 errors.address ? "border-red-500" : ""
               }`}
             />
@@ -231,10 +231,10 @@ export default function ProjectFormModal({
               Assigned Supervisor
             </Label>
             <Select value={supervisorName} onValueChange={setSupervisorName}>
-              <SelectTrigger className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
+              <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
                 <SelectValue placeholder="Select Supervisor" />
               </SelectTrigger>
-              <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+              <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
                 <SelectItem value="Unassigned" className="text-xs font-bold font-sans">Unassigned</SelectItem>
                 {supervisors.map((sup) => (
                   <SelectItem key={sup.id} value={sup.username} className="text-xs font-bold font-sans">
@@ -252,10 +252,10 @@ export default function ProjectFormModal({
                 Project Status
               </Label>
               <Select value={status} onValueChange={(val: any) => setStatus(val)}>
-                <SelectTrigger className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
+                <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
-                <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+                <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
                   <SelectItem value="On Track" className="text-xs font-bold font-sans">On Track</SelectItem>
                   <SelectItem value="Delayed" className="text-xs font-bold font-sans">Delayed</SelectItem>
                   <SelectItem value="Action Required" className="text-xs font-bold font-sans">Action Required</SelectItem>
@@ -269,10 +269,10 @@ export default function ProjectFormModal({
                 Current Stage
               </Label>
               <Select value={currentStage} onValueChange={handleStageChange}>
-                <SelectTrigger className="bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
+                <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
                   <SelectValue placeholder="Select Stage" />
                 </SelectTrigger>
-                <SelectContent className="bg-palladian text-blue-fantastic border-blue-fantastic/10">
+                <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
                   {STAGES.map((stg) => (
                     <SelectItem key={stg} value={stg} className="text-xs font-bold font-sans">
                       {stg}
@@ -311,7 +311,7 @@ export default function ProjectFormModal({
                 placeholder="e.g. Mar 10, 2026"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+                className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                   errors.startDate ? "border-red-500" : ""
                 }`}
               />
@@ -328,7 +328,7 @@ export default function ProjectFormModal({
                 placeholder="e.g. Nov 15, 2026"
                 value={estHandover}
                 onChange={(e) => setEstHandover(e.target.value)}
-                className={`bg-palladian border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+                className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                   errors.estHandover ? "border-red-500" : ""
                 }`}
               />

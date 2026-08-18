@@ -35,7 +35,7 @@ export function DocumentsHeader() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-blue-fantastic/40 pointer-events-none" />
           <Input
             placeholder="Search files..."
-            className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm font-sans w-52"
+            className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm font-sans w-52"
           />
         </div>
         <Button

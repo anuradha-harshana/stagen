@@ -184,7 +184,7 @@ export function PhotoUploadZone({
         className={`relative border-2 border-dashed rounded-2xl transition-all duration-200 ${
           isDragging
             ? "border-truffle-trouble bg-truffle-trouble/10 shadow-inner"
-            : "border-blue-fantastic/20 hover:border-blue-fantastic/40 bg-palladian/40 hover:bg-palladian/70"
+            : "border-blue-fantastic/20 hover:border-blue-fantastic/40 bg-surface-inset hover:bg-surface-inset/70"
         } ${compact ? "p-4" : "p-6 sm:p-8"}`}
       >
         {isUploading ? (

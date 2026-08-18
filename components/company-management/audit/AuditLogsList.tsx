@@ -36,7 +36,7 @@ export function AuditLogsList({ logs }: AuditLogsListProps) {
   });
 
   return (
-    <div className="bg-palladian rounded-xl shadow-sm border border-blue-fantastic/15 overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm border border-blue-fantastic/15 overflow-hidden">
       <div className="p-6 border-b border-blue-fantastic/15 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="font-semibold text-base text-blue-fantastic">

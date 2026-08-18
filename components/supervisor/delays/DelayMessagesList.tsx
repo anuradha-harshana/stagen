@@ -12,7 +12,7 @@ interface DelayMessagesListProps {
 export function DelayMessagesList({ messages }: DelayMessagesListProps) {
   if (!messages || messages.length === 0) {
     return (
-      <div className="bg-palladian border border-blue-fantastic/10 rounded-2xl p-8 text-center space-y-2">
+      <div className="bg-white border border-blue-fantastic/10 rounded-2xl p-8 text-center space-y-2">
         <Mail className="h-8 w-8 text-blue-fantastic/30 mx-auto" />
         <h4 className="text-sm font-extrabold text-blue-fantastic font-sans">
           No Customer Delay Notices Sent
@@ -52,7 +52,7 @@ export function DelayMessagesList({ messages }: DelayMessagesListProps) {
       {messages.map((msg) => (
         <div
           key={msg.id}
-          className="bg-palladian border border-blue-fantastic/10 rounded-2xl p-4 md:p-5 shadow-xs space-y-3 hover:border-blue-fantastic/20 transition-all"
+          className="bg-white border border-blue-fantastic/10 rounded-2xl p-4 md:p-5 shadow-xs space-y-3 hover:border-blue-fantastic/20 transition-all"
         >
           {/* Header row */}
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-blue-fantastic/5 pb-3">

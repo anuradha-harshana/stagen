@@ -27,7 +27,7 @@ export function DelayStatsOverview({ timelineData, messages }: DelayStatsOvervie
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans">
       {/* 1. Total Delays Logged */}
-      <div className="bg-palladian rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
         <div className="space-y-1">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-fantastic/60 font-sans">
             Total Delays
@@ -45,7 +45,7 @@ export function DelayStatsOverview({ timelineData, messages }: DelayStatsOvervie
       </div>
 
       {/* 2. Cumulative Days Delayed */}
-      <div className="bg-palladian rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
         <div className="space-y-1">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-fantastic/60 font-sans">
             Cumulative Delay
@@ -63,7 +63,7 @@ export function DelayStatsOverview({ timelineData, messages }: DelayStatsOvervie
       </div>
 
       {/* 3. Latest Delay Event */}
-      <div className="bg-palladian rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
         <div className="space-y-1 min-w-0 flex-1">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-fantastic/60 font-sans">
             Latest Event
@@ -81,7 +81,7 @@ export function DelayStatsOverview({ timelineData, messages }: DelayStatsOvervie
       </div>
 
       {/* 4. Customer Notices Stat */}
-      <div className="bg-palladian rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-5 border border-blue-fantastic/10 shadow-xs flex items-center justify-between">
         <div className="space-y-1">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-blue-fantastic/60 font-sans">
             Customer Notices

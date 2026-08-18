@@ -14,7 +14,7 @@ export default function TopicInsights() {
   return (
     <div className="space-y-6 w-full font-sans">
       {/* 1. Inquiry Topic Breakdown */}
-      <div className="bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
+      <div className="bg-white p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
         <div className="flex items-center gap-2 pb-2 border-b border-blue-fantastic/5">
           <TrendingUp className="h-4.5 w-4.5 text-truffle-trouble" />
           <h3 className="text-xs font-bold text-blue-fantastic uppercase tracking-wider">
@@ -45,7 +45,7 @@ export default function TopicInsights() {
       </div>
 
       {/* 2. Response Speed Metrics */}
-      <div className="bg-palladian p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
+      <div className="bg-white p-6 rounded-2xl border border-blue-fantastic/10 shadow-sm space-y-4">
         <div className="flex items-center gap-2 pb-2 border-b border-blue-fantastic/5">
           <Clock className="h-4.5 w-4.5 text-burning-flame" />
           <h3 className="text-xs font-bold text-blue-fantastic uppercase tracking-wider">

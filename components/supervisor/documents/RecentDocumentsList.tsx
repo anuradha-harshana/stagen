@@ -58,7 +58,7 @@ export function RecentDocumentsList({
   }
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
@@ -128,7 +128,7 @@ export function RecentDocumentsList({
                           toast.success(`Access updated to "${newVis}" for ${doc.title}`)
                         }
                       }}
-                      className="text-[10px] font-bold text-blue-fantastic bg-palladian border border-blue-fantastic/25 rounded-lg px-2 py-0.5 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer hover:border-blue-fantastic/40 transition-colors font-sans"
+                      className="text-[10px] font-bold text-blue-fantastic bg-white border border-blue-fantastic/25 rounded-lg px-2 py-0.5 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer hover:border-blue-fantastic/40 transition-colors font-sans"
                       title="Change Access & Visibility Level"
                     >
                       <option value="Visible to Customer">Visible to Customer</option>

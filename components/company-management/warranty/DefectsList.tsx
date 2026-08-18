@@ -46,7 +46,7 @@ export default function DefectsList({ defects, onManageClick }: DefectsListProps
   return (
     <div className="space-y-4 w-full font-sans">
       {/* Search and Filters Bar */}
-      <div className="flex flex-col gap-3.5 bg-palladian p-4 rounded-2xl border border-blue-fantastic/10 shadow-sm">
+      <div className="flex flex-col gap-3.5 bg-white p-4 rounded-2xl border border-blue-fantastic/10 shadow-sm">
         <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
           {/* Search */}
           <div className="relative w-full md:w-72">
@@ -55,7 +55,7 @@ export default function DefectsList({ defects, onManageClick }: DefectsListProps
               placeholder="Search by client, lot, title..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-xs font-sans w-full focus-visible:ring-truffle-trouble rounded-xl"
+              className="pl-9 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-9 text-xs font-sans w-full focus-visible:ring-truffle-trouble rounded-xl"
             />
           </div>
 
@@ -103,7 +103,7 @@ export default function DefectsList({ defects, onManageClick }: DefectsListProps
       {/* List cards */}
       <div className="space-y-3.5 max-h-[500px] overflow-y-auto pr-1">
         {filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 bg-palladian/40 border border-dashed border-blue-fantastic/20 rounded-2xl">
+          <div className="flex flex-col items-center justify-center py-16 bg-surface-inset border border-dashed border-blue-fantastic/20 rounded-2xl">
             <CheckCircle2 className="h-10 w-10 text-blue-fantastic/30 mb-2" />
             <p className="text-sm font-bold text-blue-fantastic">No Defects Found</p>
             <p className="text-xs text-blue-fantastic/60 mt-1">
@@ -119,7 +119,7 @@ export default function DefectsList({ defects, onManageClick }: DefectsListProps
             return (
               <div
                 key={d.id}
-                className={`p-4 bg-palladian border rounded-2xl hover:border-blue-fantastic/20 transition-all space-y-3 relative group ${
+                className={`p-4 bg-white border rounded-2xl hover:border-blue-fantastic/20 transition-all space-y-3 relative group ${
                   isEscalated ? "border-red-400 bg-red-500/5" : "border-blue-fantastic/10"
                 }`}
               >

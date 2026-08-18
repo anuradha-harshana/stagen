@@ -43,7 +43,7 @@ export function CustomerQuestionsList({
         return (
           <Card
             key={q.id}
-            className="bg-palladian border border-blue-fantastic/15 shadow-xs hover:shadow-md hover:border-blue-fantastic/25 transition-all duration-200"
+            className="bg-white border border-blue-fantastic/15 shadow-xs hover:shadow-md hover:border-blue-fantastic/25 transition-all duration-200"
           >
             <CardContent className="p-5 flex flex-col gap-4 font-sans">
               {/* Header: Customer Info & Status */}
@@ -141,7 +141,7 @@ export function CustomerQuestionsList({
                     onClick={() => onOpenAnswerModal(q)}
                     className={
                       q.status === "ANSWERED"
-                        ? "bg-palladian border border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 font-bold rounded-xl h-8 text-xs gap-1.5"
+                        ? "bg-white border border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 font-bold rounded-xl h-8 text-xs gap-1.5"
                         : "bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 font-bold rounded-xl h-8 text-xs gap-1.5 shadow-xs"
                     }
                   >
@@ -165,7 +165,7 @@ export function CustomerQuestionsList({
       })}
 
       {questions.length === 0 && (
-        <div className="py-12 text-center border border-dashed border-blue-fantastic/20 rounded-2xl bg-palladian/50 flex flex-col items-center justify-center gap-2 font-sans">
+        <div className="py-12 text-center border border-dashed border-blue-fantastic/20 rounded-2xl bg-surface-muted flex flex-col items-center justify-center gap-2 font-sans">
           <MessageSquare className="h-8 w-8 text-blue-fantastic/30" />
           <p className="text-sm font-bold text-blue-fantastic">No customer questions match your filter.</p>
           <p className="text-xs text-blue-fantastic/60 font-semibold">

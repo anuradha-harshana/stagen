@@ -31,7 +31,7 @@ export function AiInsightsSection() {
       {/* KPI Cards Row (4 Cards) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Questions */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
             Total Questions
           </span>
@@ -44,7 +44,7 @@ export function AiInsightsSection() {
         </Card>
 
         {/* Answered */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
             Answered
           </span>
@@ -57,7 +57,7 @@ export function AiInsightsSection() {
         </Card>
 
         {/* Pending */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
             Pending
           </span>
@@ -70,7 +70,7 @@ export function AiInsightsSection() {
         </Card>
 
         {/* Avg. Response Time */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50">
             Avg. Response Time
           </span>
@@ -84,7 +84,7 @@ export function AiInsightsSection() {
       </div>
 
       {/* Customer Questions Over Time (Line Chart) */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-6">
         <CardHeader className="p-0 pb-4">
           <CardTitle className="text-sm font-bold text-blue-fantastic font-sans">
             Customer Questions Over Time
@@ -155,7 +155,7 @@ export function AiInsightsSection() {
       {/* Top FAQ Topics & AI Assistant Insights (2 Columns) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Top FAQ Topics */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 flex flex-col justify-between">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <h3 className="text-sm font-bold text-blue-fantastic font-sans mb-4">
               Top FAQ Topics
@@ -184,7 +184,7 @@ export function AiInsightsSection() {
         </Card>
 
         {/* AI Assistant Insights */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 space-y-4">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-6 space-y-4">
           <h3 className="text-sm font-bold text-blue-fantastic font-sans">
             AI Assistant Insights
           </h3>

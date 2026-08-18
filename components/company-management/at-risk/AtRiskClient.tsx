@@ -63,7 +63,7 @@ export default function AtRiskProjectsClient() {
 
       {/* Risk Alert KPI Banner (4 Stat Cards) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-palladian border-l-4 border-l-red-500 border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
+        <Card className="bg-white border-l-4 border-l-red-500 border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold text-red-600 uppercase tracking-wider block">
             Total At-Risk / Delayed
           </span>
@@ -73,7 +73,7 @@ export default function AtRiskProjectsClient() {
           <span className="text-xs text-blue-fantastic/60 font-medium mt-1 block">Active sites flagged</span>
         </Card>
 
-        <Card className="bg-palladian border-l-4 border-l-truffle-trouble border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
+        <Card className="bg-white border-l-4 border-l-truffle-trouble border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold text-truffle-trouble uppercase tracking-wider block">
             Critical Delays (&gt;= 5 Days)
           </span>
@@ -83,7 +83,7 @@ export default function AtRiskProjectsClient() {
           <span className="text-xs text-blue-fantastic/60 font-medium mt-1 block">Requires immediate action</span>
         </Card>
 
-        <Card className="bg-palladian border-l-4 border-l-amber-500 border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
+        <Card className="bg-white border-l-4 border-l-amber-500 border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold text-amber-600 uppercase tracking-wider block">
             Weather Induced Delays
           </span>
@@ -93,7 +93,7 @@ export default function AtRiskProjectsClient() {
           <span className="text-xs text-blue-fantastic/60 font-medium mt-1 block">Torrential rainfall / site cut holds</span>
         </Card>
 
-        <Card className="bg-palladian border-l-4 border-l-blue-500 border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
+        <Card className="bg-white border-l-4 border-l-blue-500 border border-blue-fantastic/15 shadow-sm rounded-2xl p-5">
           <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider block">
             Material & Trade Delays
           </span>
@@ -105,21 +105,21 @@ export default function AtRiskProjectsClient() {
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="bg-palladian p-4 rounded-2xl border border-blue-fantastic/15 shadow-sm flex flex-col md:flex-row items-center gap-3">
+      <div className="bg-white p-4 rounded-2xl border border-blue-fantastic/15 shadow-sm flex flex-col md:flex-row items-center gap-3">
         <div className="relative flex-1 w-full">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-blue-fantastic/40" />
           <Input
             placeholder="Search at-risk project by ID, client, or supervisor..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-9 bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs text-blue-fantastic placeholder:text-blue-fantastic/40 font-medium h-9"
+            className="pl-9 bg-surface-inset border-blue-fantastic/15 rounded-xl text-xs text-blue-fantastic placeholder:text-blue-fantastic/40 font-medium h-9"
           />
         </div>
 
         <div className="flex items-center gap-2.5 w-full md:w-auto">
           {/* Severity Filter */}
           <Select value={severityFilter} onValueChange={setSeverityFilter}>
-            <SelectTrigger className="w-40 bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
+            <SelectTrigger className="w-40 bg-surface-inset border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
               <SelectValue placeholder="Severity: All" />
             </SelectTrigger>
             <SelectContent>
@@ -133,7 +133,7 @@ export default function AtRiskProjectsClient() {
 
           {/* Region Filter */}
           <Select value={regionFilter} onValueChange={setRegionFilter}>
-            <SelectTrigger className="w-32 bg-palladian/30 border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
+            <SelectTrigger className="w-32 bg-surface-inset border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
               <SelectValue placeholder="Region: All" />
             </SelectTrigger>
             <SelectContent>
@@ -149,7 +149,7 @@ export default function AtRiskProjectsClient() {
       </div>
 
       {/* At-Risk Table */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
         <CardHeader className="pb-3 pt-5 px-6 border-b border-blue-fantastic/15 flex flex-row items-center justify-between">
           <CardTitle className="text-base font-bold text-blue-fantastic font-sans">
             Flagged Build Sites Requiring Attention ({filteredProjects.length})
@@ -158,7 +158,7 @@ export default function AtRiskProjectsClient() {
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-palladian/40 text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider border-b border-blue-fantastic/15">
+              <tr className="bg-surface-inset text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider border-b border-blue-fantastic/15">
                 <th className="py-3.5 px-6">Project ID</th>
                 <th className="py-3.5 px-4">Client Name</th>
                 <th className="py-3.5 px-4">Stage</th>
@@ -177,7 +177,7 @@ export default function AtRiskProjectsClient() {
                 const isCritical = days >= 5;
 
                 return (
-                  <tr key={p.id} className="hover:bg-palladian/20 transition-colors">
+                  <tr key={p.id} className="hover:bg-surface-inset transition-colors">
                     <td className="py-4 px-6 font-bold">{p.id}</td>
                     <td className="py-4 px-4 font-bold">{p.clientName}</td>
                     <td className="py-4 px-4 font-semibold">{p.currentStage}</td>

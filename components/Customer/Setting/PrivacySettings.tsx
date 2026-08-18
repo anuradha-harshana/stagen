@@ -19,7 +19,7 @@ export default function PrivacySettings() {
   }
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-sans w-[1000px] max-w-2xl">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans w-[1000px] max-w-2xl">
       <CardHeader className="border-b border-blue-fantastic/10 pb-4">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">

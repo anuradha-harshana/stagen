@@ -72,7 +72,7 @@ const MOCK_ROWS: AtRiskProjectRow[] = [
 
 export function AtRiskTable() {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl overflow-hidden font-sans">
       <CardHeader className="pb-4 pt-5 px-6 flex flex-row items-center justify-between border-b border-blue-fantastic/15">
         <div className="flex items-center gap-2">
           <AlertTriangle className="h-5 w-5 text-truffle-trouble" />
@@ -91,7 +91,7 @@ export function AtRiskTable() {
       <CardContent className="p-0 overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-palladian/30 text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider border-b border-blue-fantastic/15">
+            <tr className="bg-surface-inset text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider border-b border-blue-fantastic/15">
               <th className="py-3 px-6">Project ID</th>
               <th className="py-3 px-4">Project Name</th>
               <th className="py-3 px-4">Customer</th>
@@ -106,7 +106,7 @@ export function AtRiskTable() {
           </thead>
           <tbody className="divide-y divide-oatmeal/15 text-xs text-blue-fantastic font-medium">
             {MOCK_ROWS.map((row) => (
-              <tr key={row.id} className="hover:bg-palladian/20 transition-colors">
+              <tr key={row.id} className="hover:bg-surface-inset transition-colors">
                 <td className="py-3.5 px-6 font-bold text-blue-fantastic/80">{row.id}</td>
                 <td className="py-3.5 px-4 font-bold">{row.projectName}</td>
                 <td className="py-3.5 px-4 text-blue-fantastic/70">{row.customer}</td>
