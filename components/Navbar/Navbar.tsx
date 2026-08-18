@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import { NavbarProps } from "@/lib/types/types"
-import {NavbarLinks} from "@/components/navbar/NavbarLinks"
+import {NavbarLinks} from "@/components/Navbar/NavbarLinks"
 import { LogoutButton } from "../auth/LogoutButton"
 
 
