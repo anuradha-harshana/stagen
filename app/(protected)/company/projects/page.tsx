@@ -1,12 +1,13 @@
 import React from "react";
 import { requireRole } from "@/lib/auth/auth";
 import { getCompanyUsers } from "@/lib/users/users";
-import { INITIAL_PROJECTS } from "@/lib/db-mock/projectsData";
+import { getCompanyProjects } from "@/lib/tenant/projects";
 import CompanyProjectsClient from "@/components/company/projects/company-projects-client";
 
 export default async function CompanyProjectsPage() {
   // 1. Authenticate user and verify they have the 'company' role
   const user = await requireRole(["company"]);
+  const initialProjects = await getCompanyProjects(user.id);
 
   // 2. Fetch all users from database and filter for supervisor role
   const allUsers = await getCompanyUsers(user.id);
@@ -19,7 +20,7 @@ export default async function CompanyProjectsPage() {
 
   return (
     <CompanyProjectsClient
-      initialProjects={INITIAL_PROJECTS}
+      initialProjects={initialProjects}
       supervisors={supervisors}
       companyId={user.id}
     />

@@ -18,17 +18,8 @@ interface ProjectsFiltersProps {
   onStatusFilterChange: (value: any) => void;
   stageFilter: string;
   onStageFilterChange: (value: string) => void;
+  stages: string[];
 }
-
-const STAGES = [
-  "Site Cut",
-  "Slab",
-  "Frame",
-  "Lockup",
-  "Fixing",
-  "Completion",
-  "Handover",
-];
 
 export default function ProjectsFilters({
   searchTerm,
@@ -37,6 +28,7 @@ export default function ProjectsFilters({
   onStatusFilterChange,
   stageFilter,
   onStageFilterChange,
+  stages,
 }: ProjectsFiltersProps) {
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full bg-white p-4 rounded-2xl border border-blue-fantastic/5 shadow-sm">
@@ -76,7 +68,7 @@ export default function ProjectsFilters({
           </SelectTrigger>
           <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
             <SelectItem value="All" className="text-xs font-bold font-sans">All Stages</SelectItem>
-            {STAGES.map((stage) => (
+            {stages.map((stage) => (
               <SelectItem key={stage} value={stage} className="text-xs font-bold font-sans">
                 {stage}
               </SelectItem>

@@ -1,22 +1,19 @@
-{
-  "tenant_id": "tenant-lot-104",
-  "stages": [
-    {
-      "id": "site-cut",
-      "name": "Site Cut",
-      "description": "Clearing block, excavation, footprint leveling...",
-      "status": "completed",
-      "supervisor_status": "Completed",
-      "progress": 100,
-      "start_date": "Mar 10, 2026",
-      "end_date": "Mar 18, 2026",
-      "is_estimated": false,
-      "checklist": [
-        { "id": "sc-1", "label": "Soil testing & site survey", "completed": true }
-      ],
-      "milestones": [
-        { "name": "Site Pegout & Excavation", "status": "completed", "date": "Mar 12, 2026" }
-      ]
-    }
-  ]
-}
+[
+  {
+    "tenant_id": "tenant-lot-104",
+    "stages": [
+      {
+        "name": "Site Cut",
+        "status": "Completed",
+        "progress": 100,
+        "checklist": [
+          {
+            "id": "sc-1",
+            "label": "Soil testing & site survey",
+            "completed": true
+          }
+        ]
+      }
+    ]
+  }
+]

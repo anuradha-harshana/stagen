@@ -3,7 +3,7 @@
 import React from "react";
 import { FolderKanban, CheckCircle2, AlertTriangle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 
 interface ProjectsStatsProps {
   projects: Project[];

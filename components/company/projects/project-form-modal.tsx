@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Project, Stage } from "@/lib/db-mock/projectsData";
+import { Project, Stage } from "@/lib/types/project";
 
 interface Supervisor {
   id: string;
@@ -121,6 +121,10 @@ export default function ProjectFormModal({
   const [errors, setErrors] =
     useState<Record<string, string>>({});
 
+  const availableStages: string[] = stageTemplates.length > 0
+    ? stageTemplates.map((stage) => stage.name)
+    : [...STAGES];
+
   useEffect(() => {
     if (project) {
       setId(project.id);
@@ -144,7 +148,7 @@ export default function ProjectFormModal({
       setAddress("");
 
       setStatus("On Track");
-      setCurrentStage("Site Cut");
+      setCurrentStage(stageTemplates[0]?.name || "Site Cut");
       setProgress(5);
 
       setStartDate(
@@ -160,17 +164,14 @@ export default function ProjectFormModal({
     }
 
     setErrors({});
-  }, [project, isOpen, supervisors]);
+  }, [project, isOpen, supervisors, stageTemplates]);
 
   const handleStageChange = (
     stageName: Project["currentStage"]
   ) => {
     setCurrentStage(stageName);
 
-    const stageProgressDefaults: Record<
-      Project["currentStage"],
-      number
-    > = {
+    const stageProgressDefaults: Record<string, number> = {
       "Site Cut": 5,
       Slab: 18,
       Frame: 45,
@@ -180,7 +181,7 @@ export default function ProjectFormModal({
       Handover: 98,
     };
 
-    setProgress(stageProgressDefaults[stageName]);
+    setProgress(stageProgressDefaults[stageName] ?? progress);
   };
 
   const validate = () => {
@@ -234,11 +235,9 @@ export default function ProjectFormModal({
         : getDefaultStages());
 
     const updatedStages = originalStages.map((stage) => {
-      const stageIndex = STAGES.indexOf(
-        stage.name as (typeof STAGES)[number]
-      );
+      const stageIndex = availableStages.indexOf(stage.name);
 
-      const currentIndex = STAGES.indexOf(currentStage);
+      const currentIndex = availableStages.indexOf(currentStage);
 
       let newStatus: Stage["status"] = "Pending";
       let stageProgress = 0;
@@ -730,7 +729,7 @@ export default function ProjectFormModal({
                       border-blue-fantastic/10
                     "
                   >
-                    {STAGES.map((stage) => (
+                    {availableStages.map((stage) => (
                       <SelectItem
                         key={stage}
                         value={stage}

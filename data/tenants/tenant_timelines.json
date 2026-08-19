@@ -1,24 +1,12 @@
-{
-  "tenant_id": "tenant-lot-104",
-  "percentage": 45,
-  "start_date": "Mar 10, 2026",
-  "original_est_completion": "Nov 15, 2026",
-  "current_projected_completion": "Nov 22, 2026",
-  "status_flag": "on-track",
-  "delay_days": 7,
-  "stages": [
-    {
-      "id": "frame",
-      "name": "Frame",
-      "description": "...",
-      "status": "in-progress",
-      "planned_start": "2026-05-01",
-      "planned_end": "2026-06-15",
-      "actual_start": "2026-05-03",
-      "actual_end": null,
-      "milestones": [
-        { "name": "Frame Inspection", "date": "2026-06-01", "type": "inspection", "status": "scheduled" }
-      ]
-    }
-  ]
-}
+[
+  {
+    "tenant_id": "tenant-lot-104",
+    "percentage": 45,
+    "start_date": "Mar 10, 2026",
+    "original_est_completion": "Nov 15, 2026",
+    "current_projected_completion": "Nov 15, 2026",
+    "status_flag": "on-track",
+    "delay_days": 7,
+    "stages": []
+  }
+]
