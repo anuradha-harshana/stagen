@@ -3,13 +3,9 @@
 import React from "react";
 import { ListOrdered, CheckSquare, Percent, AlertCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { StageTemplate } from "@/lib/types/types";
 
-export interface TemplateStage {
-  id: string;
-  name: string;
-  weight: number;
-  checklist: { id: string; label: string }[];
-}
+export type TemplateStage = StageTemplate;
 
 interface StageTemplatesStatsProps {
   stages: TemplateStage[];

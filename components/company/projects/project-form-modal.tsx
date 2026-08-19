@@ -17,14 +17,66 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import { Project, Stage } from "@/lib/db-mock/projectsData";
+
+interface Supervisor {
+  id: string;
+  username: string;
+}
+
+export interface ProjectFormPayload {
+  // tenants.json
+  tenant: {
+    tenant_id: string;
+    display_name: string;
+    client_name: string;
+    address: string;
+    status: Project["status"];
+    progress: number;
+    current_stage: Project["currentStage"];
+    start_date: string;
+    est_handover: string;
+    image_gradient: string;
+  };
+
+  // tenant_stages.json
+  stages: {
+    tenant_id: string;
+    stages: Stage[];
+  };
+
+  // tenant_timelines.json
+  timeline: {
+    tenant_id: string;
+    percentage: number;
+    start_date: string;
+    original_est_completion: string;
+    current_projected_completion: string;
+    status_flag: "on-track" | "delayed";
+    delay_days: number;
+    stages: [];
+  };
+
+  // tenant_assignments.json
+  assignment: {
+    id: string;
+    tenant_id: string;
+    user_id: string;
+    role: "supervisor";
+  } | null;
+
+  // Used by the existing dashboard/application
+  project: Project;
+}
 
 interface ProjectFormModalProps {
   project: Project | null;
-  supervisors: { id: string; username: string }[];
+  supervisors: Supervisor[];
+  stageTemplates: Stage[];
   isOpen: boolean;
   onClose: () => void;
-  onSave: (project: Project) => void;
+  onSave: (payload: ProjectFormPayload) => void;
 }
 
 const STAGES = [
@@ -40,6 +92,7 @@ const STAGES = [
 export default function ProjectFormModal({
   project,
   supervisors,
+  stageTemplates,
   isOpen,
   onClose,
   onSave,
@@ -49,14 +102,24 @@ export default function ProjectFormModal({
   const [id, setId] = useState("");
   const [clientName, setClientName] = useState("");
   const [address, setAddress] = useState("");
-  const [status, setStatus] = useState<Project["status"]>("On Track");
-  const [currentStage, setCurrentStage] = useState<Project["currentStage"]>("Site Cut");
+
+  const [status, setStatus] =
+    useState<Project["status"]>("On Track");
+
+  const [currentStage, setCurrentStage] =
+    useState<Project["currentStage"]>("Site Cut");
+
   const [progress, setProgress] = useState(0);
+
   const [startDate, setStartDate] = useState("");
   const [estHandover, setEstHandover] = useState("");
-  const [supervisorName, setSupervisorName] = useState("Unassigned");
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  // IMPORTANT:
+  // Store supervisor ID, not supervisor username.
+  const [supervisorId, setSupervisorId] = useState("");
+
+  const [errors, setErrors] =
+    useState<Record<string, string>>({});
 
   useEffect(() => {
     if (project) {
@@ -68,53 +131,113 @@ export default function ProjectFormModal({
       setProgress(project.progress);
       setStartDate(project.startDate);
       setEstHandover(project.estHandover);
-      setSupervisorName(project.supervisorName || "Unassigned");
+
+      // Try to recover supervisor ID from the supplied supervisors list.
+      const existingSupervisor = supervisors.find(
+        (sup) => sup.username === project.supervisorName
+      );
+
+      setSupervisorId(existingSupervisor?.id || "");
     } else {
       setId("");
       setClientName("");
       setAddress("");
+
       setStatus("On Track");
       setCurrentStage("Site Cut");
-      setProgress(0);
-      setStartDate(new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }));
-      setEstHandover("");
-      setSupervisorName("Unassigned");
-    }
-    setErrors({});
-  }, [project, isOpen]);
+      setProgress(5);
 
-  const handleStageChange = (stageName: Project["currentStage"]) => {
+      setStartDate(
+        new Date().toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+      );
+
+      setEstHandover("");
+      setSupervisorId("");
+    }
+
+    setErrors({});
+  }, [project, isOpen, supervisors]);
+
+  const handleStageChange = (
+    stageName: Project["currentStage"]
+  ) => {
     setCurrentStage(stageName);
-    const stageProgressDefaults: Record<Project["currentStage"], number> = {
+
+    const stageProgressDefaults: Record<
+      Project["currentStage"],
+      number
+    > = {
       "Site Cut": 5,
-      "Slab": 18,
-      "Frame": 45,
-      "Lockup": 60,
-      "Fixing": 75,
-      "Completion": 90,
-      "Handover": 98,
+      Slab: 18,
+      Frame: 45,
+      Lockup: 60,
+      Fixing: 75,
+      Completion: 90,
+      Handover: 98,
     };
+
     setProgress(stageProgressDefaults[stageName]);
   };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!id.trim()) newErrors.id = "Lot ID is required";
-    if (!clientName.trim()) newErrors.clientName = "Client Name is required";
-    if (!address.trim()) newErrors.address = "Address is required";
-    if (!startDate.trim()) newErrors.startDate = "Start Date is required";
-    if (!estHandover.trim()) newErrors.estHandover = "Estimated Handover is required";
-    
+
+    if (!id.trim()) {
+      newErrors.id = "Lot ID is required";
+    }
+
+    if (!clientName.trim()) {
+      newErrors.clientName = "Client Name is required";
+    }
+
+    if (!address.trim()) {
+      newErrors.address = "Address is required";
+    }
+
+    if (!startDate.trim()) {
+      newErrors.startDate = "Start Date is required";
+    }
+
+    if (!estHandover.trim()) {
+      newErrors.estHandover =
+        "Estimated Handover is required";
+    }
+
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSave = () => {
     if (!validate()) return;
 
-    const originalStages = project?.stages || getDefaultStages();
+    const tenantId = id.trim();
+
+    /*
+     * ---------------------------------------------------------
+     * 1. STAGES
+     * ---------------------------------------------------------
+     *
+     * If editing an existing project, preserve its existing
+     * checklist structure.
+     *
+     * If creating a new project, use the default stage structure.
+     */
+    const originalStages =
+      project?.stages ||
+      (stageTemplates.length > 0
+        ? stageTemplates
+        : getDefaultStages());
+
     const updatedStages = originalStages.map((stage) => {
-      const stageIndex = STAGES.indexOf(stage.name);
+      const stageIndex = STAGES.indexOf(
+        stage.name as (typeof STAGES)[number]
+      );
+
       const currentIndex = STAGES.indexOf(currentStage);
 
       let newStatus: Stage["status"] = "Pending";
@@ -125,16 +248,26 @@ export default function ProjectFormModal({
         stageProgress = 100;
       } else if (stageIndex === currentIndex) {
         newStatus = "Active";
-        stageProgress = 50;
+
+        // Keep the current overall project progress for
+        // the current stage rather than forcing it to 50%.
+        stageProgress = progress;
       } else {
         newStatus = "Pending";
         stageProgress = 0;
       }
 
-      const updatedChecklist = stage.checklist.map((item) => ({
-        ...item,
-        completed: newStatus === "Completed",
-      }));
+      const updatedChecklist = stage.checklist.map(
+        (item) => ({
+          ...item,
+          completed:
+            newStatus === "Completed"
+              ? true
+              : newStatus === "Pending"
+                ? false
+                : item.completed,
+        })
+      );
 
       return {
         ...stage,
@@ -144,8 +277,25 @@ export default function ProjectFormModal({
       };
     });
 
+    /*
+     * ---------------------------------------------------------
+     * 2. SUPERVISOR
+     * ---------------------------------------------------------
+     */
+
+    const selectedSupervisor = supervisors.find(
+      (sup) => sup.id === supervisorId
+    );
+
+    /*
+     * ---------------------------------------------------------
+     * 3. PROJECT OBJECT
+     * ---------------------------------------------------------
+     *
+     * This keeps compatibility with the existing dashboard.
+     */
     const savedProject: Project = {
-      id: id.trim(),
+      id: tenantId,
       clientName: clientName.trim(),
       address: address.trim(),
       status,
@@ -153,209 +303,626 @@ export default function ProjectFormModal({
       progress,
       startDate: startDate.trim(),
       estHandover: estHandover.trim(),
-      imageGradient: project?.imageGradient || getRandomGradient(),
+
+      imageGradient:
+        project?.imageGradient || getRandomGradient(),
+
       stages: updatedStages,
+
+      // These remain empty/preserved because they have
+      // their own JSON files.
       delays: project?.delays || [],
       questions: project?.questions || [],
-      supervisorName: supervisorName === "Unassigned" ? undefined : supervisorName,
+
+      supervisorName:
+        selectedSupervisor?.username || undefined,
     };
 
-    onSave(savedProject);
+    /*
+     * ---------------------------------------------------------
+     * 4. tenants.json
+     * ---------------------------------------------------------
+     */
+    const tenant = {
+      tenant_id: tenantId,
+
+      // This can be changed later if you want a different
+      // display-name convention.
+      display_name: clientName.trim(),
+
+      client_name: clientName.trim(),
+
+      address: address.trim(),
+
+      status,
+
+      progress,
+
+      current_stage: currentStage,
+
+      start_date: startDate.trim(),
+
+      est_handover: estHandover.trim(),
+
+      image_gradient:
+        project?.imageGradient || getRandomGradient(),
+    };
+
+    /*
+     * ---------------------------------------------------------
+     * 5. tenant_stages.json
+     * ---------------------------------------------------------
+     */
+    const stages = {
+      tenant_id: tenantId,
+      stages: updatedStages,
+    };
+
+    /*
+     * ---------------------------------------------------------
+     * 6. tenant_timelines.json
+     * ---------------------------------------------------------
+     *
+     * A new project starts with no delay.
+     *
+     * If editing an existing delayed project, preserve the
+     * existing delay information where possible.
+     */
+    const existingTimelineDelayDays =
+      project?.delayDays || 0;
+
+    const timeline = {
+      tenant_id: tenantId,
+
+      percentage: progress,
+
+      start_date: startDate.trim(),
+
+      original_est_completion: estHandover.trim(),
+
+      current_projected_completion:
+        estHandover.trim(),
+
+      status_flag:
+        status === "Delayed"
+          ? ("delayed" as const)
+          : ("on-track" as const),
+
+      delay_days: existingTimelineDelayDays,
+
+      // The individual stage timeline data will be populated
+      // by the timeline helper later.
+      stages: [] as [],
+    };
+
+    /*
+     * ---------------------------------------------------------
+     * 7. tenant_assignments.json
+     * ---------------------------------------------------------
+     *
+     * IMPORTANT:
+     * The relationship uses supervisor USER ID.
+     *
+     * If no supervisor is selected, no assignment record
+     * should be created.
+     */
+    const assignment =
+      selectedSupervisor
+        ? {
+            id:
+              project
+                ? `assign-${tenantId}-supervisor`
+                : `assign-${tenantId}-supervisor`,
+            tenant_id: tenantId,
+            user_id: selectedSupervisor.id,
+            role: "supervisor" as const,
+          }
+        : null;
+
+    /*
+     * ---------------------------------------------------------
+     * 8. SEND EVERYTHING TO THE DATABASE/helper LAYER
+     * ---------------------------------------------------------
+     */
+    onSave({
+      tenant,
+      stages,
+      timeline,
+      assignment,
+      project: savedProject,
+    });
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[90vh] overflow-y-auto rounded-2xl">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-bold font-sans text-blue-fantastic border-b border-blue-fantastic/5 pb-2">
-            {isEdit ? "Edit Build Lot" : "Create New Build Lot"}
-          </DialogTitle>
-        </DialogHeader>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) =>
+        !open && onClose()
+      }
+    >
+      <div className="flex justify-center">
+        <DialogContent
+          className="
+            max-w-[60vw]
+            bg-white
+            text-blue-fantastic
+            font-sans
+            border
+            border-blue-fantastic/20
+            max-h-[100vh]
+            overflow-y-auto
+            no-scrollbar
+            rounded-2xl
+          "
+        >
+          <DialogHeader>
+            <DialogTitle
+              className="
+                text-xl
+                font-bold
+                font-sans
+                text-blue-fantastic
+                border-b
+                border-blue-fantastic/5
+                pb-2
+              "
+            >
+              {isEdit
+                ? "Edit Build Lot"
+                : "Create New Build Lot"}
+            </DialogTitle>
+          </DialogHeader>
 
-        <div className="space-y-4 py-3">
-          {/* Lot ID */}
-          <div className="space-y-1">
-            <Label htmlFor="id" className="text-xs font-bold text-blue-fantastic/70">
-              Lot ID / Project ID
-            </Label>
-            <Input
-              id="id"
-              placeholder="e.g. lot-104"
-              value={id}
-              onChange={(e) => setId(e.target.value.toLowerCase())}
-              disabled={isEdit}
-              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
-                errors.id ? "border-red-500" : ""
-              }`}
-            />
-            {errors.id && <p className="text-[10px] text-red-500 font-bold">{errors.id}</p>}
-          </div>
+          <div className="space-y-4 py-3">
 
-          {/* Client Name */}
-          <div className="space-y-1">
-            <Label htmlFor="clientName" className="text-xs font-bold text-blue-fantastic/70">
-              Client Name
-            </Label>
-            <Input
-              id="clientName"
-              placeholder="e.g. Anuradha Harshana"
-              value={clientName}
-              onChange={(e) => setClientName(e.target.value)}
-              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
-                errors.clientName ? "border-red-500" : ""
-              }`}
-            />
-            {errors.clientName && <p className="text-[10px] text-red-500 font-bold">{errors.clientName}</p>}
-          </div>
+            {/* ------------------------------------------------ */}
+            {/* LOT / PROJECT ID                                 */}
+            {/* ------------------------------------------------ */}
 
-          {/* Address */}
-          <div className="space-y-1">
-            <Label htmlFor="address" className="text-xs font-bold text-blue-fantastic/70">
-              Site Address
-            </Label>
-            <Input
-              id="address"
-              placeholder="e.g. Lot 104, 12 Harrison Street, Richmond VIC"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
-                errors.address ? "border-red-500" : ""
-              }`}
-            />
-            {errors.address && <p className="text-[10px] text-red-500 font-bold">{errors.address}</p>}
-          </div>
-
-          {/* Supervisor Select */}
-          <div className="space-y-1">
-            <Label htmlFor="supervisor" className="text-xs font-bold text-blue-fantastic/70">
-              Assigned Supervisor
-            </Label>
-            <Select value={supervisorName} onValueChange={setSupervisorName}>
-              <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
-                <SelectValue placeholder="Select Supervisor" />
-              </SelectTrigger>
-              <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
-                <SelectItem value="Unassigned" className="text-xs font-bold font-sans">Unassigned</SelectItem>
-                {supervisors.map((sup) => (
-                  <SelectItem key={sup.id} value={sup.username} className="text-xs font-bold font-sans">
-                    {sup.username}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {/* Status Select */}
             <div className="space-y-1">
-              <Label htmlFor="status" className="text-xs font-bold text-blue-fantastic/70">
-                Project Status
+              <Label
+                htmlFor="id"
+                className="text-xs font-bold text-blue-fantastic/70"
+              >
+                Lot ID / Project ID
               </Label>
-              <Select value={status} onValueChange={(val: any) => setStatus(val)}>
-                <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
-                  <SelectValue placeholder="Select Status" />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
-                  <SelectItem value="On Track" className="text-xs font-bold font-sans">On Track</SelectItem>
-                  <SelectItem value="Delayed" className="text-xs font-bold font-sans">Delayed</SelectItem>
-                  <SelectItem value="Action Required" className="text-xs font-bold font-sans">Action Required</SelectItem>
-                </SelectContent>
-              </Select>
+
+              <Input
+                id="id"
+                placeholder="e.g. lot-104"
+                value={id}
+                onChange={(e) =>
+                  setId(
+                    e.target.value.toLowerCase()
+                  )
+                }
+                disabled={isEdit}
+                className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+                  errors.id
+                    ? "border-red-500"
+                    : ""
+                }`}
+              />
+
+              {errors.id && (
+                <p className="text-[10px] text-red-500 font-bold">
+                  {errors.id}
+                </p>
+              )}
             </div>
 
-            {/* Current Stage */}
+            {/* ------------------------------------------------ */}
+            {/* CLIENT NAME                                      */}
+            {/* ------------------------------------------------ */}
+
             <div className="space-y-1">
-              <Label htmlFor="currentStage" className="text-xs font-bold text-blue-fantastic/70">
-                Current Stage
+              <Label
+                htmlFor="clientName"
+                className="text-xs font-bold text-blue-fantastic/70"
+              >
+                Client Name
               </Label>
-              <Select value={currentStage} onValueChange={handleStageChange}>
-                <SelectTrigger className="bg-white border-blue-fantastic/15 text-blue-fantastic h-9 text-sm focus:ring-truffle-trouble">
-                  <SelectValue placeholder="Select Stage" />
+
+              <Input
+                id="clientName"
+                placeholder="e.g. Anuradha Harshana"
+                value={clientName}
+                onChange={(e) =>
+                  setClientName(e.target.value)
+                }
+                className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+                  errors.clientName
+                    ? "border-red-500"
+                    : ""
+                }`}
+              />
+
+              {errors.clientName && (
+                <p className="text-[10px] text-red-500 font-bold">
+                  {errors.clientName}
+                </p>
+              )}
+            </div>
+
+            {/* ------------------------------------------------ */}
+            {/* SITE ADDRESS                                     */}
+            {/* ------------------------------------------------ */}
+
+            <div className="space-y-1">
+              <Label
+                htmlFor="address"
+                className="text-xs font-bold text-blue-fantastic/70"
+              >
+                Site Address
+              </Label>
+
+              <Input
+                id="address"
+                placeholder="e.g. Lot 104, 12 Harrison Street, Richmond VIC"
+                value={address}
+                onChange={(e) =>
+                  setAddress(e.target.value)
+                }
+                className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+                  errors.address
+                    ? "border-red-500"
+                    : ""
+                }`}
+              />
+
+              {errors.address && (
+                <p className="text-[10px] text-red-500 font-bold">
+                  {errors.address}
+                </p>
+              )}
+            </div>
+
+            {/* ------------------------------------------------ */}
+            {/* SUPERVISOR                                      */}
+            {/* ------------------------------------------------ */}
+
+            <div className="space-y-1">
+              <Label
+                htmlFor="supervisor"
+                className="text-xs font-bold text-blue-fantastic/70"
+              >
+                Assigned Supervisor
+              </Label>
+
+              <Select
+                value={supervisorId || "Unassigned"}
+                onValueChange={(value) =>
+                  setSupervisorId(
+                    value === "Unassigned"
+                      ? ""
+                      : value
+                  )
+                }
+              >
+                <SelectTrigger
+                  className="
+                    bg-white
+                    border-blue-fantastic/15
+                    text-blue-fantastic
+                    h-9
+                    text-sm
+                    focus:ring-truffle-trouble
+                  "
+                >
+                  <SelectValue placeholder="Select Supervisor" />
                 </SelectTrigger>
-                <SelectContent className="bg-white text-blue-fantastic border-blue-fantastic/10">
-                  {STAGES.map((stg) => (
-                    <SelectItem key={stg} value={stg} className="text-xs font-bold font-sans">
-                      {stg}
+
+                <SelectContent
+                  className="
+                    bg-white
+                    text-blue-fantastic
+                    border-blue-fantastic/10
+                  "
+                >
+                  <SelectItem
+                    value="Unassigned"
+                    className="text-xs font-bold font-sans"
+                  >
+                    Unassigned
+                  </SelectItem>
+
+                  {supervisors.map((sup) => (
+                    <SelectItem
+                      key={sup.id}
+                      value={sup.id}
+                      className="text-xs font-bold font-sans"
+                    >
+                      {sup.username}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
-          </div>
 
-          {/* Progress Percent Slider */}
-          <div className="space-y-1">
-            <div className="flex justify-between items-center text-xs font-bold text-blue-fantastic/70">
-              <Label htmlFor="progress">Overall Progress</Label>
-              <span className="text-truffle-trouble">{progress}%</span>
+            {/* ------------------------------------------------ */}
+            {/* STATUS + CURRENT STAGE                           */}
+            {/* ------------------------------------------------ */}
+
+            <div className="grid grid-cols-2 gap-4">
+
+              {/* STATUS */}
+              <div className="space-y-1">
+                <Label
+                  htmlFor="status"
+                  className="text-xs font-bold text-blue-fantastic/70"
+                >
+                  Project Status
+                </Label>
+
+                <Select
+                  value={status}
+                  onValueChange={(val) =>
+                    setStatus(
+                      val as Project["status"]
+                    )
+                  }
+                >
+                  <SelectTrigger
+                    className="
+                      bg-white
+                      border-blue-fantastic/15
+                      text-blue-fantastic
+                      h-9
+                      text-sm
+                      focus:ring-truffle-trouble
+                    "
+                  >
+                    <SelectValue placeholder="Select Status" />
+                  </SelectTrigger>
+
+                  <SelectContent
+                    className="
+                      bg-white
+                      text-blue-fantastic
+                      border-blue-fantastic/10
+                    "
+                  >
+                    <SelectItem value="On Track">
+                      On Track
+                    </SelectItem>
+
+                    <SelectItem value="Delayed">
+                      Delayed
+                    </SelectItem>
+
+                    <SelectItem value="Action Required">
+                      Action Required
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* CURRENT STAGE */}
+              <div className="space-y-1">
+                <Label
+                  htmlFor="currentStage"
+                  className="text-xs font-bold text-blue-fantastic/70"
+                >
+                  Current Stage
+                </Label>
+
+                <Select
+                  value={currentStage}
+                  onValueChange={handleStageChange}
+                >
+                  <SelectTrigger
+                    className="
+                      bg-white
+                      border-blue-fantastic/15
+                      text-blue-fantastic
+                      h-9
+                      text-sm
+                      focus:ring-truffle-trouble
+                    "
+                  >
+                    <SelectValue placeholder="Select Stage" />
+                  </SelectTrigger>
+
+                  <SelectContent
+                    className="
+                      bg-white
+                      text-blue-fantastic
+                      border-blue-fantastic/10
+                    "
+                  >
+                    {STAGES.map((stage) => (
+                      <SelectItem
+                        key={stage}
+                        value={stage}
+                        className="text-xs font-bold font-sans"
+                      >
+                        {stage}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <Input
-              id="progress"
-              type="range"
-              min="0"
-              max="100"
-              value={progress}
-              onChange={(e) => setProgress(Number(e.target.value))}
-              className="accent-truffle-trouble h-8 w-full p-0 border-0 bg-transparent cursor-pointer"
-            />
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {/* Start Date */}
+            {/* ------------------------------------------------ */}
+            {/* PROGRESS                                         */}
+            {/* ------------------------------------------------ */}
+
             <div className="space-y-1">
-              <Label htmlFor="startDate" className="text-xs font-bold text-blue-fantastic/70">
-                Start Date
-              </Label>
+
+              <div
+                className="
+                  flex
+                  justify-between
+                  items-center
+                  text-xs
+                  font-bold
+                  text-blue-fantastic/70
+                "
+              >
+                <Label htmlFor="progress">
+                  Overall Progress
+                </Label>
+
+                <span className="text-truffle-trouble">
+                  {progress}%
+                </span>
+              </div>
+
               <Input
-                id="startDate"
-                placeholder="e.g. Mar 10, 2026"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
-                  errors.startDate ? "border-red-500" : ""
-                }`}
+                id="progress"
+                type="range"
+                min="0"
+                max="100"
+                value={progress}
+                onChange={(e) =>
+                  setProgress(
+                    Number(e.target.value)
+                  )
+                }
+                className="
+                  accent-truffle-trouble
+                  h-8
+                  w-full
+                  p-0
+                  border-0
+                  bg-transparent
+                  cursor-pointer
+                "
               />
-              {errors.startDate && <p className="text-[10px] text-red-500 font-bold">{errors.startDate}</p>}
             </div>
 
-            {/* Estimated Handover */}
-            <div className="space-y-1">
-              <Label htmlFor="estHandover" className="text-xs font-bold text-blue-fantastic/70">
-                Est Handover Date
-              </Label>
-              <Input
-                id="estHandover"
-                placeholder="e.g. Nov 15, 2026"
-                value={estHandover}
-                onChange={(e) => setEstHandover(e.target.value)}
-                className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
-                  errors.estHandover ? "border-red-500" : ""
-                }`}
-              />
-              {errors.estHandover && <p className="text-[10px] text-red-500 font-bold">{errors.estHandover}</p>}
+            {/* ------------------------------------------------ */}
+            {/* DATES                                            */}
+            {/* ------------------------------------------------ */}
+
+            <div className="grid grid-cols-2 gap-4">
+
+              {/* START DATE */}
+              <div className="space-y-1">
+                <Label
+                  htmlFor="startDate"
+                  className="text-xs font-bold text-blue-fantastic/70"
+                >
+                  Start Date
+                </Label>
+
+                <Input
+                  id="startDate"
+                  placeholder="e.g. Mar 10, 2026"
+                  value={startDate}
+                  onChange={(e) =>
+                    setStartDate(
+                      e.target.value
+                    )
+                  }
+                  className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+                    errors.startDate
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                />
+
+                {errors.startDate && (
+                  <p className="text-[10px] text-red-500 font-bold">
+                    {errors.startDate}
+                  </p>
+                )}
+              </div>
+
+              {/* EST HANDOVER */}
+              <div className="space-y-1">
+                <Label
+                  htmlFor="estHandover"
+                  className="text-xs font-bold text-blue-fantastic/70"
+                >
+                  Est Handover Date
+                </Label>
+
+                <Input
+                  id="estHandover"
+                  placeholder="e.g. Nov 15, 2026"
+                  value={estHandover}
+                  onChange={(e) =>
+                    setEstHandover(
+                      e.target.value
+                    )
+                  }
+                  className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
+                    errors.estHandover
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                />
+
+                {errors.estHandover && (
+                  <p className="text-[10px] text-red-500 font-bold">
+                    {errors.estHandover}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex justify-end gap-2 border-t border-blue-fantastic/10 pt-3.5 mt-2">
-          <Button
-            variant="outline"
-            onClick={onClose}
-            className="text-xs font-bold border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 h-9 rounded-xl px-4"
+          {/* -------------------------------------------------- */}
+          {/* BUTTONS                                            */}
+          {/* -------------------------------------------------- */}
+
+          <div
+            className="
+              flex
+              justify-end
+              gap-2
+              border-t
+              border-blue-fantastic/10
+              pt-3.5
+              mt-2
+            "
           >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleSave}
-            className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/85 text-xs font-bold h-9 rounded-xl px-5"
-          >
-            {isEdit ? "Save Changes" : "Create Lot"}
-          </Button>
-        </div>
-      </DialogContent>
+            <Button
+              variant="outline"
+              onClick={onClose}
+              className="
+                text-xs
+                font-bold
+                border-blue-fantastic/20
+                text-blue-fantastic
+                hover:bg-blue-fantastic/10
+                h-9
+                rounded-xl
+                px-4
+              "
+            >
+              Cancel
+            </Button>
+
+            <Button
+              onClick={handleSave}
+              className="
+                bg-truffle-trouble
+                text-palladian
+                hover:bg-truffle-trouble/85
+                text-xs
+                font-bold
+                h-9
+                rounded-xl
+                px-5
+              "
+            >
+              {isEdit
+                ? "Save Changes"
+                : "Create Lot"}
+            </Button>
+          </div>
+        </DialogContent>
+      </div>
     </Dialog>
   );
 }
+
+/* ============================================================
+   RANDOM PROJECT GRADIENT
+   ============================================================ */
 
 function getRandomGradient() {
   const gradients = [
@@ -364,85 +931,17 @@ function getRandomGradient() {
     "from-burning-flame/30 to-abyssal-blue/80",
     "from-emerald-600/30 to-abyssal-blue/80",
   ];
-  return gradients[Math.floor(Math.random() * gradients.length)];
+
+  return gradients[
+    Math.floor(Math.random() * gradients.length)
+  ];
 }
 
 function getDefaultStages(): Stage[] {
-  return [
-    {
-      name: "Site Cut",
-      status: "Pending",
-      progress: 0,
-      checklist: [
-        { id: "sc-1", label: "Soil testing & site survey", completed: false },
-        { id: "sc-2", label: "Excavation & site leveling", completed: false },
-        { id: "sc-3", label: "Retaining walls (if required)", completed: false },
-      ],
-    },
-    {
-      name: "Slab",
-      status: "Pending",
-      progress: 0,
-      checklist: [
-        { id: "sl-1", label: "Under-slab plumbing drainage", completed: false },
-        { id: "sl-2", label: "Formwork & steel reinforcement", completed: false },
-        { id: "sl-3", label: "Concrete pour & curing check", completed: false },
-        { id: "sl-4", label: "Termite protection collar install", completed: false },
-      ],
-    },
-    {
-      name: "Frame",
-      status: "Pending",
-      progress: 0,
-      checklist: [
-        { id: "fr-1", label: "Wall frames erection", completed: false },
-        { id: "fr-2", label: "Roof trusses & bracing install", completed: false },
-        { id: "fr-3", label: "Window & external door frames", completed: false },
-        { id: "fr-4", label: "Structural steel lintels", completed: false },
-      ],
-    },
-    {
-      name: "Lockup",
-      status: "Pending",
-      progress: 0,
-      checklist: [
-        { id: "lk-1", label: "Roof cladding (tiles/colorbond)", completed: false },
-        { id: "lk-2", label: "Brickwork / external cladding", completed: false },
-        { id: "lk-3", label: "Electrical & plumbing rough-in", completed: false },
-        { id: "lk-4", label: "External wall insulation", completed: false },
-      ],
-    },
-    {
-      name: "Fixing",
-      status: "Pending",
-      progress: 0,
-      checklist: [
-        { id: "fx-1", label: "Plasterboard lining & sheeting", completed: false },
-        { id: "fx-2", label: "Architraves, skirting & doors fixing", completed: false },
-        { id: "fx-3", label: "Waterproofing of wet areas", completed: false },
-        { id: "fx-4", label: "Cabinetry & vanities install", completed: false },
-      ],
-    },
-    {
-      name: "Completion",
-      status: "Pending",
-      progress: 0,
-      checklist: [
-        { id: "cp-1", label: "Tiling & flooring installation", completed: false },
-        { id: "cp-2", label: "Painting & electric trim fit-off", completed: false },
-        { id: "cp-3", label: "PC items & tapware installation", completed: false },
-        { id: "cp-4", label: "Final cleaning & quality audit", completed: false },
-      ],
-    },
-    {
-      name: "Handover",
-      status: "Pending",
-      progress: 0,
-      checklist: [
-        { id: "ho-1", label: "Practical Completion Inspection (PCI)", completed: false },
-        { id: "ho-2", label: "Rectification of PCI items", completed: false },
-        { id: "ho-3", label: "Final payment & keys handover", completed: false },
-      ],
-    },
-  ];
+  return STAGES.map((name) => ({
+    name,
+    status: "Pending" as const,
+    progress: 0,
+    checklist: [],
+  }));
 }

@@ -15,6 +15,24 @@ export interface User {
     role: string;
 }
 
+export interface CompanyUser {
+    user: User;
+    companyId: string;
+}
+
+export interface StageTemplateChecklistItem {
+    id: string;
+    label: string;
+}
+
+export interface StageTemplate {
+    id: string;
+    name: string;
+    description?: string;
+    weight: number;
+    checklist: StageTemplateChecklistItem[];
+}
+
 export interface Userdetails {
     username: string;
 }

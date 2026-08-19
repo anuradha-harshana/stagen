@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { Building2 } from "lucide-react";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project, Stage } from "@/lib/db-mock/projectsData";
+import { StageTemplate } from "@/lib/types/types";
 
 import ProjectsHeader from "./projects-header";
 import ProjectsStats from "./projects-stats";
@@ -14,13 +15,16 @@ import ProjectFormModal from "./project-form-modal";
 interface CompanyProjectsClientProps {
   initialProjects: Project[];
   supervisors: { id: string; username: string }[];
+  companyId: string;
 }
 
 export default function CompanyProjectsClient({
   initialProjects,
   supervisors,
+  companyId,
 }: CompanyProjectsClientProps) {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
+  const [stageTemplates, setStageTemplates] = useState<Stage[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
 
   // Filters State
@@ -34,6 +38,37 @@ export default function CompanyProjectsClient({
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Sync state with localStorage after mount to avoid hydration mismatch
+  useEffect(() => {
+    const loadStageTemplates = async () => {
+      try {
+        const response = await fetch(
+          `/api/company/stages?companyId=${encodeURIComponent(companyId)}`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to load stage templates");
+        }
+
+        const data: { stages: StageTemplate[] } = await response.json();
+        setStageTemplates(
+          data.stages.map((stage) => ({
+            name: stage.name as Stage["name"],
+            status: "Pending" as const,
+            progress: 0,
+            checklist: stage.checklist.map((item) => ({
+              ...item,
+              completed: false,
+            })),
+          }))
+        );
+      } catch (error) {
+        console.error("Failed to load company stage templates", error);
+      }
+    };
+
+    void loadStageTemplates();
+  }, [companyId]);
+
   useEffect(() => {
     const saved = localStorage.getItem("stagen_company_projects");
     if (saved) {
@@ -91,7 +126,7 @@ export default function CompanyProjectsClient({
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="flex flex-col gap-0.5 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Page Header */}
       <ProjectsHeader onCreateClick={handleCreateNewClick} />
 
@@ -138,12 +173,13 @@ export default function CompanyProjectsClient({
       <ProjectFormModal
         project={editingProject}
         supervisors={supervisors}
+        stageTemplates={stageTemplates}
         isOpen={isFormOpen}
         onClose={() => {
           setIsFormOpen(false);
           setEditingProject(null);
         }}
-        onSave={handleSaveProject}
+        onSave={(payload) => handleSaveProject(payload.project)}
       />
     </div>
   );

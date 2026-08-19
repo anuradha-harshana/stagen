@@ -89,30 +89,72 @@ const DEFAULT_STAGE_TEMPLATES: TemplateStage[] = [
 
 export default function StageTemplatesClient() {
   const [stages, setStages] = useState<TemplateStage[]>(DEFAULT_STAGE_TEMPLATES);
-  const [isHydrated, setIsHydrated] = useState(false);
 
   // Modal states
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingStage, setEditingStage] = useState<TemplateStage | null>(null);
 
-  // Sync state with localStorage
   useEffect(() => {
-    const saved = localStorage.getItem("stagen_stage_templates");
-    if (saved) {
+    const loadStages = async () => {
       try {
-        setStages(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse templates from localStorage", e);
+        const response = await fetch("/api/company/stages");
+        if (!response.ok) throw new Error("Failed to load stage templates");
+        const data: { stages: TemplateStage[] } = await response.json();
+        setStages(data.stages);
+      } catch (error) {
+        console.error("Failed to load stage templates", error);
       }
-    }
-    setIsHydrated(true);
+    };
+
+    void loadStages();
   }, []);
 
-  useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem("stagen_stage_templates", JSON.stringify(stages));
-    }
-  }, [stages, isHydrated]);
+  const saveStage = async (stage: TemplateStage) => {
+    const response = await fetch("/api/company/stages", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ stageId: stage.id, stage }),
+    });
+    if (!response.ok) throw new Error("Failed to save stage");
+    const data: { stage: TemplateStage } = await response.json();
+    setStages((current) =>
+      current.map((item) => (item.id === data.stage.id ? data.stage : item))
+    );
+  };
+
+  const deleteStage = async (stageId: string) => {
+    const response = await fetch(
+      `/api/company/stages?stageId=${encodeURIComponent(stageId)}`,
+      { method: "DELETE" }
+    );
+    if (!response.ok) throw new Error("Failed to delete stage");
+    setStages((current) => current.filter((stage) => stage.id !== stageId));
+  };
+
+  const reorderStages = async (nextStages: TemplateStage[]) => {
+    const response = await fetch("/api/company/stages", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ order: nextStages.map((stage) => stage.id) }),
+    });
+    if (!response.ok) throw new Error("Failed to reorder stages");
+    setStages(nextStages);
+  };
+
+  const addStage = async (stage: Omit<TemplateStage, "id">) => {
+    const response = await fetch("/api/company/stages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(stage),
+    });
+    if (!response.ok) throw new Error("Failed to create stage");
+    const data: { stage: TemplateStage } = await response.json();
+    setStages((current) => [...current, data.stage]);
+  };
+
+  const showMutationError = (error: unknown) => {
+    console.error("Failed to update stage templates", error);
+  };
 
   const totalWeight = stages.reduce((acc, s) => acc + (s.weight || 0), 0);
   const isWeightValid = totalWeight === 100;
@@ -125,7 +167,7 @@ export default function StageTemplatesClient() {
     const temp = nextStages[idx];
     nextStages[idx] = nextStages[idx - 1];
     nextStages[idx - 1] = temp;
-    setStages(nextStages);
+    void reorderStages(nextStages).catch(showMutationError);
   };
 
   // Move stage down
@@ -136,65 +178,90 @@ export default function StageTemplatesClient() {
     const temp = nextStages[idx];
     nextStages[idx] = nextStages[idx + 1];
     nextStages[idx + 1] = temp;
-    setStages(nextStages);
+    void reorderStages(nextStages).catch(showMutationError);
   };
 
   // Save new/edit stage
-  const handleSaveStage = (savedStage: { id: string; name: string; weight: number }) => {
-    const exists = stages.some((s) => s.id === savedStage.id);
-    if (exists) {
-      setStages(
-        stages.map((s) =>
-          s.id === savedStage.id
-            ? { ...s, name: savedStage.name, weight: savedStage.weight }
-            : s
-        )
-      );
-    } else {
-      const newStage: TemplateStage = {
-        id: savedStage.id,
-        name: savedStage.name,
-        weight: savedStage.weight,
-        checklist: [],
-      };
-      setStages([...stages, newStage]);
+  const handleSaveStage = async (savedStage: { id: string; name: string; weight: number }) => {
+    try {
+      const existingStage = stages.find((stage) => stage.id === savedStage.id);
+      if (existingStage) {
+        await saveStage({ ...existingStage, ...savedStage });
+      } else {
+        await addStage({ ...savedStage, checklist: [] });
+      }
+      setIsFormOpen(false);
+      setEditingStage(null);
+    } catch (error) {
+      showMutationError(error);
     }
-    setIsFormOpen(false);
-    setEditingStage(null);
   };
 
   // Delete stage
-  const handleDeleteStage = (id: string) => {
-    setStages(stages.filter((s) => s.id !== id));
+  const handleDeleteStage = async (id: string) => {
+    try {
+      await deleteStage(id);
+    } catch (error) {
+      showMutationError(error);
+    }
   };
 
   // Add checklist item
-  const handleAddChecklistItem = (stageId: string, label: string) => {
-    setStages(
-      stages.map((stage) => {
-        if (stage.id !== stageId) return stage;
-        return {
-          ...stage,
-          checklist: [
-            ...(stage.checklist || []),
-            { id: `item-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, label }
-          ]
-        };
-      })
-    );
+  const handleAddChecklistItem = async (stageId: string, label: string) => {
+    const stage = stages.find((item) => item.id === stageId);
+    if (!stage) return;
+
+    try {
+      await saveStage({
+        ...stage,
+        checklist: [
+          ...stage.checklist,
+          { id: `item-${Date.now()}`, label },
+        ],
+      });
+    } catch (error) {
+      showMutationError(error);
+    }
+  };
+
+  const handleEditChecklistItem = async (
+    stageId: string,
+    itemId: string,
+    label: string
+  ) => {
+    const stage = stages.find((item) => item.id === stageId);
+    if (!stage) return;
+
+    try {
+      await saveStage({
+        ...stage,
+        checklist: stage.checklist.map((item) =>
+          item.id === itemId ? { ...item, label } : item
+        ),
+      });
+    } catch (error) {
+      showMutationError(error);
+    }
   };
 
   // Delete checklist item
-  const handleDeleteChecklistItem = (stageId: string, itemId: string) => {
-    setStages(
-      stages.map((stage) => {
-        if (stage.id !== stageId) return stage;
-        return {
-          ...stage,
-          checklist: (stage.checklist || []).filter((item) => item.id !== itemId)
-        };
-      })
-    );
+  const handleDeleteChecklistItem = async (stageId: string, itemId: string) => {
+    try {
+      const response = await fetch(
+        `/api/company/stages?stageId=${encodeURIComponent(stageId)}&checklistId=${encodeURIComponent(itemId)}`,
+        { method: "DELETE" }
+      );
+      if (!response.ok) throw new Error("Failed to delete checklist item");
+      setStages((current) =>
+        current.map((stage) =>
+          stage.id === stageId
+            ? { ...stage, checklist: stage.checklist.filter((item) => item.id !== itemId) }
+            : stage
+        )
+      );
+    } catch (error) {
+      showMutationError(error);
+    }
   };
 
   return (
@@ -236,6 +303,7 @@ export default function StageTemplatesClient() {
             }}
             onDelete={handleDeleteStage}
             onAddChecklistItem={handleAddChecklistItem}
+            onEditChecklistItem={handleEditChecklistItem}
             onDeleteChecklistItem={handleDeleteChecklistItem}
           />
         ))}

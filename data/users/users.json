@@ -8,6 +8,7 @@
   },
   {
     "id": "7ab56015-4412-494e-8aff-dbb5095e0096",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
     "username": "Anuradha",
     "email": "customer@stagen.com",
     "password": "Stagen@123456",
@@ -15,13 +16,15 @@
   },
   {
     "id": "7ab56015-4412-494e-8aff-dbb5095e0097",
-    "username": "Eric",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "username": "Imesha",
     "email": "supervisor@stagen.com",
     "password": "Stagen@123456",
     "role": "supervisor"
   },
   {
     "id": "7ab56015-4412-484e-8aff-dbb5095e0095",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
     "username": "Build & Co",
     "email": "management@stagen.com",
     "password": "Stagen@123456",
