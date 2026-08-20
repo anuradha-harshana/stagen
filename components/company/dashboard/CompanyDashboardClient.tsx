@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { getCompanyProjects } from "@/lib/tenant/projects";
+
+
 import {
   Bell,
   ChevronRight,
@@ -168,8 +170,8 @@ const RECENT_LOGINS = [
   },
 ];
 
-export default function CompanyDashboardClient() {
-  const router = useRouter();
+export default function CompanyDashboardClient({ user }: { user: User }) {
+  
 
   // State management
   const [projects, setProjects] = useState(INITIAL_PROJECTS_OVERVIEW);
@@ -244,7 +246,7 @@ export default function CompanyDashboardClient() {
     <div className={PAGE_SHELL_CLASS}>
       <PageHeader
         icon={<LayoutDashboard className="h-5 w-5 text-burning-flame" />}
-        title="Welcome back, STAGEN"
+        title={`Welcome back, ${user.username}`}
         subtitle="Here's what's happening on your sites today."
         rightContent={
           <div className="flex items-center gap-3">
@@ -296,7 +298,6 @@ export default function CompanyDashboardClient() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="text-center justify-center text-xs text-blue-fantastic font-medium cursor-pointer"
-                  onClick={() => router.push("/company/notifications")}
                 >
                   View all notifications
                 </DropdownMenuItem>
@@ -311,17 +312,17 @@ export default function CompanyDashboardClient() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 rounded-2xl">
                 <DropdownMenuLabel className="font-normal text-xs text-blue-fantastic/60">
-                  Logged in as <strong className="text-blue-fantastic">STAGEN Admin</strong>
+                  Logged in as <strong className="text-blue-fantastic">{user.username}</strong>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router.push("/company/profile")} className="cursor-pointer">
+                <DropdownMenuItem className="cursor-pointer">
                   <Building2 className="mr-2 h-4 w-4" /> Company Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push("/company/settings")} className="cursor-pointer">
+                <DropdownMenuItem className="cursor-pointer">
                   <Shield className="mr-2 h-4 w-4" /> Settings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => toast.info("Logout triggered")} className="text-truffle-trouble cursor-pointer">
+                <DropdownMenuItem className="text-truffle-trouble cursor-pointer">
                   Log Out
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -478,7 +479,6 @@ export default function CompanyDashboardClient() {
 
               {/* Action 3: View Billing */}
               <button
-                onClick={() => router.push("/company/billing")}
                 className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-white hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
               >
                 <div className="p-3 rounded-full bg-gray-50 group-hover:bg-blue-fantastic group-hover:text-white transition-colors">
@@ -489,7 +489,6 @@ export default function CompanyDashboardClient() {
 
               {/* Action 4: Manage Roles */}
               <button
-                onClick={() => router.push("/company/users")}
                 className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-gray-200/80 bg-white hover:bg-blue-fantastic/5 hover:border-blue-fantastic/30 transition-all text-blue-fantastic shadow-xs group"
               >
                 <div className="p-3 rounded-full bg-gray-50 group-hover:bg-blue-fantastic group-hover:text-white transition-colors">
@@ -569,7 +568,6 @@ export default function CompanyDashboardClient() {
                   <TableRow
                     key={p.id}
                     className="hover:bg-gray-50/80 transition-colors border-b border-gray-100 cursor-pointer"
-                    onClick={() => router.push("/company/projects")}
                   >
                     <TableCell className="font-semibold text-xs text-blue-fantastic py-4">
                       {p.id}
@@ -874,7 +872,6 @@ export default function CompanyDashboardClient() {
             <Button
               onClick={() => {
                 setSelectedActivity(null);
-                router.push("/company/audit-logs");
               }}
               className="bg-blue-fantastic text-[#eee9df] hover:bg-blue-fantastic/90 rounded-xl text-xs"
             >
