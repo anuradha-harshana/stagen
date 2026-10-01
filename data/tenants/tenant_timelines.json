@@ -1,12 +1,12 @@
 [
   {
     "tenant_id": "tenant-lot-104",
-    "percentage": 45,
-    "start_date": "Mar 10, 2026",
+    "percentage": 0,
+    "start_date": "Oct 1, 2026",
     "original_est_completion": "Nov 15, 2026",
     "current_projected_completion": "Nov 15, 2026",
     "status_flag": "on-track",
-    "delay_days": 7,
+    "delay_days": 0,
     "stages": []
   }
 ]
