@@ -18,5 +18,19 @@
     "next_due_amount": 97000,
     "next_due_label": "Stage 3 Lock-up",
     "updated_at": "2026-08-19T09:13:43.056Z"
+  },
+  {
+    "tenant_id": "tenant-lot-901",
+    "display_name": "Samaji Dulmini",
+    "client_name": "Samaji Dulmini",
+    "address": "Lot 901, Harrison Street",
+    "status": "On Track",
+    "progress": 5,
+    "current_stage": "Site Cut",
+    "start_date": "Sep 28, 2026",
+    "est_handover": "Nov 15, 2026",
+    "image_gradient": "from-emerald-600/30 to-abyssal-blue/80",
+    "company_id": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "updated_at": "2026-09-28T05:18:54.787Z"
   }
 ]
