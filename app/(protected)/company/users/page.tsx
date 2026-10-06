@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
   UserRoundPen, 
   Search, 
@@ -12,27 +12,93 @@ import {
   ChevronRight,
   ShieldCheck,
   UserCheck,
-  UserX
+  UserX,
+  Pencil,
+  Trash2
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { MOCK_ORGANIZATION_USERS, OrganizationUser } from "@/lib/db-mock/companyData";
+import { OrganizationUser } from "@/lib/db-mock/companyData"; 
 import PageHeader from "@/components/shared/PageHeader";
 import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 
 export default function CompanyUsersPage() {
-  const [users, setUsers] = useState<OrganizationUser[]>(MOCK_ORGANIZATION_USERS);
+
+const [users, setUsers] = useState<OrganizationUser[]>([]);
+const [isLoading, setIsLoading] = useState(true);
+
+const loadUsers = async () => {
+  try {
+    const res = await fetch("/api/company/users");
+    if (!res.ok) throw new Error("Failed to load users");
+    const data = await res.json();
+    setUsers(data.users);
+  } catch (err) {
+    showNotification("Error loading users");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+useEffect(() => {
+  loadUsers();
+}, []);
+
+  const handleInviteSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inviteForm.name.trim() || !inviteForm.email.trim()) return;
+
+    const bgColors = ["bg-burning-flame", "bg-blue-fantastic", "bg-truffle-trouble"];
+    const randomBg = bgColors[Math.floor(Math.random() * bgColors.length)];
+
+    const payload = {
+      name: inviteForm.name.trim(),
+      email: inviteForm.email.trim(),
+      phone: inviteForm.phone.trim() || "+61 400 000 000",
+      role: inviteForm.role,
+      status: "Pending" as const,
+      assignedProjectsCount: inviteForm.assignedProjects.trim() ? 1 : 0,
+      assignedProjects: inviteForm.assignedProjects.trim() ? [inviteForm.assignedProjects.trim()] : ["Unassigned"],
+      avatarBg: randomBg,
+    };
+
+  const res = await fetch("/api/company/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (res.ok) {
+    const { user } = await res.json();
+    setUsers((prev) => [user, ...prev]);
+    setIsInviteOpen(false);
+    setInviteForm({ name: "", email: "", phone: "", role: "Site Supervisor", assignedProjects: "" });
+    showNotification(`User invitation sent to ${user.email}`);
+  }
+};
+
+
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("All");
   const [statusFilter, setStatusFilter] = useState<string>("All");
   
   const [selectedUser, setSelectedUser] = useState<OrganizationUser | null>(null);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const [inviteForm, setInviteForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    role: "Site Supervisor" as OrganizationUser["role"],
+    assignedProjects: ""
+  });
+
+  const [editForm, setEditForm] = useState({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -45,6 +111,55 @@ export default function CompanyUsersPage() {
   const showNotification = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const openEditModal = (user: OrganizationUser) => {
+    setEditForm({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+      assignedProjects: user.assignedProjects.join(", ")
+    });
+    setIsEditOpen(true);
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editForm.name.trim() || !editForm.email.trim()) return;
+
+    const projectList = editForm.assignedProjects
+      .split(",")
+      .map((p) => p.trim())
+      .filter(Boolean);
+
+    const updates: Partial<OrganizationUser> = {
+      name: editForm.name.trim(),
+      email: editForm.email.trim(),
+      phone: editForm.phone.trim() || "+61 400 000 000",
+      role: editForm.role,
+      assignedProjects: projectList.length > 0 ? projectList : ["Unassigned"],
+      assignedProjectsCount: projectList.length
+    };
+
+    try {
+      const res = await fetch("/api/company/users", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: editForm.id, updates })
+      });
+
+      if (!res.ok) throw new Error("Failed to update user");
+
+      const { user: updated } = await res.json();
+      setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
+      setSelectedUser((prev) => (prev && prev.id === updated.id ? updated : prev));
+      setIsEditOpen(false);
+      showNotification(`User details for '${updated.name}' updated successfully.`);
+    } catch (err) {
+      showNotification("Failed to update user details.");
+    }
   };
 
   // Filter users
@@ -63,44 +178,45 @@ export default function CompanyUsersPage() {
     return matchesSearch && matchesRole && matchesStatus;
   });
 
-  const handleInviteSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inviteForm.name.trim() || !inviteForm.email.trim()) return;
-
-    const bgColors = ["bg-burning-flame", "bg-blue-fantastic", "bg-truffle-trouble"];
-    const randomBg = bgColors[Math.floor(Math.random() * bgColors.length)];
-
-    const newUser: OrganizationUser = {
-      id: `USR-${Date.now().toString().slice(-3)}`,
-      name: inviteForm.name.trim(),
-      email: inviteForm.email.trim(),
-      phone: inviteForm.phone.trim() || "+61 400 000 000",
-      role: inviteForm.role,
-      status: "Pending",
-      assignedProjectsCount: inviteForm.assignedProjects.trim() ? 1 : 0,
-      assignedProjects: inviteForm.assignedProjects.trim() ? [inviteForm.assignedProjects.trim()] : ["Unassigned"],
-      lastActive: "Invite Sent (Just now)",
-      avatarBg: randomBg
-    };
-
-    setUsers((prev) => [newUser, ...prev]);
-    setIsInviteOpen(false);
-    setInviteForm({ name: "", email: "", phone: "", role: "Site Supervisor", assignedProjects: "" });
-    showNotification(`User invitation sent to ${newUser.email}`);
-  };
-
-  const handleToggleStatus = (user: OrganizationUser) => {
+  const handleToggleStatus = async (user: OrganizationUser) => {
     const newStatus: OrganizationUser["status"] = user.status === "Suspended" ? "Active" : "Suspended";
-    setUsers((prev) =>
-      prev.map((u) => (u.id === user.id ? { ...u, status: newStatus } : u))
-    );
-    setSelectedUser((prev) => (prev && prev.id === user.id ? { ...prev, status: newStatus } : prev));
-    showNotification(
-      newStatus === "Suspended"
-        ? `User account '${user.name}' has been suspended.`
-        : `User account '${user.name}' has been reactivated.`
-    );
+
+    const res = await fetch("/api/company/users", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: user.id, updates: { status: newStatus } }),
+    });
+
+    if (res.ok) {
+      const { user: updated } = await res.json();
+      setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
+      setSelectedUser(updated);
+      showNotification(
+        newStatus === "Suspended"
+          ? `User account '${user.name}' has been suspended.`
+          : `User account '${user.name}' has been reactivated.`
+      );
+    }
   };
+
+  const handleDeleteUser = async (id: string) => {
+    if (!confirm("Are you sure you want to permanently remove this suspended user?")) return;
+    try {
+      const res = await fetch(`/api/company/users?id=${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setUsers((prev) => prev.filter((u) => u.id !== id));
+        setSelectedUser((prev) => (prev?.id === id ? null : prev));
+        showNotification("Suspended user account permanently deleted.");
+      } else {
+        showNotification("Failed to delete user account.");
+      }
+    } catch (err) {
+      showNotification("Failed to delete user account.");
+    }
+  };
+
 
   const totalAssignedSites = users.reduce((acc, u) => acc + (u.assignedProjectsCount || 0), 0);
 
@@ -118,7 +234,7 @@ export default function CompanyUsersPage() {
       <PageHeader
         icon={<UserRoundPen className="h-5 w-5 text-burning-flame" />}
         title="Organization Directory & User Management"
-        subtitle="Manage company admins, site supervisors, executive management accounts, and trade contractor permissions"
+        subtitle="Manage site supervisors, executive management accounts, and trade contractor permissions"
         rightContent={
           <Button
             onClick={() => setIsInviteOpen(true)}
@@ -213,7 +329,7 @@ export default function CompanyUsersPage() {
             </div>
 
             <div className="flex gap-1 bg-blue-fantastic/8 p-0.5 rounded-xl border border-blue-fantastic/10 overflow-x-auto">
-              {["All", "Company Admin", "Executive Management", "Site Supervisor", "Trade Contractor"].map((role) => (
+              {["All", "Executive Management", "Site Supervisor", "Trade Contractor"].map((role) => (
                 <button
                   key={role}
                   onClick={() => setRoleFilter(role)}
@@ -257,7 +373,14 @@ export default function CompanyUsersPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-blue-fantastic/10">
-                {filteredUsers.length === 0 ? (
+                {isLoading ? (
+                  <tr>
+                    <td colSpan={7} className="py-12 text-center text-blue-fantastic/50">
+                      <Clock className="h-7 w-7 mx-auto mb-2 text-blue-fantastic/40 animate-spin" />
+                      <p className="font-semibold text-sm text-blue-fantastic/80">Loading organization users...</p>
+                    </td>
+                  </tr>
+                ) : filteredUsers.length === 0 ? (
                   <tr>
                     <td colSpan={7} className="py-12 text-center text-blue-fantastic/50">
                       <UserRoundPen className="h-8 w-8 mx-auto mb-2 text-blue-fantastic/30" />
@@ -312,15 +435,39 @@ export default function CompanyUsersPage() {
                         {user.lastActive}
                       </td>
                       <td className="py-3 px-4 text-right">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => setSelectedUser(user)}
-                          className="h-7 text-xs text-truffle-trouble hover:bg-truffle-trouble/10 font-semibold"
-                        >
-                          Inspect User
-                          <ChevronRight className="h-3 w-3 ml-1" />
-                        </Button>
+                        <div className="flex items-center justify-end gap-1.5">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => openEditModal(user)}
+                            title="Edit User Details"
+                            className="h-7 w-7 p-0 text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/10 rounded-lg"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+
+                          {user.status === "Suspended" && (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleDeleteUser(user.id)}
+                              title="Delete Suspended User"
+                              className="h-7 w-7 p-0 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </Button>
+                          )}
+
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => setSelectedUser(user)}
+                            className="h-7 text-xs text-truffle-trouble hover:bg-truffle-trouble/10 font-semibold"
+                          >
+                            Inspect User
+                            <ChevronRight className="h-3 w-3 ml-1" />
+                          </Button>
+                        </div>
                       </td>
                     </tr>
                   ))
@@ -393,31 +540,57 @@ export default function CompanyUsersPage() {
               </div>
             </div>
 
-            <div className="flex justify-between items-center border-t border-blue-fantastic/10 pt-3">
-              <Button
-                variant={selectedUser.status === "Suspended" ? "outline" : "destructive"}
-                size="sm"
-                onClick={() => handleToggleStatus(selectedUser)}
-                className="text-xs font-semibold h-8"
-              >
-                {selectedUser.status === "Suspended" ? (
-                  <>
-                    <UserCheck className="mr-1.5 h-3.5 w-3.5 text-truffle-trouble" />
-                    Reactivate Account
-                  </>
-                ) : (
-                  <>
-                    <UserX className="mr-1.5 h-3.5 w-3.5" />
-                    Suspend Account
-                  </>
+            <div className="flex flex-wrap justify-between items-center gap-2 border-t border-blue-fantastic/10 pt-3">
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={selectedUser.status === "Suspended" ? "outline" : "destructive"}
+                  size="sm"
+                  onClick={() => handleToggleStatus(selectedUser)}
+                  className="text-xs font-semibold h-8"
+                >
+                  {selectedUser.status === "Suspended" ? (
+                    <>
+                      <UserCheck className="mr-1.5 h-3.5 w-3.5 text-truffle-trouble" />
+                      Reactivate Account
+                    </>
+                  ) : (
+                    <>
+                      <UserX className="mr-1.5 h-3.5 w-3.5" />
+                      Suspend Account
+                    </>
+                  )}
+                </Button>
+
+                {selectedUser.status === "Suspended" && (
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => handleDeleteUser(selectedUser.id)}
+                    className="text-xs font-semibold h-8 bg-red-600 hover:bg-red-700 text-white"
+                  >
+                    <Trash2 className="mr-1.5 h-3.5 w-3.5" />
+                    Delete User
+                  </Button>
                 )}
-              </Button>
-              <Button
-                onClick={() => setSelectedUser(null)}
-                className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold h-8"
-              >
-                Close Inspector
-              </Button>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => openEditModal(selectedUser)}
+                  className="text-xs font-semibold h-8 border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/5"
+                >
+                  <Pencil className="mr-1.5 h-3.5 w-3.5 text-blue-fantastic" />
+                  Edit Details
+                </Button>
+                <Button
+                  onClick={() => setSelectedUser(null)}
+                  className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold h-8"
+                >
+                  Close Inspector
+                </Button>
+              </div>
             </div>
           </DialogContent>
         )}
@@ -479,7 +652,6 @@ export default function CompanyUsersPage() {
               >
                 <option value="Site Supervisor">Site Supervisor</option>
                 <option value="Executive Management">Executive Management</option>
-                <option value="Company Admin">Company Admin</option>
                 <option value="Trade Contractor">Trade Contractor</option>
               </select>
             </div>
@@ -508,6 +680,96 @@ export default function CompanyUsersPage() {
                 className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
               >
                 Send Invitation
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit User Details Dialog */}
+      <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+        <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20">
+          <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
+            <DialogTitle className="text-lg font-bold text-blue-fantastic flex items-center gap-2">
+              <Pencil className="h-5 w-5 text-truffle-trouble" />
+              Edit User Details
+            </DialogTitle>
+            <DialogDescription className="text-xs text-blue-fantastic/60">
+              Update organization directory information and role assignments
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleEditSubmit} className="space-y-3 py-2">
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Full Name</label>
+              <Input
+                required
+                placeholder="e.g. John Doe"
+                value={editForm.name}
+                onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Email Address</label>
+              <Input
+                required
+                type="email"
+                placeholder="john@stagenhomes.com.au"
+                value={editForm.email}
+                onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Phone Number</label>
+              <Input
+                placeholder="+61 400 000 000"
+                value={editForm.phone}
+                onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Role Type</label>
+              <select
+                value={editForm.role}
+                onChange={(e: any) => setEditForm({ ...editForm, role: e.target.value })}
+                className="w-full bg-white border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
+              >
+                <option value="Site Supervisor">Site Supervisor</option>
+                <option value="Executive Management">Executive Management</option>
+                <option value="Trade Contractor">Trade Contractor</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Assigned Projects (comma separated)</label>
+              <Input
+                placeholder="e.g. Lot 42 Greenvale, Lot 88 Tarneit"
+                value={editForm.assignedProjects}
+                onChange={(e) => setEditForm({ ...editForm, assignedProjects: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 border-t border-blue-fantastic/10 pt-3 mt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsEditOpen(false)}
+                className="text-xs font-semibold border-blue-fantastic/20 text-blue-fantastic"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
+              >
+                Save Changes
               </Button>
             </div>
           </form>
