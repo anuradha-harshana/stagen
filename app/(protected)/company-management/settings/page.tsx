@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
   Settings, 
   ShieldAlert, 
@@ -28,19 +28,52 @@ export default function CompanyManagementSettingsPage() {
   const [settings, setSettings] = useState(MOCK_GOVERNANCE_SETTINGS);
   const [isSaving, setIsSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const res = await fetch("/api/company-management/settings");
+        if (!res.ok) throw new Error("Failed to load settings");
+        const data = await res.json();
+        setSettings(data.settings);
+      } catch (err) {
+        showNotification("Failed to load settings from server.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadSettings();
+  }, []);
 
   const showNotification = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true);
-    setTimeout(() => {
-      setIsSaving(false);
+    try {
+      const res = await fetch("/api/company-management/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(settings),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to save settings");
+      }
+
+      const data = await res.json();
+      setSettings(data.settings);
       showNotification("Executive governance & alert settings saved successfully!");
-    }, 1000);
+    } catch (err) {
+      showNotification("Error saving settings. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
   };
+
 
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
