@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { OrganizationUser } from "@/lib/db-mock/companyData"; 
+import type { OrganizationUser } from "@/lib/company/organizationUsers"; 
 import PageHeader from "@/components/shared/PageHeader";
 import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 

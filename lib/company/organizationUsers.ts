@@ -1,7 +1,19 @@
 import fs from "fs/promises";
 import path from "path";
 import crypto from "crypto";
-import { OrganizationUser } from "@/lib/db-mock/companyData";
+
+export interface OrganizationUser {
+  id: string;
+  name: string;
+  email: string;
+  role: "Company Admin" | "Executive Management" | "Site Supervisor" | "Trade Contractor";
+  phone: string;
+  status: "Active" | "Pending" | "Suspended";
+  assignedProjectsCount: number;
+  assignedProjects: string[];
+  lastActive: string;
+  avatarBg: string;
+}
 
 const usersFile = path.join(process.cwd(), "data", "company", "organizationUsers.json");
 
