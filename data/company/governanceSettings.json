@@ -1,0 +1,24 @@
+{
+  "organizationName": "Stagen Residential Group Pty Ltd",
+  "abn": "98 123 456 789",
+  "licenseTier": "Enterprise (Up to 50 Active Build Sites)",
+  "activeSitesUsed": 15,
+  "billingPeriod": "Annual SaaS License (Renews 15 Dec 2026)",
+  "alertThresholds": {
+    "projectDelayAlertDays": 5,
+    "unansweredQuestionSlaHours": 24,
+    "unassignedWarrantyDefectDays": 3,
+    "dailyDigestEmailEnabled": true
+  },
+  "securityPolicies": {
+    "enforce2FA": true,
+    "sessionTimeoutMinutes": 60,
+    "auditLogRetentionDays": 346,
+    "ssoProvider": "Microsoft Entra ID (Federated)"
+  },
+  "escalationRules": {
+    "autoEscalateDelayToManagement": true,
+    "escalateHighSeverityDefect": true,
+    "notifySupervisorOnNewQuestion": true
+  }
+}
