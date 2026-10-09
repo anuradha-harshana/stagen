@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import { 
-  Settings, 
-  ShieldAlert, 
-  Building2, 
-  CreditCard, 
-  Clock, 
-  Bell, 
-  Lock, 
-  CheckCircle2, 
-  Save, 
-  RefreshCw, 
+import React, { useEffect, useState } from "react";
+import {
+  Settings,
+  ShieldAlert,
+  Building2,
+  CreditCard,
+  Clock,
+  Bell,
+  Lock,
+  CheckCircle2,
+  Save,
+  RefreshCw,
   AlertTriangle,
   Sliders,
   ShieldCheck,
@@ -21,26 +21,84 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { MOCK_GOVERNANCE_SETTINGS } from "@/lib/db-mock/companyData";
+import type { GovernanceSettings } from "@/lib/company-management/governanceSettings";
 import PageHeader from "@/components/shared/PageHeader";
 
+const DEFAULT_SETTINGS: GovernanceSettings = {
+  organizationName: "",
+  abn: "",
+  licenseTier: "",
+  activeSitesUsed: 0,
+  billingPeriod: "",
+  alertThresholds: {
+    projectDelayAlertDays: 5,
+    unansweredQuestionSlaHours: 24,
+    unassignedWarrantyDefectDays: 3,
+    dailyDigestEmailEnabled: true,
+  },
+  securityPolicies: {
+    enforce2FA: true,
+    sessionTimeoutMinutes: 60,
+    auditLogRetentionDays: 365,
+    ssoProvider: "Microsoft Entra ID (Federated)",
+  },
+  escalationRules: {
+    autoEscalateDelayToManagement: true,
+    escalateHighSeverityDefect: true,
+    notifySupervisorOnNewQuestion: true,
+  },
+};
+
 export default function CompanyManagementSettingsPage() {
-  const [settings, setSettings] = useState(MOCK_GOVERNANCE_SETTINGS);
+  const [settings, setSettings] = useState<GovernanceSettings>(DEFAULT_SETTINGS);
   const [isSaving, setIsSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const res = await fetch("/api/company-management/settings");
+        if (!res.ok) throw new Error("Failed to load settings");
+        const data = await res.json();
+        setSettings(data.settings);
+      } catch (err) {
+        showNotification("Failed to load settings from server.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadSettings();
+  }, []);
 
   const showNotification = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true);
-    setTimeout(() => {
-      setIsSaving(false);
+    try {
+      const res = await fetch("/api/company-management/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(settings),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to save settings");
+      }
+
+      const data = await res.json();
+      setSettings(data.settings);
       showNotification("Executive governance & alert settings saved successfully!");
-    }, 1000);
+    } catch (err) {
+      showNotification("Error saving settings. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
   };
+
 
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">

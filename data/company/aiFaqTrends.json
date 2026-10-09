@@ -1,0 +1,57 @@
+[
+  {
+    "id": "FAQ-01",
+    "category": "Stage Timelines",
+    "question": "When is my slab being poured and how long does concrete curing take?",
+    "queryCount": 342,
+    "aiResolutionRate": 96.2,
+    "escalationCount": 13,
+    "status": "Optimized",
+    "sampleAnswer": "hiiiiiiiiiiiiiiiConcrete slabs typically require 7 to 14 days of curing before framing begins. Your supervisor logs weather inspections live on your timeline.",
+    "lastTrained": "2026-10-09"
+  },
+  {
+    "id": "FAQ-02",
+    "category": "Invoices & Payments",
+    "question": "How do I claim my bank drawdown progress payment for Lockup stage?",
+    "queryCount": 289,
+    "aiResolutionRate": 92.8,
+    "escalationCount": 21,
+    "status": "Optimized",
+    "sampleAnswer": "Once the Lockup inspection certificate is uploaded by your supervisor, an invoice is automatically issued to your bank with payment instructions.",
+    "lastTrained": "2026-07-25"
+  },
+  {
+    "id": "FAQ-03",
+    "category": "Site Access & Inspections",
+    "question": "Can I bring an independent private building inspector before PCI?",
+    "queryCount": 215,
+    "aiResolutionRate": 88.4,
+    "escalationCount": 25,
+    "status": "Needs Review",
+    "sampleAnswer": "Independent inspections are welcome during designated milestone holds (Pre-Slab, Frame, Pre-Plaster, PCI). 48 hours notice is required for site safety compliance.",
+    "lastTrained": "2026-07-10"
+  },
+  {
+    "id": "FAQ-04",
+    "category": "Warranty Claims",
+    "question": "What is covered under my 90-day defect liability period vs 6-year structural warranty?",
+    "queryCount": 198,
+    "aiResolutionRate": 95,
+    "escalationCount": 10,
+    "status": "Optimized",
+    "sampleAnswer": "Minor paint touch-ups, door adjustments, and sealant items are covered under the 90-day period. Structural frame and foundation integrity are covered for 6 years.",
+    "lastTrained": "2026-08-03"
+  },
+  {
+    "id": "FAQ-05",
+    "category": "Variations & Specs",
+    "question": "Can I request changes to electrical outlets or cabinetry after Lockup stage?",
+    "queryCount": 164,
+    "aiResolutionRate": 74.1,
+    "escalationCount": 42,
+    "status": "Low Accuracy",
+    "sampleAnswer": "Post-lockup variations require formal written approval from your site supervisor and builder estimator due to rough-in cabling sign-offs.",
+    "lastTrained": "2026-06-18"
+  }
+]
