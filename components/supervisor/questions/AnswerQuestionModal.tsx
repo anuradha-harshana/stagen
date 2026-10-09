@@ -7,6 +7,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { toast } from "sonner"
 
+export interface CommentItem {
+  id: string
+  authorName: string
+  authorRole: "SUPERVISOR" | "CUSTOMER" | "PROJECT_MANAGER"
+  authorAvatar?: string
+  content: string
+  timestamp: string
+  isOfficialAnswer?: boolean
+  likes: number
+  isLiked?: boolean
+  replies?: CommentItem[]
+}
+
 export interface QuestionItem {
   id: string
   projectCode: string
@@ -20,6 +33,10 @@ export interface QuestionItem {
   status: "PENDING" | "ANSWERED"
   answerText?: string
   answeredDate?: string
+  attachments?: string[]
+  likesCount?: number
+  isLiked?: boolean
+  comments?: CommentItem[]
 }
 
 interface AnswerQuestionModalProps {
