@@ -1,0 +1,54 @@
+[
+  {
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "faqs": [
+      {
+        "id": "faq-1",
+        "category": "Site Access",
+        "question": "Can I visit the construction site at any time?",
+        "answer": "For safety reasons, site visits must be scheduled in advance with your Site Supervisor. Unaccompanied access is strictly prohibited."
+      },
+      {
+        "id": "faq-2",
+        "category": "Payments",
+        "question": "When are progress payments due?",
+        "answer": "Progress payments are due at the completion of each major stage (Slab, Frame, Lockup, Fixing, Practical Completion). Invoices are sent via the Customer Portal and are payable within 7 business days."
+      },
+      {
+        "id": "faq-3",
+        "category": "Warranty",
+        "question": "What is covered under the post-handover warranty?",
+        "answer": "We provide a 3-month minor defects warranty period and a statutory 6-year structural guarantee. Warranty requests can be logged directly through the Warranty page in the Customer Portal."
+      },
+      {
+        "id": "faq-4",
+        "category": "Delays",
+        "question": "How will I be notified of weather delays?",
+        "answer": "Any weather or material delay is recorded in our Site Diary and will automatically show up on your timeline and dashboard. Your supervisor will log estimated delays as they occur."
+      }
+    ],
+    "guardrails": [
+      "Prioritize safety instructions in all site visit inquiries.",
+      "Direct complex contract and payment variations to the company manager.",
+      "Always suggest contacting supervisor Eric for lot-specific timeline details."
+    ],
+    "documents": [
+      {
+        "name": "Stagen_Warranty_Agreement_2026.pdf",
+        "size": "1.2 MB",
+        "uploadedAt": "Jun 15, 2026"
+      },
+      {
+        "name": "Site_Safety_And_Access_Protocol.pdf",
+        "size": "840 KB",
+        "uploadedAt": "Jun 18, 2026"
+      },
+      {
+        "name": "Standard_Invoicing_Schedule.pdf",
+        "size": "450 KB",
+        "uploadedAt": "Jun 24, 2026"
+      }
+    ],
+    "updatedAt": "2026-10-05T00:00:00.000Z"
+  }
+]
