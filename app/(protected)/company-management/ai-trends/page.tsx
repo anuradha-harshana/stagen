@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
   TrendingUp, 
   Bot, 
@@ -22,12 +22,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { MOCK_AI_FAQ_TRENDS, AIFaqTrend } from "@/lib/db-mock/companyData";
 import PageHeader from "@/components/shared/PageHeader";
+import { AIFaqTrend } from "@/lib/company-management/aiTrends";
 
 export default function CompanyManagementAiTrendsPage() {
-  const [trends, setTrends] = useState<AIFaqTrend[]>(MOCK_AI_FAQ_TRENDS);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [trends, setTrends] = useState<AIFaqTrend[]>([]);
+  const [isLoading, setIsLoading] = useState(true);  const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("All");
   const [selectedFaq, setSelectedFaq] = useState<AIFaqTrend | null>(null);
 
@@ -46,6 +46,50 @@ export default function CompanyManagementAiTrendsPage() {
     const matchesCategory = categoryFilter === "All" || item.category === categoryFilter;
     return matchesSearch && matchesCategory;
   });
+
+  const loadTrends = async () => {
+    try {
+      const res = await fetch("/api/company-management/ai-trends");
+      if (!res.ok) throw new Error("Failed to load AI trends");
+      const data = await res.json();
+      setTrends(data.trends);
+    } catch (err) {
+      showNotification("Failed to load FAQ trends from server.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    loadTrends();
+  }, []);
+
+  const handleSaveAnswer = async () => {
+    if (!selectedFaq) return;
+
+    try {
+      const res = await fetch("/api/company-management/ai-trends", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: selectedFaq.id,
+          updates: {
+            sampleAnswer: selectedFaq.sampleAnswer,
+            status: "Optimized", // Automatically mark as optimized once refined
+          },
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to save answer");
+
+      const { trend: updated } = await res.json();
+      setTrends((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
+      setSelectedFaq(null);
+      showNotification(`Updated and saved AI answer for '${updated.id}'!`);
+    } catch (err) {
+      showNotification("Error saving answer to knowledge base.");
+    }
+  };
+
 
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
@@ -357,13 +401,7 @@ export default function CompanyManagementAiTrendsPage() {
                 Cancel
               </Button>
               <Button
-                onClick={() => {
-                  setTrends((prev) =>
-                    prev.map((t) => (t.id === selectedFaq.id ? selectedFaq : t))
-                  );
-                  setSelectedFaq(null);
-                  showNotification(`Updated AI answer for '${selectedFaq.id}'`);
-                }}
+                onClick={handleSaveAnswer}
                 className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
               >
                 Save Knowledge Base Answer
