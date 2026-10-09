@@ -13,7 +13,7 @@ import {
   QuestionCategoryFilter,
 } from "./QuestionsFilterBar"
 import { CustomerQuestionsList } from "./CustomerQuestionsList"
-import { AnswerQuestionModal, QuestionItem } from "./AnswerQuestionModal"
+import { AnswerQuestionModal, QuestionItem, CommentItem } from "./AnswerQuestionModal"
 
 export function SupervisorQuestionsOverview() {
   const [selectedProject, setSelectedProject] = useState(SUPERVISOR_PROJECTS[0])
@@ -25,7 +25,7 @@ export function SupervisorQuestionsOverview() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeQuestion, setActiveQuestion] = useState<QuestionItem | null>(null)
 
-  // Initial Questions Dataset
+  // Initial Questions Dataset with Facebook Comment Threads & Likes
   const [questions, setQuestions] = useState<QuestionItem[]>([
     {
       id: "q-101",
@@ -38,6 +38,19 @@ export function SupervisorQuestionsOverview() {
       questionDetails:
         "Hi Marcus, we noticed wall framing stage 2 was completed yesterday. Could you confirm if the structural inspector sign-off will happen this Friday?",
       status: "PENDING",
+      likesCount: 3,
+      isLiked: false,
+      comments: [
+        {
+          id: "c-101-1",
+          authorName: "Marcus Vance",
+          authorRole: "CUSTOMER",
+          content: "We also noticed electrical rough-in was completed on Tuesday, looking forward to the update!",
+          timestamp: "Jul 22, 2026 - 3:00 PM",
+          likes: 2,
+          isLiked: false,
+        },
+      ],
     },
     {
       id: "q-102",
@@ -50,6 +63,9 @@ export function SupervisorQuestionsOverview() {
       questionDetails:
         "We saw the standard specification sample on site and would like to confirm if we can select Oak Natural grade 1 instead of standard Oak.",
       status: "PENDING",
+      likesCount: 2,
+      isLiked: false,
+      comments: [],
     },
     {
       id: "q-103",
@@ -60,11 +76,34 @@ export function SupervisorQuestionsOverview() {
       category: "Build Progress",
       questionTitle: "Is the slab concrete cure test completed?",
       questionDetails:
-        "Just checking if concrete pour 28-day compression test results were verified by the engineer.",
+        "Just checking if concrete pour 28-day compression test results were verified by the structural engineer.",
       status: "ANSWERED",
       answerText:
         "Hi Sarah & Marcus, concrete compression test results achieved 32 MPa (exceeding 25 MPa design requirement). Engineer approval certificate is uploaded in your document tab.",
       answeredDate: "Jul 19, 2026 - 9:40 AM",
+      likesCount: 5,
+      isLiked: true,
+      comments: [
+        {
+          id: "c-103-1",
+          authorName: "Marcus (Site Supervisor)",
+          authorRole: "SUPERVISOR",
+          content: "Hi Sarah & Marcus, concrete compression test results achieved 32 MPa (exceeding 25 MPa design requirement). Engineer approval certificate is uploaded in your document tab.",
+          timestamp: "Jul 19, 2026 - 9:40 AM",
+          isOfficialAnswer: true,
+          likes: 4,
+          isLiked: true,
+        },
+        {
+          id: "c-103-2",
+          authorName: "Sarah Vance",
+          authorRole: "CUSTOMER",
+          content: "Thank you so much Marcus! We verified the certificate in our customer document portal.",
+          timestamp: "Jul 19, 2026 - 10:15 AM",
+          likes: 2,
+          isLiked: false,
+        },
+      ],
     },
     {
       id: "q-104",
@@ -77,6 +116,9 @@ export function SupervisorQuestionsOverview() {
       questionDetails:
         "Weather forecast shows rain on Thursday. Will the roof capping and sarking be completed before rain starts?",
       status: "PENDING",
+      likesCount: 1,
+      isLiked: false,
+      comments: [],
     },
     {
       id: "q-105",
@@ -92,6 +134,29 @@ export function SupervisorQuestionsOverview() {
       answerText:
         "Hi Robert, I have added variation request #VAR-204 to your portal. You can review and approve it directly in the Invoices & Variations section.",
       answeredDate: "Jul 21, 2026 - 10:15 AM",
+      likesCount: 4,
+      isLiked: false,
+      comments: [
+        {
+          id: "c-105-1",
+          authorName: "Site Supervisor",
+          authorRole: "SUPERVISOR",
+          content: "Hi Robert, I have added variation request #VAR-204 to your portal. You can review and approve it directly in the Invoices & Variations section.",
+          timestamp: "Jul 21, 2026 - 10:15 AM",
+          isOfficialAnswer: true,
+          likes: 3,
+          isLiked: false,
+        },
+        {
+          id: "c-105-2",
+          authorName: "Robert Chen",
+          authorRole: "CUSTOMER",
+          content: "Awesome, approved! Thanks for the quick response.",
+          timestamp: "Jul 21, 2026 - 11:00 AM",
+          likes: 1,
+          isLiked: false,
+        },
+      ],
     },
     {
       id: "q-106",
@@ -104,9 +169,12 @@ export function SupervisorQuestionsOverview() {
       questionDetails:
         "Could you confirm the exact model and warranty coverage for the air conditioning system?",
       status: "PENDING",
+      likesCount: 2,
+      isLiked: false,
+      comments: [],
     },
     {
-      id: "7",
+      id: "q-107",
       projectCode: "PRO-236",
       projectName: "Parkview Residence",
       customerName: "Harrison Ford",
@@ -116,6 +184,9 @@ export function SupervisorQuestionsOverview() {
       questionDetails:
         "Council inspector came yesterday morning. Has the formal certificate arrived?",
       status: "PENDING",
+      likesCount: 1,
+      isLiked: false,
+      comments: [],
     },
   ])
 
@@ -168,20 +239,40 @@ export function SupervisorQuestionsOverview() {
     answerText: string,
     notifyCustomer: boolean
   ) => {
-    const todayFormatted = new Date().toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }) + " - " + new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+    const todayFormatted =
+      new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }) +
+      " - " +
+      new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
 
     setQuestions((prev) =>
       prev.map((q) => {
         if (q.id === questionId) {
+          const newComment: CommentItem = {
+            id: `ans-${Date.now()}`,
+            authorName: "Supervisor Official Response",
+            authorRole: "SUPERVISOR",
+            content: answerText,
+            timestamp: todayFormatted,
+            isOfficialAnswer: true,
+            likes: 1,
+            isLiked: false,
+          }
+
+          const updatedComments = [
+            ...(q.comments || []).filter((c) => !c.isOfficialAnswer),
+            newComment,
+          ]
+
           return {
             ...q,
             status: "ANSWERED",
             answerText,
             answeredDate: todayFormatted,
+            comments: updatedComments,
           }
         }
         return q
@@ -191,6 +282,128 @@ export function SupervisorQuestionsOverview() {
     if (notifyCustomer) {
       toast.info(`Sent answer notification email & SMS to customer.`)
     }
+  }
+
+  const handleAddQuestion = (newQ: {
+    category: string
+    questionTitle: string
+    questionDetails: string
+    projectCode: string
+    projectName: string
+  }) => {
+    const todayFormatted =
+      new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }) +
+      " - " +
+      new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+
+    const newItem: QuestionItem = {
+      id: `q-${Date.now()}`,
+      projectCode: newQ.projectCode,
+      projectName: newQ.projectName,
+      customerName: "Current User / Buyer",
+      dateAsked: todayFormatted,
+      category: newQ.category,
+      questionTitle: newQ.questionTitle,
+      questionDetails: newQ.questionDetails,
+      status: "PENDING",
+      likesCount: 1,
+      isLiked: true,
+      comments: [],
+    }
+
+    setQuestions((prev) => [newItem, ...prev])
+  }
+
+  const handleAddComment = (
+    questionId: string,
+    commentText: string,
+    isOfficialAnswer: boolean
+  ) => {
+    const todayFormatted =
+      new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }) +
+      " - " +
+      new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+
+    setQuestions((prev) =>
+      prev.map((q) => {
+        if (q.id === questionId) {
+          const newComment: CommentItem = {
+            id: `c-${Date.now()}`,
+            authorName: isOfficialAnswer ? "Supervisor Official Response" : "Site Manager",
+            authorRole: isOfficialAnswer ? "SUPERVISOR" : "SUPERVISOR",
+            content: commentText,
+            timestamp: todayFormatted,
+            isOfficialAnswer,
+            likes: 1,
+            isLiked: false,
+          }
+
+          let newStatus = q.status
+          let newAnswerText = q.answerText
+          let newAnsweredDate = q.answeredDate
+
+          if (isOfficialAnswer) {
+            newStatus = "ANSWERED"
+            newAnswerText = commentText
+            newAnsweredDate = todayFormatted
+          }
+
+          const existingComments = q.comments || []
+          const updatedComments = isOfficialAnswer
+            ? [...existingComments.filter((c) => !c.isOfficialAnswer), newComment]
+            : [...existingComments, newComment]
+
+          return {
+            ...q,
+            status: newStatus,
+            answerText: newAnswerText,
+            answeredDate: newAnsweredDate,
+            comments: updatedComments,
+          }
+        }
+        return q
+      })
+    )
+  }
+
+  const handleToggleLikeQuestion = (questionId: string) => {
+    setQuestions((prev) =>
+      prev.map((q) => {
+        if (q.id === questionId) {
+          const isLiked = !q.isLiked
+          const count = (q.likesCount || 0) + (isLiked ? 1 : -1)
+          return { ...q, isLiked, likesCount: Math.max(0, count) }
+        }
+        return q
+      })
+    )
+  }
+
+  const handleToggleLikeComment = (questionId: string, commentId: string) => {
+    setQuestions((prev) =>
+      prev.map((q) => {
+        if (q.id === questionId) {
+          const updatedComments = (q.comments || []).map((c) => {
+            if (c.id === commentId) {
+              const isLiked = !c.isLiked
+              const likes = (c.likes || 0) + (isLiked ? 1 : -1)
+              return { ...c, isLiked, likes: Math.max(0, likes) }
+            }
+            return c
+          })
+          return { ...q, comments: updatedComments }
+        }
+        return q
+      })
+    )
   }
 
   const handleDeleteQuestion = (questionId: string) => {
@@ -235,11 +448,16 @@ export function SupervisorQuestionsOverview() {
         }}
       />
 
-      {/* Customer Questions List */}
+      {/* Facebook Style Customer Questions Feed */}
       <CustomerQuestionsList
         questions={filteredQuestions}
         onOpenAnswerModal={handleOpenAnswerModal}
         onDeleteQuestion={handleDeleteQuestion}
+        onAddQuestion={handleAddQuestion}
+        onAddComment={handleAddComment}
+        onToggleLikeQuestion={handleToggleLikeQuestion}
+        onToggleLikeComment={handleToggleLikeComment}
+        userRole="SUPERVISOR"
       />
 
       {/* Answer Modal */}
