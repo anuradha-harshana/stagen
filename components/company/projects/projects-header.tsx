@@ -7,18 +7,24 @@ import PageHeader from "@/components/shared/PageHeader";
 
 interface ProjectsHeaderProps {
   onCreateClick: () => void;
+  title?: string;
+  subtitle?: string;
 }
 
-export default function ProjectsHeader({ onCreateClick }: ProjectsHeaderProps) {
+export default function ProjectsHeader({
+  onCreateClick,
+  title = "Build Projects",
+  subtitle = "Create and manage construction sites, progress, and assign supervisors.",
+}: ProjectsHeaderProps) {
   return (
     <PageHeader
       icon={<FolderKanban className="h-5 w-5 text-burning-flame" />}
-      title="Build Projects"
-      subtitle="Create and manage construction sites, progress, and assign supervisors."
+      title={title}
+      subtitle={subtitle}
       rightContent={
         <Button
           onClick={onCreateClick}
-          className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/95 text-xs font-semibold px-4 h-10 shadow-sm rounded-xl"
+          className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/95 text-xs font-semibold px-4 h-10 shadow-sm rounded-xl cursor-pointer"
         >
           <Plus className="mr-1.5 h-4 w-4" />
           Create Project

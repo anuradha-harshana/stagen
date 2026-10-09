@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Building2 } from "lucide-react";
+import { toast } from "sonner";
 import { Project, Stage } from "@/lib/types/project";
 import { StageTemplate } from "@/lib/types/types";
 
@@ -16,12 +17,16 @@ interface CompanyProjectsClientProps {
   initialProjects: Project[];
   supervisors: { id: string; username: string }[];
   companyId: string;
+  pageTitle?: string;
+  pageSubtitle?: string;
 }
 
 export default function CompanyProjectsClient({
   initialProjects,
   supervisors,
   companyId,
+  pageTitle,
+  pageSubtitle,
 }: CompanyProjectsClientProps) {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [stageTemplates, setStageTemplates] = useState<Stage[]>([]);
@@ -53,37 +58,55 @@ export default function CompanyProjectsClient({
   }, [companyId]);
 
   const handleSaveProject = async (payload: ProjectFormPayload) => {
-    const response = await fetch("/api/company/projects", {
-      method: editingProject ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!response.ok) throw new Error("Failed to save project");
+    try {
+      const response = await fetch("/api/company/projects", {
+        method: editingProject ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) throw new Error("Failed to save project");
 
-    const data: { project: Project } = await response.json();
-    setProjects((current) => {
-      const exists = current.some((project) => project.id === data.project.id);
-      return exists
-        ? current.map((project) => project.id === data.project.id ? data.project : project)
-        : [data.project, ...current];
-    });
-    setIsFormOpen(false);
-    setEditingProject(null);
+      const data: { project: Project } = await response.json();
+      setProjects((current) => {
+        const exists = current.some((project) => project.id === data.project.id);
+        return exists
+          ? current.map((project) => (project.id === data.project.id ? data.project : project))
+          : [data.project, ...current];
+      });
+      setIsFormOpen(false);
+      setEditingProject(null);
+      toast.success(editingProject ? "Project updated successfully" : "New project created successfully");
+    } catch (error) {
+      console.error("Failed to save project", error);
+      toast.error("Failed to save project. Please check fields and try again.");
+    }
   };
 
   const handleDeleteProject = async (project: Project) => {
-    const response = await fetch(`/api/company/projects?projectId=${encodeURIComponent(project.id)}`, {
-      method: "DELETE",
-    });
-    if (!response.ok) throw new Error("Failed to delete project");
-    setProjects((current) => current.filter((item) => item.id !== project.id));
+    if (!confirm(`Are you sure you want to delete Lot ${project.id}? This will remove all associated stages and timelines.`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/company/projects?projectId=${encodeURIComponent(project.id)}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete project");
+      setProjects((current) => current.filter((item) => item.id !== project.id));
+      toast.success(`Project Lot ${project.id} deleted successfully`);
+    } catch (error) {
+      console.error("Failed to delete project", error);
+      toast.error("Failed to delete project");
+    }
   };
 
   const filteredProjects = projects.filter((project) => {
     const query = searchTerm.toLowerCase();
-    const matchesSearch = project.clientName.toLowerCase().includes(query) ||
+    const matchesSearch =
+      project.clientName.toLowerCase().includes(query) ||
       project.address.toLowerCase().includes(query) ||
-      project.id.toLowerCase().includes(query);
+      project.id.toLowerCase().includes(query) ||
+      (project.supervisorName && project.supervisorName.toLowerCase().includes(query));
     const matchesStatus = statusFilter === "All" || project.status === statusFilter;
     const matchesStage = stageFilter === "All" || project.currentStage === stageFilter;
     return matchesSearch && matchesStatus && matchesStage;
@@ -91,7 +114,14 @@ export default function CompanyProjectsClient({
 
   return (
     <div className="flex flex-col gap-0.5 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
-      <ProjectsHeader onCreateClick={() => { setEditingProject(null); setIsFormOpen(true); }} />
+      <ProjectsHeader
+        onCreateClick={() => {
+          setEditingProject(null);
+          setIsFormOpen(true);
+        }}
+        title={pageTitle}
+        subtitle={pageSubtitle}
+      />
       <ProjectsStats projects={projects} />
       <ProjectsFilters
         searchTerm={searchTerm}
@@ -116,8 +146,11 @@ export default function CompanyProjectsClient({
               key={project.id}
               project={project}
               onViewDetails={setSelectedProject}
-              onEdit={(item) => { setEditingProject(item); setIsFormOpen(true); }}
-              onDelete={(item) => void handleDeleteProject(item).catch(console.error)}
+              onEdit={(item) => {
+                setEditingProject(item);
+                setIsFormOpen(true);
+              }}
+              onDelete={(item) => void handleDeleteProject(item)}
             />
           ))}
         </div>
@@ -133,8 +166,11 @@ export default function CompanyProjectsClient({
         supervisors={supervisors}
         stageTemplates={stageTemplates}
         isOpen={isFormOpen}
-        onClose={() => { setIsFormOpen(false); setEditingProject(null); }}
-        onSave={(payload) => void handleSaveProject(payload).catch(console.error)}
+        onClose={() => {
+          setIsFormOpen(false);
+          setEditingProject(null);
+        }}
+        onSave={(payload) => void handleSaveProject(payload)}
       />
     </div>
   );

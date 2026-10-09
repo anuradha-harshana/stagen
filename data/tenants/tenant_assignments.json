@@ -4,5 +4,35 @@
     "tenant_id": "tenant-lot-104",
     "user_id": "7ab56015-4412-494e-8aff-dbb5095e0097",
     "role": "supervisor"
+  },
+  {
+    "id": "assign-lot-901-supervisor",
+    "tenant_id": "tenant-lot-901",
+    "user_id": "7ab56015-4412-494e-8aff-dbb5095e0098",
+    "role": "supervisor"
+  },
+  {
+    "id": "assign-lot-208-supervisor",
+    "tenant_id": "tenant-lot-208",
+    "user_id": "7ab56015-4412-494e-8aff-dbb5095e0097",
+    "role": "supervisor"
+  },
+  {
+    "id": "assign-lot-315-supervisor",
+    "tenant_id": "tenant-lot-315",
+    "user_id": "7ab56015-4412-494e-8aff-dbb5095e0098",
+    "role": "supervisor"
+  },
+  {
+    "id": "assign-lot-420-supervisor",
+    "tenant_id": "tenant-lot-420",
+    "user_id": "7ab56015-4412-494e-8aff-dbb5095e0097",
+    "role": "supervisor"
+  },
+  {
+    "id": "assign-lot-502-supervisor",
+    "tenant_id": "tenant-lot-502",
+    "user_id": "7ab56015-4412-494e-8aff-dbb5095e0098",
+    "role": "supervisor"
   }
 ]

@@ -11,10 +11,50 @@
   },
   {
     "tenant_id": "tenant-lot-901",
-    "percentage": 5,
+    "percentage": 10,
     "start_date": "Sep 28, 2026",
     "original_est_completion": "Nov 15, 2026",
     "current_projected_completion": "Nov 15, 2026",
+    "status_flag": "on-track",
+    "delay_days": 0,
+    "stages": []
+  },
+  {
+    "tenant_id": "tenant-lot-208",
+    "percentage": 65,
+    "start_date": "Jan 15, 2026",
+    "original_est_completion": "Oct 10, 2026",
+    "current_projected_completion": "Oct 20, 2026",
+    "status_flag": "delayed",
+    "delay_days": 10,
+    "stages": []
+  },
+  {
+    "tenant_id": "tenant-lot-315",
+    "percentage": 28,
+    "start_date": "May 02, 2026",
+    "original_est_completion": "Jan 30, 2027",
+    "current_projected_completion": "Jan 30, 2027",
+    "status_flag": "on-track",
+    "delay_days": 0,
+    "stages": []
+  },
+  {
+    "tenant_id": "tenant-lot-420",
+    "percentage": 82,
+    "start_date": "Dec 01, 2025",
+    "original_est_completion": "Aug 05, 2026",
+    "current_projected_completion": "Aug 15, 2026",
+    "status_flag": "delayed",
+    "delay_days": 10,
+    "stages": []
+  },
+  {
+    "tenant_id": "tenant-lot-502",
+    "percentage": 100,
+    "start_date": "Aug 10, 2025",
+    "original_est_completion": "Jun 01, 2026",
+    "current_projected_completion": "Jun 01, 2026",
     "status_flag": "on-track",
     "delay_days": 0,
     "stages": []

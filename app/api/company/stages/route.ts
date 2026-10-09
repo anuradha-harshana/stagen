@@ -29,22 +29,25 @@ function isValidStageInput(value: unknown): value is StageInput {
 	);
 }
 
-export async function GET() {
-	const company = await requireRole(["company"]);
-	const stages = await getStageTemplates(company.id);
+export async function GET(request: Request) {
+	const user = await requireRole(["company", "company-management"]);
+	const searchCompanyId = new URL(request.url).searchParams.get("companyId");
+	const companyId = searchCompanyId || user.companyId || user.id;
+	const stages = await getStageTemplates(companyId);
 
 	return NextResponse.json({ stages });
 }
 
 export async function POST(request: Request) {
-	const company = await requireRole(["company"]);
+	const user = await requireRole(["company", "company-management"]);
+	const companyId = user.companyId || user.id;
 	const body = (await request.json()) as unknown;
 
 	if (!isValidStageInput(body)) {
 		return NextResponse.json({ error: "Invalid stage" }, { status: 400 });
 	}
 
-	const stage = await createStageTemplate(company.id, {
+	const stage = await createStageTemplate(companyId, {
 		name: body.name.trim(),
 		weight: body.weight,
 		description: body.description?.trim(),
@@ -55,7 +58,8 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
-	const company = await requireRole(["company"]);
+	const user = await requireRole(["company", "company-management"]);
+	const companyId = user.companyId || user.id;
 	const body = (await request.json()) as unknown;
 
 	if (
@@ -68,7 +72,7 @@ export async function PUT(request: Request) {
 			return NextResponse.json({ error: "Invalid stage order" }, { status: 400 });
 		}
 
-		const stages = await reorderStageTemplates(company.id, order as string[]);
+		const stages = await reorderStageTemplates(companyId, order as string[]);
 		if (!stages) return NextResponse.json({ error: "Invalid stage order" }, { status: 400 });
 		return NextResponse.json({ stages });
 	}
@@ -83,7 +87,7 @@ export async function PUT(request: Request) {
 	}
 
 	const update = body as { stageId: string; stage: StageInput };
-	const stage = await updateStageTemplate(company.id, update.stageId, {
+	const stage = await updateStageTemplate(companyId, update.stageId, {
 		name: update.stage.name.trim(),
 		weight: update.stage.weight,
 		description: update.stage.description?.trim(),
@@ -95,14 +99,15 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-	const company = await requireRole(["company"]);
+	const user = await requireRole(["company", "company-management"]);
+	const companyId = user.companyId || user.id;
 	const searchParams = new URL(request.url).searchParams;
 	const stageId = searchParams.get("stageId");
 	const checklistId = searchParams.get("checklistId") ?? undefined;
 
 	if (!stageId) return NextResponse.json({ error: "stageId is required" }, { status: 400 });
 
-	const deleted = await deleteStageTemplate(company.id, stageId, checklistId);
+	const deleted = await deleteStageTemplate(companyId, stageId, checklistId);
 	if (!deleted) return NextResponse.json({ error: "Template not found" }, { status: 404 });
 
 	return new NextResponse(null, { status: 204 });
