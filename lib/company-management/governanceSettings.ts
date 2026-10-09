@@ -28,6 +28,31 @@ export interface GovernanceSettings {
   };
 }
 
+export const DEFAULT_GOVERNANCE_SETTINGS: GovernanceSettings = {
+  organizationName: "",
+  abn: "",
+  licenseTier: "",
+  activeSitesUsed: 0,
+  billingPeriod: "",
+  alertThresholds: {
+    projectDelayAlertDays: 7,
+    unansweredQuestionSlaHours: 24,
+    unassignedWarrantyDefectDays: 3,
+    dailyDigestEmailEnabled: true,
+  },
+  securityPolicies: {
+    enforce2FA: false,
+    sessionTimeoutMinutes: 60,
+    auditLogRetentionDays: 365,
+    ssoProvider: "Microsoft Entra ID (Federated)",
+  },
+  escalationRules: {
+    autoEscalateDelayToManagement: true,
+    escalateHighSeverityDefect: true,
+    notifySupervisorOnNewQuestion: true,
+  },
+};
+
 // ── 1. READ SETTINGS ──
 export async function getGovernanceSettings(): Promise<GovernanceSettings> {
   try {

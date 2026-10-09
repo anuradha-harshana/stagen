@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import PageHeader from "@/components/shared/PageHeader";
-import { AIFaqTrend } from "@/lib/company-management/aiTrends";
+import type { AIFaqTrend } from "@/lib/company-management/aiTrends";
 
 export default function CompanyManagementAiTrendsPage() {
   const [trends, setTrends] = useState<AIFaqTrend[]>([]);

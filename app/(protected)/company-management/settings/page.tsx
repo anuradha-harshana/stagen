@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { 
-  Settings, 
-  ShieldAlert, 
-  Building2, 
-  CreditCard, 
-  Clock, 
-  Bell, 
-  Lock, 
-  CheckCircle2, 
-  Save, 
-  RefreshCw, 
+import {
+  Settings,
+  ShieldAlert,
+  Building2,
+  CreditCard,
+  Clock,
+  Bell,
+  Lock,
+  CheckCircle2,
+  Save,
+  RefreshCw,
   AlertTriangle,
   Sliders,
   ShieldCheck,
@@ -21,11 +21,36 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { MOCK_GOVERNANCE_SETTINGS } from "@/lib/db-mock/companyData";
+import type { GovernanceSettings } from "@/lib/company-management/governanceSettings";
 import PageHeader from "@/components/shared/PageHeader";
 
+const DEFAULT_SETTINGS: GovernanceSettings = {
+  organizationName: "",
+  abn: "",
+  licenseTier: "",
+  activeSitesUsed: 0,
+  billingPeriod: "",
+  alertThresholds: {
+    projectDelayAlertDays: 5,
+    unansweredQuestionSlaHours: 24,
+    unassignedWarrantyDefectDays: 3,
+    dailyDigestEmailEnabled: true,
+  },
+  securityPolicies: {
+    enforce2FA: true,
+    sessionTimeoutMinutes: 60,
+    auditLogRetentionDays: 365,
+    ssoProvider: "Microsoft Entra ID (Federated)",
+  },
+  escalationRules: {
+    autoEscalateDelayToManagement: true,
+    escalateHighSeverityDefect: true,
+    notifySupervisorOnNewQuestion: true,
+  },
+};
+
 export default function CompanyManagementSettingsPage() {
-  const [settings, setSettings] = useState(MOCK_GOVERNANCE_SETTINGS);
+  const [settings, setSettings] = useState<GovernanceSettings>(DEFAULT_SETTINGS);
   const [isSaving, setIsSaving] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
