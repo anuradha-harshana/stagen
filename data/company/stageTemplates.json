@@ -1,0 +1,157 @@
+[
+  {
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "stages": [
+      {
+        "id": "stage-site-cut",
+        "name": "Site Cut",
+        "weight": 10,
+        "description": "Clearing block, excavation, footprint leveling and site preparation.",
+        "checklist": [
+          {
+            "id": "check-site-survey",
+            "label": "Soil testing & site survey"
+          },
+          {
+            "id": "item-1787130332924",
+            "label": "Retaining walls"
+          }
+        ]
+      },
+      {
+        "id": "stage-slab",
+        "name": "Slab",
+        "weight": 15,
+        "description": "Preparation, reinforcement and pouring of the concrete slab.",
+        "checklist": [
+          {
+            "id": "check-plumbing",
+            "label": "Under-slab plumbing and drainage"
+          },
+          {
+            "id": "check-formwork",
+            "label": "Formwork & steel reinforcement"
+          },
+          {
+            "id": "check-concrete",
+            "label": "Concrete pour & curing check"
+          }
+        ]
+      },
+      {
+        "id": "stage-frame",
+        "name": "Frame",
+        "weight": 20,
+        "description": "Structural framing, roof trusses and external openings.",
+        "checklist": [
+          {
+            "id": "check-wall-frames",
+            "label": "Wall frames erected"
+          },
+          {
+            "id": "check-roof-trusses",
+            "label": "Roof trusses & bracing installed"
+          },
+          {
+            "id": "check-windows",
+            "label": "Window & external door frames installed"
+          }
+        ]
+      },
+      {
+        "id": "stage-lockup",
+        "name": "Lockup",
+        "weight": 15,
+        "description": "External enclosure of the building and rough-in services.",
+        "checklist": [
+          {
+            "id": "check-roof",
+            "label": "Roof cladding completed"
+          },
+          {
+            "id": "check-brickwork",
+            "label": "Brickwork / external cladding completed"
+          },
+          {
+            "id": "check-electrical",
+            "label": "Electrical & plumbing rough-in completed"
+          }
+        ]
+      },
+      {
+        "id": "stage-fixing",
+        "name": "Fixing",
+        "weight": 15,
+        "description": "Internal lining, cabinetry, doors and wet-area preparation.",
+        "checklist": [
+          {
+            "id": "check-plasterboard",
+            "label": "Plasterboard lining completed"
+          },
+          {
+            "id": "check-doors",
+            "label": "Architraves, skirting & doors installed"
+          },
+          {
+            "id": "check-waterproofing",
+            "label": "Wet-area waterproofing completed"
+          },
+          {
+            "id": "check-cabinetry",
+            "label": "Cabinetry & vanities installed"
+          }
+        ]
+      },
+      {
+        "id": "stage-completion",
+        "name": "Completion",
+        "weight": 15,
+        "description": "Final finishes, fixtures, cleaning and quality inspection.",
+        "checklist": [
+          {
+            "id": "check-flooring",
+            "label": "Tiling & flooring completed"
+          },
+          {
+            "id": "check-painting",
+            "label": "Painting completed"
+          },
+          {
+            "id": "check-fixtures",
+            "label": "Fixtures and tapware installed"
+          },
+          {
+            "id": "check-cleaning",
+            "label": "Final cleaning & quality audit completed"
+          }
+        ]
+      },
+      {
+        "id": "stage-handover",
+        "name": "Handover",
+        "weight": 10,
+        "description": "Final inspection, rectification and handover to the client.",
+        "checklist": [
+          {
+            "id": "check-pci",
+            "label": "Practical Completion Inspection completed"
+          },
+          {
+            "id": "check-rectification",
+            "label": "PCI items rectified"
+          },
+          {
+            "id": "check-payment",
+            "label": "Final payment received"
+          },
+          {
+            "id": "check-keys",
+            "label": "Keys handed over"
+          }
+        ]
+      }
+    ],
+    "createdAt": "2026-08-19T00:00:00Z",
+    "updatedAt": "2026-08-19T09:05:33.013Z"
+  }
+]

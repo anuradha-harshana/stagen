@@ -110,7 +110,7 @@ export function CompanyBillingOverview() {
   }
 
   return (
-    <div className="flex flex-col gap-6 w-full font-cream">
+    <div className="flex flex-col gap-6 w-full font-sans">
       {/* Header */}
       <CompanyBillingHeader />
 

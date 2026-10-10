@@ -201,7 +201,7 @@ export function SupervisorQuestionsOverview() {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full font-cream">
+    <div className="flex flex-col gap-4 w-full font-sans">
       {/* Header */}
       <SupervisorQuestionsHeader
         selectedProject={selectedProject}

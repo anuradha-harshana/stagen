@@ -15,9 +15,9 @@ export function CompanyPaymentMethodCard({
   onUpdatePaymentMethod,
 }: CompanyPaymentMethodCardProps) {
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-sm border border-oatmeal/30 font-cream flex flex-col justify-between h-full min-h-[220px]">
+    <div className="bg-white rounded-3xl p-6 shadow-sm border border-blue-fantastic/15 font-sans flex flex-col justify-between h-full min-h-[220px]">
       <div>
-        <h3 className="text-lg sm:text-xl font-bold text-blue-fantastic mb-4 font-cream">
+        <h3 className="text-lg sm:text-xl font-bold text-blue-fantastic mb-4 font-sans">
           Payment Method
         </h3>
 

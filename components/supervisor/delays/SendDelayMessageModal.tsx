@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DelayLogEntry } from "@/lib/timeline/data";
-import { DelayMessage, getDelayCategoryMeta } from "./delays-store";
+import { DelayMessage, getDelayCategoryMeta } from "./DelayStore";
 import { Send, Sparkles, User, AlertCircle, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
@@ -101,11 +101,11 @@ export function SendDelayMessageModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg bg-palladian border-blue-fantastic/20 text-blue-fantastic font-sans rounded-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-lg bg-white border-blue-fantastic/20 text-blue-fantastic font-sans rounded-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader className="space-y-1">
-          <div className="flex items-center gap-2 text-blue-fantastic font-bold font-cream">
+          <div className="flex items-center gap-2 text-blue-fantastic font-bold font-sans">
             <Send className="h-5 w-5 text-truffle-trouble" />
-            <DialogTitle className="text-lg font-black font-cream text-blue-fantastic">
+            <DialogTitle className="text-lg font-black font-sans text-blue-fantastic">
               Send Delay Notice to Customer
             </DialogTitle>
           </div>
@@ -133,7 +133,7 @@ export function SendDelayMessageModal({
 
           {/* Linked Delay Context Header (if triggered from delay card) */}
           {delayEntry && (
-            <div className="p-3 bg-palladian border border-blue-fantastic/15 rounded-xl space-y-1">
+            <div className="p-3 bg-white border border-blue-fantastic/15 rounded-xl space-y-1">
               <div className="flex items-center justify-between text-[11px] font-extrabold uppercase text-truffle-trouble">
                 <span>{delayEntry.stageName} STAGE DELAY</span>
                 <div className="flex items-center gap-1 text-[11px] text-blue-fantastic">
@@ -152,7 +152,7 @@ export function SendDelayMessageModal({
             <Input
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="bg-palladian border-blue-fantastic/20 text-xs font-semibold text-blue-fantastic h-9 rounded-xl"
+              className="bg-white border-blue-fantastic/20 text-xs font-semibold text-blue-fantastic h-9 rounded-xl"
             />
           </div>
 
@@ -178,7 +178,7 @@ export function SendDelayMessageModal({
               value={body}
               onChange={(e) => setBody(e.target.value)}
               rows={6}
-              className="bg-palladian border-blue-fantastic/20 text-xs text-blue-fantastic rounded-xl resize-none leading-relaxed"
+              className="bg-white border-blue-fantastic/20 text-xs text-blue-fantastic rounded-xl resize-none leading-relaxed"
             />
           </div>
 
@@ -187,13 +187,13 @@ export function SendDelayMessageModal({
               type="button"
               variant="outline"
               onClick={onClose}
-              className="bg-palladian border-blue-fantastic/20 text-blue-fantastic font-bold text-xs rounded-xl h-9"
+              className="bg-white border-blue-fantastic/20 text-blue-fantastic font-bold text-xs rounded-xl h-9"
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-blue-fantastic hover:bg-blue-fantastic/90 text-palladian font-bold font-cream text-xs rounded-xl h-9 px-4 shadow-sm gap-1.5"
+              className="bg-blue-fantastic hover:bg-blue-fantastic/90 text-palladian font-bold font-sans text-xs rounded-xl h-9 px-4 shadow-sm gap-1.5"
             >
               <Send className="h-3.5 w-3.5" />
               <span>Dispatch Notice</span>

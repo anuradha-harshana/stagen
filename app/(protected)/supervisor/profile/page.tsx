@@ -115,7 +115,7 @@ export default function SupervisorProfilePage() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8 flex flex-col gap-6 font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       
       {/* Header Section */}
       <HeaderSection 

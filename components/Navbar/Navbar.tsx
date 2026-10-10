@@ -9,7 +9,11 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import { NavbarProps } from "@/lib/types/types"
+<<<<<<< HEAD
 import { NavbarLinks } from "./NavbarLinks"
+=======
+import {NavbarLinks} from "@/components/Navbar/NavbarLinks"
+>>>>>>> origin/development
 import { LogoutButton } from "../auth/LogoutButton"
 
 
@@ -18,20 +22,38 @@ type props = {
 }
 
 export async function Navbar({ role }: props) {
+<<<<<<< HEAD
   const baseUrl = process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
   const res = await fetch(`${baseUrl}/api/navbar?role=${role}`, {
     cache: "no-store",
   })
+=======
+  let data: NavbarProps[] = []
+>>>>>>> origin/development
 
-  const data: NavbarProps[] = await res.json()
+  try {
+    const baseUrl = process.env.APP_URL || 'http://localhost:3000'
+    const url = `${baseUrl}/api/navbar?role=${encodeURIComponent(role)}`
+    
+    const res = await fetch(url, {
+      cache: "no-store"
+    })
 
+    if (res.ok) {
+      data = await res.json()
+    } else {
+      console.error("Navbar API request failed", res.status)
+    }
+  } catch (error) {
+    console.error("Navbar fetch failed", error)
+  }
 
   return (
     <Sidebar
       side="left"
       variant="sidebar"
       collapsible="icon"
-      className="border-r-2 border-truffle-trouble bg-blue-fantastic text-white font-cream"
+      className="border-r-2 border-truffle-trouble bg-blue-fantastic text-white font-sans"
     >
       <SidebarHeader>
         <div className="flex items-center gap-3 mx-3 mt-5 mb-4 group-data-[collapsible=icon]:mx-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0">

@@ -31,7 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { useUser } from "@/components/Providers/user-provider";
+import { useUser } from "@/components/Providers/UserProvider";
 import { Project } from "@/lib/db-mock/projectsData";
 import { 
   SitePhoto, 
@@ -182,7 +182,7 @@ export default function SupervisorSitePhotosPage() {
   ).length;
 
   return (
-    <div className="flex flex-col gap-6 w-full px-4 sm:px-6 py-6 font-cream max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Header & Quick Overview */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-1 border-b border-blue-fantastic/10 pb-5">
         <div className="flex items-center gap-3.5">
@@ -194,9 +194,6 @@ export default function SupervisorSitePhotosPage() {
               <h1 className="text-blue-fantastic text-2xl font-sans font-bold leading-tight">
                 Site Progress Photos
               </h1>
-              <Badge variant="outline" className="bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 text-xs font-bold font-cream">
-                Supervisor Portal
-              </Badge>
             </div>
             <p className="text-blue-fantastic/60 text-xs sm:text-sm mt-0.5 font-sans">
               Capture and organize stage photos for assigned construction lots
@@ -205,7 +202,7 @@ export default function SupervisorSitePhotosPage() {
         </div>
 
         {/* Stats summary pill */}
-        <div className="flex items-center gap-3 bg-palladian border border-blue-fantastic/15 p-2 px-4 rounded-2xl shadow-xs self-start md:self-auto">
+        <div className="flex items-center gap-3 bg-white border border-blue-fantastic/15 p-2 px-4 rounded-2xl shadow-xs self-start md:self-auto">
           <div className="text-center pr-3 border-r border-blue-fantastic/15">
             <p className="text-[10px] text-blue-fantastic/60 font-sans uppercase tracking-wider font-semibold">Assigned Lots</p>
             <p className="text-base font-bold text-blue-fantastic">{assignedProjects.length}</p>
@@ -222,7 +219,7 @@ export default function SupervisorSitePhotosPage() {
       </div>
 
       {/* 2. Enhanced Controls Bar: Responsive Project Selector (Tabs + Dropdown for 4+ Projects) */}
-      <div className="flex flex-col gap-3 bg-palladian/40 p-3.5 rounded-2xl border border-blue-fantastic/15">
+      <div className="flex flex-col gap-3 bg-surface-inset p-3.5 rounded-2xl border border-blue-fantastic/15">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           {/* Left: Project Selector Controls */}
           <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap flex-1">
@@ -255,13 +252,13 @@ export default function SupervisorSitePhotosPage() {
             {/* Project Selection Dropdown */}
             <div className="w-full sm:w-72">
               <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-                <SelectTrigger className="w-full bg-palladian border-blue-fantastic/20 text-blue-fantastic font-cream font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
+                <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
                   <div className="flex items-center gap-2 truncate">
                     <Building2 className="h-3.5 w-3.5 text-truffle-trouble shrink-0" />
                     <SelectValue placeholder="Select Project Lot..." />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-palladian border-blue-fantastic/20 font-sans">
+                <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
                   {assignedProjects.map((proj) => {
                     const count = photos.filter((p) => p.projectId === proj.id).length;
                     return (
@@ -271,7 +268,7 @@ export default function SupervisorSitePhotosPage() {
                         className="text-xs cursor-pointer focus:bg-blue-fantastic/10 focus:text-blue-fantastic"
                       >
                         <div className="flex items-center justify-between w-full gap-3">
-                          <span className="font-bold font-cream">{proj.id.toUpperCase()}</span>
+                          <span className="font-bold font-sans">{proj.id.toUpperCase()}</span>
                           <span className="text-blue-fantastic/60 text-[11px] truncate max-w-[140px]">{proj.clientName}</span>
                           <Badge className="bg-blue-fantastic/10 text-blue-fantastic text-[10px] px-1.5 h-4">
                             {count} photos
@@ -293,7 +290,7 @@ export default function SupervisorSitePhotosPage() {
                 placeholder="Search captions or file names..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/40 h-9 text-xs font-sans focus-visible:ring-truffle-trouble rounded-xl"
+                className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/40 h-9 text-xs font-sans focus-visible:ring-truffle-trouble rounded-xl"
               />
             </div>
 
@@ -302,7 +299,7 @@ export default function SupervisorSitePhotosPage() {
                 <button
                   key={stageFilter}
                   onClick={() => setSelectedStageFilter(stageFilter)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold font-cream transition-all ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold font-sans transition-all ${
                     selectedStageFilter === stageFilter
                       ? "bg-blue-fantastic text-palladian shadow-xs"
                       : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
@@ -317,7 +314,7 @@ export default function SupervisorSitePhotosPage() {
       </div>
 
       {/* 3. Active Project Info Card */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-xs font-cream overflow-hidden">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-xs font-sans overflow-hidden">
         <CardContent className="p-4 sm:p-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -373,10 +370,10 @@ export default function SupervisorSitePhotosPage() {
           return (
             <Card
               key={stageName}
-              className="bg-palladian/40 border border-blue-fantastic/15 shadow-xs font-cream overflow-hidden transition-all"
+              className="bg-surface-inset border border-blue-fantastic/15 shadow-xs font-sans overflow-hidden transition-all"
             >
               {/* Stage Header Bar */}
-              <CardHeader className="p-4 sm:px-6 bg-palladian border-b border-blue-fantastic/10 flex flex-row items-center justify-between space-y-0 cursor-pointer select-none">
+              <CardHeader className="p-4 sm:px-6 bg-white border-b border-blue-fantastic/10 flex flex-row items-center justify-between space-y-0 cursor-pointer select-none">
                 <div
                   onClick={() => toggleStageExpand(stageName)}
                   className="flex items-center gap-3 flex-1"
@@ -393,7 +390,7 @@ export default function SupervisorSitePhotosPage() {
 
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="text-base font-bold text-blue-fantastic font-cream">
+                      <h3 className="text-base font-bold text-blue-fantastic font-sans">
                         {stageName} Stage
                       </h3>
 
@@ -410,7 +407,7 @@ export default function SupervisorSitePhotosPage() {
                         {stageStatus}
                       </Badge>
 
-                      <Badge className="bg-blue-fantastic/10 text-blue-fantastic text-xs font-bold font-cream">
+                      <Badge className="bg-blue-fantastic/10 text-blue-fantastic text-xs font-bold font-sans">
                         {stagePhotos.length} {stagePhotos.length === 1 ? "photo" : "photos"}
                       </Badge>
                     </div>
@@ -426,7 +423,7 @@ export default function SupervisorSitePhotosPage() {
                       if (!isExpanded) toggleStageExpand(stageName);
                     }}
                     size="sm"
-                    className="bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-cream font-bold text-xs h-8 px-3 rounded-xl shadow-xs"
+                    className="bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-sans font-bold text-xs h-8 px-3 rounded-xl shadow-xs"
                   >
                     <Plus className="h-3.5 w-3.5 mr-1 text-burning-flame" />
                     Upload Photo
@@ -453,7 +450,7 @@ export default function SupervisorSitePhotosPage() {
                   {isUploadOpen && (
                     <div className="mb-4">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-xs font-bold font-cream text-truffle-trouble">
+                        <span className="text-xs font-bold font-sans text-truffle-trouble">
                           New Photo Upload — {stageName}
                         </span>
                         <button

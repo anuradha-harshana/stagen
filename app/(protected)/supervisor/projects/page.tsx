@@ -43,11 +43,11 @@ export default function SupervisorProjects() {
   });
 
   return (
-    <div className="flex flex-col gap-5 w-full px-6 py-6 font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Header & Quick stats */}
       <div className="flex items-start justify-between flex-wrap gap-4 py-1">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
+          <div className="h-12 w-12 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
             <Building2 className="h-5 w-5 text-burning-flame" />
           </div>
           <div>
@@ -68,7 +68,7 @@ export default function SupervisorProjects() {
               placeholder="Search by lot or client..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm font-sans w-52 focus-visible:ring-truffle-trouble"
+              className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm font-sans w-52 focus-visible:ring-truffle-trouble"
             />
           </div>
 
@@ -77,7 +77,7 @@ export default function SupervisorProjects() {
               <button
                 key={filter}
                 onClick={() => setStatusFilter(filter)}
-                className={`px-3 py-1 rounded-lg text-xs font-bold font-cream transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-bold font-sans transition-all ${
                   statusFilter === filter
                     ? "bg-blue-fantastic text-palladian shadow-sm"
                     : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
@@ -92,13 +92,13 @@ export default function SupervisorProjects() {
 
       {/* 2. Projects Grid */}
       {filteredProjects.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 bg-palladian/40 border border-dashed border-blue-fantastic/20 rounded-2xl">
+        <div className="flex flex-col items-center justify-center py-16 bg-surface-inset border border-dashed border-blue-fantastic/20 rounded-2xl">
           <Building2 className="h-10 w-10 text-blue-fantastic/30 mb-2" />
           <p className="text-sm font-bold text-blue-fantastic">No Projects Found</p>
           <p className="text-xs text-blue-fantastic/60 mt-1">Try tweaking your search or status filter.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-cream">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredProjects.map((project) => {
             const activeStage = project.stages.find(s => s.status === "Active")?.name || project.currentStage;
             const delayCount = project.delays.length;
@@ -106,7 +106,7 @@ export default function SupervisorProjects() {
             return (
               <Card
                 key={project.id}
-                className="group relative overflow-hidden bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200"
+                className="group relative overflow-hidden bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200"
               >
                 {/* top accent strip */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-burning-flame/50 via-truffle-trouble/50 to-transparent" />
@@ -118,7 +118,7 @@ export default function SupervisorProjects() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+                        <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
                           {project.clientName}
                         </CardTitle>
                         <Badge
@@ -209,7 +209,7 @@ export default function SupervisorProjects() {
       {/* 3. Project Detail Modal */}
       <Dialog open={selectedProject !== null} onOpenChange={(open) => !open && setSelectedProject(null)}>
         {selectedProject && (
-          <DialogContent className="max-w-2xl bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20 max-h-[85vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl bg-white text-blue-fantastic font-sans border border-blue-fantastic/20 max-h-[85vh] overflow-y-auto">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <div className="flex justify-between items-start gap-4">
                 <div>
@@ -223,7 +223,7 @@ export default function SupervisorProjects() {
                   >
                     {selectedProject.status}
                   </Badge>
-                  <DialogTitle className="text-2xl font-bold font-cream text-blue-fantastic">
+                  <DialogTitle className="text-2xl font-bold font-sans text-blue-fantastic">
                     {selectedProject.clientName}
                   </DialogTitle>
                   <DialogDescription className="text-xs text-blue-fantastic/60 font-semibold mt-1 flex items-center gap-1">

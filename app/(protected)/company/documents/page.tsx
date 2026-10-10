@@ -1,6 +1,5 @@
-import { Suspense } from "react"
 import { CompanyDocumentsOverview } from "@/components/company/documents/CompanyDocumentsOverview"
-import { CompanyDocumentsSkeleton } from "@/components/company/documents/CompanyDocumentsSkeleton"
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell"
 
 export const metadata = {
   title: "Documents & Policies | Company Portal",
@@ -9,10 +8,8 @@ export const metadata = {
 
 export default function CompanyDocumentsPage() {
   return (
-    <div className="flex flex-col gap-4 w-full px-5 py-4 font-cream">
-      <Suspense fallback={<CompanyDocumentsSkeleton />}>
-        <CompanyDocumentsOverview />
-      </Suspense>
+    <div className={PAGE_SHELL_CLASS}>
+      <CompanyDocumentsOverview />
     </div>
   )
 }

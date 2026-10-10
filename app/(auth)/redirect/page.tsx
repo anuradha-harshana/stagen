@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const page = () => {
   return (
-    <div className='w-full h-screen bg-oatmeal flex flex-col items-center justify-center font-cream'>
+    <div className='w-full h-screen bg-oatmeal flex flex-col items-center justify-center font-sans'>
       <h1 className='text-3xl text-truffle-trouble'>Oops seems like you are not authenticated!</h1>
       <span className='text-2xl text-'>Go back to the start!</span>
       <Link href="/login">

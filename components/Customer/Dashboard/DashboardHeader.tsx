@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import { Home, UserCircle2 } from "lucide-react";
-import PageHeader from "../PageHeader";
+import PageHeader from "./PageHeader";
 
 interface DashboardHeaderProps {
   username: string;

@@ -19,7 +19,7 @@ export default async function page() {
   const hasUrgent = data.notifications.some((n) => n.type === "urgent");
 
   return (
-    <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-12">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header Greeting Section */}
       <DashboardHeader username={user.username} email={user.email} role={user.role} percentage={data.overallProgress.percentage} />
 
@@ -71,13 +71,13 @@ export default async function page() {
         <div className="lg:col-span-7 flex flex-col gap-6 w-full">
 
           {/* Recent Updates Card */}
-          <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+          <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
             <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6 flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-xl bg-burning-flame/10 flex items-center justify-center">
                   <RefreshCw className="h-4.5 w-4.5 text-burning-flame animate-spin-slow" />
                 </div>
-                <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+                <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
                   Recent Updates
                 </CardTitle>
               </div>
@@ -97,13 +97,13 @@ export default async function page() {
           </Card>
 
           {/* Notifications Card */}
-          <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+          <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
             <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6 flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
                   <Bell className="h-4.5 w-4.5 text-truffle-trouble" />
                 </div>
-                <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+                <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
                   Notifications
                 </CardTitle>
               </div>
@@ -125,13 +125,13 @@ export default async function page() {
         </div>
 
         {/* Right Column: Site Photos (Latest) */}
-        <Card className="lg:col-span-5 bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden w-full self-stretch flex flex-col">
+        <Card className="lg:col-span-5 bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden w-full self-stretch flex flex-col">
           <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6 flex flex-row items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-xl bg-emerald-50 flex items-center justify-center">
                 <Camera className="h-4.5 w-4.5 text-emerald-600" />
               </div>
-              <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+              <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
                 Site Photos (Latest)
               </CardTitle>
             </div>

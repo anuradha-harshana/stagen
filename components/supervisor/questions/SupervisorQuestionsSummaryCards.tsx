@@ -51,13 +51,13 @@ export function SupervisorQuestionsSummaryCards({
   ]
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 font-cream">
+    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 font-sans">
       {SUMMARY.map((item) => {
         const Icon = item.icon
         return (
           <Card
             key={item.label}
-            className="sm:col-span-4 bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
+            className="sm:col-span-4 bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
           >
             <CardContent className="pt-5 pb-4 px-5 flex flex-col gap-3">
               <div className="flex items-center justify-between">
@@ -69,7 +69,7 @@ export function SupervisorQuestionsSummaryCards({
                 </div>
               </div>
               <div>
-                <p className={`text-xl md:text-2xl font-bold font-cream tracking-tight ${item.valueColor} truncate`}>
+                <p className={`text-xl md:text-2xl font-bold font-sans tracking-tight ${item.valueColor} truncate`}>
                   {item.value}
                 </p>
                 <p className="text-xs text-blue-fantastic/70 font-semibold mt-0.5 truncate">{item.sub}</p>

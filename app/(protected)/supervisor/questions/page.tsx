@@ -1,6 +1,5 @@
-import { Suspense } from "react"
 import { SupervisorQuestionsOverview } from "@/components/supervisor/questions/SupervisorQuestionsOverview"
-import { SupervisorQuestionsSkeleton } from "@/components/supervisor/questions/SupervisorQuestionsSkeleton"
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell"
 
 export const metadata = {
   title: "Customer Questions & Answers | Supervisor",
@@ -9,10 +8,8 @@ export const metadata = {
 
 export default function SupervisorQuestionsPage() {
   return (
-    <div className="flex flex-col gap-4 w-full px-5 font-cream">
-      <Suspense fallback={<SupervisorQuestionsSkeleton />}>
-        <SupervisorQuestionsOverview />
-      </Suspense>
+    <div className={PAGE_SHELL_CLASS}>
+      <SupervisorQuestionsOverview />
     </div>
   )
 }

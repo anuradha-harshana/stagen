@@ -130,7 +130,7 @@ export default function FAQClient() {
   const categories = Array.from(new Set(articles.map((art) => art.category)));
 
   return (
-    <div className="flex flex-col gap-6 w-full px-5 py-6 md:px-8 md:py-8 font-cream">
+    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Page Header */}
       <FAQHeader onAddClick={() => {
         setEditingArticle(null);
@@ -148,7 +148,7 @@ export default function FAQClient() {
       <div className="flex gap-2 border-b border-blue-fantastic/10 pb-1 flex-wrap">
         <button
           onClick={() => setActiveTab("faq")}
-          className={`flex items-center gap-2 px-4 py-2 text-xs font-bold font-cream border-b-2 transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2 text-xs font-bold font-sans border-b-2 transition-all cursor-pointer ${
             activeTab === "faq"
               ? "border-truffle-trouble text-truffle-trouble"
               : "border-transparent text-blue-fantastic/50 hover:text-blue-fantastic"
@@ -159,7 +159,7 @@ export default function FAQClient() {
         </button>
         <button
           onClick={() => setActiveTab("ai")}
-          className={`flex items-center gap-2 px-4 py-2 text-xs font-bold font-cream border-b-2 transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2 text-xs font-bold font-sans border-b-2 transition-all cursor-pointer ${
             activeTab === "ai"
               ? "border-truffle-trouble text-truffle-trouble"
               : "border-transparent text-blue-fantastic/50 hover:text-blue-fantastic"

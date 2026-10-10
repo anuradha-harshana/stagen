@@ -1,7 +1,6 @@
-import { Suspense } from "react"
 import { Metadata } from "next"
-import { SupervisorNotificationContainer } from "@/components/supervisor/notifications/supervisor-notification-container"
-import { SupervisorNotificationSkeleton } from "@/components/supervisor/notifications/supervisor-notification-skeleton"
+import { SupervisorNotificationContainer } from "@/components/supervisor/notifications/SupervisorNotificationContainer"
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell"
 
 export const metadata: Metadata = {
   title: "Supervisor Notifications | Stagen",
@@ -10,10 +9,8 @@ export const metadata: Metadata = {
 
 export default function SupervisorNotificationsPage() {
   return (
-    <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-16">
-      <Suspense fallback={<SupervisorNotificationSkeleton />}>
-        <SupervisorNotificationContainer />
-      </Suspense>
+    <div className={PAGE_SHELL_CLASS}>
+      <SupervisorNotificationContainer />
     </div>
   )
 }

@@ -52,7 +52,7 @@ export default function ProgressPageClient({ user }: ProgressPageClientProps) {
   };
 
   return (
-    <div className="px-5 py-6 md:px-8 md:py-8 space-y-6 pb-16 font-sans">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Main progress completion widget header */}
       <ProgressHeader
         percentage={data.percentage}

@@ -23,7 +23,7 @@ export function DocumentsFilter() {
             "inline-flex items-center gap-2 px-3.5 py-1.5 rounded-2xl text-xs font-semibold border transition-all duration-200 font-sans",
             active === tab.label
               ? "bg-blue-fantastic text-palladian border-blue-fantastic shadow-sm"
-              : "bg-palladian text-blue-fantastic/60 border-blue-fantastic/15 hover:bg-blue-fantastic/8 hover:text-blue-fantastic hover:border-blue-fantastic/25"
+              : "bg-white text-blue-fantastic/60 border-blue-fantastic/15 hover:bg-blue-fantastic/8 hover:text-blue-fantastic hover:border-blue-fantastic/25"
           )}
         >
           {tab.label}

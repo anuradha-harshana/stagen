@@ -19,7 +19,7 @@ export default function ZoomToggle({ currentScale, onChange }: ZoomToggleProps) 
         <span>Gantt Scale:</span>
       </span>
 
-      <div className="flex bg-palladian/45 border border-blue-fantastic/5 p-1 rounded-xl w-full sm:w-auto">
+      <div className="flex bg-surface-inset border border-blue-fantastic/5 p-1 rounded-xl w-full sm:w-auto">
         <button
           onClick={() => onChange("week")}
           className={cn(

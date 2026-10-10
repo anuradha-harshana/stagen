@@ -1,6 +1,6 @@
 import React from "react";
 import { requireRole } from "@/lib/auth/auth";
-import CustomerInsightsClient from "@/components/company-management/customer-insights/insights-client";
+import CustomerInsightsClient from "@/components/company-management/customer-insights/InsightsClient";
 
 export default async function CustomerInsightsPage() {
   // 1. Authenticate user and verify they have the 'company-management' role

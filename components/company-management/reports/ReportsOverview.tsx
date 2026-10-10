@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import { ShieldCheck } from "lucide-react";
-import { ReportsHeader } from "./reports-header";
-import { ReportsFilters } from "./reports-filters";
-import { ReportsStats } from "./reports-stats";
-import { ReportsCharts } from "./reports-charts";
-import { RegionalMatrixTable, RegionalReport } from "./regional-matrix-table";
+import { ReportsHeader } from "./ReportsHeader";
+import { ReportsFilters } from "./ReportsFilters";
+import { ReportsStats } from "./ReportsStats";
+import { ReportsCharts } from "./ReportsCharts";
+import { RegionalMatrixTable, RegionalReport } from "./RegionalMatrixTable";
 
 const mockRegionalReports: RegionalReport[] = [
   { region: "NSW (New South Wales)", totalSites: 48, activeSites: 38, onTimePct: 92.4, avgDelayDays: 1.8, supervisors: 12, efficiencyScore: 95 },
@@ -30,7 +30,7 @@ export function ReportsOverview() {
   );
 
   return (
-    <div className="p-6 md:p-8 space-y-8 text-blue-fantastic font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-blue-fantastic text-palladian px-4 py-3 rounded-lg shadow-xl border border-burning-flame flex items-center gap-3 animate-bounce">

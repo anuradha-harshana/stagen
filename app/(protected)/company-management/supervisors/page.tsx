@@ -1,7 +1,7 @@
 import React from "react";
 import { requireRole } from "@/lib/auth/auth";
 import { getUsers } from "@/lib/users/users";
-import WorkloadClient from "@/components/company-management/supervisors/workload-client";
+import WorkloadClient from "@/components/company-management/supervisors/WorkloadClient";
 
 export default async function SupervisorsWorkloadPage() {
   // 1. Authenticate user and verify they have the 'company-management' role

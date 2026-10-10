@@ -22,13 +22,13 @@ const stageColors: Record<string, string> = {
 
 export function PhotoGrid() {
   return (
-    <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm font-cream">
+    <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-xl bg-blue-fantastic/10 flex items-center justify-center">
             <Camera className="h-4 w-4 text-blue-fantastic" />
           </div>
-          <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">Site Photos</CardTitle>
+          <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">Site Photos</CardTitle>
           <Badge
             variant="outline"
             className="ml-auto text-xs text-blue-fantastic/70 border-blue-fantastic/20 bg-blue-fantastic/5 font-semibold"
@@ -57,7 +57,7 @@ export function PhotoGrid() {
               {/* hover overlay */}
               <div className="absolute inset-0 bg-abyssal-blue/0 group-hover:bg-abyssal-blue/60 transition-all duration-300 flex items-center justify-center">
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-1">
-                  <div className="h-8 w-8 rounded-full bg-palladian/20 backdrop-blur-sm flex items-center justify-center border border-palladian/30">
+                  <div className="h-8 w-8 rounded-full bg-surface-inset backdrop-blur-sm flex items-center justify-center border border-palladian/30">
                     <ZoomIn className="h-4 w-4 text-palladian" />
                   </div>
                   <span className="text-palladian text-[10px] font-semibold">View</span>
@@ -66,7 +66,7 @@ export function PhotoGrid() {
 
               {/* bottom label */}
               <div className="absolute bottom-0 left-0 right-0 px-2.5 py-2 bg-gradient-to-t from-abyssal-blue/95 via-abyssal-blue/65 to-transparent">
-                <p className="text-palladian text-xs font-bold leading-tight truncate font-cream">{photo.label}</p>
+                <p className="text-palladian text-xs font-bold leading-tight truncate font-sans">{photo.label}</p>
                 <div className="flex items-center gap-1 mt-0.5">
                   <CalendarDays className="h-2.5 w-2.5 text-oatmeal" />
                   <p className="text-oatmeal text-[10px] font-medium">{photo.date}</p>
@@ -75,7 +75,7 @@ export function PhotoGrid() {
 
               {/* top-right stage badge */}
               <div className="absolute top-2 right-2">
-                <span className={`inline-flex text-[9px] font-bold px-1.5 py-0.5 rounded-full border backdrop-blur-sm bg-palladian/90 ${stageColors[photo.stage]}`}>
+                <span className={`inline-flex text-[9px] font-bold px-1.5 py-0.5 rounded-full border backdrop-blur-sm bg-white/90 ${stageColors[photo.stage]}`}>
                   {photo.stage}
                 </span>
               </div>

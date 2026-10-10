@@ -7,6 +7,7 @@ import {
   Trash2,
   Plus,
   Edit2,
+  Pencil,
   CheckCircle,
   FileCheck
 } from "lucide-react";
@@ -25,6 +26,7 @@ interface StageCardProps {
   onEdit: (stage: TemplateStage) => void;
   onDelete: (id: string) => void;
   onAddChecklistItem: (stageId: string, itemLabel: string) => void;
+  onEditChecklistItem: (stageId: string, itemId: string, itemLabel: string) => void;
   onDeleteChecklistItem: (stageId: string, itemId: string) => void;
 }
 
@@ -37,9 +39,12 @@ export default function StageCard({
   onEdit,
   onDelete,
   onAddChecklistItem,
+  onEditChecklistItem,
   onDeleteChecklistItem,
 }: StageCardProps) {
   const [newItemText, setNewItemText] = useState("");
+  const [editingItemId, setEditingItemId] = useState<string | null>(null);
+  const [editingItemText, setEditingItemText] = useState("");
 
   const handleAddItem = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,10 +53,18 @@ export default function StageCard({
     setNewItemText("");
   };
 
+  const handleEditItem = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingItemId || !editingItemText.trim()) return;
+    onEditChecklistItem(stage.id, editingItemId, editingItemText.trim());
+    setEditingItemId(null);
+    setEditingItemText("");
+  };
+
   const padZero = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
   return (
-    <Card className="group relative overflow-hidden bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-cream">
+    <Card className="group relative overflow-hidden bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-sans">
       {/* Accent Line */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-burning-flame/50 via-truffle-trouble/50 to-transparent" />
 
@@ -63,7 +76,7 @@ export default function StageCard({
               <span className="h-8 w-8 rounded-xl bg-burning-flame/15 border border-burning-flame/20 flex items-center justify-center font-extrabold text-truffle-trouble text-sm shrink-0">
                 {padZero(index + 1)}
               </span>
-              <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream truncate">
+              <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans truncate">
                 {stage.name}
               </CardTitle>
             </div>
@@ -89,24 +102,48 @@ export default function StageCard({
                 No default checklist items defined.
               </p>
             ) : (
-              stage.checklist.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between gap-2 p-2 bg-blue-fantastic/4 border border-blue-fantastic/5 rounded-xl text-xs font-semibold text-blue-fantastic/80 group/item hover:bg-blue-fantastic/8 transition-colors"
-                >
-                  <div className="flex items-center gap-2 min-w-0">
-                    <CheckCircle className="h-3.5 w-3.5 text-blue-fantastic/30 shrink-0" />
-                    <span className="truncate">{item.label}</span>
-                  </div>
-                  <button
-                    onClick={() => onDeleteChecklistItem(stage.id, item.id)}
-                    className="opacity-0 group-hover/item:opacity-100 hover:text-burning-flame text-blue-fantastic/40 transition-all p-0.5 rounded cursor-pointer"
-                    title="Remove item"
+              stage.checklist.map((item) =>
+                editingItemId === item.id ? (
+                  <form key={item.id} onSubmit={handleEditItem} className="flex gap-2">
+                    <Input
+                      value={editingItemText}
+                      onChange={(e) => setEditingItemText(e.target.value)}
+                      className="h-8 text-xs"
+                      autoFocus
+                    />
+                    <Button type="submit" size="sm" className="h-8">Save</Button>
+                  </form>
+                ) : (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between gap-2 p-2 bg-blue-fantastic/4 border border-blue-fantastic/5 rounded-xl text-xs font-semibold text-blue-fantastic/80 group/item hover:bg-blue-fantastic/8 transition-colors"
                   >
-                    <Trash2 className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-              ))
+                    <div className="flex items-center gap-2 min-w-0">
+                      <CheckCircle className="h-3.5 w-3.5 text-blue-fantastic/30 shrink-0" />
+                      <span className="truncate">{item.label}</span>
+                    </div>
+                    <div className="flex items-center gap-1 opacity-0 group-hover/item:opacity-100">
+                      <button
+                        onClick={() => {
+                          setEditingItemId(item.id);
+                          setEditingItemText(item.label);
+                        }}
+                        className="hover:text-blue-fantastic text-blue-fantastic/40 transition-all p-0.5 rounded cursor-pointer"
+                        title="Edit item"
+                      >
+                        <Pencil className="h-3.5 w-3.5" />
+                      </button>
+                      <button
+                        onClick={() => onDeleteChecklistItem(stage.id, item.id)}
+                        className="hover:text-burning-flame text-blue-fantastic/40 transition-all p-0.5 rounded cursor-pointer"
+                        title="Remove item"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                )
+              )
             )}
           </div>
 
@@ -116,7 +153,7 @@ export default function StageCard({
               placeholder="Add checklist item..."
               value={newItemText}
               onChange={(e) => setNewItemText(e.target.value)}
-              className="bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-full focus-visible:ring-truffle-trouble"
+              className="bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-full focus-visible:ring-truffle-trouble"
             />
             <Button
               type="submit"

@@ -14,7 +14,7 @@ import {
 
 
 
-const dataRoot = path.join(process.cwd(), "data");
+const dataRoot = path.join(process.cwd(), "data", "tenants");
 
 async function readJsonFile<T>(fileName: string): Promise<T> {
   const filePath = path.join(dataRoot, fileName);

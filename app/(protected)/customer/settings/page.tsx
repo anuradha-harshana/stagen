@@ -1,12 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import SettingHeader from "@/components/Customer/Setting/setting-header"
-import GeneralSettings from "@/components/Customer/Setting/general-settings"
-import NotificationSettings from "@/components/Customer/Setting/notification-settings"
-import SecuritySettings from "@/components/Customer/Setting/security-settings"
-import PrivacySettings from "@/components/Customer/Setting/privacy-settings"
-import BillingSettings from "@/components/Customer/Setting/billing-settings"
+import SettingHeader from "@/components/Customer/Setting/SettingHeader"
+import GeneralSettings from "@/components/Customer/Setting/GeneralSettings"
+import NotificationSettings from "@/components/Customer/Setting/NotificationSettings"
+import SecuritySettings from "@/components/Customer/Setting/SecuritySettings"
+import PrivacySettings from "@/components/Customer/Setting/PrivacySettings"
+import BillingSettings from "@/components/Customer/Setting/BillingSettings"
+
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell"
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("General")
@@ -30,7 +32,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-full w-full bg-oatmeal px-5 py-6 md:px-8 md:py-8 space-y-6 pb-16">
+    <div className={PAGE_SHELL_CLASS}>
       <SettingHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="w-full mt-2 flex justify-center">
         {renderActiveSetting()}

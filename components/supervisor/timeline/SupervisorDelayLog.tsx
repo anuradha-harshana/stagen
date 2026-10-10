@@ -27,12 +27,12 @@ export function SupervisorDelayLog({
 }: SupervisorDelayLogProps) {
   if (!delayLog || delayLog.length === 0) {
     return (
-      <Card className="bg-palladian/40 border border-blue-fantastic/15 shadow-xs font-cream">
+      <Card className="bg-surface-inset border border-blue-fantastic/15 shadow-xs font-sans">
         <CardContent className="py-8 px-4 text-center">
           <div className="h-10 w-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-700 mx-auto mb-2">
             <Clock className="h-5 w-5" />
           </div>
-          <h4 className="text-sm font-bold font-cream text-blue-fantastic">No Schedule Adjustments Logged</h4>
+          <h4 className="text-sm font-bold font-sans text-blue-fantastic">No Schedule Adjustments Logged</h4>
           <p className="text-xs text-blue-fantastic/60 font-sans mt-1">
             Build schedule is running without recorded delays or timeline adjustments.
           </p>
@@ -59,10 +59,10 @@ export function SupervisorDelayLog({
   };
 
   return (
-    <div className="space-y-3 font-cream">
+    <div className="space-y-3 font-sans">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-base font-bold text-blue-fantastic font-cream">
+          <h3 className="text-base font-bold text-blue-fantastic font-sans">
             Schedule Adjustments Log
           </h3>
           <p className="text-xs text-blue-fantastic/60 font-sans">
@@ -78,17 +78,17 @@ export function SupervisorDelayLog({
         {delayLog.map((entry) => (
           <Card
             key={entry.id}
-            className="bg-palladian border border-blue-fantastic/15 shadow-xs hover:border-truffle-trouble/40 transition-all font-sans overflow-hidden"
+            className="bg-white border border-blue-fantastic/15 shadow-xs hover:border-truffle-trouble/40 transition-all font-sans overflow-hidden"
           >
             <CardContent className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-start gap-3.5 flex-1">
-                <div className="h-10 w-10 rounded-2xl bg-palladian/90 border border-blue-fantastic/15 flex items-center justify-center shrink-0 shadow-xs">
+                <div className="h-10 w-10 rounded-2xl bg-white/90 border border-blue-fantastic/15 flex items-center justify-center shrink-0 shadow-xs">
                   {getCategoryIcon(entry.type)}
                 </div>
 
                 <div className="space-y-1 flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <Badge className="bg-blue-fantastic/10 text-blue-fantastic border-blue-fantastic/20 text-[10px] font-bold font-cream">
+                    <Badge className="bg-blue-fantastic/10 text-blue-fantastic border-blue-fantastic/20 text-[10px] font-bold font-sans">
                       {entry.stageName} Stage
                     </Badge>
                     <span className="text-[11px] text-blue-fantastic/50 font-mono">
@@ -96,7 +96,7 @@ export function SupervisorDelayLog({
                     </span>
                   </div>
 
-                  <h4 className="text-sm font-bold font-cream text-blue-fantastic">
+                  <h4 className="text-sm font-bold font-sans text-blue-fantastic">
                     {entry.title}
                   </h4>
 
@@ -108,7 +108,7 @@ export function SupervisorDelayLog({
 
               {/* Impact Card & Delete */}
               <div className="flex items-center gap-3 shrink-0 self-end md:self-center">
-                <div className="bg-palladian/80 border border-truffle-trouble/30 px-3.5 py-2 rounded-xl text-right">
+                <div className="bg-surface-muted border border-truffle-trouble/30 px-3.5 py-2 rounded-xl text-right">
                   <span className="text-[9px] text-blue-fantastic/50 uppercase tracking-wider font-semibold block">
                     Schedule Impact
                   </span>

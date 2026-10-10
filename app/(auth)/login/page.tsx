@@ -4,8 +4,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+<<<<<<< HEAD
 import { AuthLogo } from "@/components/auth/logo"
 import { BrandPanel } from "@/components/auth/brand-panel"
+=======
+import { AuthLogo } from "@/components/auth/Logo"
+import { BrandPanel } from "@/components/auth/BrandPanel"
+>>>>>>> origin/development
 import { useForm } from "react-hook-form"
 import { LoginFormData, loginSchema } from "@/lib/login/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -58,7 +63,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-abyssal-blue p-6">
-      <div className="font-cream grid w-full max-w-4xl grid-cols-1 overflow-hidden rounded-2xl shadow-2xl md:grid-cols-2">
+      <div className="font-sans grid w-full max-w-4xl grid-cols-1 overflow-hidden rounded-2xl shadow-2xl md:grid-cols-2">
         <div className="flex flex-col justify-center gap-5 bg-oatmeal px-10 py-10">
           <AuthLogo />
 

@@ -28,13 +28,13 @@ export default function MilestoneHighlights({ stages }: MilestoneHighlightsProps
   const upcoming = allMilestones.filter((m) => m.status === "upcoming");
 
   return (
-    <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden w-full flex flex-col">
+    <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden w-full flex flex-col">
       <CardHeader className="border-b border-blue-fantastic/[0.03] pb-4 pt-5 px-6">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-xl bg-truffle-trouble/10 flex items-center justify-center text-truffle-trouble">
             <Award className="h-4.5 w-4.5" />
           </div>
-          <CardTitle className="text-blue-fantastic text-base font-extrabold font-cream">
+          <CardTitle className="text-blue-fantastic text-base font-extrabold font-sans">
             Milestone Highlights
           </CardTitle>
         </div>
@@ -50,7 +50,7 @@ export default function MilestoneHighlights({ stages }: MilestoneHighlightsProps
           <div className="space-y-4">
             {/* Quick Metrics */}
             <div className="grid grid-cols-2 gap-3 pb-3 border-b border-blue-fantastic/5">
-              <div className="bg-palladian/30 rounded-xl p-2.5 text-center">
+              <div className="bg-surface-inset rounded-xl p-2.5 text-center">
                 <span className="text-lg font-bold text-emerald-600 font-bebas-neue block">
                   {completed.length}
                 </span>
@@ -58,7 +58,7 @@ export default function MilestoneHighlights({ stages }: MilestoneHighlightsProps
                   Approved
                 </span>
               </div>
-              <div className="bg-palladian/30 rounded-xl p-2.5 text-center">
+              <div className="bg-surface-inset rounded-xl p-2.5 text-center">
                 <span className="text-lg font-bold text-burning-flame font-bebas-neue block">
                   {scheduled.length}
                 </span>
@@ -110,7 +110,7 @@ export default function MilestoneHighlights({ stages }: MilestoneHighlightsProps
 
                     <div className="text-right shrink-0">
                       {milestone.date ? (
-                        <span className="text-[10px] text-blue-fantastic/55 font-bold font-cream">
+                        <span className="text-[10px] text-blue-fantastic/55 font-bold font-sans">
                           {milestone.date}
                         </span>
                       ) : (

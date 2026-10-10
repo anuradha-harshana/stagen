@@ -10,29 +10,32 @@ import {
   CheckCircle2,
   ChevronRight,
   User,
-  Edit2
+  Edit2,
+  Trash2
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 
 interface ProjectCardProps {
   project: Project;
   onViewDetails: (project: Project) => void;
   onEdit: (project: Project) => void;
+  onDelete: (project: Project) => void;
 }
 
 export default function ProjectCard({
   project,
   onViewDetails,
   onEdit,
+  onDelete,
 }: ProjectCardProps) {
   const activeStage = project.stages.find((s) => s.status === "Active")?.name || project.currentStage;
   const delayCount = project.delays?.length || 0;
 
   return (
-    <Card className="group relative overflow-hidden bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-cream">
+    <Card className="group relative overflow-hidden bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md hover:border-blue-fantastic/30 transition-all duration-200 flex flex-col justify-between h-full font-sans">
       {/* Top accent strip */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-burning-flame/50 via-truffle-trouble/50 to-transparent" />
 
@@ -44,7 +47,7 @@ export default function ProjectCard({
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+                <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
                   {project.clientName}
                 </CardTitle>
                 <Badge
@@ -146,6 +149,16 @@ export default function ProjectCard({
           >
             <Edit2 className="h-3.5 w-3.5" />
             <span>Edit</span>
+          </Button>
+
+          <Button
+            size="icon"
+            variant="outline"
+            onClick={() => onDelete(project)}
+            className="border-red-200 text-red-600 hover:bg-red-50 h-8 w-8 rounded-xl"
+            title="Delete project"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
           </Button>
 
           <Button

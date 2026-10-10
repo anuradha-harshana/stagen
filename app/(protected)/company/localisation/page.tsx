@@ -24,7 +24,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MOCK_TRANSLATION_KEYS, TranslationKey } from "@/lib/db-mock/companyData";
-import PageHeader from "@/components/Customer/PageHeader";
+import PageHeader from "@/components/shared/PageHeader";
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 
 export default function CompanyLocalisationPage() {
   const [translationKeys, setTranslationKeys] = useState<TranslationKey[]>(MOCK_TRANSLATION_KEYS);
@@ -89,7 +90,7 @@ export default function CompanyLocalisationPage() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full px-6 py-6 font-cream max-w-7xl mx-auto">
+    <div className={PAGE_SHELL_CLASS}>
       {/* Notification Toast */}
       {toastMessage && (
         <div className="fixed top-5 right-5 z-50 bg-blue-fantastic text-palladian px-4 py-3 rounded-xl shadow-lg border border-burning-flame/30 flex items-center gap-2 text-sm font-semibold animate-in fade-in slide-in-from-top-2">
@@ -108,7 +109,7 @@ export default function CompanyLocalisationPage() {
             <Button
               variant="outline"
               onClick={() => showNotification("Exported translation bundle (.json)")}
-              className="bg-palladian border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 text-xs font-semibold h-9 rounded-xl"
+              className="bg-white border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 text-xs font-semibold h-9 rounded-xl"
             >
               <Download className="mr-1.5 h-3.5 w-3.5" />
               Export .JSON
@@ -126,7 +127,7 @@ export default function CompanyLocalisationPage() {
 
       {/* Overview Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
               <Globe className="h-5 w-5 text-blue-fantastic" />
@@ -139,7 +140,7 @@ export default function CompanyLocalisationPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-burning-flame/15 border border-burning-flame/20 flex items-center justify-center shrink-0">
               <Languages className="h-5 w-5 text-truffle-trouble" />
@@ -152,7 +153,7 @@ export default function CompanyLocalisationPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-truffle-trouble/15 border border-truffle-trouble/20 flex items-center justify-center shrink-0">
               <Layers className="h-5 w-5 text-truffle-trouble" />
@@ -165,7 +166,7 @@ export default function CompanyLocalisationPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-blue-fantastic/10 border border-blue-fantastic/15 flex items-center justify-center shrink-0">
               <Clock className="h-5 w-5 text-blue-fantastic" />
@@ -180,7 +181,7 @@ export default function CompanyLocalisationPage() {
       </div>
 
       {/* Regional Formats Preview Card */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm relative overflow-hidden">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-burning-flame via-truffle-trouble to-blue-fantastic" />
         <CardHeader className="pb-3">
           <CardTitle className="text-sm font-bold text-blue-fantastic flex items-center gap-2">
@@ -228,7 +229,7 @@ export default function CompanyLocalisationPage() {
       </Card>
 
       {/* Translation Keys Management Section */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
         <CardHeader className="pb-4 border-b border-blue-fantastic/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <CardTitle className="text-base font-bold text-blue-fantastic">
@@ -247,7 +248,7 @@ export default function CompanyLocalisationPage() {
                 placeholder="Search key or text..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-56 focus-visible:ring-truffle-trouble"
+                className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-xs font-sans w-56 focus-visible:ring-truffle-trouble"
               />
             </div>
 
@@ -344,7 +345,7 @@ export default function CompanyLocalisationPage() {
       {/* Edit Translation Dialog */}
       <Dialog open={selectedKey !== null} onOpenChange={(open) => !open && setSelectedKey(null)}>
         {selectedKey && (
-          <DialogContent className="max-w-xl bg-palladian text-blue-fantastic font-cream border border-blue-fantastic/20">
+          <DialogContent className="max-w-xl bg-white text-blue-fantastic font-sans border border-blue-fantastic/20">
             <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
               <DialogTitle className="text-xl font-bold text-blue-fantastic flex items-center gap-2">
                 <Edit3 className="h-5 w-5 text-truffle-trouble" />
@@ -363,7 +364,7 @@ export default function CompanyLocalisationPage() {
                 <Input
                   value={editForm.enAU}
                   onChange={(e) => setEditForm({ ...editForm, enAU: e.target.value })}
-                  className="bg-palladian border-blue-fantastic/20 text-xs font-medium"
+                  className="bg-white border-blue-fantastic/20 text-xs font-medium"
                 />
               </div>
 
@@ -374,7 +375,7 @@ export default function CompanyLocalisationPage() {
                 <Input
                   value={editForm.zhCN}
                   onChange={(e) => setEditForm({ ...editForm, zhCN: e.target.value })}
-                  className="bg-palladian border-blue-fantastic/20 text-xs font-medium"
+                  className="bg-white border-blue-fantastic/20 text-xs font-medium"
                 />
               </div>
 
@@ -385,7 +386,7 @@ export default function CompanyLocalisationPage() {
                 <Input
                   value={editForm.viVN}
                   onChange={(e) => setEditForm({ ...editForm, viVN: e.target.value })}
-                  className="bg-palladian border-blue-fantastic/20 text-xs font-medium"
+                  className="bg-white border-blue-fantastic/20 text-xs font-medium"
                 />
               </div>
 
@@ -396,7 +397,7 @@ export default function CompanyLocalisationPage() {
                 <Input
                   value={editForm.esES}
                   onChange={(e) => setEditForm({ ...editForm, esES: e.target.value })}
-                  className="bg-palladian border-blue-fantastic/20 text-xs font-medium"
+                  className="bg-white border-blue-fantastic/20 text-xs font-medium"
                 />
               </div>
 
@@ -407,7 +408,7 @@ export default function CompanyLocalisationPage() {
                 <select
                   value={editForm.status}
                   onChange={(e: any) => setEditForm({ ...editForm, status: e.target.value })}
-                  className="w-full bg-palladian border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
+                  className="w-full bg-white border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
                 >
                   <option value="Translated">Translated</option>
                   <option value="Pending Review">Pending Review</option>

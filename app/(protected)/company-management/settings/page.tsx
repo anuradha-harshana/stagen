@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { MOCK_GOVERNANCE_SETTINGS } from "@/lib/db-mock/companyData";
-import PageHeader from "@/components/Customer/PageHeader";
+import PageHeader from "@/components/shared/PageHeader";
 
 export default function CompanyManagementSettingsPage() {
   const [settings, setSettings] = useState(MOCK_GOVERNANCE_SETTINGS);
@@ -43,7 +43,7 @@ export default function CompanyManagementSettingsPage() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full px-6 py-6 font-cream max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Toast */}
       {toastMessage && (
         <div className="fixed top-5 right-5 z-50 bg-blue-fantastic text-palladian px-4 py-3 rounded-xl shadow-lg border border-burning-flame/30 flex items-center gap-2 text-sm font-semibold animate-in fade-in slide-in-from-top-2">
@@ -79,7 +79,7 @@ export default function CompanyManagementSettingsPage() {
       />
 
       {/* 1. Subscription & Site Capacity Overview */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm relative overflow-hidden">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-burning-flame via-truffle-trouble to-blue-fantastic" />
         <CardHeader className="pb-3 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -128,7 +128,7 @@ export default function CompanyManagementSettingsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* 2. SLA & Threshold Alerts */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardHeader className="pb-3 border-b border-blue-fantastic/10">
             <CardTitle className="text-base font-bold text-blue-fantastic flex items-center gap-2">
               <Bell className="h-4 w-4 text-burning-flame" />
@@ -156,7 +156,7 @@ export default function CompanyManagementSettingsPage() {
                     }
                   })
                 }
-                className="bg-palladian border-blue-fantastic/20 text-xs font-bold"
+                className="bg-white border-blue-fantastic/20 text-xs font-bold"
               />
               <p className="text-[10px] text-blue-fantastic/50 mt-1">
                 Flag projects as 'At Risk' on executive dashboard if unmitigated delay &gt; threshold.
@@ -179,7 +179,7 @@ export default function CompanyManagementSettingsPage() {
                     }
                   })
                 }
-                className="bg-palladian border-blue-fantastic/20 text-xs font-bold"
+                className="bg-white border-blue-fantastic/20 text-xs font-bold"
               />
               <p className="text-[10px] text-blue-fantastic/50 mt-1">
                 Trigger supervisor reminder if customer inquiry remains pending without reply.
@@ -210,7 +210,7 @@ export default function CompanyManagementSettingsPage() {
         </Card>
 
         {/* 3. Security & Governance Policies */}
-        <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
           <CardHeader className="pb-3 border-b border-blue-fantastic/10">
             <CardTitle className="text-base font-bold text-blue-fantastic flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-blue-fantastic" />
@@ -250,7 +250,7 @@ export default function CompanyManagementSettingsPage() {
               <Input
                 readOnly
                 value={settings.securityPolicies.ssoProvider}
-                className="bg-palladian/60 border-blue-fantastic/15 text-xs font-bold text-blue-fantastic/80 cursor-not-allowed"
+                className="bg-surface-muted border-blue-fantastic/15 text-xs font-bold text-blue-fantastic/80 cursor-not-allowed"
               />
             </div>
 
@@ -270,7 +270,7 @@ export default function CompanyManagementSettingsPage() {
                     }
                   })
                 }
-                className="bg-palladian border-blue-fantastic/20 text-xs font-bold"
+                className="bg-white border-blue-fantastic/20 text-xs font-bold"
               />
             </div>
           </CardContent>
@@ -278,7 +278,7 @@ export default function CompanyManagementSettingsPage() {
       </div>
 
       {/* 4. Automatic Escalation Rules Card */}
-      <Card className="bg-palladian border border-blue-fantastic/15 shadow-sm">
+      <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
         <CardHeader className="pb-3 border-b border-blue-fantastic/10">
           <CardTitle className="text-base font-bold text-blue-fantastic flex items-center gap-2">
             <AlertTriangle className="h-4 w-4 text-truffle-trouble" />

@@ -53,7 +53,7 @@ export default function VerticalTimeline({
   return (
     <div className="relative flex flex-col gap-8 pl-1 w-full">
       {/* Background Vertical Track Line */}
-      <div className="absolute top-8 bottom-8 left-[21px] w-[3px] bg-palladian/60 z-0 rounded-full" />
+      <div className="absolute top-8 bottom-8 left-[21px] w-[3px] bg-surface-muted z-0 rounded-full" />
       
       {/* Animated Progress Fill Line */}
       <div

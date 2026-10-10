@@ -18,8 +18,12 @@ export function LogoutButton() {
                 return;
             }
 
+<<<<<<< HEAD
             const data = await res.json().catch(() => ({}));
             toast.success("Logged out successfully");
+=======
+            toast.success("Logged out successfully", { position: "top-right" });
+>>>>>>> origin/development
 
             if (data.logoutUrl) {
                 window.location.href = data.logoutUrl;

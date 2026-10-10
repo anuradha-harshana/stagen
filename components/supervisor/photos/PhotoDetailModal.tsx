@@ -89,7 +89,7 @@ export function PhotoDetailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-4xl w-[92vw] max-h-[90vh] overflow-y-auto bg-palladian border-blue-fantastic/20 p-0 font-cream sm:rounded-2xl">
+      <DialogContent className="max-w-4xl w-[92vw] max-h-[90vh] overflow-y-auto bg-white border-blue-fantastic/20 p-0 font-sans sm:rounded-2xl">
         <input
           ref={fileReplaceInputRef}
           type="file"
@@ -114,16 +114,16 @@ export function PhotoDetailModal({
               </div>
             )}
 
-            <Badge className="absolute top-3 left-3 bg-blue-fantastic/90 text-palladian font-bold font-cream text-xs border border-palladian/20">
+            <Badge className="absolute top-3 left-3 bg-blue-fantastic/90 text-palladian font-bold font-sans text-xs border border-palladian/20">
               {photo.stageName}
             </Badge>
           </div>
 
           {/* Right / Bottom: Metadata & Actions Panel */}
-          <div className="w-full lg:w-80 p-5 flex flex-col justify-between bg-palladian border-t lg:border-t-0 lg:border-l border-blue-fantastic/15 font-sans">
+          <div className="w-full lg:w-80 p-5 flex flex-col justify-between bg-white border-t lg:border-t-0 lg:border-l border-blue-fantastic/15 font-sans">
             <div>
               <DialogHeader className="pb-3 border-b border-blue-fantastic/10 text-left">
-                <DialogTitle className="text-blue-fantastic font-cream font-bold text-lg leading-tight">
+                <DialogTitle className="text-blue-fantastic font-sans font-bold text-lg leading-tight">
                   Photo Details
                 </DialogTitle>
                 <DialogDescription className="text-xs text-blue-fantastic/60 truncate font-sans mt-0.5">
@@ -177,7 +177,7 @@ export function PhotoDetailModal({
               {/* Caption Section */}
               <div className="py-4">
                 <div className="flex items-center justify-between mb-2">
-                  <label className="text-xs font-bold font-cream text-blue-fantastic flex items-center">
+                  <label className="text-xs font-bold font-sans text-blue-fantastic flex items-center">
                     <Edit3 className="h-3.5 w-3.5 mr-1 text-truffle-trouble" />
                     Supervisor Note / Caption
                   </label>
@@ -197,7 +197,7 @@ export function PhotoDetailModal({
                       value={captionText}
                       onChange={(e) => setCaptionText(e.target.value)}
                       placeholder="Add an optional site observation or note..."
-                      className="bg-palladian/80 border-blue-fantastic/20 text-xs font-sans text-blue-fantastic placeholder:text-blue-fantastic/40 focus-visible:ring-truffle-trouble min-h-[90px]"
+                      className="bg-surface-muted border-blue-fantastic/20 text-xs font-sans text-blue-fantastic placeholder:text-blue-fantastic/40 focus-visible:ring-truffle-trouble min-h-[90px]"
                     />
                     <div className="flex gap-2 justify-end">
                       <Button
@@ -214,7 +214,7 @@ export function PhotoDetailModal({
                       <Button
                         type="button"
                         onClick={handleSaveCaption}
-                        className="h-7 text-xs px-3 bg-blue-fantastic text-palladian font-cream font-bold"
+                        className="h-7 text-xs px-3 bg-blue-fantastic text-palladian font-sans font-bold"
                       >
                         <Save className="h-3 w-3 mr-1" />
                         Save Note
@@ -222,7 +222,7 @@ export function PhotoDetailModal({
                     </div>
                   </div>
                 ) : (
-                  <p className="text-xs text-blue-fantastic/80 leading-relaxed bg-palladian/60 p-3 rounded-xl border border-blue-fantastic/10 italic">
+                  <p className="text-xs text-blue-fantastic/80 leading-relaxed bg-surface-muted p-3 rounded-xl border border-blue-fantastic/10 italic">
                     {photo.caption || "No note recorded for this photo."}
                   </p>
                 )}
@@ -235,7 +235,7 @@ export function PhotoDetailModal({
                 type="button"
                 onClick={() => fileReplaceInputRef.current?.click()}
                 variant="outline"
-                className="w-full border-blue-fantastic/20 hover:bg-blue-fantastic/10 text-blue-fantastic font-cream font-bold text-xs h-9 rounded-xl justify-center"
+                className="w-full border-blue-fantastic/20 hover:bg-blue-fantastic/10 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl justify-center"
               >
                 <RefreshCw className="h-3.5 w-3.5 mr-1.5 text-blue-fantastic" />
                 Replace Photo File
@@ -267,7 +267,7 @@ export function PhotoDetailModal({
                   type="button"
                   onClick={() => setIsConfirmingDelete(true)}
                   variant="ghost"
-                  className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 font-cream font-bold text-xs h-9 rounded-xl justify-center"
+                  className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 font-sans font-bold text-xs h-9 rounded-xl justify-center"
                 >
                   <Trash2 className="h-3.5 w-3.5 mr-1.5" />
                   Delete Photo

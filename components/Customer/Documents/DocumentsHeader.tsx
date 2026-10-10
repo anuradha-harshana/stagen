@@ -6,7 +6,7 @@ export function DocumentsHeader() {
   return (
     <div className="flex items-start justify-between flex-wrap gap-4 py-1">
       <div className="flex items-center gap-3">
-        <div className="h-11 w-11 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
+        <div className="h-12 w-12 rounded-2xl bg-blue-fantastic flex items-center justify-center shadow-sm shrink-0">
           <FolderOpen className="h-5 w-5 text-burning-flame" />
         </div>
         <div>
@@ -35,7 +35,7 @@ export function DocumentsHeader() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-blue-fantastic/40 pointer-events-none" />
           <Input
             placeholder="Search files..."
-            className="pl-8 bg-palladian border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm font-sans w-52"
+            className="pl-8 bg-white border-blue-fantastic/15 text-blue-fantastic placeholder:text-blue-fantastic/35 h-8 text-sm font-sans w-52"
           />
         </div>
         <Button

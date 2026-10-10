@@ -37,21 +37,21 @@ export function BuyLicencesModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-cream">
-      <div className="bg-white rounded-3xl shadow-2xl border border-oatmeal/30 w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200 font-sans">
+      <div className="bg-white rounded-3xl shadow-2xl border border-blue-fantastic/15 w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-oatmeal/20">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-blue-fantastic/15">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-xl bg-burning-flame/15 border border-burning-flame/30 flex items-center justify-center text-truffle-trouble">
               <PlusCircle className="h-4.5 w-4.5 text-burning-flame fill-burning-flame/20" />
             </div>
-            <h2 className="text-base font-bold text-blue-fantastic font-cream">
+            <h2 className="text-base font-bold text-blue-fantastic font-sans">
               Purchase Additional Site Licences
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-palladian transition-colors cursor-pointer"
+            className="h-8 w-8 rounded-full flex items-center justify-center text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-surface-inset transition-colors cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>
@@ -88,13 +88,13 @@ export function BuyLicencesModal({
                 type="button"
                 onClick={handleDecrement}
                 disabled={additionalCount <= 1}
-                className="h-11 w-11 rounded-2xl bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 flex items-center justify-center text-blue-fantastic font-bold disabled:opacity-40 cursor-pointer transition-colors"
+                className="h-12 w-12 rounded-2xl bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 flex items-center justify-center text-blue-fantastic font-bold disabled:opacity-40 cursor-pointer transition-colors"
               >
                 <Minus className="h-4 w-4" />
               </button>
 
               <div className="text-center min-w-[90px]">
-                <span className="text-3xl font-bold text-blue-fantastic block font-cream">
+                <span className="text-3xl font-bold text-blue-fantastic block font-sans">
                   +{additionalCount}
                 </span>
                 <span className="text-[11px] text-neutral-400 font-medium">
@@ -105,7 +105,7 @@ export function BuyLicencesModal({
               <button
                 type="button"
                 onClick={handleIncrement}
-                className="h-11 w-11 rounded-2xl bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 flex items-center justify-center text-blue-fantastic font-bold cursor-pointer transition-colors"
+                className="h-12 w-12 rounded-2xl bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 flex items-center justify-center text-blue-fantastic font-bold cursor-pointer transition-colors"
               >
                 <Plus className="h-4 w-4" />
               </button>
@@ -147,7 +147,7 @@ export function BuyLicencesModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-oatmeal/20 bg-neutral-50/50">
+        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-blue-fantastic/15 bg-neutral-50/50">
           <Button
             variant="outline"
             onClick={onClose}

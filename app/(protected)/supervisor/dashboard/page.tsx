@@ -19,12 +19,15 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { useUser } from "@/components/Providers/user-provider";
+import { useUser } from "@/components/Providers/UserProvider";
+import PageHeader from "@/components/shared/PageHeader";
+import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 import type {
   SupervisorDashboardData,
   SupervisorQuestion,
   SupervisorActivity,
 } from "@/lib/tenant/tenantTypes";
+import { PageSkeleton } from "@/components/shared/PageSkeleton";
 
 export default function SupervisorDashboard() {
   const user = useUser();
@@ -91,45 +94,37 @@ export default function SupervisorDashboard() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-120 text-blue-fantastic/70 font-semibold">
-        Loading supervisor dashboard...
-      </div>
-    );
+    return <PageSkeleton statCards={4} />;
   }
 
   return (
-    <div className="flex flex-col gap-5 w-full px-6 py-6 font-cream">
-      {/* 1. Header greeting */}
-      <div className="flex font-sans justify-between items-center">
-        <div>
-          <h1 className="text-blue-fantastic text-3xl font-bold font-cream tracking-tight">
-            Welcome back, {user.username}
-          </h1>
-          <p className="text-sm text-blue-fantastic/60 font-semibold mt-0.5">
-            Supervisor Dashboard · {totalProjects} active construction site{totalProjects === 1 ? "" : "s"} under management
-          </p>
-        </div>
-        <div className="flex gap-3 h-fit items-center">
-          <div className="relative cursor-pointer h-9 w-9 rounded-xl bg-blue-fantastic/10 flex items-center justify-center border border-blue-fantastic/15 hover:bg-blue-fantastic/20 transition-all">
-            <Bell className="h-4.5 w-4.5 text-blue-fantastic" />
-            <span className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full bg-truffle-trouble border-2 border-oatmeal animate-pulse" />
+    <div className={PAGE_SHELL_CLASS}>
+      <PageHeader
+        icon={<Building2 className="h-5 w-5 text-burning-flame" />}
+        title={`Welcome back, ${user.username}`}
+        subtitle={`Supervisor Dashboard · ${totalProjects} active construction site${totalProjects === 1 ? "" : "s"} under management`}
+        rightContent={
+          <div className="flex gap-3 items-center">
+            <div className="relative h-10 w-10 rounded-xl bg-blue-fantastic/10 flex items-center justify-center border border-blue-fantastic/15 hover:bg-blue-fantastic/15 transition-all">
+              <Bell className="h-4 w-4 text-blue-fantastic" />
+              <span className="absolute top-1.5 right-1.5 h-2.5 w-2.5 rounded-full bg-truffle-trouble border-2 border-oatmeal" />
+            </div>
+            <Image
+              src="/images/user.jpg"
+              width={40}
+              height={40}
+              alt="supervisor"
+              className="rounded-xl border border-blue-fantastic/20 object-cover h-10 w-10"
+              onError={(e) => {
+                e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100";
+              }}
+            />
           </div>
-          <Image
-            src="/images/user.jpg"
-            width={40}
-            height={40}
-            alt="supervisor"
-            className="rounded-xl border border-blue-fantastic/20 object-cover"
-            onError={(e) => {
-              e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100";
-            }}
-          />
-        </div>
-      </div>
+        }
+      />
 
       {/* 2. Interactive KPI Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 font-cream">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         {[
           {
             label: "Total Projects",
@@ -172,7 +167,7 @@ export default function SupervisorDashboard() {
           return (
             <Card
               key={item.label}
-              className="bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
+              className="bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
             >
               <CardContent className="pt-4 pb-3.5 px-4 flex flex-col gap-2">
                 <div className="flex items-center justify-between">
@@ -184,7 +179,7 @@ export default function SupervisorDashboard() {
                   </div>
                 </div>
                 <div>
-                  <p className={`text-2xl font-bold font-cream tracking-tight ${item.valueColor}`}>
+                  <p className={`text-2xl font-bold font-sans tracking-tight ${item.valueColor}`}>
                     {item.value}
                   </p>
                   <p className="text-[11px] text-blue-fantastic/70 font-semibold mt-0.5">
@@ -205,7 +200,7 @@ export default function SupervisorDashboard() {
             <AlertTriangle className="h-4.5 w-4.5 text-truffle-trouble" />
           </div>
           <div>
-            <h4 className="text-blue-fantastic font-bold text-sm font-cream">
+            <h4 className="text-blue-fantastic font-bold text-sm font-sans">
               Active Build Site Delay Alert
             </h4>
             <p className="text-xs text-blue-fantastic/90 font-semibold mt-1 leading-relaxed">
@@ -218,13 +213,13 @@ export default function SupervisorDashboard() {
       {/* 4. Two Column Workspace Layout */}
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-5">
         {/* Left Column: Customer Inquiries (3 cols) */}
-        <Card className="lg:col-span-3 bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="lg:col-span-3 bg-white border border-blue-fantastic/15 shadow-sm">
           <CardHeader className="border-b border-blue-fantastic/10 pb-3">
             <div className="flex items-center gap-2">
               <div className="h-7 w-7 rounded-xl bg-truffle-trouble/10 flex items-center justify-center">
                 <MessageCircle className="h-4 w-4 text-truffle-trouble" />
               </div>
-              <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+              <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
                 Customer Inquiries Center
               </CardTitle>
               <Badge
@@ -269,7 +264,7 @@ export default function SupervisorDashboard() {
                       </div>
                     </div>
 
-                    <p className="text-xs text-blue-fantastic/90 font-semibold italic bg-palladian/60 p-2.5 rounded-xl border border-blue-fantastic/5 leading-relaxed">
+                    <p className="text-xs text-blue-fantastic/90 font-semibold italic bg-surface-muted p-2.5 rounded-xl border border-blue-fantastic/5 leading-relaxed">
                       "{q.questionText}"
                     </p>
 
@@ -279,7 +274,7 @@ export default function SupervisorDashboard() {
                           placeholder="Type your reply to the customer here..."
                           value={replyText}
                           onChange={(e) => setReplyText(e.target.value)}
-                          className="bg-palladian border-blue-fantastic/20 text-xs text-blue-fantastic font-sans placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble"
+                          className="bg-white border-blue-fantastic/20 text-xs text-blue-fantastic font-sans placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble"
                           rows={3}
                         />
                         <div className="flex gap-2 justify-end">
@@ -327,13 +322,13 @@ export default function SupervisorDashboard() {
         </Card>
 
         {/* Right Column: Recent Activities (2 cols) */}
-        <Card className="lg:col-span-2 bg-palladian border border-blue-fantastic/15 shadow-sm">
+        <Card className="lg:col-span-2 bg-white border border-blue-fantastic/15 shadow-sm">
           <CardHeader className="border-b border-blue-fantastic/10 pb-3">
             <div className="flex items-center gap-2">
               <div className="h-7 w-7 rounded-xl bg-blue-fantastic/10 flex items-center justify-center">
                 <CalendarDays className="h-4 w-4 text-blue-fantastic" />
               </div>
-              <CardTitle className="text-blue-fantastic text-sm font-bold font-cream">
+              <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
                 Recent Site Activity
               </CardTitle>
             </div>

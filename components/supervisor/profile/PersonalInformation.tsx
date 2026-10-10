@@ -140,7 +140,7 @@ export function PersonalInformation({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-abyssal-blue/40 backdrop-blur-sm">
           <div className="bg-white rounded-3xl w-full max-w-md shadow-xl border border-oatmeal/30 overflow-hidden">
-            <div className="flex justify-between items-center px-6 py-4 border-b border-oatmeal/10 bg-palladian/30">
+            <div className="flex justify-between items-center px-6 py-4 border-b border-oatmeal/10 bg-surface-inset">
               <h3 className="font-bold text-blue-fantastic text-base">Edit Personal Information</h3>
               <button
                 onClick={() => setIsOpen(false)}

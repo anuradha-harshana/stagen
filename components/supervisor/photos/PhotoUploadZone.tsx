@@ -184,7 +184,7 @@ export function PhotoUploadZone({
         className={`relative border-2 border-dashed rounded-2xl transition-all duration-200 ${
           isDragging
             ? "border-truffle-trouble bg-truffle-trouble/10 shadow-inner"
-            : "border-blue-fantastic/20 hover:border-blue-fantastic/40 bg-palladian/40 hover:bg-palladian/70"
+            : "border-blue-fantastic/20 hover:border-blue-fantastic/40 bg-surface-inset hover:bg-surface-inset/70"
         } ${compact ? "p-4" : "p-6 sm:p-8"}`}
       >
         {isUploading ? (
@@ -192,7 +192,7 @@ export function PhotoUploadZone({
             <div className="h-10 w-10 rounded-full bg-blue-fantastic/10 flex items-center justify-center mb-3">
               <Loader2 className="h-5 w-5 text-blue-fantastic animate-spin" />
             </div>
-            <p className="text-sm font-bold font-cream text-blue-fantastic">
+            <p className="text-sm font-bold font-sans text-blue-fantastic">
               Uploading {uploadingFilesCount} photo{uploadingFilesCount > 1 ? "s" : ""}...
             </p>
             <p className="text-xs text-blue-fantastic/60 font-sans mt-0.5 mb-3">
@@ -217,7 +217,7 @@ export function PhotoUploadZone({
               </div>
             </div>
 
-            <h3 className="text-blue-fantastic font-cream font-bold text-base mb-1">
+            <h3 className="text-blue-fantastic font-sans font-bold text-base mb-1">
               Upload Site Photos for <span className="text-truffle-trouble">{stageName}</span>
             </h3>
             <p className="text-xs text-blue-fantastic/60 font-sans max-w-sm mb-4">
@@ -229,7 +229,7 @@ export function PhotoUploadZone({
               <Button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-cream font-bold text-xs px-4 h-9 rounded-xl shadow-xs"
+                className="bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-sans font-bold text-xs px-4 h-9 rounded-xl shadow-xs"
               >
                 <ImageIcon className="h-4 w-4 mr-1.5" />
                 Browse Photos
@@ -239,7 +239,7 @@ export function PhotoUploadZone({
                 type="button"
                 onClick={() => cameraInputRef.current?.click()}
                 variant="outline"
-                className="border-blue-fantastic/20 hover:bg-blue-fantastic/10 text-blue-fantastic font-cream font-bold text-xs px-4 h-9 rounded-xl"
+                className="border-blue-fantastic/20 hover:bg-blue-fantastic/10 text-blue-fantastic font-sans font-bold text-xs px-4 h-9 rounded-xl"
               >
                 <Camera className="h-4 w-4 mr-1.5 text-truffle-trouble" />
                 Take Photo (Mobile)

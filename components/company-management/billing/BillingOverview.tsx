@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import { ShieldCheck } from "lucide-react";
-import { BillingHeader } from "./billing-header";
-import { BillingStats } from "./billing-stats";
-import { BillingCharts } from "./billing-charts";
-import { BillingUsageBreakdown } from "./billing-usage-breakdown";
-import { InvoicesList, Invoice } from "./invoices-list";
+import { BillingHeader } from "./BillingHeader";
+import { BillingStats } from "./BillingStats";
+import { BillingCharts } from "./BillingCharts";
+import { BillingUsageBreakdown } from "./BillingUsageBreakdown";
+import { InvoicesList, Invoice } from "./InvoicesList";
 
 const mockInvoices: Invoice[] = [
   { id: "INV-2026-081", siteName: "Grandview Heights - Phase 2", region: "NSW", plan: "Enterprise", issueDate: "2026-08-01", dueDate: "2026-08-15", amount: 4999, status: "Paid" },
@@ -28,7 +28,7 @@ export function BillingOverview() {
   };
 
   return (
-    <div className="p-6 md:p-8 space-y-8 text-blue-fantastic font-cream">
+    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-blue-fantastic text-palladian px-4 py-3 rounded-lg shadow-xl border border-burning-flame flex items-center gap-3 animate-bounce">
