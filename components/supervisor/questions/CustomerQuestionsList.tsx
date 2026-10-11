@@ -30,7 +30,7 @@ interface CustomerQuestionsListProps {
     projectCode: string
     projectName: string
   }) => void
-  onAddComment?: (questionId: string, commentText: string, isOfficialAnswer: boolean) => void
+  onAddComment?: (questionId: string, commentText: string, isOfficialAnswer: boolean) => Promise<boolean>
   onToggleLikeQuestion?: (questionId: string) => void
   onToggleLikeComment?: (questionId: string, commentId: string) => void
   userRole?: "SUPERVISOR" | "CUSTOMER"
@@ -38,6 +38,9 @@ interface CustomerQuestionsListProps {
 
 export function CustomerQuestionsList({
   questions,
+  onOpenAnswerModal,
+  onToggleLikeQuestion,
+  onToggleLikeComment,
   onDeleteQuestion,
   onAddComment,
   userRole = "SUPERVISOR",
@@ -52,14 +55,14 @@ export function CustomerQuestionsList({
     setOpenComments((prev) => ({ ...prev, [id]: !(prev[id] ?? false) }))
   }
 
-  const handleCommentSubmit = (questionId: string) => {
+  const handleCommentSubmit = async (questionId: string) => {
     const text = commentInputs[questionId]?.trim()
     if (!text) return
 
     const isOfficial = userRole === "SUPERVISOR"
 
     if (onAddComment) {
-      onAddComment(questionId, text, isOfficial)
+      if (!await onAddComment(questionId, text, isOfficial)) return
     }
 
     setCommentInputs((prev) => ({ ...prev, [questionId]: "" }))
@@ -67,11 +70,12 @@ export function CustomerQuestionsList({
     // Ensure comment section is expanded when adding a comment
     setOpenComments((prev) => ({ ...prev, [questionId]: true }))
 
-    toast.success("Comment added.")
+
   }
 
   return (
     <div className="space-y-4 font-sans">
+      {questions.length === 0 && <p className="p-6 text-blue-fantastic/70">No questions match these filters.</p>}
       {questions.map((q) => {
         const commentsList = q.comments || []
         const isCommentsOpen = openComments[q.id] ?? false
@@ -82,6 +86,10 @@ export function CustomerQuestionsList({
             className="bg-white border border-blue-fantastic/15 shadow-xs hover:border-blue-fantastic/30 transition-all rounded-2xl overflow-hidden font-sans"
           >
             <CardContent className="p-5 space-y-4 font-sans">
+              <div className="flex gap-2">
+                {onOpenAnswerModal && <Button size="sm" onClick={() => onOpenAnswerModal(q)}>{q.status === "ANSWERED" ? "Edit answer" : "Answer question"}</Button>}
+                {onToggleLikeQuestion && <Button size="sm" variant="outline" onClick={() => onToggleLikeQuestion(q.id)}>{q.isLiked ? "Unlike" : "Like"} ({q.likesCount ?? 0})</Button>}
+              </div>
               {/* CARD HEADER */}
               <div className="flex items-start justify-between flex-wrap gap-3 pb-3 border-b border-blue-fantastic/10">
                 <div className="flex items-center gap-3">
@@ -185,6 +193,7 @@ export function CustomerQuestionsList({
                               <div className="flex items-center gap-1.5 font-bold text-blue-fantastic">
                                 <User className="h-3 w-3 text-truffle-trouble" />
                                 <span>{c.authorName}</span>
+                                {onToggleLikeComment && <button className="text-xs underline" onClick={() => onToggleLikeComment(q.id, c.id)}>{c.isLiked ? "Unlike" : "Like"} ({c.likes ?? 0})</button>}
                                 {c.isOfficialAnswer && (
                                   <Badge className="text-[9px] bg-truffle-trouble text-palladian font-bold px-1.5 py-0 border-none">
                                     <ShieldCheck className="h-2.5 w-2.5 mr-0.5" /> Supervisor Answer

@@ -14,8 +14,9 @@ interface RecentDocumentsListProps {
   onUpdateVisibility?: (
     docId: string,
     newVisibility: DocumentUploadPayload["visibility"]
-  ) => void
+  ) => Promise<boolean>
   onViewAll?: () => void
+  onDelete?: (id: string) => Promise<boolean>
 }
 
 export function RecentDocumentsList({
@@ -23,6 +24,7 @@ export function RecentDocumentsList({
   documents,
   onUpdateVisibility,
   onViewAll,
+  onDelete,
 }: RecentDocumentsListProps) {
   const getFileStyle = (fileType: DocumentUploadPayload["fileType"]) => {
     switch (fileType) {
@@ -121,11 +123,11 @@ export function RecentDocumentsList({
                     <Shield className="h-3 w-3 text-truffle-trouble shrink-0" />
                     <select
                       value={doc.visibility}
-                      onChange={(e) => {
+                      onChange={async (e) => {
                         const newVis = e.target.value as DocumentUploadPayload["visibility"]
                         if (onUpdateVisibility) {
                           onUpdateVisibility(doc.id, newVis)
-                          toast.success(`Access updated to "${newVis}" for ${doc.title}`)
+
                         }
                       }}
                       className="text-[10px] font-bold text-blue-fantastic bg-white border border-blue-fantastic/25 rounded-lg px-2 py-0.5 focus:border-truffle-trouble focus:ring-1 focus:ring-truffle-trouble outline-none cursor-pointer hover:border-blue-fantastic/40 transition-colors font-sans"
@@ -143,7 +145,7 @@ export function RecentDocumentsList({
                     <Button
                       variant="ghost"
                       size="icon-xs"
-                      onClick={() => toast.info(`Viewing preview of ${doc.fileName}...`)}
+                      disabled={!doc.hasFile} onClick={() => window.open(`/api/supervisor/documents?file=${encodeURIComponent(doc.id)}&preview=1`, "_blank", "noopener")}
                       className="text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-blue-fantastic/10"
                       title="View Document"
                     >
@@ -152,12 +154,14 @@ export function RecentDocumentsList({
                     <Button
                       variant="ghost"
                       size="icon-xs"
-                      onClick={() => toast.success(`Simulating download of ${doc.fileName}...`)}
+                      disabled={!doc.hasFile} onClick={() => { window.location.href = `/api/supervisor/documents?file=${encodeURIComponent(doc.id)}`; }}
                       className="text-blue-fantastic/60 hover:text-truffle-trouble hover:bg-truffle-trouble/10"
                       title="Download Document"
                     >
                       <Download className="h-3.5 w-3.5" />
                     </Button>
+                    {!doc.hasFile && <span className="text-xs">File unavailable</span>}
+                    {onDelete && <Button variant="ghost" size="sm" onClick={() => { if (confirm("Delete this document?")) void onDelete(doc.id); }}>Delete</Button>}
                   </div>
                 </div>
               </div>
@@ -179,6 +183,7 @@ export function RecentDocumentsList({
 
         <div className="flex justify-end pt-3 border-t border-blue-fantastic/10 mt-3">
           <button
+            hidden={!onViewAll}
             onClick={onViewAll}
             className="text-xs font-bold text-truffle-trouble hover:text-blue-fantastic flex items-center gap-0.5 transition-colors font-sans"
           >

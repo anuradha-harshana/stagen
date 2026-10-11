@@ -23,15 +23,23 @@ export interface Certification {
   expiryDate: string;
   status: "VERIFIED" | "ACTIVE" | "EXPIRED" | "PENDING";
   fileName?: string;
+  fileContent?: string;
 }
 
 interface QualificationsCertificationsProps {
   certifications: Certification[];
-  onAddCert: (cert: Certification) => void;
-  onEditCert: (cert: Certification) => void;
+  onAddCert: (cert: Certification) => Promise<boolean>;
+  onEditCert: (cert: Certification) => Promise<boolean>;
   onDeleteCert: (id: string) => void;
 }
 
+function downloadCertificate(cert: Certification) {
+  if (!cert.fileContent) return;
+  const bytes = Uint8Array.from(atob(cert.fileContent), c => c.charCodeAt(0));
+  const url = URL.createObjectURL(new Blob([bytes], { type: "application/octet-stream" }));
+  const link = document.createElement("a"); link.href = url; link.download = cert.fileName ?? "certificate"; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 export function QualificationsCertifications({
   certifications,
   onAddCert,
@@ -60,11 +68,11 @@ export function QualificationsCertifications({
     setModalState({ isOpen: false, mode: "add", cert: null });
   };
 
-  const handleFormSubmit = (cert: Certification) => {
+  const handleFormSubmit = async (cert: Certification) => {
     if (modalState.mode === "add") {
-      onAddCert(cert);
+      return onAddCert(cert);
     } else {
-      onEditCert(cert);
+      return onEditCert(cert);
     }
   };
 
@@ -190,14 +198,14 @@ export function QualificationsCertifications({
                     </div>
                     <div className="flex items-center gap-1.5">
                       <button
-                        onClick={() => toast.success(`Simulating preview of ${cert.fileName}`)}
+                        disabled={!cert.fileContent} onClick={() => downloadCertificate(cert)}
                         className="p-1 rounded-md text-blue-fantastic/50 hover:text-blue-fantastic hover:bg-white transition-colors"
                         title="View Document"
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
                       </button>
                       <button
-                        onClick={() => toast.success(`Simulating download of ${cert.fileName}`)}
+                        disabled={!cert.fileContent} onClick={() => downloadCertificate(cert)}
                         className="p-1 rounded-md text-blue-fantastic/50 hover:text-blue-fantastic hover:bg-white transition-colors"
                         title="Download Document"
                       >
@@ -215,7 +223,7 @@ export function QualificationsCertifications({
                   No qualifications or certifications listed.
                 </p>
                 <p className="text-xs text-blue-fantastic/50">
-                  Click "+ Add Certification" to record one.
+                  Click &quot;+ Add Certification&quot; to record one.
                 </p>
               </div>
             )}

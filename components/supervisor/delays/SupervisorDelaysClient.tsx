@@ -1,15 +1,11 @@
 "use client";
 
+import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState } from "react";
 import { useUser } from "@/components/Providers/UserProvider";
 import { Project } from "@/lib/db-mock/projectsData";
-import { TimelinePageData, DelayLogEntry } from "@/lib/timeline/data";
-import { 
-  INITIAL_SUPERVISOR_TIMELINES, 
-  recalculateTimelineStats, 
-  getAssignedProjects 
-} from "@/components/supervisor/timeline/supervisor-timeline-store";
-import { INITIAL_DELAY_MESSAGES, DelayMessage, getDelayCategoryMeta } from "./DelayStore";
+import { TimelinePageData, DelayLogEntry } from "@/lib/supervisor/types";
+import { DelayMessage, getDelayCategoryMeta } from "./DelayStore";
 import { DelayStatsOverview } from "./DelayStatsOverview";
 import { LogDelayFormModal } from "./LogDelayFormModal";
 import { SendDelayMessageModal } from "./SendDelayMessageModal";
@@ -38,23 +34,26 @@ import { toast } from "sonner";
 
 export function SupervisorDelaysClient() {
   const user = useUser();
-  const assignedProjects = getAssignedProjects(user?.id);
+  const projectApi = useSupervisorData<(Project & { customerEmail: string })[]>("projects", []);
+  const assignedProjects = projectApi.data;
 
   // Active project selection
-  const [selectedProjectId, setSelectedProjectId] = useState<string>(assignedProjects[0]?.id || "lot-104");
+  const [selectedId, setSelectedProjectId] = useState("");
+  const selectedProjectId = selectedId || assignedProjects[0]?.id || "";
 
   // Timelines dictionary state for live updates
-  const [timelines, setTimelines] = useState<Record<string, TimelinePageData>>(INITIAL_SUPERVISOR_TIMELINES);
+  const api = useSupervisorData<Record<string, TimelinePageData>>("timeline", {});
+  const { data: timelines, setData: setTimelines } = api;
 
   // Messages dictionary state for customer notices
-  const [delayMessages, setDelayMessages] = useState<DelayMessage[]>(INITIAL_DELAY_MESSAGES);
+  const messageApi = useSupervisorData<DelayMessage[]>("messages", []);
+  const delayMessages = messageApi.data;
 
   // Active tab state: "log" vs "notices"
   const [activeTab, setActiveTab] = useState<"log" | "notices">("log");
 
   // Active project timeline data
-  const currentTimelineRaw = timelines[selectedProjectId] || INITIAL_SUPERVISOR_TIMELINES["lot-104"];
-  const currentTimeline = recalculateTimelineStats(currentTimelineRaw);
+  const currentTimeline = timelines[selectedProjectId];
   const activeProject = assignedProjects.find((p: Project) => p.id === selectedProjectId) || assignedProjects[0];
 
   // Active project delay messages
@@ -82,59 +81,15 @@ export function SupervisorDelaysClient() {
     setIsMessageModalOpen(true);
   };
 
-  const handleSaveDelay = (entry: DelayLogEntry, autoNotify: boolean) => {
-    setTimelines((prev) => {
-      const projTimeline = prev[selectedProjectId] || INITIAL_SUPERVISOR_TIMELINES["lot-104"];
-      const existingLog = projTimeline.delayLog || [];
-
-      let updatedLog: DelayLogEntry[];
-      const existsIndex = existingLog.findIndex((d) => String(d.id) === String(entry.id));
-
-      if (existsIndex >= 0) {
-        updatedLog = [...existingLog];
-        updatedLog[existsIndex] = entry;
-      } else {
-        updatedLog = [...existingLog, entry];
-      }
-
-      const updatedTimeline = recalculateTimelineStats({
-        ...projTimeline,
-        delayLog: updatedLog,
-      });
-
-      return {
-        ...prev,
-        [selectedProjectId]: updatedTimeline,
-      };
-    });
-
-    if (autoNotify) {
-      setSelectedDelayForMessage(entry);
-      setIsMessageModalOpen(true);
-    }
+  const handleSaveDelay = async (entry: DelayLogEntry, autoNotify: boolean) => {
+    const exists = currentTimeline.delayLog.some(d => String(d.id) === String(entry.id));
+    const ok = await api.mutate(exists ? "PUT" : "POST", { ...entry, tenantId: selectedProjectId }, "delays");
+    if (ok && autoNotify) { setSelectedDelayForMessage(null); setIsMessageModalOpen(true); }
+    return ok;
   };
-
-  const handleDeleteDelay = (delayId: string | number) => {
-    setTimelines((prev) => {
-      const projTimeline = prev[selectedProjectId] || INITIAL_SUPERVISOR_TIMELINES["lot-104"];
-      const updatedLog = (projTimeline.delayLog || []).filter((d) => String(d.id) !== String(delayId));
-
-      const updatedTimeline = recalculateTimelineStats({
-        ...projTimeline,
-        delayLog: updatedLog,
-      });
-
-      return {
-        ...prev,
-        [selectedProjectId]: updatedTimeline,
-      };
-    });
-    toast.success("Delay log entry removed");
-  };
-
-  const handleSendMessage = (newMessage: DelayMessage) => {
-    setDelayMessages((prev) => [newMessage, ...prev]);
-  };
+  const handleDeleteDelay = async (id: string | number) => { await api.mutate("DELETE", { id: String(id) }, "delays"); };
+  const handleSendMessage = async (message: DelayMessage) => messageApi.mutate("POST", message);
+  if (api.loading || projectApi.loading || messageApi.loading || api.error || projectApi.error || messageApi.error || !currentTimeline || !activeProject) return <DataState loading={api.loading || projectApi.loading || messageApi.loading} error={api.error || projectApi.error || messageApi.error} empty />;
 
   const getCategoryIcon = (type: DelayLogEntry["type"]) => {
     switch (type) {
@@ -259,7 +214,7 @@ export function SupervisorDelaysClient() {
                 No Delay Log Entries
               </h4>
               <p className="text-xs text-blue-fantastic/60 font-sans max-w-sm mx-auto">
-                No schedule adjustments have been logged for {activeProject.id.toUpperCase()} yet. Click "Log New Delay" to add an incident.
+                No schedule adjustments have been logged for {activeProject.id.toUpperCase()} yet. Click &quot;Log New Delay&quot; to add an incident.
               </p>
             </div>
           ) : (
@@ -396,7 +351,7 @@ export function SupervisorDelaysClient() {
         onClose={() => setIsMessageModalOpen(false)}
         projectId={selectedProjectId}
         customerName={activeProject.clientName}
-        customerEmail={`${activeProject.clientName.toLowerCase().replace(" ", ".")}@example.com`}
+        customerEmail={activeProject.customerEmail}
         delayEntry={selectedDelayForMessage}
         onSendMessage={handleSendMessage}
       />

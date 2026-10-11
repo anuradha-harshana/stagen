@@ -43,37 +43,33 @@ interface AnswerQuestionModalProps {
   question: QuestionItem | null
   isOpen: boolean
   onClose: () => void
-  onSaveAnswer: (questionId: string, answerText: string, notifyCustomer: boolean) => void
+  onSaveAnswer: (questionId: string, answerText: string, notifyCustomer: boolean) => Promise<boolean>
 }
 
-export function AnswerQuestionModal({
+export function AnswerQuestionModal(props: AnswerQuestionModalProps) {
+  return <AnswerQuestionModalDraft key={`${props.question?.id ?? "none"}-${props.isOpen}`} {...props} />;
+}
+function AnswerQuestionModalDraft({
   question,
   isOpen,
   onClose,
   onSaveAnswer,
 }: AnswerQuestionModalProps) {
-  const [answerText, setAnswerText] = useState("")
+  const [answerText, setAnswerText] = useState(question?.answerText ?? "")
   const [notifyCustomer, setNotifyCustomer] = useState(true)
 
-  useEffect(() => {
-    if (question) {
-      setAnswerText(question.answerText || "")
-    } else {
-      setAnswerText("")
-    }
-  }, [question])
 
   if (!isOpen || !question) return null
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!answerText.trim()) {
       toast.error("Please enter an answer before submitting.")
       return
     }
 
-    onSaveAnswer(question.id, answerText.trim(), notifyCustomer)
-    toast.success(`Answer published and sent to ${question.customerName}!`)
+    if (!await onSaveAnswer(question.id, answerText.trim(), notifyCustomer)) return
+
     onClose()
   }
 

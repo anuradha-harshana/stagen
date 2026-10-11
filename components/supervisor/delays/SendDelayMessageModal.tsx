@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { DelayLogEntry } from "@/lib/timeline/data";
+import { DelayLogEntry } from "@/lib/supervisor/types";
 import { DelayMessage, getDelayCategoryMeta } from "./DelayStore";
 import { Send, Sparkles, User, AlertCircle, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
@@ -24,10 +24,13 @@ interface SendDelayMessageModalProps {
   customerName: string;
   customerEmail: string;
   delayEntry?: DelayLogEntry | null;
-  onSendMessage: (newMessage: DelayMessage) => void;
+  onSendMessage: (newMessage: DelayMessage) => Promise<boolean>;
 }
 
-export function SendDelayMessageModal({
+export function SendDelayMessageModal(props: SendDelayMessageModalProps) {
+  return <SendDelayMessageModalDraft key={`${props.projectId}-${props.delayEntry?.id ?? "new"}-${props.isOpen}`} {...props} />;
+}
+function SendDelayMessageModalDraft({
   isOpen,
   onClose,
   projectId,
@@ -36,22 +39,10 @@ export function SendDelayMessageModal({
   delayEntry,
   onSendMessage,
 }: SendDelayMessageModalProps) {
-  const [subject, setSubject] = useState<string>("");
-  const [body, setBody] = useState<string>("");
+  const [recipientEmail, setRecipientEmail] = useState(customerEmail);
+  const [subject, setSubject] = useState<string>(delayEntry ? `Build Schedule Notice: ${delayEntry.title} (${delayEntry.stageName} Stage)` : `Build Schedule Update: ${projectId}`);
+  const [body, setBody] = useState<string>(delayEntry ? `Hi ${customerName}, we experienced a delay during ${delayEntry.stageName}: ${delayEntry.reason}. The revised date is ${delayEntry.toDate}.` : `Hi ${customerName}, here is an update on your project schedule.`);
 
-  useEffect(() => {
-    if (delayEntry) {
-      setSubject(`Build Schedule Notice: ${delayEntry.title} (${delayEntry.stageName} Stage)`);
-      setBody(
-        `Hi ${customerName.split(" ")[0] || "Customer"},\n\nWe wanted to share an update regarding your build schedule for ${projectId.toUpperCase()}. We have experienced a delay during the ${delayEntry.stageName} stage due to ${delayEntry.reason}.\n\nOur revised completion estimate for this stage is now ${delayEntry.toDate}. We are monitoring site progress closely and will keep you informed of further updates.`
-      );
-    } else {
-      setSubject(`Build Schedule Update: ${projectId.toUpperCase()}`);
-      setBody(
-        `Hi ${customerName.split(" ")[0] || "Customer"},\n\nPlease find an update regarding your project timeline...`
-      );
-    }
-  }, [delayEntry, customerName, projectId, isOpen]);
 
   const handleGenerateTemplate = () => {
     if (!delayEntry) return;
@@ -63,7 +54,7 @@ export function SendDelayMessageModal({
     toast.info("Template message text generated");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!subject.trim() || !body.trim()) {
@@ -86,7 +77,7 @@ export function SendDelayMessageModal({
       projectId,
       delayId: delayEntry ? String(delayEntry.id) : undefined,
       recipientName: customerName,
-      recipientEmail: customerEmail,
+      recipientEmail,
       stageName: delayEntry?.stageName || "General",
       subject: subject.trim(),
       body: body.trim(),
@@ -94,8 +85,8 @@ export function SendDelayMessageModal({
       status: "delivered",
     };
 
-    onSendMessage(newMessage);
-    toast.success(`Delay notice dispatched to ${customerName}`);
+    if (!await onSendMessage(newMessage)) return;
+    toast.success(`Delay notice saved to ${customerName}`);
     onClose();
   };
 
@@ -115,6 +106,7 @@ export function SendDelayMessageModal({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+            <label className="block text-xs">Customer email<Input type="email" required value={recipientEmail} onChange={e => setRecipientEmail(e.target.value)} /></label>
           {/* Recipient Details */}
           <div className="p-3 bg-blue-fantastic/5 border border-blue-fantastic/10 rounded-xl flex items-center justify-between">
             <div className="flex items-center gap-2.5">

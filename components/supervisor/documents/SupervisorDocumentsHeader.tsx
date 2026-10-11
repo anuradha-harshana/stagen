@@ -5,19 +5,15 @@ import Image from "next/image"
 import { FolderOpen, Bell, ChevronDown } from "lucide-react"
 import { toast } from "sonner"
 
-export const SUPERVISOR_PROJECTS = [
-  { code: "PRO-233", name: "Groove Inn" },
-  { code: "PRO-234", name: "Sunset Villas" },
-  { code: "PRO-235", name: "Horizon Tower" },
-  { code: "PRO-236", name: "Parkview Residence" },
-]
 
 interface SupervisorDocumentsHeaderProps {
+  projects: { code: string; name: string }[]
   selectedProject: { code: string; name: string }
   onSelectProject: (project: { code: string; name: string }) => void
 }
 
 export function SupervisorDocumentsHeader({
+  projects,
   selectedProject,
   onSelectProject,
 }: SupervisorDocumentsHeaderProps) {
@@ -56,7 +52,7 @@ export function SupervisorDocumentsHeader({
 
             {isDropdownOpen && (
               <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-xl border border-blue-fantastic/15 py-2 z-30 font-sans">
-                {SUPERVISOR_PROJECTS.map((proj) => (
+                {projects.map((proj) => (
                   <button
                     key={proj.code}
                     onClick={() => {

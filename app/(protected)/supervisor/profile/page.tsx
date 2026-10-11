@@ -1,5 +1,6 @@
 "use client";
 
+import { useSupervisorData, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState, useRef } from "react";
 import { toast } from "sonner";
 import { HeaderSection } from "@/components/supervisor/profile/HeaderSection";
@@ -8,59 +9,8 @@ import { ProfessionalInformation } from "@/components/supervisor/profile/Profess
 import { QualificationsCertifications, Certification } from "@/components/supervisor/profile/QualificationsCertifications";
 
 export default function SupervisorProfilePage() {
-  // --- Profile State ---
-  const [avatar, setAvatar] = useState<string>("/images/user.jpg");
-  const [availability, setAvailability] = useState<"Available" | "Onsite" | "Leave">("Available");
-  
-  const [personalInfo, setPersonalInfo] = useState({
-    fullName: "Marcus Vance",
-    employeeId: "EMP-2026-9843",
-    contactNumber: "+61 491 570 156",
-    emailAddress: "marcus.vance@stagen.com.au",
-    officeBranch: "Sydney Head Office (HQ)"
-  });
-
-  const [professionalInfo, setProfessionalInfo] = useState({
-    yearsOfExperience: 8,
-    expertise: ["Commercial", "Residential", "Infrastructure"]
-  });
-
-  const [certifications, setCertifications] = useState<Certification[]>([
-    {
-      id: "1",
-      name: "White Card Induction",
-      licenseNo: "WC-NSW-88776655",
-      issuedDate: "2021-04-12",
-      expiryDate: "Never Expires",
-      status: "VERIFIED"
-    },
-    {
-      id: "2",
-      name: "First Aid Level II & CPR",
-      licenseNo: "FA-992384",
-      issuedDate: "2024-02-15",
-      expiryDate: "2027-02-15",
-      status: "ACTIVE",
-      fileName: "first_aid_cert_marcus.pdf"
-    },
-    {
-      id: "3",
-      name: "OHS Construction Supervisor Certificate",
-      licenseNo: "OHS-SUP-40112",
-      issuedDate: "2023-08-10",
-      expiryDate: "2026-08-10",
-      status: "ACTIVE"
-    },
-    {
-      id: "4",
-      name: "SWMS Electrical & Structural Agreement",
-      licenseNo: "SWMS-STG-2026",
-      issuedDate: "2026-01-10",
-      expiryDate: "2027-01-10",
-      status: "VERIFIED"
-    }
-  ]);
-
+  const api = useSupervisorData<{ avatar: string; availability: "Available" | "Onsite" | "Leave"; personalInfo: { fullName: string; employeeId: string; contactNumber: string; emailAddress: string; officeBranch: string }; professionalInfo: { yearsOfExperience: number; expertise: string[] }; certifications: Certification[] } | null>("profile", null);
+  const [avatarPreview, setAvatar] = useState("");
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
   // --- Handlers ---
@@ -84,36 +34,14 @@ export default function SupervisorProfilePage() {
     }
   };
 
-  // 2. Personal Info Update
-  const handleSavePersonalInfo = (updated: typeof personalInfo) => {
-    setPersonalInfo(updated);
-    toast.success("Personal information updated.");
-  };
-
-  // 3. Professional Info Update
-  const handleSaveProfessionalInfo = (updated: typeof professionalInfo) => {
-    setProfessionalInfo(updated);
-    toast.success("Professional details updated.");
-  };
-
-  // 4. Certification Handlers
-  const handleAddCert = (cert: Certification) => {
-    setCertifications(prev => [...prev, cert]);
-    toast.success("New certification added.");
-  };
-
-  const handleEditCert = (updatedCert: Certification) => {
-    setCertifications(prev => prev.map(cert => cert.id === updatedCert.id ? updatedCert : cert));
-    toast.success("Certification details updated.");
-  };
-
-  const handleDeleteCert = (id: string) => {
-    if (confirm("Are you sure you want to delete this certification?")) {
-      setCertifications(prev => prev.filter(cert => cert.id !== id));
-      toast.success("Certification deleted.");
-    }
-  };
-
+  const handleSavePersonalInfo = async (personalInfo: NonNullable<typeof api.data>["personalInfo"]) => api.mutate("PUT", { personalInfo });
+  const handleSaveProfessionalInfo = async (professionalInfo: NonNullable<typeof api.data>["professionalInfo"]) => api.mutate("PUT", { professionalInfo });
+  const handleAddCert = async (cert: Certification) => api.mutate("PUT", { certifications: [...(api.data?.certifications ?? []), cert] });
+  const handleEditCert = async (cert: Certification) => api.mutate("PUT", { certifications: api.data?.certifications.map(c => c.id === cert.id ? cert : c) });
+  const handleDeleteCert = async (id: string) => { if (confirm("Delete this certification?")) await api.mutate("PUT", { certifications: api.data?.certifications.filter(c => c.id !== id) }); };
+  if (api.loading || api.error || !api.data) return <DataState loading={api.loading} error={api.error} />;
+  const { personalInfo, professionalInfo, certifications, availability } = api.data;
+  const avatar = avatarPreview || api.data.avatar;
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       
@@ -124,7 +52,7 @@ export default function SupervisorProfilePage() {
         employeeId={personalInfo.employeeId}
         availability={availability}
         onAvatarChange={handleAvatarChange}
-        onAvailabilityChange={setAvailability}
+        onAvailabilityChange={availability => { void api.mutate("PATCH", { availability }); }}
         avatarInputRef={avatarInputRef}
       />
 

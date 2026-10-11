@@ -41,7 +41,7 @@ interface SupervisorNotificationCardProps {
   notification: SupervisorNotificationItem
   onToggleRead: (id: string | number) => void
   onDelete: (id: string | number) => void
-  onUpdateNotification: (updated: SupervisorNotificationItem) => void
+  onUpdateNotification: (updated: SupervisorNotificationItem) => Promise<boolean>
 }
 
 const categoryConfig: Record<
@@ -122,7 +122,7 @@ export function SupervisorNotificationCard({
 
   const IconComponent = cfg.icon
 
-  const handleSendReply = (e: React.FormEvent) => {
+  const handleSendReply = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!replyMessage.trim()) {
       toast.error("Please enter a reply message")
@@ -130,17 +130,16 @@ export function SupervisorNotificationCard({
     }
 
     setIsSubmittingReply(true)
-    setTimeout(() => {
-      onUpdateNotification({
+    const ok = await onUpdateNotification({
         ...notification,
         read: true,
         replyText: replyMessage,
       })
-      toast.success(`Reply sent to ${notification.clientName || "Client"} regarding ${notification.lot || "site"}!`)
+      if (!ok) { setIsSubmittingReply(false); return; }
       setReplyMessage("")
       setShowReplyForm(false)
       setIsSubmittingReply(false)
-    }, 600)
+
   }
 
   const handleResolveDelay = (e: React.MouseEvent) => {
@@ -150,13 +149,13 @@ export function SupervisorNotificationCard({
       read: true,
       resolved: true,
     })
-    toast.success(`Delay alert "${notification.title}" resolved and logged in project timeline.`)
+
   }
 
   const handleAcknowledgeSystem = (e: React.MouseEvent) => {
     e.stopPropagation()
     onToggleRead(notification.id)
-    toast.success(`Notification acknowledged.`)
+
   }
 
   return (
@@ -325,7 +324,7 @@ export function SupervisorNotificationCard({
               onClick={(e) => {
                 e.stopPropagation()
                 onToggleRead(notification.id)
-                toast.success(`Opening document details for ${notification.title}`)
+                window.location.href = "/supervisor/documents"
               }}
               className="border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/5 text-xs font-semibold cursor-pointer"
             >

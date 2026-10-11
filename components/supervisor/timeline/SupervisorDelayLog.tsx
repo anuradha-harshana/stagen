@@ -14,11 +14,11 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { DelayLogEntry } from "@/lib/timeline/data";
+import { DelayLogEntry } from "@/lib/supervisor/types";
 
 interface SupervisorDelayLogProps {
   delayLog: DelayLogEntry[];
-  onDeleteLogEntry?: (id: number) => void;
+  onDeleteLogEntry?: (id: string | number) => void;
 }
 
 export function SupervisorDelayLog({

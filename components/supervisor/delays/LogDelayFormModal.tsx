@@ -19,7 +19,7 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { DelayLogEntry, TimelineStage } from "@/lib/timeline/data";
+import { DelayLogEntry, TimelineStage } from "@/lib/supervisor/types";
 import { AlertTriangle, Upload, X, Check, Image as ImageIcon, Send } from "lucide-react";
 import { toast } from "sonner";
 
@@ -27,51 +27,31 @@ interface LogDelayFormModalProps {
   isOpen: boolean;
   onClose: () => void;
   stages: TimelineStage[];
-  onSaveDelay: (newEntry: DelayLogEntry, autoNotify: boolean) => void;
+  onSaveDelay: (newEntry: DelayLogEntry, autoNotify: boolean) => Promise<boolean>;
   initialEntry?: DelayLogEntry | null;
 }
 
-export function LogDelayFormModal({
+export function LogDelayFormModal(props: LogDelayFormModalProps) {
+  return <LogDelayFormModalDraft key={`${props.initialEntry?.id ?? "new"}-${props.isOpen}`} {...props} />;
+}
+function LogDelayFormModalDraft({
   isOpen,
   onClose,
   stages,
   onSaveDelay,
   initialEntry,
 }: LogDelayFormModalProps) {
-  const [stageName, setStageName] = useState<string>(stages[0]?.name || "Frame");
-  const [title, setTitle] = useState<string>("");
-  const [type, setType] = useState<DelayLogEntry["type"]>("weather");
+  const [stageName, setStageName] = useState<string>(initialEntry?.stageName ?? stages[0]?.name ?? "");
+  const [title, setTitle] = useState<string>(initialEntry?.title ?? "");
+  const [type, setType] = useState<DelayLogEntry["type"]>(initialEntry?.type ?? "weather");
   const [fromDate, setFromDate] = useState<string>("");
   const [toDate, setToDate] = useState<string>("");
   const [reason, setReason] = useState<string>("");
   const [attachedPhoto, setAttachedPhoto] = useState<string | null>(null);
   const [autoNotify, setAutoNotify] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (initialEntry) {
-      setStageName(initialEntry.stageName);
-      setTitle(initialEntry.title);
-      setType(initialEntry.type);
-      setFromDate(initialEntry.fromDate);
-      setToDate(initialEntry.toDate);
-      setReason(initialEntry.reason);
-    } else {
-      setStageName(stages[0]?.name || "Frame");
-      setTitle("");
-      setType("weather");
-      setFromDate(new Date().toISOString().split("T")[0]);
-      
-      const future = new Date();
-      future.setDate(future.getDate() + 7);
-      setToDate(future.toISOString().split("T")[0]);
-      
-      setReason("");
-      setAttachedPhoto(null);
-      setAutoNotify(true);
-    }
-  }, [initialEntry, isOpen, stages]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!title.trim()) {
@@ -86,7 +66,7 @@ export function LogDelayFormModal({
     });
 
     const entryToSave: DelayLogEntry = {
-      id: initialEntry ? Number(initialEntry.id) : Date.now(),
+      id: initialEntry ? initialEntry.id : Date.now(),
       date: todayStr,
       stageName,
       title: title.trim(),
@@ -96,7 +76,7 @@ export function LogDelayFormModal({
       reason: reason.trim() || "Schedule adjusted per supervisor site update.",
     };
 
-    onSaveDelay(entryToSave, autoNotify);
+    if (!await onSaveDelay(entryToSave, autoNotify)) return;
     toast.success(initialEntry ? "Delay log updated successfully" : "New delay incident logged");
     onClose();
   };

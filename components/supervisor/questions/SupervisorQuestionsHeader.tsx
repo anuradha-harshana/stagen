@@ -4,15 +4,10 @@ import React, { useState } from "react"
 import { MessageCircle, Search, ChevronDown, Bell } from "lucide-react"
 import { toast } from "sonner"
 
-export const SUPERVISOR_PROJECTS = [
-  { code: "ALL", name: "All Projects" },
-  { code: "PRO-233", name: "Groove Inn" },
-  { code: "PRO-234", name: "Sunset Villas" },
-  { code: "PRO-235", name: "Horizon Tower" },
-  { code: "PRO-236", name: "Parkview Residence" },
-]
+export const SUPERVISOR_PROJECTS = [{ code: "ALL", name: "All Projects" }]
 
 interface SupervisorQuestionsHeaderProps {
+  projects: { code: string; name: string }[]
   selectedProject: { code: string; name: string }
   onSelectProject: (project: { code: string; name: string }) => void
   searchQuery: string
@@ -20,6 +15,7 @@ interface SupervisorQuestionsHeaderProps {
 }
 
 export function SupervisorQuestionsHeader({
+  projects,
   selectedProject,
   onSelectProject,
   searchQuery,
@@ -74,7 +70,7 @@ export function SupervisorQuestionsHeader({
 
             {isDropdownOpen && (
               <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-xl border border-blue-fantastic/15 py-2 z-30 font-sans">
-                {SUPERVISOR_PROJECTS.map((proj) => (
+                {projects.map((proj) => (
                   <button
                     key={proj.code}
                     onClick={() => {

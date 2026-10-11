@@ -71,7 +71,6 @@ export function HeaderSection({
               <button
                 onClick={() => {
                   onAvailabilityChange("Available");
-                  toast.success("Status set to Available");
                 }}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold border-2 transition-all ${
                   availability === "Available"
@@ -84,7 +83,6 @@ export function HeaderSection({
               <button
                 onClick={() => {
                   onAvailabilityChange("Onsite");
-                  toast.success("Status set to Onsite");
                 }}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold border-2 transition-all ${
                   availability === "Onsite"
@@ -97,7 +95,6 @@ export function HeaderSection({
               <button
                 onClick={() => {
                   onAvailabilityChange("Leave");
-                  toast.success("Status set to On Leave");
                 }}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold border-2 transition-all ${
                   availability === "Leave"

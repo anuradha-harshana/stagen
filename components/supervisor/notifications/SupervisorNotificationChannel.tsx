@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useSupervisorData, DataState } from "../useSupervisorData"
 import { Card } from "@/components/ui/card"
 import { SlidersHorizontal, Smartphone, Mail, BellRing } from "lucide-react"
 
@@ -11,15 +11,13 @@ interface ChannelState {
 }
 
 export function SupervisorNotificationChannel() {
-  const [channels, setChannels] = useState<ChannelState>({
-    inApp: true,
-    email: true,
-    sms: false,
-  })
-
+  const api = useSupervisorData<{ notifications: { inApp: boolean; emailAlerts: boolean; pushNotifications: boolean } } | null>("settings", null);
+  if (api.loading || api.error || !api.data) return <DataState loading={api.loading} error={api.error} />;
+  const channels = { inApp: api.data.notifications.inApp, email: api.data.notifications.emailAlerts, sms: api.data.notifications.pushNotifications };
   const toggleChannel = (key: keyof ChannelState) => {
-    setChannels((prev) => ({ ...prev, [key]: !prev[key] }))
-  }
+    const field = { inApp: "inApp", email: "emailAlerts", sms: "pushNotifications" }[key];
+    void api.mutate("PATCH", { section: "notifications", values: { [field]: !channels[key] } });
+  };
 
   const items: { key: keyof ChannelState; label: string; subLabel: string; icon: React.ElementType }[] = [
     { key: "inApp", label: "In-App Alerts", subLabel: "Live platform notifications", icon: BellRing },
