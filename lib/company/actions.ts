@@ -14,6 +14,19 @@ import {
   CompanyDocumentRecord,
 } from "./companyDocuments";
 import { CompanyDocument } from "@/components/company/documents/CompanyUploadDocumentModal";
+import {
+  getCompanyProjects,
+  updateCompanyProjectSupervisor,
+  replyToCompanyProjectQuestion,
+} from "./companyProjects";
+import {
+  getCompanyDefects,
+  updateCompanyDefect,
+  createCompanyDefect,
+  deleteCompanyDefect,
+  CompanyDefectRecord,
+} from "./companyDefects";
+import { Project } from "../db-mock/projectsData";
 
 const DEFAULT_COMPANY_ID = "7ab56015-4412-494e-8aff-dbb5095e0095";
 
@@ -79,3 +92,65 @@ export async function removeCompanyDocumentAction(
   const targetId = await resolveCompanyId(companyId);
   return await deleteCompanyDocument(targetId, docId);
 }
+
+// ==========================================
+//     PROJECTS & WORKLOAD ACTIONS
+// ==========================================
+
+export async function fetchCompanyProjectsAction(companyId?: string): Promise<Project[]> {
+  const targetId = await resolveCompanyId(companyId);
+  return await getCompanyProjects(targetId);
+}
+
+export async function reassignSupervisorAction(
+  projectId: string,
+  supervisorName: string,
+  companyId?: string
+): Promise<Project[] | null> {
+  const targetId = await resolveCompanyId(companyId);
+  return await updateCompanyProjectSupervisor(targetId, projectId, supervisorName);
+}
+
+export async function replyToCompanyQuestionAction(
+  questionId: string,
+  replyText: string,
+  companyId?: string
+): Promise<Project[] | null> {
+  const targetId = await resolveCompanyId(companyId);
+  return await replyToCompanyProjectQuestion(targetId, questionId, replyText);
+}
+
+// ==========================================
+//          DEFECTS & WARRANTY ACTIONS
+// ==========================================
+
+export async function fetchCompanyDefectsAction(companyId?: string): Promise<CompanyDefectRecord[]> {
+  const targetId = await resolveCompanyId(companyId);
+  return await getCompanyDefects(targetId);
+}
+
+export async function updateCompanyDefectAction(
+  defectId: string,
+  updates: Partial<Omit<CompanyDefectRecord, "id" | "companyId">>,
+  companyId?: string
+): Promise<CompanyDefectRecord | null> {
+  const targetId = await resolveCompanyId(companyId);
+  return await updateCompanyDefect(targetId, defectId, updates);
+}
+
+export async function createCompanyDefectAction(
+  defect: Omit<CompanyDefectRecord, "id" | "companyId">,
+  companyId?: string
+): Promise<CompanyDefectRecord> {
+  const targetId = await resolveCompanyId(companyId);
+  return await createCompanyDefect(targetId, defect);
+}
+
+export async function removeCompanyDefectAction(
+  defectId: string,
+  companyId?: string
+): Promise<boolean> {
+  const targetId = await resolveCompanyId(companyId);
+  return await deleteCompanyDefect(targetId, defectId);
+}
+

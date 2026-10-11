@@ -1,0 +1,286 @@
+[
+  {
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "projects": [
+      {
+        "id": "lot-104",
+        "clientName": "Anuradha Harshana",
+        "address": "Lot 104, 12 Harrison Street, Richmond VIC",
+        "status": "On Track",
+        "progress": 45,
+        "currentStage": "Frame",
+        "startDate": "Mar 10, 2026",
+        "estHandover": "Nov 15, 2026",
+        "imageGradient": "from-blue-fantastic/40 to-abyssal-blue/80",
+        "supervisorName": "Eric",
+        "stages": [
+          {
+            "name": "Site Cut",
+            "status": "Completed",
+            "progress": 100,
+            "checklist": [
+              { "id": "sc-1", "label": "Soil testing & site survey", "completed": true },
+              { "id": "sc-2", "label": "Excavation & site leveling", "completed": true },
+              { "id": "sc-3", "label": "Retaining walls (if required)", "completed": true }
+            ]
+          },
+          {
+            "name": "Slab",
+            "status": "Completed",
+            "progress": 100,
+            "checklist": [
+              { "id": "sl-1", "label": "Under-slab plumbing drainage", "completed": true },
+              { "id": "sl-2", "label": "Formwork & steel reinforcement", "completed": true },
+              { "id": "sl-3", "label": "Concrete pour & curing check", "completed": true },
+              { "id": "sl-4", "label": "Termite protection collar install", "completed": true }
+            ]
+          },
+          {
+            "name": "Frame",
+            "status": "Active",
+            "progress": 60,
+            "checklist": [
+              { "id": "fr-1", "label": "Wall frames erection", "completed": true },
+              { "id": "fr-2", "label": "Roof trusses & bracing install", "completed": true },
+              { "id": "fr-3", "label": "Window & external door frames", "completed": false },
+              { "id": "fr-4", "label": "Structural steel lintels", "completed": false }
+            ]
+          },
+          {
+            "name": "Lockup",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": [
+              { "id": "lk-1", "label": "Roof cladding (tiles/colorbond)", "completed": false },
+              { "id": "lk-2", "label": "Brickwork / external cladding", "completed": false },
+              { "id": "lk-3", "label": "Electrical & plumbing rough-in", "completed": false },
+              { "id": "lk-4", "label": "External wall insulation", "completed": false }
+            ]
+          },
+          {
+            "name": "Fixing",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": [
+              { "id": "fx-1", "label": "Plasterboard lining & sheeting", "completed": false },
+              { "id": "fx-2", "label": "Architraves, skirting & doors fixing", "completed": false },
+              { "id": "fx-3", "label": "Waterproofing of wet areas", "completed": false },
+              { "id": "fx-4", "label": "Cabinetry & vanities install", "completed": false }
+            ]
+          },
+          {
+            "name": "Completion",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": [
+              { "id": "cp-1", "label": "Tiling & flooring installation", "completed": false },
+              { "id": "cp-2", "label": "Painting & electric trim fit-off", "completed": false },
+              { "id": "cp-3", "label": "PC items & tapware installation", "completed": false },
+              { "id": "cp-4", "label": "Final cleaning & quality audit", "completed": false }
+            ]
+          },
+          {
+            "name": "Handover",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": [
+              { "id": "ho-1", "label": "Practical Completion Inspection (PCI)", "completed": false },
+              { "id": "ho-2", "label": "Rectification of PCI items", "completed": false },
+              { "id": "ho-3", "label": "Final payment & keys handover", "completed": false }
+            ]
+          }
+        ],
+        "delays": [
+          {
+            "id": "d-1",
+            "type": "Weather",
+            "durationDays": 4,
+            "description": "Heavy rainfall delayed foundation earthworks",
+            "date": "Mar 15, 2026"
+          }
+        ],
+        "questions": [
+          {
+            "id": "q-101",
+            "customerName": "Anuradha Harshana",
+            "questionText": "Hi John, when are the windows scheduled to be delivered? I noticed the frames are up but no glass yet.",
+            "date": "Jul 21, 2026",
+            "replied": false
+          },
+          {
+            "id": "q-102",
+            "customerName": "Anuradha Harshana",
+            "questionText": "Can we arrange a site walkthrough once the frame stage is complete?",
+            "date": "Jul 20, 2026",
+            "replied": true,
+            "replyText": "Hi Anuradha, absolutely. Once the certifier signs off on the framing next week, I will schedule our walkthrough inspection."
+          }
+        ]
+      },
+      {
+        "id": "lot-208",
+        "clientName": "Sarah Jenkins",
+        "address": "Lot 208, 45 Windmill Lane, Sunbury VIC",
+        "status": "Delayed",
+        "progress": 18,
+        "currentStage": "Slab",
+        "startDate": "May 1, 2026",
+        "estHandover": "Jan 20, 2027",
+        "imageGradient": "from-truffle-trouble/40 to-abyssal-blue/80",
+        "supervisorName": "Eric",
+        "stages": [
+          {
+            "name": "Site Cut",
+            "status": "Completed",
+            "progress": 100,
+            "checklist": [
+              { "id": "sc-201", "label": "Soil testing & site survey", "completed": true },
+              { "id": "sc-202", "label": "Excavation & site leveling", "completed": true },
+              { "id": "sc-203", "label": "Retaining walls (if required)", "completed": true }
+            ]
+          },
+          {
+            "name": "Slab",
+            "status": "Active",
+            "progress": 30,
+            "checklist": [
+              { "id": "sl-201", "label": "Under-slab plumbing drainage", "completed": true },
+              { "id": "sl-202", "label": "Formwork & steel reinforcement", "completed": false },
+              { "id": "sl-203", "label": "Concrete pour & curing check", "completed": false },
+              { "id": "sl-204", "label": "Termite protection collar install", "completed": false }
+            ]
+          },
+          { "name": "Frame", "status": "Pending", "progress": 0, "checklist": [] },
+          { "name": "Lockup", "status": "Pending", "progress": 0, "checklist": [] },
+          { "name": "Fixing", "status": "Pending", "progress": 0, "checklist": [] },
+          { "name": "Completion", "status": "Pending", "progress": 0, "checklist": [] },
+          { "name": "Handover", "status": "Pending", "progress": 0, "checklist": [] }
+        ],
+        "delays": [
+          {
+            "id": "d-201",
+            "type": "Weather",
+            "durationDays": 8,
+            "description": "Extended rainy period prevented under-slab plumbing works",
+            "date": "May 10, 2026"
+          }
+        ],
+        "questions": [
+          {
+            "id": "q-201",
+            "customerName": "Sarah Jenkins",
+            "questionText": "Hello! We noticed there hasn't been much activity on-site since the plumbing lines were laid down. Is everything okay?",
+            "date": "Jul 18, 2026",
+            "replied": false
+          }
+        ]
+      },
+      {
+        "id": "lot-312",
+        "clientName": "Marcus & Elena Vance",
+        "address": "Lot 312, 88 Ridgeview Drive, Croydon VIC",
+        "status": "On Track",
+        "progress": 75,
+        "currentStage": "Fixing",
+        "startDate": "Jan 15, 2026",
+        "estHandover": "Sep 5, 2026",
+        "imageGradient": "from-burning-flame/30 to-abyssal-blue/80",
+        "stages": [
+          { "name": "Site Cut", "status": "Completed", "progress": 100, "checklist": [] },
+          { "name": "Slab", "status": "Completed", "progress": 100, "checklist": [] },
+          { "name": "Frame", "status": "Completed", "progress": 100, "checklist": [] },
+          { "name": "Lockup", "status": "Completed", "progress": 100, "checklist": [] },
+          { "name": "Fixing", "status": "Active", "progress": 50, "checklist": [] },
+          { "name": "Completion", "status": "Pending", "progress": 0, "checklist": [] },
+          { "name": "Handover", "status": "Pending", "progress": 0, "checklist": [] }
+        ],
+        "delays": [],
+        "questions": [
+          {
+            "id": "q-301",
+            "customerName": "Marcus Vance",
+            "questionText": "Can we select the paint finish for the feature wall now, or is it too late?",
+            "date": "Jul 22, 2026",
+            "replied": false
+          }
+        ]
+      },
+      {
+        "id": "P-1028",
+        "clientName": "John Smith",
+        "address": "14 Sydney Harbour Way, Parramatta NSW",
+        "status": "Delayed",
+        "progress": 62,
+        "currentStage": "Lockup",
+        "startDate": "Feb 01, 2026",
+        "estHandover": "Oct 30, 2026",
+        "imageGradient": "from-truffle-trouble/40 to-abyssal-blue/80",
+        "supervisorName": "John Smith",
+        "region": "NSW",
+        "delayDays": 7,
+        "lastUpdate": "May 13, 2024",
+        "riskSeverity": "Critical",
+        "stages": [],
+        "delays": [],
+        "questions": []
+      },
+      {
+        "id": "P-1033",
+        "clientName": "Emily Johnson",
+        "address": "78 Collins Street, Melbourne VIC",
+        "status": "Delayed",
+        "progress": 47,
+        "currentStage": "Fixing",
+        "startDate": "Jan 12, 2026",
+        "estHandover": "Nov 05, 2026",
+        "imageGradient": "from-truffle-trouble/40 to-abyssal-blue/80",
+        "supervisorName": "David Brown",
+        "region": "VIC",
+        "delayDays": 5,
+        "lastUpdate": "May 12, 2024",
+        "riskSeverity": "High",
+        "stages": [],
+        "delays": [],
+        "questions": []
+      },
+      {
+        "id": "P-1041",
+        "clientName": "Michael Williams",
+        "address": "23 Gold Coast Hwy, Surfers Paradise QLD",
+        "status": "Action Required",
+        "progress": 35,
+        "currentStage": "Frame",
+        "startDate": "Mar 01, 2026",
+        "estHandover": "Dec 12, 2026",
+        "imageGradient": "from-burning-flame/40 to-abyssal-blue/80",
+        "supervisorName": "Michael Lee",
+        "region": "QLD",
+        "delayDays": 4,
+        "lastUpdate": "May 11, 2024",
+        "riskSeverity": "Medium",
+        "stages": [],
+        "delays": [],
+        "questions": []
+      },
+      {
+        "id": "P-1048",
+        "clientName": "Sarah Brown",
+        "address": "5 Ocean Drive, Perth WA",
+        "status": "Action Required",
+        "progress": 18,
+        "currentStage": "Slab",
+        "startDate": "Apr 05, 2026",
+        "estHandover": "Jan 18, 2027",
+        "imageGradient": "from-burning-flame/40 to-abyssal-blue/80",
+        "supervisorName": "Sarah Johnson",
+        "region": "WA",
+        "delayDays": 3,
+        "lastUpdate": "May 10, 2024",
+        "riskSeverity": "Low",
+        "stages": [],
+        "delays": [],
+        "questions": []
+      }
+    ]
+  }
+]
