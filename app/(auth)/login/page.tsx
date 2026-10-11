@@ -4,13 +4,9 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-<<<<<<< HEAD
 import { AuthLogo } from "@/components/auth/logo"
-import { BrandPanel } from "@/components/auth/brand-panel"
-=======
-import { AuthLogo } from "@/components/auth/Logo"
 import { BrandPanel } from "@/components/auth/BrandPanel"
->>>>>>> origin/development
+
 import { useForm } from "react-hook-form"
 import { LoginFormData, loginSchema } from "@/lib/login/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -75,7 +71,7 @@ export default function LoginPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <Button 
+            <Button
               type="button"
               className="w-full justify-center gap-2 bg-blue-fantastic text-white hover:bg-blue-fantastic/90 font-medium py-2 rounded-md shadow-sm"
               onClick={() => {

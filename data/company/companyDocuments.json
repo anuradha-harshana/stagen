@@ -1,0 +1,60 @@
+[
+  {
+    "id": "doc-101",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "name": "Site Safety Manual",
+    "category": "Safety",
+    "visibleTo": [
+      "All Roles"
+    ],
+    "uploadDate": "2023-11-15",
+    "fileName": "site_safety_manual.pdf",
+    "fileSize": "2.4 MB",
+    "fileType": "pdf",
+    "description": "Master workplace health and safety compliance manual for high-risk operations."
+  },
+  {
+    "id": "doc-102",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "name": "Contractor Agreement Template",
+    "category": "Legal",
+    "visibleTo": [
+      "Admin",
+      "Management"
+    ],
+    "uploadDate": "2023-12-01",
+    "fileName": "subcontractor_agreement.docx",
+    "fileSize": "1.2 MB",
+    "fileType": "docx",
+    "description": "Standard terms and conditions agreement template for external sub-contractors."
+  },
+  {
+    "id": "doc-103",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "name": "Quality Assurance Checklist",
+    "category": "QA",
+    "visibleTo": [
+      "Admin",
+      "Supervisor"
+    ],
+    "uploadDate": "2023-12-20",
+    "fileName": "quality_assurance_checklist.pdf",
+    "fileSize": "850 KB",
+    "fileType": "pdf",
+    "description": "Mandatory quality check criteria before handoff and lock-up stages."
+  },
+  {
+    "id": "doc-104",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "name": "Environmental Compliance Guide",
+    "category": "Compliance",
+    "visibleTo": [
+      "All Roles"
+    ],
+    "uploadDate": "2024-01-10",
+    "fileName": "environmental_guidelines_2024.pdf",
+    "fileSize": "3.1 MB",
+    "fileType": "pdf",
+    "description": "Waste management and noise control standards across all site developments."
+  }
+]

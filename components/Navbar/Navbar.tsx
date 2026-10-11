@@ -9,11 +9,9 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import { NavbarProps } from "@/lib/types/types"
-<<<<<<< HEAD
-import { NavbarLinks } from "./NavbarLinks"
-=======
-import {NavbarLinks} from "@/components/Navbar/NavbarLinks"
->>>>>>> origin/development
+
+import { NavbarLinks } from "@/components/Navbar/NavbarLinks"
+
 import { LogoutButton } from "../auth/LogoutButton"
 
 
@@ -22,19 +20,14 @@ type props = {
 }
 
 export async function Navbar({ role }: props) {
-<<<<<<< HEAD
-  const baseUrl = process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-  const res = await fetch(`${baseUrl}/api/navbar?role=${role}`, {
-    cache: "no-store",
-  })
-=======
+
   let data: NavbarProps[] = []
->>>>>>> origin/development
+
 
   try {
     const baseUrl = process.env.APP_URL || 'http://localhost:3000'
     const url = `${baseUrl}/api/navbar?role=${encodeURIComponent(role)}`
-    
+
     const res = await fetch(url, {
       cache: "no-store"
     })

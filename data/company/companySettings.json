@@ -1,0 +1,13 @@
+[
+  {
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "logo": "/images/logo.png",
+    "logoName": "logo.png",
+    "primaryColor": "#f43f5e",
+    "secondaryColor": "#1e1b4b",
+    "accentColor": "#fb7185",
+    "selectedLocale": "en-AU",
+    "selectedTimezone": "Australia/Sydney",
+    "updatedAt": "2026-10-11T04:26:22.314Z"
+  }
+]

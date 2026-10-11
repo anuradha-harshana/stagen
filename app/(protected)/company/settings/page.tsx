@@ -14,6 +14,8 @@ import { LocaleCard } from "@/components/ui/SettingsPage/LocaleCard"
 import { TimezoneCard } from "@/components/ui/SettingsPage/TimezoneCard"
 import { LivePreview } from "@/components/ui/SettingsPage/LivePreview"
 
+import { fetchCompanySettingsAction, saveCompanySettingsAction } from "@/lib/company/actions"
+
 // Theme Preset Definition
 interface ThemePreset {
   name: string
@@ -45,6 +47,25 @@ export default function SettingsPage() {
   })
   
   const [isSaving, setIsSaving] = useState(false)
+
+  // --- FETCH SETTINGS FROM JSON ---
+  useEffect(() => {
+    fetchCompanySettingsAction()
+      .then((data) => {
+        if (data) {
+          if (data.logo) setLogo(data.logo)
+          if (data.logoName) setLogoName(data.logoName)
+          if (data.primaryColor) setPrimaryColor(data.primaryColor)
+          if (data.secondaryColor) setSecondaryColor(data.secondaryColor)
+          if (data.accentColor) setAccentColor(data.accentColor)
+          if (data.selectedLocale) setSelectedLocale(data.selectedLocale)
+          if (data.selectedTimezone) setSelectedTimezone(data.selectedTimezone)
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load company settings:", err)
+      })
+  }, [])
 
   // --- TIMEZONE CLOCK LOGIC ---
   useEffect(() => {
@@ -102,12 +123,25 @@ export default function SettingsPage() {
     showToast(`Applied preset: ${preset.name}`, "success")
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true)
-    setTimeout(() => {
-      setIsSaving(false)
+    try {
+      await saveCompanySettingsAction({
+        logo,
+        logoName,
+        primaryColor,
+        secondaryColor,
+        accentColor,
+        selectedLocale,
+        selectedTimezone,
+      })
       showToast("Company settings saved successfully!", "success")
-    }, 1200)
+    } catch (err) {
+      console.error("Failed to save settings:", err)
+      showToast("Failed to save settings. Please try again.", "info")
+    } finally {
+      setIsSaving(false)
+    }
   }
 
   const showToast = (message: string, type: "success" | "info" = "success") => {

@@ -4,13 +4,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-<<<<<<< HEAD
 import { AuthLogo } from "@/components/auth/logo"
-import { RegisterPanel } from "@/components/auth/register-panel"
-=======
-import { AuthLogo } from "@/components/auth/Logo"
 import { RegisterPanel } from "@/components/auth/RegisterPanel"
->>>>>>> origin/development
 import { useForm } from "react-hook-form"
 import { RegisterFormData, registerSchema } from "@/lib/register/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
