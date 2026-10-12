@@ -3,7 +3,7 @@
 import React from "react";
 import { Calendar, AlertTriangle, CheckCircle, Clock, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import PageHeader from "../PageHeader";
+import PageHeader from "../Dashboard/PageHeader";
 import { cn } from "@/lib/utils";
 import { TimelineStage } from "@/lib/timeline/data";
 
@@ -49,7 +49,7 @@ export default function TimelineHeader({
     statusDesc = "Build is ahead of schedule due to fast-tracked finishing crews.";
     statusIcon = <TrendingUp className="h-5 w-5 text-emerald-700" />;
   } else if (statusFlag === "not-started") {
-    statusBadgeColor = "bg-palladian text-blue-fantastic border-blue-fantastic/10";
+    statusBadgeColor = "bg-white text-blue-fantastic border-blue-fantastic/10";
     statusText = "Not Started";
     statusDesc = "Pre-construction planning is underway. Awaiting site mobilization.";
     statusIcon = <Clock className="h-5 w-5 text-blue-fantastic/60" />;
@@ -90,7 +90,7 @@ export default function TimelineHeader({
       {/* Stats Cards Row (Body Content below Header - kept exactly identical) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1: Gauge & Status Details */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
           <CardContent className="p-6 flex items-center justify-between gap-4">
             <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
               <div className="absolute inset-0 rounded-full bg-truffle-trouble/5 blur-md" />
@@ -147,14 +147,14 @@ export default function TimelineHeader({
         </Card>
 
         {/* Card 2: Planned Targets */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
           <CardContent className="p-6 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-fantastic/50 block">
                   Original Baseline
                 </span>
-                <h2 className="text-xl font-extrabold text-blue-fantastic font-cream tracking-tight">
+                <h2 className="text-xl font-extrabold text-blue-fantastic font-sans tracking-tight">
                   {originalEstCompletion}
                 </h2>
               </div>
@@ -165,13 +165,13 @@ export default function TimelineHeader({
 
             <div className="flex justify-between items-center text-xs border-t border-blue-fantastic/5 pt-3.5 mt-4">
               <span className="text-blue-fantastic/45 font-medium">Start Date:</span>
-              <span className="text-blue-fantastic/80 font-bold font-cream">{startDate}</span>
+              <span className="text-blue-fantastic/80 font-bold font-sans">{startDate}</span>
             </div>
           </CardContent>
         </Card>
 
         {/* Card 3: Projected Completion */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
           <CardContent className="p-6 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
@@ -179,7 +179,7 @@ export default function TimelineHeader({
                   Projected Finish
                 </span>
                 <h2 className={cn(
-                  "text-xl font-extrabold font-cream tracking-tight",
+                  "text-xl font-extrabold font-sans tracking-tight",
                   statusFlag === "delayed" ? "text-truffle-trouble" : statusFlag === "ahead" ? "text-emerald-700" : "text-blue-fantastic"
                 )}>
                   {currentProjectedCompletion}
@@ -200,7 +200,7 @@ export default function TimelineHeader({
             <div className="flex justify-between items-center text-xs border-t border-blue-fantastic/5 pt-3.5 mt-4">
               <span className="text-blue-fantastic/45 font-medium">Variance:</span>
               <span className={cn(
-                "font-bold font-cream",
+                "font-bold font-sans",
                 statusFlag === "delayed" ? "text-truffle-trouble" : statusFlag === "ahead" ? "text-emerald-700" : "text-blue-fantastic/60"
               )}>
                 {statusFlag === "delayed" 

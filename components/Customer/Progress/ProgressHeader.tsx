@@ -3,7 +3,7 @@
 import React from "react";
 import { Calendar, Hourglass, CheckCircle, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import PageHeader from "../PageHeader";
+import PageHeader from "../Dashboard/PageHeader";
 import { cn } from "@/lib/utils";
 
 interface ProgressHeaderProps {
@@ -60,7 +60,7 @@ export default function ProgressHeader({
       {/* Stats Cards Row (Body Content below Header - kept exactly identical) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1: Circular Progress Gauge */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden md:col-span-1">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden md:col-span-1">
           <CardContent className="p-6 flex items-center justify-between gap-4">
             <div className="relative w-28 h-28 shrink-0 flex items-center justify-center">
               {/* Outer Glow */}
@@ -111,7 +111,7 @@ export default function ProgressHeader({
               <span className="text-[10px] font-bold uppercase tracking-wider text-blue-fantastic/50 block">
                 Overall Progress
               </span>
-              <h2 className="text-xl font-extrabold text-blue-fantastic font-cream leading-tight">
+              <h2 className="text-xl font-extrabold text-blue-fantastic font-sans leading-tight">
                 {statusLabel}
               </h2>
               <p className="text-xs text-blue-fantastic/65 font-medium">
@@ -122,14 +122,14 @@ export default function ProgressHeader({
         </Card>
 
         {/* Card 2: Estimated Completion */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
           <CardContent className="p-6 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-fantastic/50 block">
                   Target Finish
                 </span>
-                <h2 className="text-2xl font-extrabold text-blue-fantastic font-cream tracking-tight">
+                <h2 className="text-2xl font-extrabold text-blue-fantastic font-sans tracking-tight">
                   {percentage === 100 ? "Completed ✓" : estimatedCompletion}
                 </h2>
               </div>
@@ -140,20 +140,20 @@ export default function ProgressHeader({
 
             <div className="flex justify-between items-center text-xs border-t border-blue-fantastic/5 pt-3.5 mt-4">
               <span className="text-blue-fantastic/45 font-medium">Started Date:</span>
-              <span className="text-blue-fantastic/80 font-bold font-cream">{startedDate}</span>
+              <span className="text-blue-fantastic/80 font-bold font-sans">{startedDate}</span>
             </div>
           </CardContent>
         </Card>
 
         {/* Card 3: Days Remaining */}
-        <Card className="bg-palladian border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
+        <Card className="bg-white border border-blue-fantastic/5 shadow-[0_6px_20px_rgba(27,38,50,0.03)] rounded-2xl overflow-hidden">
           <CardContent className="p-6 flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-fantastic/50 block">
                   Time Remaining
                 </span>
-                <h2 className="text-2xl font-extrabold text-blue-fantastic font-cream tracking-tight">
+                <h2 className="text-2xl font-extrabold text-blue-fantastic font-sans tracking-tight">
                   {percentage === 100 ? (
                     <span className="text-emerald-600">0 days</span>
                   ) : percentage === 0 ? (

@@ -13,7 +13,7 @@ export default function PhotoCard({ photo }: PhotoCardProps) {
   return (
     <div className="group flex flex-col bg-white border border-blue-fantastic/[0.04] shadow-[0_4px_15px_rgba(27,38,50,0.02)] hover:shadow-[0_12px_25px_rgba(27,38,50,0.06)] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300">
       {/* Image Container with aspect ratio */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-palladian/35 z-10">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-surface-inset z-10">
         <Image
           src={photo.url}
           alt={photo.label}
@@ -44,7 +44,7 @@ export default function PhotoCard({ photo }: PhotoCardProps) {
 
       {/* Info Section */}
       <div className="p-3.5 border-t border-blue-fantastic/[0.04] bg-white flex flex-col justify-between">
-        <h4 className="text-[13px] font-bold text-blue-fantastic truncate font-cream">
+        <h4 className="text-[13px] font-bold text-blue-fantastic truncate font-sans">
           {photo.label}
         </h4>
         <div className="flex items-center gap-1.5 mt-1 text-blue-fantastic/50 text-[10px] font-medium">

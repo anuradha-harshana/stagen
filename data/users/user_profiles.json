@@ -1,0 +1,13 @@
+{
+  "user_id": "7ab56015-4412-494e-8aff-dbb5095e0096",
+  "role": "customer",
+  "avatar_url": "/profile-avatar.png",
+  "full_name": "Anuradha Harshana",
+  "phone": "+61 400 123 456",
+  "home_address": "Lot 104, 12 Harrison Street, Richmond VIC",
+  "account_created": "Jan 15, 2025",
+  "language": "English",
+  "timezone": "Australia/Melbourne",
+  "linked_accounts": [{ "provider": "google", "connected": true }],
+  "password_updated_at": "2026-06-28"
+}

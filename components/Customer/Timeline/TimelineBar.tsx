@@ -34,7 +34,7 @@ export default function TimelineBar({
   isProjected,
 }: TimelineBarProps) {
   // Styling mappings for actual/projected bar
-  let barColor = "bg-palladian border-blue-fantastic/10 text-blue-fantastic/50";
+  let barColor = "bg-white border-blue-fantastic/10 text-blue-fantastic/50";
   let barLabel = "Upcoming";
   let statusBadgeColor = "bg-blue-fantastic/10 text-blue-fantastic";
 
@@ -60,9 +60,9 @@ export default function TimelineBar({
       statusBadgeColor = "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/20";
       break;
     case "upcoming":
-      barColor = "bg-palladian/80 border-blue-fantastic/10 text-blue-fantastic/50";
+      barColor = "bg-surface-muted border-blue-fantastic/10 text-blue-fantastic/50";
       barLabel = "Upcoming";
-      statusBadgeColor = "bg-palladian text-blue-fantastic/60 border-blue-fantastic/10";
+      statusBadgeColor = "bg-white text-blue-fantastic/60 border-blue-fantastic/10";
       break;
   }
 

@@ -24,7 +24,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             "h-5 w-5 rounded-md border border-blue-fantastic/30 transition-all flex items-center justify-center",
             checked
               ? "bg-truffle-trouble border-truffle-trouble text-palladian"
-              : "bg-palladian hover:border-blue-fantastic/50",
+              : "bg-white hover:border-blue-fantastic/50",
             className
           )}
         >

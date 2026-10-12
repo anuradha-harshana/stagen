@@ -11,7 +11,7 @@ interface DemoControlsProps {
 
 export default function DemoControls({ currentState, onChange }: DemoControlsProps) {
   return (
-    <div className="flex bg-palladian/45 border border-blue-fantastic/5 p-1 rounded-xl w-full sm:w-auto">
+    <div className="flex bg-surface-inset border border-blue-fantastic/5 p-1 rounded-xl w-full sm:w-auto">
       <button
         onClick={() => onChange("not-started")}
         className={cn(

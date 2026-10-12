@@ -111,7 +111,7 @@ export function CertificationModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-abyssal-blue/40 backdrop-blur-sm animate-fade-in">
       <div className="bg-white rounded-3xl w-full max-w-lg shadow-xl border border-oatmeal/30 overflow-hidden">
-        <div className="flex justify-between items-center px-6 py-4 border-b border-oatmeal/10 bg-palladian/30">
+        <div className="flex justify-between items-center px-6 py-4 border-b border-oatmeal/10 bg-surface-inset">
           <h3 className="font-bold text-blue-fantastic text-base">
             {mode === "add" ? "Add Certification / Qualification" : "Edit Certification"}
           </h3>
@@ -195,7 +195,7 @@ export function CertificationModal({
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="rounded-xl border-oatmeal/40 text-blue-fantastic hover:bg-palladian/30"
+                  className="rounded-xl border-oatmeal/40 text-blue-fantastic hover:bg-surface-inset/30"
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <Upload className="mr-1.5 h-3.5 w-3.5" />

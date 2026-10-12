@@ -1,0 +1,13 @@
+{
+  "id": "msg-001",
+  "tenant_id": "tenant-lot-104",
+  "delay_id": "delay-001",
+  "recipient_user_id": "7ab56015-4412-494e-8aff-dbb5095e0096",
+  "recipient_name": "Anuradha Harshana",
+  "recipient_email": "customer@stagen.com",
+  "stage_name": "Frame",
+  "subject": "Build Schedule Impact: Heavy Storm Delay",
+  "body": "...",
+  "sent_at": "Jun 16, 2024 at 09:30 AM",
+  "status": "read"
+}

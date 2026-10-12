@@ -46,13 +46,13 @@ const SUMMARY = [
 
 export function InvoicesSummaryCards() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-9 gap-3 font-cream">
+    <div className="grid grid-cols-1 sm:grid-cols-9 gap-3 font-sans">
       {SUMMARY.map((item) => {
         const Icon = item.icon
         return (
           <Card
             key={item.label}
-            className="col-span-3 bg-palladian border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
+            className="col-span-3 bg-white border border-blue-fantastic/15 shadow-sm hover:shadow-md transition-all duration-200"
           >
             <CardContent className="pt-5 pb-4 px-5 flex flex-col gap-3">
               <div className="flex items-center justify-between">
@@ -62,7 +62,7 @@ export function InvoicesSummaryCards() {
                 </div>
               </div>
               <div>
-                <p className={`text-2xl font-bold font-cream tracking-tight ${item.valueColor}`}>{item.value}</p>
+                <p className={`text-2xl font-bold font-sans tracking-tight ${item.valueColor}`}>{item.value}</p>
                 <p className="text-xs text-blue-fantastic/70 font-semibold mt-0.5">{item.sub}</p>
               </div>
               {item.bar && (

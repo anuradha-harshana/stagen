@@ -1,0 +1,171 @@
+[
+  {
+    "tenant_id": "tenant-lot-104",
+    "stages": [
+      {
+        "name": "Site Cut",
+        "status": "Active",
+        "progress": 0,
+        "checklist": [
+          {
+            "id": "check-site-survey",
+            "label": "Soil testing & site survey",
+            "completed": false
+          },
+          {
+            "id": "item-1787130332924",
+            "label": "Retaining walls",
+            "completed": false
+          }
+        ]
+      },
+      {
+        "name": "Slab",
+        "status": "Pending",
+        "progress": 0,
+        "checklist": [
+          {
+            "id": "check-plumbing",
+            "label": "Under-slab plumbing and drainage",
+            "completed": false
+          },
+          {
+            "id": "check-formwork",
+            "label": "Formwork & steel reinforcement",
+            "completed": false
+          },
+          {
+            "id": "check-concrete",
+            "label": "Concrete pour & curing check",
+            "completed": false
+          }
+        ]
+      },
+      {
+        "name": "Frame",
+        "status": "Pending",
+        "progress": 0,
+        "checklist": [
+          {
+            "id": "check-wall-frames",
+            "label": "Wall frames erected",
+            "completed": false
+          },
+          {
+            "id": "check-roof-trusses",
+            "label": "Roof trusses & bracing installed",
+            "completed": false
+          },
+          {
+            "id": "check-windows",
+            "label": "Window & external door frames installed",
+            "completed": false
+          }
+        ]
+      },
+      {
+        "name": "Lockup",
+        "status": "Pending",
+        "progress": 0,
+        "checklist": [
+          {
+            "id": "check-roof",
+            "label": "Roof cladding completed",
+            "completed": false
+          },
+          {
+            "id": "check-brickwork",
+            "label": "Brickwork / external cladding completed",
+            "completed": false
+          },
+          {
+            "id": "check-electrical",
+            "label": "Electrical & plumbing rough-in completed",
+            "completed": false
+          }
+        ]
+      },
+      {
+        "name": "Fixing",
+        "status": "Pending",
+        "progress": 0,
+        "checklist": [
+          {
+            "id": "check-plasterboard",
+            "label": "Plasterboard lining completed",
+            "completed": false
+          },
+          {
+            "id": "check-doors",
+            "label": "Architraves, skirting & doors installed",
+            "completed": false
+          },
+          {
+            "id": "check-waterproofing",
+            "label": "Wet-area waterproofing completed",
+            "completed": false
+          },
+          {
+            "id": "check-cabinetry",
+            "label": "Cabinetry & vanities installed",
+            "completed": false
+          }
+        ]
+      },
+      {
+        "name": "Completion",
+        "status": "Pending",
+        "progress": 0,
+        "checklist": [
+          {
+            "id": "check-flooring",
+            "label": "Tiling & flooring completed",
+            "completed": false
+          },
+          {
+            "id": "check-painting",
+            "label": "Painting completed",
+            "completed": false
+          },
+          {
+            "id": "check-fixtures",
+            "label": "Fixtures and tapware installed",
+            "completed": false
+          },
+          {
+            "id": "check-cleaning",
+            "label": "Final cleaning & quality audit completed",
+            "completed": false
+          }
+        ]
+      },
+      {
+        "name": "Handover",
+        "status": "Pending",
+        "progress": 0,
+        "checklist": [
+          {
+            "id": "check-pci",
+            "label": "Practical Completion Inspection completed",
+            "completed": false
+          },
+          {
+            "id": "check-rectification",
+            "label": "PCI items rectified",
+            "completed": false
+          },
+          {
+            "id": "check-payment",
+            "label": "Final payment received",
+            "completed": false
+          },
+          {
+            "id": "check-keys",
+            "label": "Keys handed over",
+            "completed": false
+          }
+        ]
+      }
+    ]
+  }
+]

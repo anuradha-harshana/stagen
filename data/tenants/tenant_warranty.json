@@ -1,0 +1,37 @@
+{
+  "tenant_id": "tenant-lot-104",
+  "warranties": [
+    {
+      "id": "w-001",
+      "icon_key": "Home",
+      "title": "Structural Warranty",
+      "provider": "Stagen Homes",
+      "period": "6 Years",
+      "expiry": "Dec 2031",
+      "status": "Active",
+      "description": "...",
+      "years_total": 6,
+      "years_left": 5.5
+    }
+  ],
+  "maintenance": [
+    {
+      "id": "m-001",
+      "title": "12-Month Maintenance Inspection",
+      "date": "Dec 2027",
+      "provider": "Stagen Homes",
+      "status": "scheduled",
+      "notes": "..."
+    }
+  ],
+  "defects": [
+    {
+      "id": "d-001",
+      "title": "Hairline grout crack – master ensuite",
+      "area": "Master Ensuite",
+      "reported": "Jul 15, 2026",
+      "status": "in-progress",
+      "reported_by": "7ab56015-4412-494e-8aff-dbb5095e0096"
+    }
+  ]
+}

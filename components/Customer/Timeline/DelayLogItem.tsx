@@ -59,7 +59,7 @@ export default function DelayLogItem({ entry }: DelayLogItemProps) {
   return (
     <div 
       className={cn(
-        "bg-palladian border rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all duration-300 shadow-sm hover:shadow-[0_4px_15px_rgba(27,38,50,0.03)]",
+        "bg-white border rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all duration-300 shadow-sm hover:shadow-[0_4px_15px_rgba(27,38,50,0.03)]",
         borderClass
       )}
     >
@@ -92,7 +92,7 @@ export default function DelayLogItem({ entry }: DelayLogItemProps) {
       </div>
 
       {/* Date Shift Details (Right Panel) */}
-      <div className="bg-palladian/30 border border-blue-fantastic/5 px-4 py-3 rounded-xl shrink-0 w-full md:w-auto flex flex-col items-center justify-center gap-1">
+      <div className="bg-surface-inset border border-blue-fantastic/5 px-4 py-3 rounded-xl shrink-0 w-full md:w-auto flex flex-col items-center justify-center gap-1">
         <span className="text-[9px] font-extrabold uppercase tracking-widest text-blue-fantastic/45 block text-center">
           Schedule Impact
         </span>

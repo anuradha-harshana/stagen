@@ -18,7 +18,7 @@ export function LogoutButton() {
                 return;
             }
 
-            toast.success("Logged out successfully");
+            toast.success("Logged out successfully", { position: "top-right" });
 
             router.replace("/login");
             router.refresh();

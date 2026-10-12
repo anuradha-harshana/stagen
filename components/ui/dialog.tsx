@@ -54,7 +54,7 @@ export function DialogContent({ className, children, onClose, ...props }: Dialog
   return (
     <div
       className={cn(
-        "relative flex flex-col gap-4 rounded-3xl bg-palladian border border-blue-fantastic/20 p-6 shadow-lg outline-none",
+        "relative flex flex-col gap-4 rounded-3xl bg-white border border-blue-fantastic/20 p-6 shadow-lg outline-none",
         className
       )}
       {...props}
@@ -95,6 +95,15 @@ export function DialogDescription({ className, ...props }: React.HTMLAttributes<
   return (
     <p
       className={cn("text-sm text-muted-foreground", className)}
+      {...props}
+    />
+  )
+}
+
+export function DialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 pt-2", className)}
       {...props}
     />
   )
