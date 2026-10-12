@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BookOpen, FileText } from "lucide-react";
 import FAQHeader from "./faq-header";
 import FAQStats from "./faq-stats";
@@ -8,123 +8,122 @@ import FAQList, { FAQArticle } from "./faq-list";
 import FAQFormModal from "./faq-form-modal";
 import AIKnowledgeSources, { KnowledgeDoc } from "./ai-knowledge-sources";
 
-const INITIAL_FAQ_ARTICLES: FAQArticle[] = [
-  {
-    id: "faq-1",
-    category: "Site Access",
-    question: "Can I visit the construction site at any time?",
-    answer: "For safety reasons, site visits must be scheduled in advance with your Site Supervisor. Unaccompanied access is strictly prohibited."
-  },
-  {
-    id: "faq-2",
-    category: "Payments",
-    question: "When are progress payments due?",
-    answer: "Progress payments are due at the completion of each major stage (Slab, Frame, Lockup, Fixing, Practical Completion). Invoices are sent via the Customer Portal and are payable within 7 business days."
-  },
-  {
-    id: "faq-3",
-    category: "Warranty",
-    question: "What is covered under the post-handover warranty?",
-    answer: "We provide a 3-month minor defects warranty period and a statutory 6-year structural guarantee. Warranty requests can be logged directly through the Warranty page in the Customer Portal."
-  },
-  {
-    id: "faq-4",
-    category: "Delays",
-    question: "How will I be notified of weather delays?",
-    answer: "Any weather or material delay is recorded in our Site Diary and will automatically show up on your timeline and dashboard. Your supervisor will log estimated delays as they occur."
-  }
-];
+interface FAQClientProps {
+  initialFaqs: FAQArticle[];
+  initialGuardrails?: string[];
+  initialDocuments?: KnowledgeDoc[];
+  companyId: string;
+}
 
-const INITIAL_GUARDRAILS = [
-  "Prioritize safety instructions in all site visit inquiries.",
-  "Direct complex contract and payment variations to the company manager.",
-  "Always suggest contacting supervisor Eric for lot-specific timeline details."
-];
-
-const INITIAL_DOCUMENTS: KnowledgeDoc[] = [
-  {
-    name: "Stagen_Warranty_Agreement_2026.pdf",
-    size: "1.2 MB",
-    uploadedAt: "Jun 15, 2026"
-  },
-  {
-    name: "Site_Safety_And_Access_Protocol.pdf",
-    size: "840 KB",
-    uploadedAt: "Jun 18, 2026"
-  },
-  {
-    name: "Standard_Invoicing_Schedule.pdf",
-    size: "450 KB",
-    uploadedAt: "Jun 24, 2026"
-  }
-];
-
-export default function FAQClient() {
-  const [articles, setArticles] = useState<FAQArticle[]>(INITIAL_FAQ_ARTICLES);
-  const [guardrails, setGuardrails] = useState<string[]>(INITIAL_GUARDRAILS);
-  const [documents, setDocuments] = useState<KnowledgeDoc[]>(INITIAL_DOCUMENTS);
-  const [isHydrated, setIsHydrated] = useState(false);
+export default function FAQClient({
+  initialFaqs,
+  initialGuardrails = [],
+  initialDocuments = [],
+  companyId,
+}: FAQClientProps) {
+  // 1. Initialize state with data loaded from server JSON file
+  const [articles, setArticles] = useState<FAQArticle[]>(initialFaqs);
+  const [guardrails, setGuardrails] = useState<string[]>(initialGuardrails);
+  const [documents, setDocuments] = useState<KnowledgeDoc[]>(initialDocuments);
 
   // Layout Tab State
   const [activeTab, setActiveTab] = useState<"faq" | "ai">("faq");
 
-  // Form States
+  // Form & Edit States
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingArticle, setEditingArticle] = useState<FAQArticle | null>(null);
 
-  // Sync state with localStorage
-  useEffect(() => {
-    const savedArticles = localStorage.getItem("stagen_faq_articles");
-    const savedGuardrails = localStorage.getItem("stagen_ai_guardrails");
-    const savedDocs = localStorage.getItem("stagen_ai_documents");
+  // --- CRUD Operations connected to /api/company/faq ---
 
-    if (savedArticles) setArticles(JSON.parse(savedArticles));
-    if (savedGuardrails) setGuardrails(JSON.parse(savedGuardrails));
-    if (savedDocs) setDocuments(JSON.parse(savedDocs));
+  // 1. ADD / EDIT FAQ
+  const handleSaveFAQ = async (payload: FAQArticle) => {
+    try {
+      const isEdit = Boolean(editingArticle);
+      const response = await fetch("/api/company/faq", {
+        method: isEdit ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    setIsHydrated(true);
-  }, []);
+      if (!response.ok) {
+        throw new Error("Failed to save FAQ article to JSON");
+      }
 
-  useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem("stagen_faq_articles", JSON.stringify(articles));
-      localStorage.setItem("stagen_ai_guardrails", JSON.stringify(guardrails));
-      localStorage.setItem("stagen_ai_documents", JSON.stringify(documents));
+      const data: { faq: FAQArticle } = await response.json();
+
+      // Update UI state with the saved FAQ returned from the server
+      setArticles((current) => {
+        const exists = current.some((art) => art.id === data.faq.id);
+        return exists
+          ? current.map((art) => (art.id === data.faq.id ? data.faq : art))
+          : [data.faq, ...current];
+      });
+
+      setIsFormOpen(false);
+      setEditingArticle(null);
+    } catch (error) {
+      console.error("Error saving FAQ article:", error);
     }
-  }, [articles, guardrails, documents, isHydrated]);
+  };
 
-  // QA Operations
-  const handleSaveFAQ = (savedArt: FAQArticle) => {
-    const exists = articles.some((art) => art.id === savedArt.id);
-    if (exists) {
-      setArticles(articles.map((art) => (art.id === savedArt.id ? savedArt : art)));
-    } else {
-      setArticles([savedArt, ...articles]);
+  // 2. DELETE FAQ
+  const handleDeleteFAQ = async (id: string) => {
+    try {
+      const response = await fetch(`/api/company/faq?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete FAQ article from JSON");
+      }
+
+      // Remove from client state to immediately update UI
+      setArticles((current) => current.filter((art) => art.id !== id));
+    } catch (error) {
+      console.error("Error deleting FAQ article:", error);
     }
-    setIsFormOpen(false);
-    setEditingArticle(null);
   };
 
-  const handleDeleteFAQ = (id: string) => {
-    setArticles(articles.filter((art) => art.id !== id));
+  // AI Guardrail Operations (Syncing to JSON)
+  const handleAddGuardrail = async (text: string) => {
+    const updated = [...guardrails, text];
+    setGuardrails(updated);
+    await fetch("/api/company/faq", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ guardrails: updated }),
+    }).catch(console.error);
   };
 
-  // Guardrail Operations
-  const handleAddGuardrail = (text: string) => {
-    setGuardrails([...guardrails, text]);
+  const handleDeleteGuardrail = async (index: number) => {
+    const updated = guardrails.filter((_, idx) => idx !== index);
+    setGuardrails(updated);
+    await fetch("/api/company/faq", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ guardrails: updated }),
+    }).catch(console.error);
   };
 
-  const handleDeleteGuardrail = (index: number) => {
-    setGuardrails(guardrails.filter((_, idx) => idx !== index));
+  // AI Knowledge Document Operations (Syncing to JSON)
+  const handleAddDoc = async (doc: KnowledgeDoc) => {
+    const updated = [...documents, doc];
+    setDocuments(updated);
+    await fetch("/api/company/faq", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ documents: updated }),
+    }).catch(console.error);
   };
 
-  // Documents Operations
-  const handleAddDoc = (doc: KnowledgeDoc) => {
-    setDocuments([...documents, doc]);
-  };
-
-  const handleDeleteDoc = (name: string) => {
-    setDocuments(documents.filter((doc) => doc.name !== name));
+  const handleDeleteDoc = async (name: string) => {
+    const updated = documents.filter((doc) => doc.name !== name);
+    setDocuments(updated);
+    await fetch("/api/company/faq", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ documents: updated }),
+    }).catch(console.error);
   };
 
   const categories = Array.from(new Set(articles.map((art) => art.category)));
@@ -132,10 +131,12 @@ export default function FAQClient() {
   return (
     <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Page Header */}
-      <FAQHeader onAddClick={() => {
-        setEditingArticle(null);
-        setIsFormOpen(true);
-      }} />
+      <FAQHeader
+        onAddClick={() => {
+          setEditingArticle(null);
+          setIsFormOpen(true);
+        }}
+      />
 
       {/* Overview Stats */}
       <FAQStats
@@ -178,20 +179,20 @@ export default function FAQClient() {
             setEditingArticle(art);
             setIsFormOpen(true);
           }}
-          onDelete={handleDeleteFAQ}
+          onDelete={(id) => void handleDeleteFAQ(id)}
         />
       ) : (
         <AIKnowledgeSources
           guardrails={guardrails}
-          onAddGuardrail={handleAddGuardrail}
-          onDeleteGuardrail={handleDeleteGuardrail}
+          onAddGuardrail={(text) => void handleAddGuardrail(text)}
+          onDeleteGuardrail={(idx) => void handleDeleteGuardrail(idx)}
           documents={documents}
-          onAddDocument={handleAddDoc}
-          onDeleteDocument={handleDeleteDoc}
+          onAddDocument={(doc) => void handleAddDoc(doc)}
+          onDeleteDocument={(name) => void handleDeleteDoc(name)}
         />
       )}
 
-      {/* Form Modal */}
+      {/* Create / Edit Form Modal */}
       <FAQFormModal
         article={editingArticle}
         categories={categories}
@@ -200,7 +201,7 @@ export default function FAQClient() {
           setIsFormOpen(false);
           setEditingArticle(null);
         }}
-        onSave={handleSaveFAQ}
+        onSave={(payload) => void handleSaveFAQ(payload)}
       />
     </div>
   );
