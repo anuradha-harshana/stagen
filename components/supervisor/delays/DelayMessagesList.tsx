@@ -18,7 +18,7 @@ export function DelayMessagesList({ messages }: DelayMessagesListProps) {
           No Customer Delay Notices Sent
         </h4>
         <p className="text-xs text-blue-fantastic/60 font-sans max-w-sm mx-auto">
-          No formal schedule adjustment notifications have been sent for this project yet. Use the "Send Notice" action on any delay log entry to inform the client.
+          No formal schedule adjustment notifications have been sent for this project yet. Use the &quot;Send Notice&quot; action on any delay log entry to inform the client.
         </p>
       </div>
     );

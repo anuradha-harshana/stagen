@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { TimelineStage, TimelinePageData } from "@/lib/timeline/data";
+import { TimelineStage, TimelinePageData } from "@/lib/supervisor/types";
 import TimelineBar from "@/components/Customer/Timeline/TimelineBar";
 import MilestoneMarker from "@/components/Customer/Timeline/MilestoneMarker";
 import { ZoomScale } from "@/components/Customer/Timeline/ZoomToggle";
@@ -103,7 +103,7 @@ export function SupervisorGanttChart({
     const maxTime = maxDate.getTime();
 
     if (zoomScale === "week") {
-      let current = new Date(minDate);
+      const current = new Date(minDate);
       current.setDate(current.getDate() + ((1 + 7 - current.getDay()) % 7));
 
       while (current.getTime() <= maxTime) {
@@ -115,7 +115,7 @@ export function SupervisorGanttChart({
         current.setDate(current.getDate() + 7);
       }
     } else {
-      let current = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+      const current = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
       if (current.getTime() < minTime) {
         current.setMonth(current.getMonth() + 1);
       }

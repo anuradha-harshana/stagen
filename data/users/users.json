@@ -29,5 +29,13 @@
     "email": "management@stagen.com",
     "password": "Stagen@123456",
     "role": "company-management"
+  },
+  {
+    "id": "7ab56015-4412-494e-8aff-dbb5095e0098",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "username": "Eric Chen",
+    "email": "eric@stagen.com",
+    "password": "Stagen@123456",
+    "role": "supervisor"
   }
 ]

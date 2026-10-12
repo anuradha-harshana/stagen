@@ -20,7 +20,7 @@ interface PersonalInformationProps {
     contactNumber: string;
     emailAddress: string;
     officeBranch: string;
-  }) => void;
+  }) => Promise<boolean>;
 }
 
 const personalInfoSchema = z.object({
@@ -71,10 +71,10 @@ export function PersonalInformation({
     setIsOpen(true);
   };
 
-  const onSubmit = (data: PersonalInfoFormData) => {
-    onSave({ ...data, employeeId });
+  const onSubmit = async (data: PersonalInfoFormData) => {
+    if (!await onSave({ ...data, employeeId })) return;
     setIsOpen(false);
-    toast.success("Personal information updated.");
+
   };
 
   const onError = () => {

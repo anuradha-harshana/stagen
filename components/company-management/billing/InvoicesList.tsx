@@ -68,11 +68,10 @@ export function InvoicesList({ invoices, onDownload }: InvoicesListProps) {
               <button
                 key={status}
                 onClick={() => setSelectedStatus(status)}
-                className={`px-3 py-1 rounded-md font-medium transition-all ${
-                  selectedStatus === status
-                    ? "bg-blue-fantastic text-palladian shadow-xs"
-                    : "text-blue-fantastic/70 hover:text-blue-fantastic"
-                }`}
+                className={`px-3 py-1 rounded-md font-medium transition-all ${selectedStatus === status
+                  ? "bg-blue-fantastic text-palladian shadow-xs"
+                  : "text-blue-fantastic/70 hover:text-blue-fantastic"
+                  }`}
               >
                 {status}
               </button>

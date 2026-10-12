@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import { useSupervisorData, DataState } from "@/components/supervisor/useSupervisorData";
+import React, { useState, useRef } from "react";
 import { 
   Camera, 
   Building2, 
@@ -35,10 +36,8 @@ import { useUser } from "@/components/Providers/UserProvider";
 import { Project } from "@/lib/db-mock/projectsData";
 import { 
   SitePhoto, 
-  INITIAL_SITE_PHOTOS, 
   STAGE_NAMES, 
   StageName, 
-  getAssignedProjects 
 } from "./site-photos-store";
 import { PhotoUploadZone } from "@/components/supervisor/photos/PhotoUploadZone";
 import { PhotoGalleryGrid } from "@/components/supervisor/photos/PhotoGalleryGrid";
@@ -46,13 +45,17 @@ import { PhotoDetailModal } from "@/components/supervisor/photos/PhotoDetailModa
 
 export default function SupervisorSitePhotosPage() {
   const user = useUser();
+  const localUploads = useRef(new Set<string>());
 
   // Load assigned projects for current supervisor
-  const assignedProjects = getAssignedProjects(user?.id);
+  const projectApi = useSupervisorData<Project[]>("projects", []);
+  const assignedProjects = projectApi.data;
 
   // State management
-  const [selectedProjectId, setSelectedProjectId] = useState<string>(assignedProjects[0]?.id || "lot-104");
-  const [photos, setPhotos] = useState<SitePhoto[]>(INITIAL_SITE_PHOTOS);
+  const [selectedId, setSelectedProjectId] = useState("");
+  const selectedProjectId = selectedId || assignedProjects[0]?.id || "";
+  const api = useSupervisorData<SitePhoto[]>("photos", []);
+  const { data: photos, setData: setPhotos } = api;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStageFilter, setSelectedStageFilter] = useState<string>("All");
   
@@ -115,11 +118,15 @@ export default function SupervisorSitePhotosPage() {
 
   // Handlers for Photo CRUD
   const handleUploadSuccess = (newPhotos: SitePhoto[]) => {
+    newPhotos.forEach(photo => localUploads.current.add(photo.id));
     setPhotos((prev) => [...newPhotos, ...prev]);
     setActiveUploadStage(null);
   };
 
-  const handleUpdateCaption = (photoId: string, newCaption: string) => {
+  const handleUpdateCaption = async (photoId: string, newCaption: string) => {
+    if (!localUploads.current.has(photoId)) {
+      if (!await api.mutate("PUT", { id: photoId, caption: newCaption })) return false;
+    }
     setPhotos((prev) =>
       prev.map((p) => (p.id === photoId ? { ...p, caption: newCaption } : p))
     );
@@ -168,7 +175,10 @@ export default function SupervisorSitePhotosPage() {
     }
   };
 
-  const handleDeletePhoto = (photoId: string) => {
+  const handleDeletePhoto = async (photoId: string) => {
+    if (!localUploads.current.has(photoId)) {
+      if (!await api.mutate("DELETE", { id: photoId })) return false;
+    }
     setPhotos((prev) => prev.filter((p) => p.id !== photoId));
     if (selectedPhoto && selectedPhoto.id === photoId) {
       setSelectedPhoto(null);
@@ -181,6 +191,7 @@ export default function SupervisorSitePhotosPage() {
     (stage) => getPhotosForStage(stage).length > 0
   ).length;
 
+  if (api.loading || projectApi.loading || api.error || projectApi.error || !activeProject) return <DataState loading={api.loading || projectApi.loading} error={api.error || projectApi.error} empty />;
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Header & Quick Overview */}

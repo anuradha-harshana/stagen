@@ -1,5 +1,6 @@
 "use client"
 
+import { useSupervisorData, DataState } from "@/components/supervisor/useSupervisorData";
 import { useState } from "react"
 import { Globe, Save } from "lucide-react"
 import { toast } from "sonner"
@@ -12,20 +13,22 @@ import {
 import { Button } from "@/components/ui/button"
 
 export default function GeneralSettings() {
-  const [language, setLanguage] = useState("English")
-  const [timeZone, setTimeZone] = useState("(AEST) Australia/Sydney")
-  const [dateFormat, setDateFormat] = useState("DD MMM YYYY")
-  const [measurement, setMeasurement] = useState("Metric (m², km)")
-  const [officeBranch, setOfficeBranch] = useState("Sydney Head Office (HQ)")
+  const api = useSupervisorData<Record<string, Record<string, string | boolean>> | null>("settings", null);
+  if (api.loading || api.error || !api.data) return <DataState loading={api.loading} error={api.error} />;
+  return <SettingsForm initial={api.data.general} save={values => api.mutate("PUT", { section: "general", values })} />;
+}
+function SettingsForm({ initial, save }: { initial: Record<string, string | boolean>; save: (values: Record<string, string | boolean>) => Promise<boolean> }) {
+  const [language, setLanguage] = useState(initial.language as string)
+  const [timeZone, setTimeZone] = useState(initial.timeZone as string)
+  const [dateFormat, setDateFormat] = useState(initial.dateFormat as string)
+  const [measurement, setMeasurement] = useState(initial.measurement as string)
+  const [officeBranch, setOfficeBranch] = useState(initial.officeBranch as string)
   const [isSaving, setIsSaving] = useState(false)
 
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSaving(true)
-    setTimeout(() => {
-      setIsSaving(false)
-      toast.success("General settings saved successfully!")
-    }, 800)
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault(); setIsSaving(true);
+    await save({ language, timeZone, dateFormat, measurement, officeBranch });
+    setIsSaving(false);
   }
 
   return (

@@ -1,5 +1,6 @@
 "use client"
 
+import { useSupervisorData, DataState } from "@/components/supervisor/useSupervisorData";
 import { useState } from "react"
 import { Bell, AlertTriangle, MessageCircle, Camera, CalendarDays, Mail, Save } from "lucide-react"
 import { toast } from "sonner"
@@ -13,21 +14,23 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export default function NotificationSettings() {
-  const [siteDelays, setSiteDelays] = useState(true)
-  const [customerQuestions, setCustomerQuestions] = useState(true)
-  const [docUploads, setDocUploads] = useState(true)
-  const [weeklySummary, setWeeklySummary] = useState(false)
-  const [pushNotifications, setPushNotifications] = useState(true)
-  const [emailAlerts, setEmailAlerts] = useState(true)
+  const api = useSupervisorData<Record<string, Record<string, string | boolean>> | null>("settings", null);
+  if (api.loading || api.error || !api.data) return <DataState loading={api.loading} error={api.error} />;
+  return <SettingsForm initial={api.data.notifications} save={values => api.mutate("PUT", { section: "notifications", values })} />;
+}
+function SettingsForm({ initial, save }: { initial: Record<string, string | boolean>; save: (values: Record<string, string | boolean>) => Promise<boolean> }) {
+  const [siteDelays, setSiteDelays] = useState(initial.siteDelays as boolean)
+  const [customerQuestions, setCustomerQuestions] = useState(initial.customerQuestions as boolean)
+  const [docUploads, setDocUploads] = useState(initial.docUploads as boolean)
+  const [weeklySummary, setWeeklySummary] = useState(initial.weeklySummary as boolean)
+  const [pushNotifications, setPushNotifications] = useState(initial.pushNotifications as boolean)
+  const [emailAlerts, setEmailAlerts] = useState(initial.emailAlerts as boolean)
   const [isSaving, setIsSaving] = useState(false)
 
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSaving(true)
-    setTimeout(() => {
-      setIsSaving(false)
-      toast.success("Notification preferences updated successfully!")
-    }, 800)
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault(); setIsSaving(true);
+    await save({ siteDelays, customerQuestions, docUploads, weeklySummary, pushNotifications, emailAlerts });
+    setIsSaving(false);
   }
 
   const toggleItems = [

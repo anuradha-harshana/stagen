@@ -26,12 +26,15 @@ interface PhotoDetailModalProps {
   photo: SitePhoto | null;
   isOpen: boolean;
   onClose: () => void;
-  onUpdateCaption: (photoId: string, newCaption: string) => void;
+  onUpdateCaption: (photoId: string, newCaption: string) => Promise<boolean | undefined>;
   onReplacePhoto: (photoId: string, newFile: File) => void;
-  onDeletePhoto: (photoId: string) => void;
+  onDeletePhoto: (photoId: string) => Promise<boolean | undefined>;
 }
 
-export function PhotoDetailModal({
+export function PhotoDetailModal(props: PhotoDetailModalProps) {
+  return <PhotoDetailModalDraft key={`${props.photo?.id ?? "none"}-${props.isOpen}`} {...props} />;
+}
+function PhotoDetailModalDraft({
   photo,
   isOpen,
   onClose,
@@ -39,18 +42,11 @@ export function PhotoDetailModal({
   onReplacePhoto,
   onDeletePhoto,
 }: PhotoDetailModalProps) {
-  const [captionText, setCaptionText] = useState("");
+  const [captionText, setCaptionText] = useState(photo?.caption ?? "");
   const [isEditingCaption, setIsEditingCaption] = useState(false);
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const fileReplaceInputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    if (photo) {
-      setCaptionText(photo.caption || "");
-      setIsEditingCaption(false);
-      setIsConfirmingDelete(false);
-    }
-  }, [photo]);
 
   if (!photo) return null;
 
@@ -62,8 +58,8 @@ export function PhotoDetailModal({
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
   };
 
-  const handleSaveCaption = () => {
-    onUpdateCaption(photo.id, captionText);
+  const handleSaveCaption = async () => {
+    if (await onUpdateCaption(photo.id, captionText) === false) return;
     setIsEditingCaption(false);
     toast.success("Photo caption updated successfully");
   };
@@ -81,8 +77,8 @@ export function PhotoDetailModal({
     }
   };
 
-  const handleDelete = () => {
-    onDeletePhoto(photo.id);
+  const handleDelete = async () => {
+    if (await onDeletePhoto(photo.id) === false) return;
     toast.success("Photo deleted from site record");
     onClose();
   };

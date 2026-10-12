@@ -1,5 +1,6 @@
 "use client";
 
+import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState } from "react";
 import { 
   History, 
@@ -27,13 +28,8 @@ import {
   TimelinePageData, 
   TimelineStage, 
   DelayLogEntry 
-} from "@/lib/timeline/data";
+} from "@/lib/supervisor/types";
 import ZoomToggle, { ZoomScale } from "@/components/Customer/Timeline/ZoomToggle";
-import { 
-  INITIAL_SUPERVISOR_TIMELINES, 
-  recalculateTimelineStats, 
-  getAssignedProjects 
-} from "./supervisor-timeline-store";
 import { SupervisorGanttChart } from "./SupervisorGanttChart";
 import { SupervisorStageEditor } from "./SupervisorStageEditor";
 import { LogDelayModal } from "./LogDelayModal";
@@ -41,22 +37,24 @@ import { SupervisorDelayLog } from "./SupervisorDelayLog";
 
 export function SupervisorTimelineClient() {
   const user = useUser();
-  const assignedProjects = getAssignedProjects(user?.id);
+  const projectApi = useSupervisorData<Project[]>("projects", []);
+  const assignedProjects = projectApi.data;
 
   // Selected project state
-  const [selectedProjectId, setSelectedProjectId] = useState<string>(assignedProjects[0]?.id || "lot-104");
+  const [selectedId, setSelectedProjectId] = useState("");
+  const selectedProjectId = selectedId || assignedProjects[0]?.id || "";
 
-  // Timelines dictionary state for mock persistence
-  const [timelines, setTimelines] = useState<Record<string, TimelinePageData>>(INITIAL_SUPERVISOR_TIMELINES);
+  // Timeline drafts are persisted with Save Timeline Changes
+  const api = useSupervisorData<Record<string, TimelinePageData>>("timeline", {});
+  const { data: timelines, setData: setTimelines } = api;
 
   // Active project timeline data
-  const currentTimelineRaw = timelines[selectedProjectId] || INITIAL_SUPERVISOR_TIMELINES["lot-104"];
-  const currentTimeline = recalculateTimelineStats(currentTimelineRaw);
+  const currentTimeline = timelines[selectedProjectId];
 
   // Controls state
   const [zoomScale, setZoomScale] = useState<ZoomScale>("month");
   const [statusFilter, setStatusFilter] = useState<string>("All");
-  const [simulatedToday] = useState<string>("2024-07-10");
+  const [today] = useState<string>(new Date().toISOString().slice(0, 10));
 
   // Selection for Stage Editor
   const [selectedStage, setSelectedStage] = useState<TimelineStage | null>(null);
@@ -72,7 +70,7 @@ export function SupervisorTimelineClient() {
       const projTimeline = prev[selectedProjectId] || currentTimeline;
       const newStages = projTimeline.stages.map((s) => (s.id === updatedStage.id ? updatedStage : s));
 
-      const updated = recalculateTimelineStats({
+      const updated = ({
         ...projTimeline,
         stages: newStages,
       });
@@ -88,58 +86,12 @@ export function SupervisorTimelineClient() {
     }
   };
 
-  const handleSaveDelayLogEntry = (newEntry: DelayLogEntry) => {
-    setTimelines((prev) => {
-      const projTimeline = prev[selectedProjectId] || currentTimeline;
-      const updatedLog = [newEntry, ...projTimeline.delayLog];
-
-      // Update associated stage status to 'delayed' if not already completed
-      const updatedStages = projTimeline.stages.map((s) => {
-        if (s.name === newEntry.stageName && s.status !== "completed-on-time" && s.status !== "completed-late") {
-          return {
-            ...s,
-            status: "delayed" as const,
-            actualEnd: newEntry.toDate,
-          };
-        }
-        return s;
-      });
-
-      const updated = recalculateTimelineStats({
-        ...projTimeline,
-        stages: updatedStages,
-        delayLog: updatedLog,
-        currentProjectedCompletion: newEntry.toDate,
-      });
-
-      return {
-        ...prev,
-        [selectedProjectId]: updated,
-      };
-    });
+  const handleSaveDelayLogEntry = async (entry: DelayLogEntry) => {
+    return api.mutate("POST", { ...entry, tenantId: selectedProjectId }, "delays");
   };
-
-  const handleDeleteDelayLogEntry = (logId: number) => {
-    setTimelines((prev) => {
-      const projTimeline = prev[selectedProjectId] || currentTimeline;
-      const updatedLog = projTimeline.delayLog.filter((item) => item.id !== logId);
-
-      const updated = recalculateTimelineStats({
-        ...projTimeline,
-        delayLog: updatedLog,
-      });
-
-      return {
-        ...prev,
-        [selectedProjectId]: updated,
-      };
-    });
-    toast.success("Log entry removed");
-  };
-
-  const handleSaveAllChanges = () => {
-    toast.success(`Timeline schedule for ${selectedProjectId.toUpperCase()} saved and synced with customer portal!`);
-  };
+  const handleDeleteDelayLogEntry = async (id: string | number) => { await api.mutate("DELETE", { id: String(id) }, "delays"); };
+  const handleSaveAllChanges = async () => { await api.mutate("PUT", { tenantId: selectedProjectId, stages: currentTimeline.stages }); };
+  if (api.loading || projectApi.loading || api.error || projectApi.error || !currentTimeline || !activeProject) return <DataState loading={api.loading || projectApi.loading} error={api.error || projectApi.error} empty />;
 
   // SVG Gauge calculations
   const radius = 42;
@@ -195,7 +147,7 @@ export function SupervisorTimelineClient() {
 
           <Button
             type="button"
-            onClick={handleSaveAllChanges}
+            disabled={api.saving} onClick={handleSaveAllChanges}
             className="bg-blue-fantastic hover:bg-abyssal-blue text-palladian font-sans font-bold text-xs h-9 px-4 rounded-xl shadow-xs"
           >
             <Save className="h-4 w-4 mr-1.5 text-burning-flame" />
@@ -213,7 +165,7 @@ export function SupervisorTimelineClient() {
           </span>
 
           <div className="w-full sm:w-72">
-            <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
+            <Select value={selectedProjectId} onValueChange={id => { setSelectedProjectId(id); setSelectedStage(null); }}>
               <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl focus:ring-truffle-trouble">
                 <SelectValue placeholder="Select Lot..." />
               </SelectTrigger>
@@ -374,7 +326,7 @@ export function SupervisorTimelineClient() {
       <SupervisorGanttChart
         data={filteredTimelineData}
         zoomScale={zoomScale}
-        simulatedToday={simulatedToday}
+        simulatedToday={today}
         selectedStageId={selectedStage?.id || null}
         onSelectStage={(stage) => setSelectedStage(stage)}
       />

@@ -1,18 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
+import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { 
-  ListChecks, 
-  ChevronRight, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Calendar, 
-  Building2, 
-  Camera, 
-  Save, 
-  FileText, 
-  Clock, 
+import {
+  ListChecks,
+  ChevronRight,
+  AlertTriangle,
+  CheckCircle2,
+  Calendar,
+  Building2,
+  Camera,
+  Save,
+  FileText,
+  Clock,
   RefreshCw,
   Plus
 } from "lucide-react";
@@ -23,40 +24,29 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { INITIAL_PROJECTS, Project, Stage, DelayLog } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/db-mock/projectsData";
 
 function StageUpdatesContent() {
   const searchParams = useSearchParams();
   const lotQuery = searchParams.get("lot");
 
-  const [projects, setProjects] = useState<Project[]>(INITIAL_PROJECTS);
-  const [selectedProjectId, setSelectedProjectId] = useState<string>("lot-104");
-  const [selectedStageName, setSelectedStageName] = useState<string>("Frame");
+  const api = useSupervisorData<Project[]>("stage-updates", []);
+  const { data: projects, setData: setProjects } = api;
+  const [selectedProjectId, setSelectedProjectId] = useState<string>(lotQuery ?? "");
+  const [selectedStageName, setSelectedStageName] = useState<string>("");
   const [progressNote, setProgressNote] = useState("");
-  
+
   // Delay form state
   const [delayType, setDelayType] = useState<"Weather" | "Materials" | "Inspections" | "Trade Availability">("Weather");
   const [delayDays, setDelayDays] = useState(3);
   const [delayDesc, setDelayDesc] = useState("");
 
-  // Select project by lot query parameter if it exists on initial load
-  useEffect(() => {
-    if (lotQuery && projects.some(p => p.id === lotQuery)) {
-      setSelectedProjectId(lotQuery);
-      const proj = projects.find(p => p.id === lotQuery);
-      if (proj) {
-        const activeStage = proj.stages.find(s => s.status === "Active")?.name || proj.currentStage;
-        setSelectedStageName(activeStage);
-      }
-    }
-  }, [lotQuery]);
-
   const activeProject = projects.find(p => p.id === selectedProjectId) || projects[0];
 
   // If activeProject stages change, ensure we select an existing stage
-  const currentStageDetails = activeProject.stages.find(s => s.name === selectedStageName) || 
-                              activeProject.stages.find(s => s.status === "Active") || 
-                              activeProject.stages[0];
+  const currentStageDetails = activeProject?.stages.find(s => s.name === selectedStageName) ||
+                              activeProject?.stages.find(s => s.status === "Active") ||
+                              activeProject?.stages[0];
 
   const handleProjectChange = (id: string) => {
     setSelectedProjectId(id);
@@ -70,7 +60,7 @@ function StageUpdatesContent() {
   // Toggle checklist item completeness
   const handleToggleChecklist = (stageName: string, itemId: string) => {
     setProjects(prev => prev.map(p => {
-      if (p.id === selectedProjectId) {
+      if (p.id === activeProject.id) {
         const updatedStages = p.stages.map(s => {
           if (s.name === stageName) {
             const updatedChecklist = s.checklist.map(item => {
@@ -99,7 +89,7 @@ function StageUpdatesContent() {
         const completedStagesCount = updatedStages.filter(s => s.status === "Completed").length;
         const activeStageObj = updatedStages.find(s => s.status === "Active");
         const activeStageProgressContribution = activeStageObj ? (activeStageObj.progress / 100) : 0;
-        
+
         // Simpler overall progress: (Completed Stages + active stage progress fraction) / total stages * 100
         const rawProgress = ((completedStagesCount + activeStageProgressContribution) / updatedStages.length) * 100;
         const newOverallProgress = Math.min(Math.round(rawProgress), 100);
@@ -114,111 +104,23 @@ function StageUpdatesContent() {
     }));
   };
 
-  // Save changes to current stage
-  const handleSaveProgress = () => {
-    toast.success("Progress saved successfully!");
+  const handleSaveProgress = async () => {
+    await api.mutate("PUT", { tenantId: activeProject.id, stageName: currentStageDetails.name, checklist: currentStageDetails.checklist, progress: currentStageDetails.progress });
   };
-
-  // Mark stage as completed and activate next stage
-  const handleCompleteStage = (stageName: string) => {
-    setProjects(prev => prev.map(p => {
-      if (p.id === selectedProjectId) {
-        const stageIdx = p.stages.findIndex(s => s.name === stageName);
-        if (stageIdx === -1) return p;
-
-        const updatedStages = p.stages.map((s, idx) => {
-          if (idx === stageIdx) {
-            // Mark completed, set progress to 100%, and check all checklist items
-            return {
-              ...s,
-              status: "Completed" as const,
-              progress: 100,
-              checklist: s.checklist.map(item => ({ ...item, completed: true }))
-            };
-          }
-          if (idx === stageIdx + 1) {
-            // Activate the next stage
-            return {
-              ...s,
-              status: "Active" as const,
-              progress: 0
-            };
-          }
-          return s;
-        });
-
-        // Compute overall progress
-        const completedStagesCount = updatedStages.filter(s => s.status === "Completed").length;
-        const activeStageObj = updatedStages.find(s => s.status === "Active");
-        const activeStageProgressContribution = activeStageObj ? (activeStageObj.progress / 100) : 0;
-        const newOverallProgress = Math.min(
-          Math.round(((completedStagesCount + activeStageProgressContribution) / updatedStages.length) * 100), 
-          100
-        );
-
-        // Determine next active stage name
-        const nextActiveStage = updatedStages[stageIdx + 1]?.name || stageName;
-
-        // Update selected stage view
-        setTimeout(() => {
-          setSelectedStageName(nextActiveStage);
-        }, 100);
-
-        return {
-          ...p,
-          stages: updatedStages,
-          progress: newOverallProgress,
-          currentStage: nextActiveStage
-        };
-      }
-      return p;
-    }));
-
-    toast.success(`Stage '${stageName}' completed! Next stage is now active.`);
+  const handleCompleteStage = async (stageName: string) => {
+    await api.mutate("PUT", { tenantId: activeProject.id, stageName, checklist: currentStageDetails.checklist, progress: currentStageDetails.progress, complete: true });
   };
-
-  // Submit progress note
-  const handlePostNote = (e: React.FormEvent) => {
+  const handlePostNote = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!progressNote.trim()) {
-      toast.error("Please enter a note to submit");
-      return;
-    }
-    toast.success("Progress note and timeline update posted to customer!");
-    setProgressNote("");
+    if (await api.mutate("POST", { tenantId: activeProject.id, text: progressNote })) setProgressNote("");
   };
-
-  // Log delay
-  const handleLogDelay = (e: React.FormEvent) => {
+  const handleLogDelay = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!delayDesc.trim()) {
-      toast.error("Please enter a description for the delay");
-      return;
-    }
-
-    const newDelay: DelayLog = {
-      id: `d-${Date.now()}`,
-      type: delayType,
-      durationDays: delayDays,
-      description: delayDesc,
-      date: new Date().toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" })
-    };
-
-    setProjects(prev => prev.map(p => {
-      if (p.id === selectedProjectId) {
-        return {
-          ...p,
-          status: "Delayed" as const,
-          delays: [newDelay, ...p.delays]
-        };
-      }
-      return p;
-    }));
-
-    toast.success(`Delay logged. Project status set to 'Delayed'.`);
-    setDelayDesc("");
+    const from = new Date(); const to = new Date(); to.setDate(to.getDate() + delayDays);
+    const types = { Weather: "weather", Materials: "materials", Inspections: "permits", "Trade Availability": "labor" };
+    if (await api.mutate("POST", { tenantId: activeProject.id, stageName: currentStageDetails.name, title: delayDesc, reason: delayDesc, type: types[delayType], fromDate: from.toISOString(), toDate: to.toISOString() }, "delays")) setDelayDesc("");
   };
-
+  if (api.loading || api.error || !currentStageDetails) return <DataState loading={api.loading} error={api.error} empty />;
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* 1. Header with project selector */}
@@ -241,7 +143,7 @@ function StageUpdatesContent() {
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-blue-fantastic/60 uppercase">Select Site:</span>
           <select
-            value={selectedProjectId}
+            value={activeProject.id}
             onChange={(e) => handleProjectChange(e.target.value)}
             className="bg-white border border-blue-fantastic/15 text-blue-fantastic font-semibold py-1.5 px-3 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-truffle-trouble cursor-pointer"
           >
@@ -262,10 +164,10 @@ function StageUpdatesContent() {
               const isCompleted = stage.status === "Completed";
               const isActive = stage.status === "Active";
               const isSelected = selectedStageName === stage.name;
-              
+
               let stepBg = "bg-blue-fantastic/5 text-blue-fantastic/45 border-blue-fantastic/10";
               let connectorColor = "bg-blue-fantastic/10";
-              
+
               if (isCompleted) {
                 stepBg = "bg-truffle-trouble text-palladian border-truffle-trouble shadow-sm";
                 connectorColor = "bg-truffle-trouble";
@@ -291,7 +193,7 @@ function StageUpdatesContent() {
                       {stage.name}
                     </span>
                   </button>
-                  
+
                   {/* Connector */}
                   {idx < activeProject.stages.length - 1 && (
                     <div className={`h-[2px] flex-1 min-w-[20px] ${connectorColor} shrink-0`} />
@@ -314,7 +216,7 @@ function StageUpdatesContent() {
               </div>
               <div>
                 <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">
-                  {selectedStageName} Stage Details
+                  {currentStageDetails.name} Stage Details
                 </CardTitle>
                 <CardDescription className="text-[11px] text-blue-fantastic/60 font-semibold mt-0.5">
                   Update task checks to adjust this stage progress
@@ -336,10 +238,10 @@ function StageUpdatesContent() {
                 {currentStageDetails.checklist.map((item) => (
                   <div
                     key={item.id}
-                    onClick={() => handleToggleChecklist(selectedStageName, item.id)}
+                    onClick={() => handleToggleChecklist(currentStageDetails.name, item.id)}
                     className={`flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer ${
-                      item.completed 
-                        ? "bg-blue-fantastic/4 border-blue-fantastic/10 text-blue-fantastic/50" 
+                      item.completed
+                        ? "bg-blue-fantastic/4 border-blue-fantastic/10 text-blue-fantastic/50"
                         : "bg-white border-blue-fantastic/15 text-blue-fantastic hover:border-blue-fantastic/30"
                     }`}
                   >
@@ -366,11 +268,12 @@ function StageUpdatesContent() {
               </div>
             )}
 
+            {currentStageDetails.checklist.length === 0 && <label className="text-sm">Progress (%)<Input type="number" min={0} max={100} value={currentStageDetails.progress} onChange={e => setProjects(prev => prev.map(p => p.id === activeProject.id ? { ...p, stages: p.stages.map(st => st.name === currentStageDetails.name ? { ...st, progress: Number(e.target.value) } : st) } : p))} /></label>}
             {/* Quick Actions Panel */}
             <div className="flex gap-2 justify-end mt-auto pt-3 border-t border-blue-fantastic/10">
               <Button
                 variant="outline"
-                onClick={handleSaveProgress}
+                disabled={api.saving} onClick={handleSaveProgress}
                 className="text-xs font-semibold border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 gap-1.5 h-8"
               >
                 <Save className="h-3.5 w-3.5" />
@@ -379,8 +282,8 @@ function StageUpdatesContent() {
 
               {currentStageDetails.status === "Active" && (
                 <Button
-                  onClick={() => handleCompleteStage(selectedStageName)}
-                  disabled={currentStageDetails.progress < 100}
+                  onClick={() => handleCompleteStage(currentStageDetails.name)}
+                  disabled={api.saving || currentStageDetails.progress < 100}
                   className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/85 text-xs font-semibold gap-1.5 h-8 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <CheckCircle2 className="h-3.5 w-3.5" />
@@ -410,7 +313,7 @@ function StageUpdatesContent() {
                   className="bg-white border-blue-fantastic/20 text-xs text-blue-fantastic placeholder:text-blue-fantastic/35 focus-visible:ring-truffle-trouble font-sans"
                   rows={3}
                 />
-                
+
                 <div className="flex gap-2 items-center justify-between">
                   <Button
                     type="button"
@@ -446,7 +349,7 @@ function StageUpdatesContent() {
                     <label className="text-[9px] font-bold text-blue-fantastic/60 uppercase">Delay Type</label>
                     <select
                       value={delayType}
-                      onChange={(e) => setDelayType(e.target.value as any)}
+                      onChange={(e) => setDelayType(e.target.value as typeof delayType)}
                       className="bg-white border border-blue-fantastic/20 text-blue-fantastic font-semibold py-1 px-2 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-truffle-trouble cursor-pointer"
                     >
                       <option value="Weather">Weather</option>
