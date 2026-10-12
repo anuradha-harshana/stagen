@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, LayoutDashboard, Receipt } from "lucide-react";
 import { BillingHeader } from "./BillingHeader";
 import { BillingStats } from "./BillingStats";
 import { BillingCharts } from "./BillingCharts";
 import { BillingUsageBreakdown } from "./BillingUsageBreakdown";
+import { RegionalBillingChart } from "./ProjectSiteUsageTable";
 import { InvoicesList, Invoice } from "./InvoicesList";
 
 const mockInvoices: Invoice[] = [
@@ -20,6 +21,7 @@ const mockInvoices: Invoice[] = [
 ];
 
 export function BillingOverview() {
+  const [activeTab, setActiveTab] = useState<"overview" | "invoices">("overview");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -37,22 +39,71 @@ export function BillingOverview() {
         </div>
       )}
 
-      {/* Divided Subcomponents */}
+      {/* Header */}
       <BillingHeader
         onExport={() => showToast("Exporting financial billing statement (CSV)...")}
         onManageSubscriptions={() => showToast("Opening Subscription Management...")}
       />
 
-      <BillingStats />
+      {/* Sub-Navigation Tabs */}
+      <div className="flex items-center gap-2 border-b border-blue-fantastic/15 pb-2">
+        <button
+          id="tab-overview"
+          type="button"
+          onClick={() => setActiveTab("overview")}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            activeTab === "overview"
+              ? "bg-blue-fantastic text-white shadow-xs"
+              : "text-blue-fantastic/70 hover:bg-slate-100 hover:text-blue-fantastic"
+          }`}
+        >
+          <LayoutDashboard className="h-4 w-4" />
+          Overview
+        </button>
 
-      <BillingCharts />
+        <button
+          id="tab-invoices"
+          type="button"
+          onClick={() => setActiveTab("invoices")}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            activeTab === "invoices"
+              ? "bg-blue-fantastic text-white shadow-xs"
+              : "text-blue-fantastic/70 hover:bg-slate-100 hover:text-blue-fantastic"
+          }`}
+        >
+          <Receipt className="h-4 w-4" />
+          Recent Billing Invoices
+          <span
+            className={`text-[10px] px-2 py-0.5 rounded-full font-bold transition-colors ${
+              activeTab === "invoices"
+                ? "bg-burning-flame text-blue-fantastic"
+                : "bg-blue-fantastic/10 text-blue-fantastic"
+            }`}
+          >
+            {mockInvoices.length}
+          </span>
+        </button>
+      </div>
 
-      <BillingUsageBreakdown />
+      {/* Tab 1: Overview */}
+      {activeTab === "overview" && (
+        <div className="space-y-6">
+          <BillingStats />
+          <BillingCharts />
+          <BillingUsageBreakdown />
+          <RegionalBillingChart onAction={(msg) => showToast(msg)} />
+        </div>
+      )}
 
-      <InvoicesList
-        invoices={mockInvoices}
-        onDownload={(id) => showToast(`Downloading ${id} invoice PDF...`)}
-      />
+      {/* Tab 2: Recent Billing Invoices (ONLY Recent Billing Invoices table) */}
+      {activeTab === "invoices" && (
+        <div>
+          <InvoicesList
+            invoices={mockInvoices}
+            onDownload={(id) => showToast(`Downloading ${id} invoice PDF...`)}
+          />
+        </div>
+      )}
     </div>
   );
 }
