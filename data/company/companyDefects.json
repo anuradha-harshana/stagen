@@ -34,8 +34,8 @@
     "area": "Laundry",
     "priority": "Medium",
     "reported": "2026-08-01",
-    "status": "open",
-    "assignedSupervisor": "Unassigned",
+    "status": "in-progress",
+    "assignedSupervisor": "Imesha",
     "description": "The cold water tap in the laundry basin is dripping continuously at a rate of 1 drip per 5 seconds, causing moisture build-up."
   },
   {

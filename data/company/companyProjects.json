@@ -19,9 +19,21 @@
             "status": "Completed",
             "progress": 100,
             "checklist": [
-              { "id": "sc-1", "label": "Soil testing & site survey", "completed": true },
-              { "id": "sc-2", "label": "Excavation & site leveling", "completed": true },
-              { "id": "sc-3", "label": "Retaining walls (if required)", "completed": true }
+              {
+                "id": "sc-1",
+                "label": "Soil testing & site survey",
+                "completed": true
+              },
+              {
+                "id": "sc-2",
+                "label": "Excavation & site leveling",
+                "completed": true
+              },
+              {
+                "id": "sc-3",
+                "label": "Retaining walls (if required)",
+                "completed": true
+              }
             ]
           },
           {
@@ -29,10 +41,26 @@
             "status": "Completed",
             "progress": 100,
             "checklist": [
-              { "id": "sl-1", "label": "Under-slab plumbing drainage", "completed": true },
-              { "id": "sl-2", "label": "Formwork & steel reinforcement", "completed": true },
-              { "id": "sl-3", "label": "Concrete pour & curing check", "completed": true },
-              { "id": "sl-4", "label": "Termite protection collar install", "completed": true }
+              {
+                "id": "sl-1",
+                "label": "Under-slab plumbing drainage",
+                "completed": true
+              },
+              {
+                "id": "sl-2",
+                "label": "Formwork & steel reinforcement",
+                "completed": true
+              },
+              {
+                "id": "sl-3",
+                "label": "Concrete pour & curing check",
+                "completed": true
+              },
+              {
+                "id": "sl-4",
+                "label": "Termite protection collar install",
+                "completed": true
+              }
             ]
           },
           {
@@ -40,10 +68,26 @@
             "status": "Active",
             "progress": 60,
             "checklist": [
-              { "id": "fr-1", "label": "Wall frames erection", "completed": true },
-              { "id": "fr-2", "label": "Roof trusses & bracing install", "completed": true },
-              { "id": "fr-3", "label": "Window & external door frames", "completed": false },
-              { "id": "fr-4", "label": "Structural steel lintels", "completed": false }
+              {
+                "id": "fr-1",
+                "label": "Wall frames erection",
+                "completed": true
+              },
+              {
+                "id": "fr-2",
+                "label": "Roof trusses & bracing install",
+                "completed": true
+              },
+              {
+                "id": "fr-3",
+                "label": "Window & external door frames",
+                "completed": false
+              },
+              {
+                "id": "fr-4",
+                "label": "Structural steel lintels",
+                "completed": false
+              }
             ]
           },
           {
@@ -51,10 +95,26 @@
             "status": "Pending",
             "progress": 0,
             "checklist": [
-              { "id": "lk-1", "label": "Roof cladding (tiles/colorbond)", "completed": false },
-              { "id": "lk-2", "label": "Brickwork / external cladding", "completed": false },
-              { "id": "lk-3", "label": "Electrical & plumbing rough-in", "completed": false },
-              { "id": "lk-4", "label": "External wall insulation", "completed": false }
+              {
+                "id": "lk-1",
+                "label": "Roof cladding (tiles/colorbond)",
+                "completed": false
+              },
+              {
+                "id": "lk-2",
+                "label": "Brickwork / external cladding",
+                "completed": false
+              },
+              {
+                "id": "lk-3",
+                "label": "Electrical & plumbing rough-in",
+                "completed": false
+              },
+              {
+                "id": "lk-4",
+                "label": "External wall insulation",
+                "completed": false
+              }
             ]
           },
           {
@@ -62,10 +122,26 @@
             "status": "Pending",
             "progress": 0,
             "checklist": [
-              { "id": "fx-1", "label": "Plasterboard lining & sheeting", "completed": false },
-              { "id": "fx-2", "label": "Architraves, skirting & doors fixing", "completed": false },
-              { "id": "fx-3", "label": "Waterproofing of wet areas", "completed": false },
-              { "id": "fx-4", "label": "Cabinetry & vanities install", "completed": false }
+              {
+                "id": "fx-1",
+                "label": "Plasterboard lining & sheeting",
+                "completed": false
+              },
+              {
+                "id": "fx-2",
+                "label": "Architraves, skirting & doors fixing",
+                "completed": false
+              },
+              {
+                "id": "fx-3",
+                "label": "Waterproofing of wet areas",
+                "completed": false
+              },
+              {
+                "id": "fx-4",
+                "label": "Cabinetry & vanities install",
+                "completed": false
+              }
             ]
           },
           {
@@ -73,10 +149,26 @@
             "status": "Pending",
             "progress": 0,
             "checklist": [
-              { "id": "cp-1", "label": "Tiling & flooring installation", "completed": false },
-              { "id": "cp-2", "label": "Painting & electric trim fit-off", "completed": false },
-              { "id": "cp-3", "label": "PC items & tapware installation", "completed": false },
-              { "id": "cp-4", "label": "Final cleaning & quality audit", "completed": false }
+              {
+                "id": "cp-1",
+                "label": "Tiling & flooring installation",
+                "completed": false
+              },
+              {
+                "id": "cp-2",
+                "label": "Painting & electric trim fit-off",
+                "completed": false
+              },
+              {
+                "id": "cp-3",
+                "label": "PC items & tapware installation",
+                "completed": false
+              },
+              {
+                "id": "cp-4",
+                "label": "Final cleaning & quality audit",
+                "completed": false
+              }
             ]
           },
           {
@@ -84,9 +176,21 @@
             "status": "Pending",
             "progress": 0,
             "checklist": [
-              { "id": "ho-1", "label": "Practical Completion Inspection (PCI)", "completed": false },
-              { "id": "ho-2", "label": "Rectification of PCI items", "completed": false },
-              { "id": "ho-3", "label": "Final payment & keys handover", "completed": false }
+              {
+                "id": "ho-1",
+                "label": "Practical Completion Inspection (PCI)",
+                "completed": false
+              },
+              {
+                "id": "ho-2",
+                "label": "Rectification of PCI items",
+                "completed": false
+              },
+              {
+                "id": "ho-3",
+                "label": "Final payment & keys handover",
+                "completed": false
+              }
             ]
           }
         ],
@@ -134,9 +238,21 @@
             "status": "Completed",
             "progress": 100,
             "checklist": [
-              { "id": "sc-201", "label": "Soil testing & site survey", "completed": true },
-              { "id": "sc-202", "label": "Excavation & site leveling", "completed": true },
-              { "id": "sc-203", "label": "Retaining walls (if required)", "completed": true }
+              {
+                "id": "sc-201",
+                "label": "Soil testing & site survey",
+                "completed": true
+              },
+              {
+                "id": "sc-202",
+                "label": "Excavation & site leveling",
+                "completed": true
+              },
+              {
+                "id": "sc-203",
+                "label": "Retaining walls (if required)",
+                "completed": true
+              }
             ]
           },
           {
@@ -144,17 +260,58 @@
             "status": "Active",
             "progress": 30,
             "checklist": [
-              { "id": "sl-201", "label": "Under-slab plumbing drainage", "completed": true },
-              { "id": "sl-202", "label": "Formwork & steel reinforcement", "completed": false },
-              { "id": "sl-203", "label": "Concrete pour & curing check", "completed": false },
-              { "id": "sl-204", "label": "Termite protection collar install", "completed": false }
+              {
+                "id": "sl-201",
+                "label": "Under-slab plumbing drainage",
+                "completed": true
+              },
+              {
+                "id": "sl-202",
+                "label": "Formwork & steel reinforcement",
+                "completed": false
+              },
+              {
+                "id": "sl-203",
+                "label": "Concrete pour & curing check",
+                "completed": false
+              },
+              {
+                "id": "sl-204",
+                "label": "Termite protection collar install",
+                "completed": false
+              }
             ]
           },
-          { "name": "Frame", "status": "Pending", "progress": 0, "checklist": [] },
-          { "name": "Lockup", "status": "Pending", "progress": 0, "checklist": [] },
-          { "name": "Fixing", "status": "Pending", "progress": 0, "checklist": [] },
-          { "name": "Completion", "status": "Pending", "progress": 0, "checklist": [] },
-          { "name": "Handover", "status": "Pending", "progress": 0, "checklist": [] }
+          {
+            "name": "Frame",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": []
+          },
+          {
+            "name": "Lockup",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": []
+          },
+          {
+            "name": "Fixing",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": []
+          },
+          {
+            "name": "Completion",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": []
+          },
+          {
+            "name": "Handover",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": []
+          }
         ],
         "delays": [
           {
@@ -171,7 +328,8 @@
             "customerName": "Sarah Jenkins",
             "questionText": "Hello! We noticed there hasn't been much activity on-site since the plumbing lines were laid down. Is everything okay?",
             "date": "Jul 18, 2026",
-            "replied": false
+            "replied": true,
+            "replyText": "Plumbing inspection completed today. Work resumes tomorrow."
           }
         ]
       },
@@ -186,13 +344,48 @@
         "estHandover": "Sep 5, 2026",
         "imageGradient": "from-burning-flame/30 to-abyssal-blue/80",
         "stages": [
-          { "name": "Site Cut", "status": "Completed", "progress": 100, "checklist": [] },
-          { "name": "Slab", "status": "Completed", "progress": 100, "checklist": [] },
-          { "name": "Frame", "status": "Completed", "progress": 100, "checklist": [] },
-          { "name": "Lockup", "status": "Completed", "progress": 100, "checklist": [] },
-          { "name": "Fixing", "status": "Active", "progress": 50, "checklist": [] },
-          { "name": "Completion", "status": "Pending", "progress": 0, "checklist": [] },
-          { "name": "Handover", "status": "Pending", "progress": 0, "checklist": [] }
+          {
+            "name": "Site Cut",
+            "status": "Completed",
+            "progress": 100,
+            "checklist": []
+          },
+          {
+            "name": "Slab",
+            "status": "Completed",
+            "progress": 100,
+            "checklist": []
+          },
+          {
+            "name": "Frame",
+            "status": "Completed",
+            "progress": 100,
+            "checklist": []
+          },
+          {
+            "name": "Lockup",
+            "status": "Completed",
+            "progress": 100,
+            "checklist": []
+          },
+          {
+            "name": "Fixing",
+            "status": "Active",
+            "progress": 50,
+            "checklist": []
+          },
+          {
+            "name": "Completion",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": []
+          },
+          {
+            "name": "Handover",
+            "status": "Pending",
+            "progress": 0,
+            "checklist": []
+          }
         ],
         "delays": [],
         "questions": [
@@ -203,7 +396,8 @@
             "date": "Jul 22, 2026",
             "replied": false
           }
-        ]
+        ],
+        "supervisorName": "Eric"
       },
       {
         "id": "P-1028",
@@ -281,6 +475,7 @@
         "delays": [],
         "questions": []
       }
-    ]
+    ],
+    "updatedAt": "2026-10-11T16:06:41.049Z"
   }
 ]
