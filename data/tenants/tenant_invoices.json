@@ -1,9 +1,13 @@
 {
   "tenant_id": "tenant-lot-104",
   "contract_value": 485000,
-  "amount_paid": 218250,
+  "amount_paid": 315250,
   "outstanding": 169750,
-  "next_due": { "amount": 97000, "label": "Stage 3 Lock-up", "due_date": "Aug 17, 2025" },
+  "next_due": {
+    "amount": 97000,
+    "label": "Stage 4 – Fixing Stage",
+    "due_date": "Oct 6, 2025"
+  },
   "invoices": [
     {
       "id": "INV-001",
@@ -12,15 +16,96 @@
       "due": "Apr 1, 2025",
       "amount": 97000,
       "status": "Paid"
+    },
+    {
+      "id": "INV-002",
+      "description": "Stage 1 – Foundation Complete",
+      "date": "May 15, 2025",
+      "due": "May 20, 2025",
+      "amount": 72750,
+      "status": "Paid"
+    },
+    {
+      "id": "INV-003",
+      "description": "Stage 2 – Frame Complete",
+      "date": "Jun 30, 2025",
+      "due": "Jul 5, 2025",
+      "amount": 48500,
+      "status": "Paid"
+    },
+    {
+      "id": "INV-004",
+      "description": "Stage 3 – Lock-up",
+      "date": "Aug 12, 2025",
+      "due": "Aug 17, 2025",
+      "amount": 97000,
+      "status": "Paid"
+    },
+    {
+      "id": "INV-005",
+      "description": "Stage 4 – Fixing Stage",
+      "date": "Oct 1, 2025",
+      "due": "Oct 6, 2025",
+      "amount": 97000,
+      "status": "Upcoming"
+    },
+    {
+      "id": "INV-006",
+      "description": "Stage 5 – Practical Completion",
+      "date": "Dec 1, 2025",
+      "due": "Dec 6, 2025",
+      "amount": 72750,
+      "status": "Upcoming"
     }
   ],
   "payment_milestones": [
     {
+      "id": "pm-001",
       "label": "Deposit",
       "amount": 97000,
       "date": "Apr 1, 2025",
       "status": "paid",
       "pct_of_contract": 20
+    },
+    {
+      "id": "pm-002",
+      "label": "Foundation",
+      "amount": 72750,
+      "date": "May 20, 2025",
+      "status": "paid",
+      "pct_of_contract": 15
+    },
+    {
+      "id": "pm-003",
+      "label": "Frame",
+      "amount": 48500,
+      "date": "Jul 5, 2025",
+      "status": "paid",
+      "pct_of_contract": 10
+    },
+    {
+      "id": "pm-004",
+      "label": "Lock-up",
+      "amount": 97000,
+      "date": "Aug 17, 2025",
+      "status": "paid",
+      "pct_of_contract": 20
+    },
+    {
+      "id": "pm-005",
+      "label": "Fixing",
+      "amount": 97000,
+      "date": "Oct 6, 2025",
+      "status": "upcoming",
+      "pct_of_contract": 20
+    },
+    {
+      "id": "pm-006",
+      "label": "Completion",
+      "amount": 72750,
+      "date": "Dec 6, 2025",
+      "status": "upcoming",
+      "pct_of_contract": 15
     }
   ]
 }
