@@ -329,7 +329,7 @@ useEffect(() => {
             </div>
 
             <div className="flex gap-1 bg-blue-fantastic/8 p-0.5 rounded-xl border border-blue-fantastic/10 overflow-x-auto">
-              {["All", "Executive Management", "Site Supervisor", "Trade Contractor"].map((role) => (
+              {["All", "Company Admin", "Executive Management", "Site Supervisor", "Trade Contractor", "Customer"].map((role) => (
                 <button
                   key={role}
                   onClick={() => setRoleFilter(role)}
@@ -652,7 +652,9 @@ useEffect(() => {
               >
                 <option value="Site Supervisor">Site Supervisor</option>
                 <option value="Executive Management">Executive Management</option>
+                <option value="Company Admin">Company Admin</option>
                 <option value="Trade Contractor">Trade Contractor</option>
+                <option value="Customer">Customer</option>
               </select>
             </div>
 
@@ -742,7 +744,9 @@ useEffect(() => {
               >
                 <option value="Site Supervisor">Site Supervisor</option>
                 <option value="Executive Management">Executive Management</option>
+                <option value="Company Admin">Company Admin</option>
                 <option value="Trade Contractor">Trade Contractor</option>
+                <option value="Customer">Customer</option>
               </select>
             </div>
 
