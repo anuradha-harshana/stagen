@@ -9,24 +9,116 @@
       "period": "6 Years",
       "expiry": "Dec 2031",
       "status": "Active",
-      "description": "...",
+      "description": "Full structural integrity coverage including foundations, frame, and load-bearing walls.",
       "years_total": 6,
       "years_left": 5.5
+    },
+    {
+      "id": "w-002",
+      "icon_key": "Droplets",
+      "title": "Waterproofing",
+      "provider": "Stagen Homes",
+      "period": "6 Years",
+      "expiry": "Dec 2031",
+      "status": "Active",
+      "description": "Roof, bathroom, laundry, and wet area waterproofing coverage.",
+      "years_total": 6,
+      "years_left": 5.5
+    },
+    {
+      "id": "w-003",
+      "icon_key": "Zap",
+      "title": "Electrical Systems",
+      "provider": "ElectroPro Pty Ltd",
+      "period": "2 Years",
+      "expiry": "Dec 2027",
+      "status": "Active",
+      "description": "Wiring, switchboards, power points, and all fixed electrical fittings.",
+      "years_total": 2,
+      "years_left": 1.5
+    },
+    {
+      "id": "w-004",
+      "icon_key": "Wind",
+      "title": "HVAC & Ventilation",
+      "provider": "CoolAir Systems",
+      "period": "5 Years",
+      "expiry": "Dec 2030",
+      "status": "Active",
+      "description": "Ducted air conditioning, mechanical ventilation, and exhaust systems.",
+      "years_total": 5,
+      "years_left": 4.5
     }
   ],
   "maintenance": [
     {
       "id": "m-001",
-      "title": "12-Month Maintenance Inspection",
-      "date": "Dec 2027",
+      "title": "3-Month Defects Inspection",
+      "date": "Mar 15, 2026",
+      "provider": "Stagen Site Manager",
+      "status": "completed",
+      "notes": "Minor touch-up paintwork completed."
+    },
+    {
+      "id": "m-002",
+      "title": "6-Month Maintenance Check",
+      "date": "Jun 15, 2026",
       "provider": "Stagen Homes",
       "status": "scheduled",
-      "notes": "..."
+      "notes": "Confirmation sent via email."
+    },
+    {
+      "id": "m-003",
+      "title": "Annual HVAC Service",
+      "date": "Dec 10, 2026",
+      "provider": "CoolAir Systems",
+      "status": "upcoming",
+      "notes": "Scheduled check of compressor and duct filters."
+    },
+    {
+      "id": "m-004",
+      "title": "12-Month Defects Inspection",
+      "date": "Dec 15, 2026",
+      "provider": "Stagen Site Manager",
+      "status": "upcoming",
+      "notes": "Final settlement warranty inspection."
+    },
+    {
+      "id": "m-005",
+      "title": "5-Year Structural Review",
+      "date": "Dec 15, 2030",
+      "provider": "Stagen Homes",
+      "status": "upcoming",
+      "notes": "Comprehensive structural foundation assessment."
     }
   ],
   "defects": [
     {
-      "id": "d-001",
+      "id": "DEF-001",
+      "title": "Garage door alignment issue",
+      "area": "Garage",
+      "reported": "Jan 12, 2026",
+      "status": "resolved",
+      "reported_by": "7ab56015-4412-494e-8aff-dbb5095e0096"
+    },
+    {
+      "id": "DEF-002",
+      "title": "Hairline crack – master bedroom wall",
+      "area": "Bedroom 1",
+      "reported": "Feb 3, 2026",
+      "status": "in-progress",
+      "reported_by": "7ab56015-4412-494e-8aff-dbb5095e0096"
+    },
+    {
+      "id": "DEF-003",
+      "title": "Laundry tap dripping",
+      "area": "Laundry",
+      "reported": "Mar 1, 2026",
+      "status": "open",
+      "reported_by": "7ab56015-4412-494e-8aff-dbb5095e0096"
+    },
+    {
+      "id": "DEF-004",
       "title": "Hairline grout crack – master ensuite",
       "area": "Master Ensuite",
       "reported": "Jul 15, 2026",

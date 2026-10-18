@@ -2,21 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Wrench, CheckCircle2, Clock, Circle, CalendarDays } from "lucide-react"
 import { cn } from "@/lib/utils"
+import type { MaintenanceItem, ServiceStatus } from "@/lib/customer/warranty"
 
-type ServiceStatus = "completed" | "scheduled" | "upcoming"
-
-const SERVICES: {
-  title: string
-  date: string
-  provider: string
-  status: ServiceStatus
-  notes: string
-}[] = [
-  { title: "3-Month Defects Inspection",  date: "Mar 15, 2026", provider: "Stagen Site Manager", status: "completed", notes: "Minor touch-up paintwork completed." },
-  { title: "6-Month Maintenance Check",   date: "Jun 15, 2026", provider: "Stagen Homes",         status: "scheduled", notes: "Confirmation sent via email." },
-  { title: "Annual HVAC Service",         date: "Dec 10, 2026", provider: "CoolAir Systems",       status: "upcoming",  notes: "" },
-  { title: "12-Month Defects Inspection", date: "Dec 15, 2026", provider: "Stagen Site Manager",   status: "upcoming",  notes: "" },
-  { title: "5-Year Structural Review",    date: "Dec 15, 2030", provider: "Stagen Homes",          status: "upcoming",  notes: "" },
+const DEFAULT_SERVICES: MaintenanceItem[] = [
+  { id: "m-001", title: "3-Month Defects Inspection",  date: "Mar 15, 2026", provider: "Stagen Site Manager", status: "completed", notes: "Minor touch-up paintwork completed." },
+  { id: "m-002", title: "6-Month Maintenance Check",   date: "Jun 15, 2026", provider: "Stagen Homes",         status: "scheduled", notes: "Confirmation sent via email." },
+  { id: "m-003", title: "Annual HVAC Service",         date: "Dec 10, 2026", provider: "CoolAir Systems",       status: "upcoming",  notes: "" },
+  { id: "m-004", title: "12-Month Defects Inspection", date: "Dec 15, 2026", provider: "Stagen Site Manager",   status: "upcoming",  notes: "" },
+  { id: "m-005", title: "5-Year Structural Review",    date: "Dec 15, 2030", provider: "Stagen Homes",          status: "upcoming",  notes: "" },
 ]
 
 const statusConfig: Record<ServiceStatus, { label: string; badge: string; dot: string }> = {
@@ -31,7 +24,13 @@ function StatusIcon({ status }: { status: ServiceStatus }) {
   return <Circle className="h-4.5 w-4.5 text-blue-fantastic/30 shrink-0" />
 }
 
-export function MaintenanceTimeline() {
+interface MaintenanceTimelineProps {
+  services?: MaintenanceItem[];
+}
+
+export function MaintenanceTimeline({ services = DEFAULT_SERVICES }: MaintenanceTimelineProps) {
+  const list = services.length > 0 ? services : DEFAULT_SERVICES
+
   return (
     <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
@@ -40,15 +39,18 @@ export function MaintenanceTimeline() {
             <Wrench className="h-4 w-4 text-truffle-trouble" />
           </div>
           <CardTitle className="text-blue-fantastic text-sm font-bold font-sans">Maintenance Schedule</CardTitle>
+          <span className="ml-auto text-xs text-blue-fantastic/60 font-medium">
+            {list.length} services
+          </span>
         </div>
       </CardHeader>
       <CardContent className="pt-4">
         <div className="space-y-0">
-          {SERVICES.map((service, idx) => {
-            const cfg = statusConfig[service.status]
+          {list.map((service, idx) => {
+            const cfg = statusConfig[service.status] || statusConfig.upcoming
             return (
-              <div key={idx} className="relative flex items-start gap-3">
-                {idx < SERVICES.length - 1 && (
+              <div key={service.id || idx} className="relative flex items-start gap-3">
+                {idx < list.length - 1 && (
                   <span
                     className={cn(
                       "absolute left-[8px] top-5 w-[1.5px] h-full",

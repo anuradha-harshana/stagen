@@ -328,12 +328,12 @@ export default function CompanyManagementUsersPage() {
               />
             </div>
 
-            <div className="flex gap-1 bg-blue-fantastic/8 p-0.5 rounded-xl border border-blue-fantastic/10">
-              {["All", "Company Admin", "Executive Management", "Site Supervisor", "Trade Contractor"].map((role) => (
+            <div className="flex gap-1 bg-blue-fantastic/8 p-0.5 rounded-xl border border-blue-fantastic/10 overflow-x-auto">
+              {["All", "Company Admin", "Executive Management", "Site Supervisor", "Trade Contractor", "Customer"].map((role) => (
                 <button
                   key={role}
                   onClick={() => setRoleFilter(role)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all whitespace-nowrap ${
                     roleFilter === role
                       ? "bg-blue-fantastic text-palladian shadow-sm"
                       : "text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/5"
@@ -640,6 +640,7 @@ export default function CompanyManagementUsersPage() {
                 <option value="Executive Management">Executive Management</option>
                 <option value="Company Admin">Company Admin</option>
                 <option value="Trade Contractor">Trade Contractor</option>
+                <option value="Customer">Customer</option>
               </select>
             </div>
 
@@ -731,6 +732,7 @@ export default function CompanyManagementUsersPage() {
                 <option value="Executive Management">Executive Management</option>
                 <option value="Company Admin">Company Admin</option>
                 <option value="Trade Contractor">Trade Contractor</option>
+                <option value="Customer">Customer</option>
               </select>
             </div>
 

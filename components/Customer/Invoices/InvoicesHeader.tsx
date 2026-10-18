@@ -1,6 +1,12 @@
 import { Receipt } from "lucide-react"
 
-export function InvoicesHeader() {
+interface InvoicesHeaderProps {
+  percentage?: number;
+}
+
+export function InvoicesHeader({ percentage = 45 }: InvoicesHeaderProps) {
+  const safePct = Math.min(100, Math.max(0, percentage));
+
   return (
     <div className="flex flex-col gap-3 pb-4 border-b border-blue-fantastic/15 font-sans">
       <div className="flex items-center justify-between flex-wrap gap-4">
@@ -23,12 +29,12 @@ export function InvoicesHeader() {
           <div className="flex-1 space-y-1">
             <div className="flex items-center justify-between text-[11px] font-semibold text-blue-fantastic">
               <span>Overall Progress</span>
-              <span className="text-truffle-trouble font-bold">45% Paid</span>
+              <span className="text-truffle-trouble font-bold">{safePct}% Paid</span>
             </div>
             <div className="h-1.5 rounded-full bg-blue-fantastic/15 overflow-hidden">
               <div
-                className="h-full rounded-full bg-truffle-trouble"
-                style={{ width: "45%" }}
+                className="h-full rounded-full bg-truffle-trouble transition-all duration-500"
+                style={{ width: `${safePct}%` }}
               />
             </div>
           </div>
