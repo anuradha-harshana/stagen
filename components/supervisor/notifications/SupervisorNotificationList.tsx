@@ -11,7 +11,7 @@ interface SupervisorNotificationListProps {
   notifications: SupervisorNotificationItem[]
   onToggleRead: (id: string | number) => void
   onDelete: (id: string | number) => void
-  onUpdateNotification: (updated: SupervisorNotificationItem) => void
+  onUpdateNotification: (updated: SupervisorNotificationItem) => Promise<boolean>
   onMarkAllAsRead: () => void
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 import {
   Dialog,
   DialogContent,
@@ -11,16 +11,16 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AlertTriangle, ShieldCheck, Check } from "lucide-react";
+import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
 
 interface MitigationModalProps {
   project: Project | null;
   isOpen: boolean;
   onClose: () => void;
-  onSaveAction: (projectId: string, actionNote: string, newSeverity: string) => void;
+  onSaveAction?: (projectId: string, actionNote: string, newSeverity: string) => void;
 }
 
 export function MitigationModal({ project, isOpen, onClose, onSaveAction }: MitigationModalProps) {
@@ -30,86 +30,108 @@ export function MitigationModal({ project, isOpen, onClose, onSaveAction }: Miti
 
   if (!project) return null;
 
+  const topDelay = project.delays?.[0];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSaveAction(project.id, actionNote, newSeverity);
+    if (onSaveAction) {
+      onSaveAction(project.id, actionNote, newSeverity);
+    }
+    toast.success(`Mitigation action recorded for Lot ${project.id}`);
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
       setActionNote("");
       onClose();
-    }, 1000);
+    }, 800);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-lg bg-white border border-blue-fantastic/15 rounded-3xl p-6 font-sans">
+      <DialogContent className="max-w-lg bg-white border border-blue-fantastic/15 rounded-2xl p-6 font-sans">
         <DialogHeader className="space-y-1 text-left">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-truffle-trouble" />
+            <div className="w-8 h-8 rounded-xl bg-burning-flame/15 flex items-center justify-center text-truffle-trouble">
+              <AlertTriangle className="h-4 w-4" />
+            </div>
             <DialogTitle className="text-xl font-bold text-blue-fantastic font-sans">
-              Log Mitigation Action - {project.id}
+              Log Mitigation Action – Lot {project.id}
             </DialogTitle>
           </div>
           <DialogDescription className="text-xs text-blue-fantastic/60">
-            {project.clientName} ({project.address}) - Current Stage: <strong>{project.currentStage}</strong>
+            {project.clientName} • {project.address} (Current Stage: <strong>{project.currentStage}</strong>)
           </DialogDescription>
         </DialogHeader>
 
         {isSubmitted ? (
           <div className="py-8 flex flex-col items-center justify-center text-center space-y-2">
-            <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-              <Check className="h-6 w-6" />
+            <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <CheckCircle2 className="h-6 w-6" />
             </div>
-            <h4 className="font-bold text-base text-blue-fantastic font-sans">
-              Mitigation Recorded!
-            </h4>
+            <h4 className="text-sm font-bold text-blue-fantastic">Action Logged Successfully</h4>
             <p className="text-xs text-blue-fantastic/60">
-              The mitigation action has been logged into the project timeline and assigned supervisors notified.
+              Mitigation record saved for management and supervisor review.
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-            <div className="p-3 bg-red-50 border border-red-200 rounded-2xl text-xs space-y-1 text-red-900">
-              <span className="font-bold block">Current Delay Impact: {project.delayDays || 5} Days</span>
-              <p className="text-[11px] text-red-800 font-medium">
-                {project.delays?.[0]?.description || "Trade contractor delay and material delivery hold."}
-              </p>
-            </div>
+            {/* Active delay summary box */}
+            {topDelay && (
+              <div className="p-3 rounded-xl bg-burning-flame/10 border border-burning-flame/20 text-xs">
+                <span className="font-bold text-truffle-trouble block mb-1">
+                  Active Delay: {topDelay.type} ({topDelay.durationDays} Days)
+                </span>
+                <p className="text-blue-fantastic/80 font-medium">
+                  {topDelay.description}
+                </p>
+              </div>
+            )}
 
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-blue-fantastic block">Updated Severity Level</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-blue-fantastic">
+                Follow-up Priority
+              </label>
               <Select value={newSeverity} onValueChange={setNewSeverity}>
-                <SelectTrigger className="bg-surface-inset border-blue-fantastic/15 rounded-xl text-xs font-bold text-blue-fantastic h-9">
-                  <SelectValue placeholder="Select severity" />
+                <SelectTrigger className="w-full bg-surface-inset border-blue-fantastic/15 rounded-xl text-xs font-semibold text-blue-fantastic h-10">
+                  <SelectValue placeholder="Select priority" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Critical">Critical (&gt; 7 Days Delay)</SelectItem>
-                  <SelectItem value="High">High (5-7 Days Delay)</SelectItem>
-                  <SelectItem value="Medium">Medium (3-5 Days Delay)</SelectItem>
-                  <SelectItem value="Low">Low (&lt; 3 Days Delay)</SelectItem>
+                  <SelectItem value="Critical">Critical – Stop work / immediate intervention</SelectItem>
+                  <SelectItem value="High">High – Supervisor check required today</SelectItem>
+                  <SelectItem value="Medium">Medium – Monitor milestone progression</SelectItem>
+                  <SelectItem value="Resolved">Resolved – Delay absorbed in buffer</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-blue-fantastic block">Mitigating Action / Note</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-blue-fantastic">
+                Management Mitigation Plan / Supervisor Note
+              </label>
               <Textarea
                 required
-                rows={3}
-                placeholder="Detail action taken (e.g. Expedited bricklayer trade assignment, arranged weekend site work)..."
+                placeholder="Detail agreed actions (e.g. approved secondary trade team, re-scheduled inspection with private certifier)..."
                 value={actionNote}
                 onChange={(e) => setActionNote(e.target.value)}
-                className="bg-surface-inset border-blue-fantastic/15 rounded-xl text-xs text-blue-fantastic placeholder:text-blue-fantastic/40 font-medium"
+                rows={4}
+                className="bg-surface-inset border-blue-fantastic/15 rounded-xl text-xs text-blue-fantastic placeholder:text-blue-fantastic/40 font-medium p-3"
               />
             </div>
 
-            <DialogFooter className="pt-2 flex gap-2">
-              <Button type="button" variant="outline" onClick={onClose} className="rounded-xl text-xs font-bold">
+            <DialogFooter className="flex items-center justify-end gap-2 pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onClose}
+                className="border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/5 text-xs font-bold h-9 px-4 rounded-xl cursor-pointer"
+              >
                 Cancel
               </Button>
-              <Button type="submit" className="bg-truffle-trouble hover:bg-truffle-trouble/90 text-white rounded-xl text-xs font-bold cursor-pointer">
-                Save & Notify Team
+              <Button
+                type="submit"
+                className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-bold h-9 px-4 rounded-xl cursor-pointer shadow-xs"
+              >
+                Save Action Note
               </Button>
             </DialogFooter>
           </form>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
   UserRoundPen, 
   Search, 
@@ -14,26 +14,41 @@ import {
   CheckCircle2, 
   Briefcase,
   SlidersHorizontal,
-  ChevronRight
+  ChevronRight,
+  UserCheck,
+  UserX,
+  Pencil,
+  Trash2
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { MOCK_ORGANIZATION_USERS, OrganizationUser } from "@/lib/db-mock/companyData";
+import type { OrganizationUser } from "@/lib/company/organizationUsers";
 import PageHeader from "@/components/shared/PageHeader";
 
 export default function CompanyManagementUsersPage() {
-  const [users, setUsers] = useState<OrganizationUser[]>(MOCK_ORGANIZATION_USERS);
+  const [users, setUsers] = useState<OrganizationUser[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("All");
   const [statusFilter, setStatusFilter] = useState<string>("All");
   
   const [selectedUser, setSelectedUser] = useState<OrganizationUser | null>(null);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const [inviteForm, setInviteForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    role: "Site Supervisor" as OrganizationUser["role"],
+    assignedProjects: ""
+  });
+
+  const [editForm, setEditForm] = useState({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -48,6 +63,23 @@ export default function CompanyManagementUsersPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
+  const loadUsers = async () => {
+    try {
+      const res = await fetch("/api/company-management/users");
+      if (!res.ok) throw new Error("Failed to load users");
+      const data = await res.json();
+      setUsers(data.users);
+    } catch (err) {
+      showNotification("Failed to load users from server.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
   // Filter users
   const filteredUsers = users.filter((u) => {
     const matchesSearch = 
@@ -61,27 +93,131 @@ export default function CompanyManagementUsersPage() {
     return matchesSearch && matchesRole && matchesStatus;
   });
 
-  const handleInviteSubmit = (e: React.FormEvent) => {
+  const handleInviteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inviteForm.name || !inviteForm.email) return;
+    if (!inviteForm.name.trim() || !inviteForm.email.trim()) return;
 
-    const newUser: OrganizationUser = {
-      id: `USR-${Date.now().toString().slice(-3)}`,
-      name: inviteForm.name,
-      email: inviteForm.email,
-      phone: inviteForm.phone || "+61 400 000 000",
+    const bgColors = ["bg-burning-flame", "bg-blue-fantastic", "bg-truffle-trouble"];
+    const randomBg = bgColors[Math.floor(Math.random() * bgColors.length)];
+
+    const payload = {
+      name: inviteForm.name.trim(),
+      email: inviteForm.email.trim(),
+      phone: inviteForm.phone.trim() || "+61 400 000 000",
       role: inviteForm.role,
-      status: "Pending",
-      assignedProjectsCount: inviteForm.assignedProjects ? 1 : 0,
-      assignedProjects: inviteForm.assignedProjects ? [inviteForm.assignedProjects] : ["Unassigned"],
-      lastActive: "Invite Sent (Just now)",
-      avatarBg: "bg-burning-flame"
+      status: "Pending" as const,
+      assignedProjectsCount: inviteForm.assignedProjects.trim() ? 1 : 0,
+      assignedProjects: inviteForm.assignedProjects.trim() ? [inviteForm.assignedProjects.trim()] : ["Unassigned"],
+      avatarBg: randomBg,
     };
 
-    setUsers((prev) => [newUser, ...prev]);
-    setIsInviteOpen(false);
-    setInviteForm({ name: "", email: "", phone: "", role: "Site Supervisor", assignedProjects: "" });
-    showNotification(`User invitation sent to ${newUser.email}`);
+    try {
+      const res = await fetch("/api/company-management/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error("Failed to invite user");
+      const { user } = await res.json();
+      setUsers((prev) => [user, ...prev]);
+      setIsInviteOpen(false);
+      setInviteForm({ name: "", email: "", phone: "", role: "Site Supervisor", assignedProjects: "" });
+      showNotification(`User invitation sent to ${user.email}`);
+    } catch (err) {
+      showNotification("Failed to send user invitation.");
+    }
+  };
+
+  const handleToggleStatus = async (user: OrganizationUser) => {
+    const newStatus: OrganizationUser["status"] = user.status === "Suspended" ? "Active" : "Suspended";
+
+    try {
+      const res = await fetch("/api/company-management/users", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: user.id, updates: { status: newStatus } }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update status");
+      const { user: updated } = await res.json();
+      setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
+      setSelectedUser(updated);
+      showNotification(
+        newStatus === "Suspended"
+          ? `User account '${user.name}' has been suspended.`
+          : `User account '${user.name}' has been reactivated.`
+      );
+    } catch (err) {
+      showNotification("Failed to update account status.");
+    }
+  };
+
+  const handleDeleteUser = async (id: string) => {
+    if (!confirm("Are you sure you want to permanently remove this suspended user?")) return;
+    try {
+      const res = await fetch(`/api/company-management/users?id=${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setUsers((prev) => prev.filter((u) => u.id !== id));
+        setSelectedUser((prev) => (prev?.id === id ? null : prev));
+        showNotification("Suspended user account permanently deleted.");
+      } else {
+        showNotification("Failed to delete user account.");
+      }
+    } catch (err) {
+      showNotification("Failed to delete user account.");
+    }
+  };
+
+  const openEditModal = (user: OrganizationUser) => {
+    setEditForm({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+      assignedProjects: user.assignedProjects.join(", ")
+    });
+    setIsEditOpen(true);
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editForm.name.trim() || !editForm.email.trim()) return;
+
+    const projectList = editForm.assignedProjects
+      .split(",")
+      .map((p) => p.trim())
+      .filter(Boolean);
+
+    const updates: Partial<OrganizationUser> = {
+      name: editForm.name.trim(),
+      email: editForm.email.trim(),
+      phone: editForm.phone.trim() || "+61 400 000 000",
+      role: editForm.role,
+      assignedProjects: projectList.length > 0 ? projectList : ["Unassigned"],
+      assignedProjectsCount: projectList.length
+    };
+
+    try {
+      const res = await fetch("/api/company-management/users", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: editForm.id, updates })
+      });
+
+      if (!res.ok) throw new Error("Failed to update user");
+
+      const { user: updated } = await res.json();
+      setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
+      setSelectedUser((prev) => (prev && prev.id === updated.id ? updated : prev));
+      setIsEditOpen(false);
+      showNotification(`User details for '${updated.name}' updated successfully.`);
+    } catch (err) {
+      showNotification("Failed to update user details.");
+    }
   };
 
   return (
@@ -225,64 +361,105 @@ export default function CompanyManagementUsersPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-blue-fantastic/10">
-                {filteredUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-blue-fantastic/3 transition-colors">
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`h-9 w-9 rounded-full ${user.avatarBg} flex items-center justify-center text-palladian font-bold text-xs shrink-0 shadow-sm`}>
-                          {user.name.slice(0, 2).toUpperCase()}
-                        </div>
-                        <div>
-                          <p className="font-bold text-blue-fantastic text-xs">{user.name}</p>
-                          <p className="text-[11px] text-blue-fantastic/60 font-mono">{user.email}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <Badge variant="outline" className="text-[10px] bg-blue-fantastic/5 border-blue-fantastic/15 text-blue-fantastic font-bold">
-                        {user.role}
-                      </Badge>
-                    </td>
-                    <td className="py-3 px-4 text-blue-fantastic/80 font-medium">
-                      {user.phone}
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-1">
-                        <span className="font-bold text-blue-fantastic font-mono">{user.assignedProjectsCount} sites</span>
-                        <span className="text-[10px] text-blue-fantastic/50 truncate max-w-[120px]">
-                          ({user.assignedProjects.slice(0, 1).join(", ")})
-                        </span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <Badge
-                        className={`text-[10px] px-2 py-0.5 border font-bold ${
-                          user.status === "Active"
-                            ? "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30"
-                            : user.status === "Pending"
-                            ? "bg-burning-flame/20 text-truffle-trouble border-burning-flame/40"
-                            : "bg-red-100 text-red-700 border-red-300"
-                        }`}
-                      >
-                        {user.status}
-                      </Badge>
-                    </td>
-                    <td className="py-3 px-4 text-blue-fantastic/60 font-medium">
-                      {user.lastActive}
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => setSelectedUser(user)}
-                        className="h-7 text-xs text-truffle-trouble hover:bg-truffle-trouble/10 font-semibold"
-                      >
-                        Inspect User
-                        <ChevronRight className="h-3 w-3 ml-1" />
-                      </Button>
+                {isLoading ? (
+                  <tr>
+                    <td colSpan={7} className="py-12 text-center text-blue-fantastic/50">
+                      <Clock className="h-7 w-7 mx-auto mb-2 text-blue-fantastic/40 animate-spin" />
+                      <p className="font-semibold text-sm text-blue-fantastic/80">Loading organization users...</p>
                     </td>
                   </tr>
-                ))}
+                ) : filteredUsers.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} className="py-12 text-center text-blue-fantastic/50">
+                      <UserRoundPen className="h-8 w-8 mx-auto mb-2 text-blue-fantastic/30" />
+                      <p className="font-semibold text-sm text-blue-fantastic/80">No matching users found</p>
+                      <p className="text-xs text-blue-fantastic/50 mt-1">Try adjusting your search keywords or role filters.</p>
+                    </td>
+                  </tr>
+                ) : (
+                  filteredUsers.map((user) => (
+                    <tr key={user.id} className="hover:bg-blue-fantastic/3 transition-colors">
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-3">
+                          <div className={`h-9 w-9 rounded-full ${user.avatarBg} flex items-center justify-center text-palladian font-bold text-xs shrink-0 shadow-sm`}>
+                            {user.name.slice(0, 2).toUpperCase()}
+                          </div>
+                          <div>
+                            <p className="font-bold text-blue-fantastic text-xs">{user.name}</p>
+                            <p className="text-[11px] text-blue-fantastic/60 font-mono">{user.email}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <Badge variant="outline" className="text-[10px] bg-blue-fantastic/5 border-blue-fantastic/15 text-blue-fantastic font-bold">
+                          {user.role}
+                        </Badge>
+                      </td>
+                      <td className="py-3 px-4 text-blue-fantastic/80 font-medium">
+                        {user.phone}
+                      </td>
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-1">
+                          <span className="font-bold text-blue-fantastic font-mono">{user.assignedProjectsCount} sites</span>
+                          <span className="text-[10px] text-blue-fantastic/50 truncate max-w-[120px]">
+                            ({user.assignedProjects.slice(0, 1).join(", ")})
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <Badge
+                          className={`text-[10px] px-2 py-0.5 border font-bold ${
+                            user.status === "Active"
+                              ? "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30"
+                              : user.status === "Pending"
+                              ? "bg-burning-flame/20 text-truffle-trouble border-burning-flame/40"
+                              : "bg-red-100 text-red-700 border-red-300"
+                          }`}
+                        >
+                          {user.status}
+                        </Badge>
+                      </td>
+                      <td className="py-3 px-4 text-blue-fantastic/60 font-medium">
+                        {user.lastActive}
+                      </td>
+                      <td className="py-3 px-4 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => openEditModal(user)}
+                            title="Edit User Details"
+                            className="h-7 w-7 p-0 text-blue-fantastic/70 hover:text-blue-fantastic hover:bg-blue-fantastic/10 rounded-lg"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+
+                          {user.status === "Suspended" && (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleDeleteUser(user.id)}
+                              title="Delete Suspended User"
+                              className="h-7 w-7 p-0 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </Button>
+                          )}
+
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => setSelectedUser(user)}
+                            className="h-7 text-xs text-truffle-trouble hover:bg-truffle-trouble/10 font-semibold"
+                          >
+                            Inspect User
+                            <ChevronRight className="h-3 w-3 ml-1" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -349,25 +526,57 @@ export default function CompanyManagementUsersPage() {
               </div>
             </div>
 
-            <div className="flex justify-between items-center border-t border-blue-fantastic/10 pt-3">
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => {
-                  setUsers((prev) => prev.filter((u) => u.id !== selectedUser.id));
-                  setSelectedUser(null);
-                  showNotification(`User account '${selectedUser.name}' suspended.`);
-                }}
-                className="text-xs font-semibold h-8"
-              >
-                Suspend Account
-              </Button>
-              <Button
-                onClick={() => setSelectedUser(null)}
-                className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold h-8"
-              >
-                Close Inspector
-              </Button>
+            <div className="flex flex-wrap justify-between items-center gap-2 border-t border-blue-fantastic/10 pt-3">
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={selectedUser.status === "Suspended" ? "outline" : "destructive"}
+                  size="sm"
+                  onClick={() => handleToggleStatus(selectedUser)}
+                  className="text-xs font-semibold h-8"
+                >
+                  {selectedUser.status === "Suspended" ? (
+                    <>
+                      <UserCheck className="mr-1.5 h-3.5 w-3.5 text-truffle-trouble" />
+                      Reactivate Account
+                    </>
+                  ) : (
+                    <>
+                      <UserX className="mr-1.5 h-3.5 w-3.5" />
+                      Suspend Account
+                    </>
+                  )}
+                </Button>
+
+                {selectedUser.status === "Suspended" && (
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => handleDeleteUser(selectedUser.id)}
+                    className="text-xs font-semibold h-8 bg-red-600 hover:bg-red-700 text-white"
+                  >
+                    <Trash2 className="mr-1.5 h-3.5 w-3.5" />
+                    Delete User
+                  </Button>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => openEditModal(selectedUser)}
+                  className="text-xs font-semibold h-8 border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/5"
+                >
+                  <Pencil className="mr-1.5 h-3.5 w-3.5 text-blue-fantastic" />
+                  Edit Details
+                </Button>
+                <Button
+                  onClick={() => setSelectedUser(null)}
+                  className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold h-8"
+                >
+                  Close Inspector
+                </Button>
+              </div>
             </div>
           </DialogContent>
         )}
@@ -411,6 +620,16 @@ export default function CompanyManagementUsersPage() {
             </div>
 
             <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Phone Number</label>
+              <Input
+                placeholder="e.g. +61 400 000 000"
+                value={inviteForm.phone}
+                onChange={(e) => setInviteForm({ ...inviteForm, phone: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div>
               <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Role Type</label>
               <select
                 value={inviteForm.role}
@@ -448,6 +667,99 @@ export default function CompanyManagementUsersPage() {
                 className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
               >
                 Send Invitation
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit User Details Dialog */}
+      <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+        <DialogContent className="max-w-md bg-white text-blue-fantastic font-sans border border-blue-fantastic/20">
+          <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
+            <DialogTitle className="text-lg font-bold text-blue-fantastic flex items-center gap-2">
+              <Pencil className="h-5 w-5 text-truffle-trouble" />
+              Edit User Details
+            </DialogTitle>
+            <DialogDescription className="text-xs text-blue-fantastic/60">
+              Update organization user profile, contact information, role, and assigned projects
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleEditSubmit} className="space-y-3 py-2">
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Full Name</label>
+              <Input
+                required
+                placeholder="e.g. John Doe"
+                value={editForm.name}
+                onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Email Address</label>
+              <Input
+                required
+                type="email"
+                placeholder="john@stagenhomes.com.au"
+                value={editForm.email}
+                onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Phone Number</label>
+              <Input
+                placeholder="e.g. +61 400 000 000"
+                value={editForm.phone}
+                onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Role Type</label>
+              <select
+                value={editForm.role}
+                onChange={(e: any) => setEditForm({ ...editForm, role: e.target.value })}
+                className="w-full bg-white border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
+              >
+                <option value="Site Supervisor">Site Supervisor</option>
+                <option value="Executive Management">Executive Management</option>
+                <option value="Company Admin">Company Admin</option>
+                <option value="Trade Contractor">Trade Contractor</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">
+                Assigned Projects (comma separated)
+              </label>
+              <Input
+                placeholder="e.g. Lot 42 Greenvale, 18 Oakwood"
+                value={editForm.assignedProjects}
+                onChange={(e) => setEditForm({ ...editForm, assignedProjects: e.target.value })}
+                className="bg-white border-blue-fantastic/20 text-xs"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 border-t border-blue-fantastic/10 pt-3 mt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsEditOpen(false)}
+                className="text-xs font-semibold border-blue-fantastic/20 text-blue-fantastic"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
+              >
+                Save Changes
               </Button>
             </div>
           </form>

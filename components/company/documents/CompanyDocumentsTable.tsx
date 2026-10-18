@@ -4,7 +4,6 @@ import React, { useState } from "react"
 import {
   Search,
   Download,
-  Eye,
   Pencil,
   Trash2,
   FileText,
@@ -19,7 +18,7 @@ import { CompanyDocument, DocumentCategory, ALL_CATEGORIES } from "./CompanyUplo
 interface CompanyDocumentsTableProps {
   documents: CompanyDocument[]
   onDeleteDocument: (docId: string) => void
-  onPreviewDocument: (doc: CompanyDocument) => void
+  onPreviewDocument?: (doc: CompanyDocument) => void
   onEditDocument: (doc: CompanyDocument) => void
 }
 
@@ -192,13 +191,6 @@ export function CompanyDocumentsTable({
                   {/* Actions */}
                   <td className="py-4 px-5 text-right">
                     <div className="flex items-center justify-end gap-1.5">
-                      <button
-                        onClick={() => onPreviewDocument(doc)}
-                        title="View details"
-                        className="p-1.5 text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-surface-muted rounded-lg transition-colors"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </button>
                       <button
                         onClick={() => handleDownload(doc)}
                         title="Download file"

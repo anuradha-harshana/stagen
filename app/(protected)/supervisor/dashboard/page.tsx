@@ -1,5 +1,6 @@
 "use client";
 
+import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
@@ -41,8 +42,7 @@ export default function SupervisorDashboard() {
       return;
     }
 
-    setLoading(true);
-    fetch(`/api/supervisor/dashboard?supervisorId=${encodeURIComponent(user.id)}`)
+    fetch("/api/supervisor/dashboard")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to load dashboard data");
@@ -65,12 +65,15 @@ export default function SupervisorDashboard() {
   const completedStagesCount = dashboardData?.completedStagesCount ?? 0;
   const delayAlert = dashboardData?.delayAlert;
 
-  const handleSendReply = (questionId: string, tenantId: string, customerName: string, projectLot: string) => {
+  const handleSendReply = async (questionId: string, tenantId: string, customerName: string, projectLot: string) => {
     if (!replyText.trim()) {
       toast.error("Please enter a reply message");
       return;
     }
 
+    try {
+      await supervisorRequest("questions", "PUT", { id: questionId, answerText: replyText, notifyCustomer: true });
+    } catch (e) { toast.error(e instanceof Error ? e.message : "Unable to send reply"); return; }
     setDashboardData((prev) => {
       if (!prev) return prev;
       return {
@@ -97,6 +100,7 @@ export default function SupervisorDashboard() {
     return <PageSkeleton statCards={4} />;
   }
 
+  if (!dashboardData) return <DataState loading={false} error="Unable to load dashboard" />;
   return (
     <div className={PAGE_SHELL_CLASS}>
       <PageHeader
@@ -265,7 +269,7 @@ export default function SupervisorDashboard() {
                     </div>
 
                     <p className="text-xs text-blue-fantastic/90 font-semibold italic bg-surface-muted p-2.5 rounded-xl border border-blue-fantastic/5 leading-relaxed">
-                      "{q.questionText}"
+                      &quot;{q.questionText}&quot;
                     </p>
 
                     {activeQuestionId === q.id ? (

@@ -19,13 +19,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { DelayLogEntry, TimelineStage } from "@/lib/timeline/data";
+import { DelayLogEntry, TimelineStage } from "@/lib/supervisor/types";
 
 interface LogDelayModalProps {
   isOpen: boolean;
   onClose: () => void;
   stages: TimelineStage[];
-  onSaveDelayLog: (entry: DelayLogEntry) => void;
+  onSaveDelayLog: (entry: DelayLogEntry) => Promise<boolean>;
 }
 
 export function LogDelayModal({
@@ -41,7 +41,7 @@ export function LogDelayModal({
   const [toDate, setToDate] = useState("");
   const [reason, setReason] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!title.trim()) {
@@ -70,7 +70,7 @@ export function LogDelayModal({
       type: category,
     };
 
-    onSaveDelayLog(newEntry);
+    if (!await onSaveDelayLog(newEntry)) return;
     toast.success(`Schedule adjustment logged for ${stageName}!`);
 
     // Reset fields & close
@@ -140,7 +140,7 @@ export function LogDelayModal({
             </label>
             <Select
               value={category}
-              onValueChange={(val: any) => setCategory(val)}
+              onValueChange={(val) => setCategory(val as DelayLogEntry["type"])}
             >
               <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans text-xs h-9 rounded-xl">
                 <SelectValue placeholder="Select Category..." />

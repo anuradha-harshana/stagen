@@ -1,6 +1,6 @@
 "use client";
 
-import { DelayLogEntry } from "@/lib/timeline/data";
+import { DelayLogEntry } from "@/lib/supervisor/types";
 import { 
   INITIAL_SUPERVISOR_TIMELINES, 
   recalculateTimelineStats 

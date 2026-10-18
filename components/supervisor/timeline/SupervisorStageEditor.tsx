@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { TimelineStage, TimelineMilestone } from "@/lib/timeline/data";
+import { TimelineStage, TimelineMilestone } from "@/lib/supervisor/types";
 
 interface SupervisorStageEditorProps {
   stage: TimelineStage | null;
@@ -31,17 +31,20 @@ interface SupervisorStageEditorProps {
   onOpenPhotosForStage?: (stageName: string) => void;
 }
 
-export function SupervisorStageEditor({
+export function SupervisorStageEditor(props: SupervisorStageEditorProps) {
+  return <SupervisorStageEditorDraft key={`${props.stage?.id ?? "none"}-${props.isOpen}`} {...props} />;
+}
+function SupervisorStageEditorDraft({
   stage,
   isOpen,
   onClose,
   onUpdateStage,
   onOpenPhotosForStage,
 }: SupervisorStageEditorProps) {
-  const [status, setStatus] = useState<TimelineStage["status"]>("upcoming");
-  const [actualStart, setActualStart] = useState("");
-  const [actualEnd, setActualEnd] = useState("");
-  const [milestones, setMilestones] = useState<TimelineMilestone[]>([]);
+  const [status, setStatus] = useState<TimelineStage["status"]>(stage?.status ?? "upcoming");
+  const [actualStart, setActualStart] = useState(stage?.actualStart ?? stage?.plannedStart ?? "");
+  const [actualEnd, setActualEnd] = useState(stage?.actualEnd ?? stage?.plannedEnd ?? "");
+  const [milestones, setMilestones] = useState<TimelineMilestone[]>(stage?.milestones ?? []);
 
   // New milestone form state
   const [newMilestoneName, setNewMilestoneName] = useState("");
@@ -49,15 +52,6 @@ export function SupervisorStageEditor({
   const [newMilestoneType, setNewMilestoneType] = useState<"inspection" | "approval" | "delivery" | "delay">("inspection");
   const [showAddMilestone, setShowAddMilestone] = useState(false);
 
-  useEffect(() => {
-    if (stage) {
-      setStatus(stage.status);
-      setActualStart(stage.actualStart || stage.plannedStart);
-      setActualEnd(stage.actualEnd || stage.plannedEnd);
-      setMilestones(stage.milestones || []);
-      setShowAddMilestone(false);
-    }
-  }, [stage]);
 
   if (!stage || !isOpen) return null;
 
@@ -146,7 +140,7 @@ export function SupervisorStageEditor({
             <label className="block text-xs font-bold font-sans text-blue-fantastic mb-1">
               Stage Execution Status
             </label>
-            <Select value={status} onValueChange={(val: any) => setStatus(val)}>
+            <Select value={status} onValueChange={(val) => setStatus(val as TimelineStage["status"])}>
               <SelectTrigger className="w-full bg-white border-blue-fantastic/20 text-blue-fantastic font-sans font-bold text-xs h-9 rounded-xl">
                 <SelectValue placeholder="Select Status..." />
               </SelectTrigger>
@@ -237,7 +231,7 @@ export function SupervisorStageEditor({
                     onChange={(e) => setNewMilestoneDate(e.target.value)}
                     className="bg-white border-blue-fantastic/20 text-xs h-7 rounded-lg"
                   />
-                  <Select value={newMilestoneType} onValueChange={(v: any) => setNewMilestoneType(v)}>
+                  <Select value={newMilestoneType} onValueChange={(v) => setNewMilestoneType(v as TimelineMilestone["type"])}>
                     <SelectTrigger className="bg-white border-blue-fantastic/20 text-xs h-7 rounded-lg">
                       <SelectValue placeholder="Type" />
                     </SelectTrigger>

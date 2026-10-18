@@ -1,1 +1,41 @@
-[]
+[
+  {
+    "id": "delay-001",
+    "tenant_id": "tenant-lot-104",
+    "date": "Jun 16, 2026",
+    "stage_name": "Frame",
+    "title": "Heavy Storm Delay",
+    "from_date": "Jun 10, 2026",
+    "to_date": "Jun 16, 2026",
+    "reason": "Severe storm conditions paused framing work",
+    "type": "Weather",
+    "duration_days": 6,
+    "created_by": "7ab56015-4412-494e-8aff-dbb5095e0097"
+  },
+  {
+    "id": "delay-002",
+    "tenant_id": "tenant-lot-208",
+    "date": "Sep 05, 2026",
+    "stage_name": "Lockup",
+    "title": "Glazing Delivery Delay",
+    "from_date": "Sep 01, 2026",
+    "to_date": "Sep 08, 2026",
+    "reason": "Specialty double-glazed windows delayed by manufacturer",
+    "type": "Materials",
+    "duration_days": 7,
+    "created_by": "7ab56015-4412-494e-8aff-dbb5095e0097"
+  },
+  {
+    "id": "delay-003",
+    "tenant_id": "tenant-lot-420",
+    "date": "Sep 18, 2026",
+    "stage_name": "Fixing",
+    "title": "Waterproofing Certification Inspection",
+    "from_date": "Sep 15, 2026",
+    "to_date": "Sep 20, 2026",
+    "reason": "Private certifier re-inspection required for upstairs ensuite",
+    "type": "Inspections",
+    "duration_days": 5,
+    "created_by": "7ab56015-4412-494e-8aff-dbb5095e0097"
+  }
+]

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,7 +13,7 @@ interface CertificationModalProps {
   mode: "add" | "edit";
   initialData?: Certification | null;
   onClose: () => void;
-  onSubmit: (cert: Certification) => void;
+  onSubmit: (cert: Certification) => Promise<boolean>;
 }
 
 const certSchema = z
@@ -43,6 +43,7 @@ export function CertificationModal({
   onClose,
   onSubmit,
 }: CertificationModalProps) {
+  const [fileContent, setFileContent] = useState(initialData?.fileContent);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
@@ -89,14 +90,16 @@ export function CertificationModal({
         return;
       }
 
-      setValue("fileName", file.name);
+      const reader = new FileReader();
+      reader.onload = () => { setFileContent(String(reader.result).split(",")[1]); setValue("fileName", file.name); };
+      reader.readAsDataURL(file);
       toast.success(`Attached ${file.name} successfully.`);
     }
   };
 
-  const handleFormSubmit = (data: CertFormData) => {
+  const handleFormSubmit = async (data: CertFormData) => {
     const expiry = data.neverExpires ? "Never Expires" : data.expiryDate || "";
-    onSubmit({
+    if (!await onSubmit({
       id: initialData?.id || crypto.randomUUID(),
       name: data.name,
       licenseNo: data.licenseNo,
@@ -104,7 +107,8 @@ export function CertificationModal({
       expiryDate: expiry,
       status: data.status,
       fileName: data.fileName || undefined,
-    });
+      fileContent,
+    })) return;
     onClose();
   };
 

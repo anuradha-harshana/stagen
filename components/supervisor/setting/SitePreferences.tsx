@@ -1,5 +1,6 @@
 "use client"
 
+import { useSupervisorData, DataState } from "@/components/supervisor/useSupervisorData";
 import { useState } from "react"
 import { ClipboardCheck, Save } from "lucide-react"
 import { toast } from "sonner"
@@ -12,19 +13,21 @@ import {
 import { Button } from "@/components/ui/button"
 
 export default function SitePreferences() {
-  const [defaultChecklist, setDefaultChecklist] = useState("Standard Frame Inspection")
-  const [autoDelayThreshold, setAutoDelayThreshold] = useState("5 Days")
-  const [photoQuality, setPhotoQuality] = useState("Standard High-Res")
-  const [weatherRadius, setWeatherRadius] = useState("10km Radius")
+  const api = useSupervisorData<Record<string, Record<string, string | boolean>> | null>("settings", null);
+  if (api.loading || api.error || !api.data) return <DataState loading={api.loading} error={api.error} />;
+  return <SettingsForm initial={api.data.site_preferences} save={values => api.mutate("PUT", { section: "site_preferences", values })} />;
+}
+function SettingsForm({ initial, save }: { initial: Record<string, string | boolean>; save: (values: Record<string, string | boolean>) => Promise<boolean> }) {
+  const [defaultChecklist, setDefaultChecklist] = useState(initial.defaultChecklist as string)
+  const [autoDelayThreshold, setAutoDelayThreshold] = useState(initial.autoDelayThreshold as string)
+  const [photoQuality, setPhotoQuality] = useState(initial.photoQuality as string)
+  const [weatherRadius, setWeatherRadius] = useState(initial.weatherRadius as string)
   const [isSaving, setIsSaving] = useState(false)
 
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSaving(true)
-    setTimeout(() => {
-      setIsSaving(false)
-      toast.success("Site preferences saved successfully!")
-    }, 800)
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault(); setIsSaving(true);
+    await save({ defaultChecklist, autoDelayThreshold, photoQuality, weatherRadius });
+    setIsSaving(false);
   }
 
   return (

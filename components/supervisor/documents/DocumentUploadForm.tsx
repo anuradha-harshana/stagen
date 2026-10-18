@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "sonner"
 
 export interface DocumentUploadPayload {
+  hasFile?: boolean
   id: string
   projectCode: string
   title: string
@@ -21,7 +22,7 @@ export interface DocumentUploadPayload {
 
 interface DocumentUploadFormProps {
   selectedProject: { code: string; name: string }
-  onDocumentUploaded: (doc: DocumentUploadPayload) => void
+  onDocumentUploaded: (doc: DocumentUploadPayload, file: File) => Promise<boolean>
 }
 
 const DOCUMENT_TYPES = [
@@ -39,7 +40,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
 
   const [title, setTitle] = useState("")
   const [documentType, setDocumentType] = useState(DOCUMENT_TYPES[0])
-  const [dateOfUpdate, setDateOfUpdate] = useState("2026-07-22")
+  const [dateOfUpdate, setDateOfUpdate] = useState(new Date().toISOString().slice(0, 10))
   const [visibility, setVisibility] = useState<DocumentUploadPayload["visibility"]>("Visible to Customer")
   const [description, setDescription] = useState("")
 
@@ -112,7 +113,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
     if (file) processFile(file)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!title.trim()) {
       toast.error("Please enter a document title.")
@@ -136,7 +137,7 @@ export function DocumentUploadForm({ selectedProject, onDocumentUploaded }: Docu
       fileType: attachedFile.typeExt,
     }
 
-    onDocumentUploaded(payload)
+    if (!await onDocumentUploaded(payload, attachedFile.file)) return
     toast.success(`Document uploaded for ${selectedProject.code} ${selectedProject.name}!`)
 
     // Reset form

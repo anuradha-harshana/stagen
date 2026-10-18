@@ -1,5 +1,6 @@
 "use client";
 
+import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState } from "react";
 import { 
   Building2, 
@@ -21,15 +22,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { INITIAL_PROJECTS, Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/db-mock/projectsData";
 
 export default function SupervisorProjects() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<"All" | "On Track" | "Delayed">("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  const { data: projects, loading, error } = useSupervisorData<Project[]>("projects", []);
+  if (loading || error) return <DataState loading={loading} error={error} />;
+
   // Filter projects based on search term & status filter
-  const filteredProjects = INITIAL_PROJECTS.filter((project) => {
+  const filteredProjects = projects.filter((project) => {
     const matchesSearch = 
       project.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -246,8 +250,8 @@ export default function SupervisorProjects() {
                   {selectedProject.stages.map((stage) => {
                     let dotColor = "bg-blue-fantastic/20 border-blue-fantastic/30";
                     let textColor = "text-blue-fantastic/50";
-                    let isCompleted = stage.status === "Completed";
-                    let isActive = stage.status === "Active";
+                    const isCompleted = stage.status === "Completed";
+                    const isActive = stage.status === "Active";
 
                     if (isCompleted) {
                       dotColor = "bg-truffle-trouble border-truffle-trouble";

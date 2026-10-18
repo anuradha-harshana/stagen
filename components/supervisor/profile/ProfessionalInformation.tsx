@@ -13,7 +13,7 @@ interface ProfessionalInformationProps {
   onSave: (updated: {
     yearsOfExperience: number;
     expertise: string[];
-  }) => void;
+  }) => Promise<boolean>;
 }
 
 const professionalInfoSchema = z.object({
@@ -51,16 +51,16 @@ export function ProfessionalInformation({
     setIsOpen(true);
   };
 
-  const onSubmit = (data: ProfessionalInfoFormData) => {
+  const onSubmit = async (data: ProfessionalInfoFormData) => {
     const parsedExpertise = data.expertiseInput
       .split(",")
       .map((tag) => tag.trim())
       .filter((tag) => tag.length > 0);
 
-    onSave({
+    if (!await onSave({
       yearsOfExperience: Number(data.yearsOfExperience),
       expertise: parsedExpertise,
-    });
+    })) return;
     setIsOpen(false);
   };
 

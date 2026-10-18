@@ -1,0 +1,31 @@
+[
+  {
+    "name": "nm",
+    "email": "n@gmail.com",
+    "phone": "710383293",
+    "role": "Executive Management",
+    "status": "Pending",
+    "assignedProjectsCount": 2,
+    "assignedProjects": [
+      "All Company Projects",
+      "1"
+    ],
+    "avatarBg": "bg-blue-fantastic",
+    "id": "USR-3785",
+    "lastActive": "Invite Sent (Just now)"
+  },
+  {
+    "id": "USR-102",
+    "name": "Elena Rostova",
+    "email": "elena.r@stagenhomes.com.au",
+    "role": "Executive Management",
+    "phone": "+61 423 456 789",
+    "status": "Active",
+    "assignedProjectsCount": 1,
+    "assignedProjects": [
+      "all"
+    ],
+    "lastActive": "15 mins ago",
+    "avatarBg": "bg-blue-fantastic"
+  }
+]

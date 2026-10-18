@@ -31,10 +31,11 @@
     "role": "company-management"
   },
   {
-    "id": "9dc8743e-7b7d-4a5c-88d2-5ec51b116bb8",
-    "username": "9dc8743e-7b7d-4a5c-88d2-5ec51b116bb8",
-    "email": "9dc8743e-7b7d-4a5c-88d2-5ec51b116bb8",
-    "password": "",
-    "role": "customer"
+    "id": "7ab56015-4412-494e-8aff-dbb5095e0098",
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "username": "Eric Chen",
+    "email": "eric@stagen.com",
+    "password": "Stagen@123456",
+    "role": "supervisor"
   }
 ]

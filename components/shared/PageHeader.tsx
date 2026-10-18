@@ -17,7 +17,7 @@ export default function PageHeader({
   subtitle,
   rightContent,
   className,
-}: PageHeaderProps) {
+}: PageHeaderProps) { 
   return (
     <div
       className={cn(

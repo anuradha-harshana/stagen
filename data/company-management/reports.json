@@ -1,0 +1,430 @@
+[
+  {
+    "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
+    "companyName": "Build & Co",
+    "header": {
+      "title": "Reports & Analytics",
+      "subtitle": "Track site velocity, stage durations, regional performance matrix, and operational efficiency metrics.",
+      "exportCsvLabel": "Export CSV",
+      "downloadPdfLabel": "Executive PDF Report"
+    },
+    "updatedAt": "2026-10-11T09:30:00.000Z",
+    "timeframes": {
+      "Q2 2026": {
+        "lastSynchronized": "Today at 09:30 AM",
+        "header": {
+          "title": "Reports & Analytics",
+          "subtitle": "Track site velocity, stage durations, regional performance matrix, and operational efficiency metrics.",
+          "exportCsvLabel": "Export CSV",
+          "downloadPdfLabel": "Executive PDF Report"
+        },
+        "stats": {
+          "totalActiveSites": {
+            "value": 120,
+            "change": "+9% vs previous quarter",
+            "trend": "up"
+          },
+          "avgStageDuration": {
+            "value": "14.2 Days",
+            "change": "-8% faster stage completion",
+            "trend": "down"
+          },
+          "siteCompletionRate": {
+            "value": "84.5%",
+            "change": "+3.2% on-time milestone delivery",
+            "trend": "up"
+          },
+          "operationalScore": {
+            "value": 94,
+            "max": 100,
+            "label": "High Efficiency Rating"
+          }
+        },
+        "monthlyTrends": [
+          { "month": "Jan", "scheduled": 28, "completed": 24 },
+          { "month": "Feb", "scheduled": 34, "completed": 31 },
+          { "month": "Mar", "scheduled": 38, "completed": 36 },
+          { "month": "Apr", "scheduled": 32, "completed": 29 },
+          { "month": "May", "scheduled": 42, "completed": 40 },
+          { "month": "Jun", "scheduled": 45, "completed": 43 }
+        ],
+        "stageDurations": [
+          {
+            "stage": "Base Slab & Foundation",
+            "days": "12 Days",
+            "target": "14 Days",
+            "status": "Ahead",
+            "pct": 85,
+            "color": "bg-emerald-500"
+          },
+          {
+            "stage": "Frame & Lockup",
+            "days": "18 Days",
+            "target": "15 Days",
+            "status": "Delayed",
+            "pct": 110,
+            "color": "bg-rose-500"
+          },
+          {
+            "stage": "Services & Fitout",
+            "days": "14 Days",
+            "target": "14 Days",
+            "status": "On Track",
+            "pct": 100,
+            "color": "bg-blue-fantastic"
+          },
+          {
+            "stage": "Linings & Carpentry",
+            "days": "10 Days",
+            "target": "12 Days",
+            "status": "Ahead",
+            "pct": 83,
+            "color": "bg-emerald-500"
+          },
+          {
+            "stage": "Practical Completion",
+            "days": "7 Days",
+            "target": "8 Days",
+            "status": "Ahead",
+            "pct": 88,
+            "color": "bg-emerald-500"
+          }
+        ],
+        "bottleneck": {
+          "stage": "Frame & Lockup",
+          "region": "VIC",
+          "delayDays": 3,
+          "summary": "Frame & Lockup stage in VIC region averaging +3 days delay due to timber supply chain schedules."
+        },
+        "regionalReports": [
+          {
+            "region": "NSW (New South Wales)",
+            "code": "NSW",
+            "totalSites": 48,
+            "activeSites": 38,
+            "onTimePct": 92.4,
+            "avgDelayDays": 1.8,
+            "supervisors": 12,
+            "efficiencyScore": 95
+          },
+          {
+            "region": "VIC (Victoria)",
+            "code": "VIC",
+            "totalSites": 36,
+            "activeSites": 28,
+            "onTimePct": 81.5,
+            "avgDelayDays": 4.2,
+            "supervisors": 9,
+            "efficiencyScore": 84
+          },
+          {
+            "region": "QLD (Queensland)",
+            "code": "QLD",
+            "totalSites": 24,
+            "activeSites": 18,
+            "onTimePct": 88.0,
+            "avgDelayDays": 2.5,
+            "supervisors": 6,
+            "efficiencyScore": 90
+          },
+          {
+            "region": "WA (Western Australia)",
+            "code": "WA",
+            "totalSites": 12,
+            "activeSites": 8,
+            "onTimePct": 94.2,
+            "avgDelayDays": 1.1,
+            "supervisors": 3,
+            "efficiencyScore": 97
+          },
+          {
+            "region": "SA (South Australia)",
+            "code": "SA",
+            "totalSites": 8,
+            "activeSites": 6,
+            "onTimePct": 87.5,
+            "avgDelayDays": 2.0,
+            "supervisors": 2,
+            "efficiencyScore": 89
+          }
+        ]
+      },
+      "Last 30 Days": {
+        "lastSynchronized": "Today at 09:30 AM",
+        "header": {
+          "title": "Reports & Analytics",
+          "subtitle": "Track site velocity, stage durations, regional performance matrix, and operational efficiency metrics.",
+          "exportCsvLabel": "Export CSV",
+          "downloadPdfLabel": "Executive PDF Report"
+        },
+        "stats": {
+          "totalActiveSites": {
+            "value": 118,
+            "change": "+4% vs previous month",
+            "trend": "up"
+          },
+          "avgStageDuration": {
+            "value": "13.8 Days",
+            "change": "-4% faster stage turnover",
+            "trend": "down"
+          },
+          "siteCompletionRate": {
+            "value": "86.2%",
+            "change": "+2.1% milestone progress",
+            "trend": "up"
+          },
+          "operationalScore": {
+            "value": 95,
+            "max": 100,
+            "label": "Optimal Operational State"
+          }
+        },
+        "monthlyTrends": [
+          { "month": "Week 1", "scheduled": 8, "completed": 7 },
+          { "month": "Week 2", "scheduled": 10, "completed": 9 },
+          { "month": "Week 3", "scheduled": 11, "completed": 11 },
+          { "month": "Week 4", "scheduled": 12, "completed": 11 }
+        ],
+        "stageDurations": [
+          {
+            "stage": "Base Slab & Foundation",
+            "days": "11 Days",
+            "target": "14 Days",
+            "status": "Ahead",
+            "pct": 78,
+            "color": "bg-emerald-500"
+          },
+          {
+            "stage": "Frame & Lockup",
+            "days": "16 Days",
+            "target": "15 Days",
+            "status": "Delayed",
+            "pct": 106,
+            "color": "bg-rose-500"
+          },
+          {
+            "stage": "Services & Fitout",
+            "days": "13 Days",
+            "target": "14 Days",
+            "status": "Ahead",
+            "pct": 92,
+            "color": "bg-emerald-500"
+          },
+          {
+            "stage": "Linings & Carpentry",
+            "days": "9 Days",
+            "target": "12 Days",
+            "status": "Ahead",
+            "pct": 75,
+            "color": "bg-emerald-500"
+          },
+          {
+            "stage": "Practical Completion",
+            "days": "6 Days",
+            "target": "8 Days",
+            "status": "Ahead",
+            "pct": 75,
+            "color": "bg-emerald-500"
+          }
+        ],
+        "bottleneck": {
+          "stage": "Frame & Lockup",
+          "region": "VIC",
+          "delayDays": 1,
+          "summary": "Lockup inspections cleared faster this month; timber deliveries stabilizing across Melbourne sites."
+        },
+        "regionalReports": [
+          {
+            "region": "NSW (New South Wales)",
+            "code": "NSW",
+            "totalSites": 48,
+            "activeSites": 37,
+            "onTimePct": 94.0,
+            "avgDelayDays": 1.4,
+            "supervisors": 12,
+            "efficiencyScore": 96
+          },
+          {
+            "region": "VIC (Victoria)",
+            "code": "VIC",
+            "totalSites": 36,
+            "activeSites": 28,
+            "onTimePct": 83.2,
+            "avgDelayDays": 3.8,
+            "supervisors": 9,
+            "efficiencyScore": 86
+          },
+          {
+            "region": "QLD (Queensland)",
+            "code": "QLD",
+            "totalSites": 24,
+            "activeSites": 19,
+            "onTimePct": 89.5,
+            "avgDelayDays": 2.1,
+            "supervisors": 6,
+            "efficiencyScore": 91
+          },
+          {
+            "region": "WA (Western Australia)",
+            "code": "WA",
+            "totalSites": 12,
+            "activeSites": 8,
+            "onTimePct": 95.0,
+            "avgDelayDays": 0.9,
+            "supervisors": 3,
+            "efficiencyScore": 98
+          },
+          {
+            "region": "SA (South Australia)",
+            "code": "SA",
+            "totalSites": 8,
+            "activeSites": 6,
+            "onTimePct": 88.0,
+            "avgDelayDays": 1.9,
+            "supervisors": 2,
+            "efficiencyScore": 90
+          }
+        ]
+      },
+      "YTD 2026": {
+        "lastSynchronized": "Today at 09:30 AM",
+        "header": {
+          "title": "Reports & Analytics",
+          "subtitle": "Track site velocity, stage durations, regional performance matrix, and operational efficiency metrics.",
+          "exportCsvLabel": "Export CSV",
+          "downloadPdfLabel": "Executive PDF Report"
+        },
+        "stats": {
+          "totalActiveSites": {
+            "value": 145,
+            "change": "+14% vs annual projection",
+            "trend": "up"
+          },
+          "avgStageDuration": {
+            "value": "14.6 Days",
+            "change": "-5% overall duration variance",
+            "trend": "down"
+          },
+          "siteCompletionRate": {
+            "value": "83.8%",
+            "change": "+4.5% cumulative delivery",
+            "trend": "up"
+          },
+          "operationalScore": {
+            "value": 92,
+            "max": 100,
+            "label": "Strong Operational Pace"
+          }
+        },
+        "monthlyTrends": [
+          { "month": "Jan", "scheduled": 28, "completed": 24 },
+          { "month": "Feb", "scheduled": 34, "completed": 31 },
+          { "month": "Mar", "scheduled": 38, "completed": 36 },
+          { "month": "Apr", "scheduled": 32, "completed": 29 },
+          { "month": "May", "scheduled": 42, "completed": 40 },
+          { "month": "Jun", "scheduled": 45, "completed": 43 }
+        ],
+        "stageDurations": [
+          {
+            "stage": "Base Slab & Foundation",
+            "days": "13 Days",
+            "target": "14 Days",
+            "status": "Ahead",
+            "pct": 92,
+            "color": "bg-emerald-500"
+          },
+          {
+            "stage": "Frame & Lockup",
+            "days": "19 Days",
+            "target": "15 Days",
+            "status": "Delayed",
+            "pct": 126,
+            "color": "bg-rose-500"
+          },
+          {
+            "stage": "Services & Fitout",
+            "days": "15 Days",
+            "target": "14 Days",
+            "status": "Delayed",
+            "pct": 107,
+            "color": "bg-rose-500"
+          },
+          {
+            "stage": "Linings & Carpentry",
+            "days": "11 Days",
+            "target": "12 Days",
+            "status": "Ahead",
+            "pct": 91,
+            "color": "bg-emerald-500"
+          },
+          {
+            "stage": "Practical Completion",
+            "days": "8 Days",
+            "target": "8 Days",
+            "status": "On Track",
+            "pct": 100,
+            "color": "bg-blue-fantastic"
+          }
+        ],
+        "bottleneck": {
+          "stage": "Frame & Lockup",
+          "region": "National",
+          "delayDays": 4,
+          "summary": "National structural inspections and frame compliance certification backlog during early Q1 impacted full-year duration."
+        },
+        "regionalReports": [
+          {
+            "region": "NSW (New South Wales)",
+            "code": "NSW",
+            "totalSites": 56,
+            "activeSites": 42,
+            "onTimePct": 91.0,
+            "avgDelayDays": 2.1,
+            "supervisors": 14,
+            "efficiencyScore": 93
+          },
+          {
+            "region": "VIC (Victoria)",
+            "code": "VIC",
+            "totalSites": 44,
+            "activeSites": 32,
+            "onTimePct": 79.5,
+            "avgDelayDays": 4.8,
+            "supervisors": 11,
+            "efficiencyScore": 81
+          },
+          {
+            "region": "QLD (Queensland)",
+            "code": "QLD",
+            "totalSites": 28,
+            "activeSites": 20,
+            "onTimePct": 86.8,
+            "avgDelayDays": 2.9,
+            "supervisors": 7,
+            "efficiencyScore": 88
+          },
+          {
+            "region": "WA (Western Australia)",
+            "code": "WA",
+            "totalSites": 14,
+            "activeSites": 9,
+            "onTimePct": 93.5,
+            "avgDelayDays": 1.4,
+            "supervisors": 4,
+            "efficiencyScore": 95
+          },
+          {
+            "region": "SA (South Australia)",
+            "code": "SA",
+            "totalSites": 9,
+            "activeSites": 7,
+            "onTimePct": 85.0,
+            "avgDelayDays": 2.4,
+            "supervisors": 2,
+            "efficiencyScore": 87
+          }
+        ]
+      }
+    }
+  }
+]

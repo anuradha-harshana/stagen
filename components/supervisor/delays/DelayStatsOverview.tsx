@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { TimelinePageData } from "@/lib/timeline/data";
+import { TimelinePageData } from "@/lib/supervisor/types";
 import { DelayMessage } from "./DelayStore";
 import { AlertTriangle, Clock, CalendarDays, Send } from "lucide-react";
 

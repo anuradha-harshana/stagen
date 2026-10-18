@@ -4,8 +4,25 @@
     "stages": [
       {
         "name": "Site Cut",
+        "status": "Completed",
+        "progress": 100,
+        "checklist": [
+          {
+            "id": "sc-1",
+            "label": "Soil testing & site survey",
+            "completed": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "tenant_id": "tenant-lot-901",
+    "stages": [
+      {
+        "name": "Site Cut",
         "status": "Active",
-        "progress": 0,
+        "progress": 5,
         "checklist": [
           {
             "id": "check-site-survey",
@@ -164,6 +181,110 @@
             "label": "Keys handed over",
             "completed": false
           }
+        ]
+      }
+    ]
+  },
+  {
+    "tenant_id": "tenant-lot-208",
+    "stages": [
+      {
+        "name": "Site Cut",
+        "status": "Completed",
+        "progress": 100,
+        "checklist": [{ "id": "sc-1", "label": "Soil testing & site survey", "completed": true }]
+      },
+      {
+        "name": "Slab",
+        "status": "Completed",
+        "progress": 100,
+        "checklist": [{ "id": "sl-1", "label": "Concrete pour & curing check", "completed": true }]
+      },
+      {
+        "name": "Frame",
+        "status": "Completed",
+        "progress": 100,
+        "checklist": [{ "id": "fr-1", "label": "Wall frames erected", "completed": true }]
+      },
+      {
+        "name": "Lockup",
+        "status": "Active",
+        "progress": 65,
+        "checklist": [
+          { "id": "lk-1", "label": "Roof cladding completed", "completed": true },
+          { "id": "lk-2", "label": "Brickwork completed", "completed": true },
+          { "id": "lk-3", "label": "Glazing installed", "completed": false }
+        ]
+      },
+      { "name": "Fixing", "status": "Pending", "progress": 0, "checklist": [] },
+      { "name": "Completion", "status": "Pending", "progress": 0, "checklist": [] },
+      { "name": "Handover", "status": "Pending", "progress": 0, "checklist": [] }
+    ]
+  },
+  {
+    "tenant_id": "tenant-lot-315",
+    "stages": [
+      {
+        "name": "Site Cut",
+        "status": "Completed",
+        "progress": 100,
+        "checklist": [{ "id": "sc-1", "label": "Excavation and site leveling", "completed": true }]
+      },
+      {
+        "name": "Slab",
+        "status": "Active",
+        "progress": 60,
+        "checklist": [
+          { "id": "sl-1", "label": "Under-slab plumbing", "completed": true },
+          { "id": "sl-2", "label": "Steel reinforcement", "completed": true },
+          { "id": "sl-3", "label": "Concrete pour", "completed": false }
+        ]
+      },
+      { "name": "Frame", "status": "Pending", "progress": 0, "checklist": [] },
+      { "name": "Lockup", "status": "Pending", "progress": 0, "checklist": [] },
+      { "name": "Fixing", "status": "Pending", "progress": 0, "checklist": [] },
+      { "name": "Completion", "status": "Pending", "progress": 0, "checklist": [] },
+      { "name": "Handover", "status": "Pending", "progress": 0, "checklist": [] }
+    ]
+  },
+  {
+    "tenant_id": "tenant-lot-420",
+    "stages": [
+      { "name": "Site Cut", "status": "Completed", "progress": 100, "checklist": [] },
+      { "name": "Slab", "status": "Completed", "progress": 100, "checklist": [] },
+      { "name": "Frame", "status": "Completed", "progress": 100, "checklist": [] },
+      { "name": "Lockup", "status": "Completed", "progress": 100, "checklist": [] },
+      {
+        "name": "Fixing",
+        "status": "Active",
+        "progress": 82,
+        "checklist": [
+          { "id": "fx-1", "label": "Plasterboard lining", "completed": true },
+          { "id": "fx-2", "label": "Cabinetry installed", "completed": true },
+          { "id": "fx-3", "label": "Waterproofing sign-off", "completed": false }
+        ]
+      },
+      { "name": "Completion", "status": "Pending", "progress": 0, "checklist": [] },
+      { "name": "Handover", "status": "Pending", "progress": 0, "checklist": [] }
+    ]
+  },
+  {
+    "tenant_id": "tenant-lot-502",
+    "stages": [
+      { "name": "Site Cut", "status": "Completed", "progress": 100, "checklist": [] },
+      { "name": "Slab", "status": "Completed", "progress": 100, "checklist": [] },
+      { "name": "Frame", "status": "Completed", "progress": 100, "checklist": [] },
+      { "name": "Lockup", "status": "Completed", "progress": 100, "checklist": [] },
+      { "name": "Fixing", "status": "Completed", "progress": 100, "checklist": [] },
+      { "name": "Completion", "status": "Completed", "progress": 100, "checklist": [] },
+      {
+        "name": "Handover",
+        "status": "Completed",
+        "progress": 100,
+        "checklist": [
+          { "id": "ho-1", "label": "Practical Completion Inspection", "completed": true },
+          { "id": "ho-2", "label": "Final payment received", "completed": true },
+          { "id": "ho-3", "label": "Keys handed over", "completed": true }
         ]
       }
     ]
