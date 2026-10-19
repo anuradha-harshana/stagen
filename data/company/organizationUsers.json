@@ -1,5 +1,20 @@
 [
   {
+    "name": "samaji",
+    "email": "sama@gmail.com",
+    "phone": "12345678",
+    "role": "Site Supervisor",
+    "status": "Pending",
+    "assignedProjectsCount": 2,
+    "assignedProjects": [
+      "lot 34",
+      "lot5"
+    ],
+    "avatarBg": "bg-truffle-trouble",
+    "id": "USR-0800",
+    "lastActive": "Invite Sent (Just now)"
+  },
+  {
     "name": "nm",
     "email": "n@gmail.com",
     "phone": "710383293",

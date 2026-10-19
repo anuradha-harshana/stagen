@@ -1,12 +1,24 @@
 import fs from "fs/promises";
 import path from "path";
 import crypto from "crypto";
+import {
+  syncOrgUserToProfile,
+  updateOrgUserProfile,
+  deleteOrgUserProfile
+} from "../users/userProfiles";
+
+export type OrganizationUserRole =
+  | "Company Admin"
+  | "Executive Management"
+  | "Site Supervisor"
+  | "Trade Contractor"
+  | "Customer";
 
 export interface OrganizationUser {
   id: string;
   name: string;
   email: string;
-  role: "Company Admin" | "Executive Management" | "Site Supervisor" | "Trade Contractor";
+  role: OrganizationUserRole;
   phone: string;
   status: "Active" | "Pending" | "Suspended";
   assignedProjectsCount: number;
@@ -49,6 +61,14 @@ export async function createCompanyUser(
   };
   users.unshift(newUser); // Add to the top of list
   await writeUsers(users);
+
+  // Sync user record to userProfiles.json / user_profiles.json
+  try {
+    await syncOrgUserToProfile(newUser);
+  } catch (err) {
+    console.error("Failed to sync created user with user profile:", err);
+  }
+
   return newUser;
 }
 
@@ -63,6 +83,14 @@ export async function updateCompanyUser(
 
   users[index] = { ...users[index], ...updates };
   await writeUsers(users);
+
+  // Sync updates with userProfiles.json / user_profiles.json
+  try {
+    await updateOrgUserProfile(id, updates);
+  } catch (err) {
+    console.error("Failed to sync updated user with user profile:", err);
+  }
+
   return users[index];
 }
 
@@ -73,5 +101,13 @@ export async function deleteCompanyUser(id: string): Promise<boolean> {
   if (filtered.length === users.length) return false;
 
   await writeUsers(filtered);
+
+  // Sync deletion with userProfiles.json / user_profiles.json
+  try {
+    await deleteOrgUserProfile(id);
+  } catch (err) {
+    console.error("Failed to sync deleted user with user profile:", err);
+  }
+
   return true;
 }
