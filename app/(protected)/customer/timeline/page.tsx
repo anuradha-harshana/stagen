@@ -4,7 +4,7 @@ import TimelinePageClient from "@/components/Customer/Timeline/TimelinePageClien
 
 export default async function TimelinePage() {
   // Check authorization and fetch current customer
-  const user = await requireRole(["customer"]);
+  await requireRole(["customer"]);
 
-  return <TimelinePageClient user={user} />;
+  return <TimelinePageClient />;
 }

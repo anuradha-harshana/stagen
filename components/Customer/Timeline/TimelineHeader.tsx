@@ -41,18 +41,24 @@ export default function TimelineHeader({
   if (statusFlag === "delayed") {
     statusBadgeColor = "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/20";
     statusText = `Delayed by ${delayDays} days`;
-    statusDesc = "Weather and machinery shifts pushed back the estimated handover.";
+    statusDesc = "The saved schedule includes a delay. See the adjustment log below.";
     statusIcon = <AlertTriangle className="h-5 w-5 text-truffle-trouble" />;
   } else if (statusFlag === "ahead") {
     statusBadgeColor = "bg-emerald-100 text-emerald-800 border-emerald-300";
     statusText = `Ahead by ${Math.abs(delayDays)} days`;
-    statusDesc = "Build is ahead of schedule due to fast-tracked finishing crews.";
+    statusDesc = "The saved completion estimate is ahead of the original schedule.";
     statusIcon = <TrendingUp className="h-5 w-5 text-emerald-700" />;
   } else if (statusFlag === "not-started") {
     statusBadgeColor = "bg-white text-blue-fantastic border-blue-fantastic/10";
     statusText = "Not Started";
     statusDesc = "Pre-construction planning is underway. Awaiting site mobilization.";
     statusIcon = <Clock className="h-5 w-5 text-blue-fantastic/60" />;
+  }
+
+  if (percentage === 100) {
+    statusText = "Completed";
+    statusDesc = "Your project is recorded as complete.";
+    statusIcon = <CheckCircle className="h-5 w-5 text-emerald-600" />;
   }
 
   // Calculate dynamic counts for key metrics in the top header badges
