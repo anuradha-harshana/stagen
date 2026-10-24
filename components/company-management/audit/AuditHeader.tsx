@@ -1,14 +1,19 @@
 "use client";
 
 import React from "react";
-import { Download, FileText, FileSearch } from "lucide-react";
+import { Download, FileText, FileSearch, Loader2 } from "lucide-react";
 
 interface AuditHeaderProps {
   onExportCsv: () => void;
   onDownloadPdf: () => void;
+  isExporting?: boolean;
 }
 
-export function AuditHeader({ onExportCsv, onDownloadPdf }: AuditHeaderProps) {
+export function AuditHeader({
+  onExportCsv,
+  onDownloadPdf,
+  isExporting = false,
+}: AuditHeaderProps) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-blue-fantastic/15 font-sans w-full">
       <div className="flex items-center gap-3">
@@ -25,17 +30,25 @@ export function AuditHeader({ onExportCsv, onDownloadPdf }: AuditHeaderProps) {
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-2.5">
         <button
           onClick={onExportCsv}
-          className="flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-blue-fantastic/20 hover:bg-blue-fantastic hover:text-palladian transition-all duration-200"
+          disabled={isExporting}
+          className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-blue-fantastic/20 hover:bg-blue-fantastic hover:text-palladian transition-all duration-200 disabled:opacity-50"
+          title="Export current audit logs to CSV"
         >
-          <Download className="h-4 w-4" />
+          {isExporting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Download className="h-4 w-4" />
+          )}
           Export Log CSV
         </button>
+
         <button
           onClick={onDownloadPdf}
-          className="flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg bg-truffle-trouble text-palladian shadow-md hover:bg-truffle-trouble/90 transition-all duration-200"
+          className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg bg-blue-fantastic text-palladian shadow-sm hover:bg-blue-fantastic/90 transition-all duration-200"
+          title="Download compliance report PDF"
         >
           <FileText className="h-4 w-4 text-burning-flame" />
           Download PDF Report
