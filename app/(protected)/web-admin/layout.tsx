@@ -1,6 +1,5 @@
 import { Navbar } from '@/components/Navbar/Navbar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import React from 'react';
 
 const sysAdminLayout = ({
   children,

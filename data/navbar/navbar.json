@@ -63,5 +63,12 @@
       { "id": 11, "name": "Profile", "url": "/supervisor/profile", "icon": "UserRoundPen" },
       { "id": 12, "name": "Settings", "url": "/supervisor/settings", "icon": "Settings" }
     ]
+  },
+    {
+    "role": "admin",
+    "items": [
+      { "id": 1, "name": "Profile", "url": "/web-admin/profile", "icon": "UserRoundPen" },
+      { "id": 2, "name": "Settings", "url": "/web-admin/settings", "icon": "Settings" }
+    ]
   }
 ]
