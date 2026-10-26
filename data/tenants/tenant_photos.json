@@ -1,13 +1,41 @@
-{
-  "id": "photo-001",
-  "tenant_id": "tenant-lot-104",
-  "stage_name": "Frame",
-  "url": "/images/framing_front.png",
-  "file_name": "framing_front.jpg",
-  "file_size": 2450000,
-  "label": "Wall framing – front elevation",
-  "caption": "Wall frames erected, awaiting inspection",
-  "uploader_id": "7ab56015-4412-494e-8aff-dbb5095e0097",
-  "uploader_name": "Eric",
-  "timestamp": "Jul 20, 2026 09:30 AM"
-}
+[
+  {
+    "id": "photo-001",
+    "tenant_id": "tenant-lot-104",
+    "stage_name": "Frame",
+    "url": "/images/framing_front.png",
+    "file_name": "framing_front.png",
+    "file_size": 1067942,
+    "label": "Wall framing – front elevation",
+    "caption": "Wall frames erected and verified, awaiting lockup inspection",
+    "uploader_id": "7ab56015-4412-494e-8aff-dbb5095e0097",
+    "uploader_name": "Eric Chen",
+    "timestamp": "Sep 28, 2026 09:30 AM"
+  },
+  {
+    "id": "photo-002",
+    "tenant_id": "tenant-lot-104",
+    "stage_name": "Frame",
+    "url": "/images/interior_frame.png",
+    "file_name": "interior_frame.png",
+    "file_size": 1012934,
+    "label": "Interior load bearing studs",
+    "caption": "Internal stud walls braced to engineering standards",
+    "uploader_id": "7ab56015-4412-494e-8aff-dbb5095e0097",
+    "uploader_name": "Eric Chen",
+    "timestamp": "Sep 25, 2026 02:15 PM"
+  },
+  {
+    "id": "photo-003",
+    "tenant_id": "tenant-lot-104",
+    "stage_name": "Frame",
+    "url": "/images/roof_trusses.png",
+    "file_name": "roof_trusses.png",
+    "file_size": 966959,
+    "label": "Roof trusses installation",
+    "caption": "Trusses hoisted and secured with hurricane tie-downs",
+    "uploader_id": "7ab56015-4412-494e-8aff-dbb5095e0097",
+    "uploader_name": "Eric Chen",
+    "timestamp": "Sep 20, 2026 11:00 AM"
+  }
+]

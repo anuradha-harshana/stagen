@@ -217,3 +217,102 @@ export async function deleteCompanyProject(companyId: string, projectId: string)
   ]);
   return true;
 }
+
+export interface ProjectActivity {
+  id: string;
+  tenant_id: string;
+  title: string;
+  description: string;
+  date: string;
+  stage_id: string;
+  stage_name: string;
+  type: "success" | "warning" | "info";
+  created_by?: string;
+}
+
+export interface ProjectPhoto {
+  id: string;
+  tenant_id: string;
+  stage_name: string;
+  url: string;
+  file_name?: string;
+  file_size?: number;
+  label: string;
+  caption?: string;
+  uploader_name?: string;
+  timestamp: string;
+}
+
+export async function getCustomerProjects(
+  userId: string,
+  companyId?: string
+): Promise<Project[]> {
+  const [tenants, stageRecords, timelines, assignments, delays, questions] = await Promise.all(
+    Object.values(files).map((fileName) => readRecords(fileName))
+  );
+  const users = JSON.parse(await fs.readFile(usersFile, "utf8")) as RecordValue[];
+  const currentUser = users.find((user) => user.id === userId);
+
+  // Match by client_user_id or by customer username/client_name
+  let customerTenants = tenants.filter(
+    (tenant) =>
+      tenant.client_user_id === userId ||
+      (currentUser?.username &&
+        tenant.client_name?.toLowerCase().includes(currentUser.username.toLowerCase()))
+  );
+
+  // Fallback: If no lots specifically assigned to this user ID, return all lots belonging to their company
+  if (customerTenants.length === 0) {
+    customerTenants = companyId
+      ? tenants.filter((tenant) => tenant.company_id === companyId)
+      : tenants;
+  }
+
+  // Final fallback for local development/testing: return the first tenant lot
+  if (customerTenants.length === 0 && tenants.length > 0) {
+    customerTenants = [tenants[0]];
+  }
+
+  return customerTenants.map((tenant) => {
+    const tenantId = tenant.tenant_id;
+    const assignment = assignments.find((item) => item.tenant_id === tenantId);
+    const supervisor = assignment
+      ? {
+          ...assignment,
+          user_name: users.find((user) => user.id === assignment.user_id)?.username,
+        }
+      : undefined;
+    return toProject(
+      tenant,
+      stageRecords.find((item) => item.tenant_id === tenantId),
+      timelines.find((item) => item.tenant_id === tenantId),
+      supervisor,
+      delays.filter((item) => item.tenant_id === tenantId),
+      questions.filter((item) => item.tenant_id === tenantId)
+    );
+  });
+}
+
+export async function getCustomerActivities(tenantIds: string[]): Promise<ProjectActivity[]> {
+  try {
+    const activities = (await readRecords("tenant_activities.json")) as ProjectActivity[];
+    if (tenantIds.length === 0) return activities;
+    const matched = activities.filter((act) => tenantIds.includes(act.tenant_id));
+    return matched.length > 0 ? matched : activities;
+  } catch (error) {
+    console.error("Failed to load customer activities", error);
+    return [];
+  }
+}
+
+export async function getCustomerPhotos(tenantIds: string[]): Promise<ProjectPhoto[]> {
+  try {
+    const photos = (await readRecords("tenant_photos.json")) as ProjectPhoto[];
+    if (tenantIds.length === 0) return photos;
+    const matched = photos.filter((photo) => tenantIds.includes(photo.tenant_id));
+    return matched.length > 0 ? matched : photos;
+  } catch (error) {
+    console.error("Failed to load customer photos", error);
+    return [];
+  }
+}

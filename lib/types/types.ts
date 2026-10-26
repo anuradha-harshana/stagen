@@ -11,8 +11,9 @@ export interface User {
     id: string;
     username: string;
     email: string;
-    password: string;
+    password?: string;
     role: string;
+    companyId?: string;
 }
 
 export interface CompanyUser {

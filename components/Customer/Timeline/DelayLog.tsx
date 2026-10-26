@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { DelayLogEntry } from "@/lib/timeline/data";
+import { DelayLogEntry } from "@/lib/customer/timelineTypes";
 import DelayLogItem from "./DelayLogItem";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CalendarClock, ShieldCheck } from "lucide-react";
@@ -44,10 +44,10 @@ export default function DelayLog({ logs }: DelayLogProps) {
               <ShieldCheck className="h-6 w-6" />
             </div>
             <h4 className="text-sm font-extrabold text-blue-fantastic font-sans">
-              Perfect Schedule Baseline
+              No Schedule Adjustments
             </h4>
             <p className="text-xs text-blue-fantastic/60 font-medium max-w-sm mt-1">
-              No date revisions or delay events have been recorded. Your project is pacing exactly as originally estimated!
+              No date revisions or delay events have been recorded for this project.
             </p>
           </div>
         )}

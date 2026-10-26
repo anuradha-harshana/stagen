@@ -1,13 +1,108 @@
-{
-  "user_id": "7ab56015-4412-494e-8aff-dbb5095e0096",
-  "role": "customer",
-  "avatar_url": "/profile-avatar.png",
-  "full_name": "Anuradha Harshana",
-  "phone": "+61 400 123 456",
-  "home_address": "Lot 104, 12 Harrison Street, Richmond VIC",
-  "account_created": "Jan 15, 2025",
-  "language": "English",
-  "timezone": "Australia/Melbourne",
-  "linked_accounts": [{ "provider": "google", "connected": true }],
-  "password_updated_at": "2026-06-28"
-}
+[
+  {
+    "user_id": "USR-0800",
+    "role": "supervisor",
+    "avatar_url": "/profile-avatar.png",
+    "avatarBg": "bg-truffle-trouble",
+    "full_name": "samaji",
+    "email": "sama@gmail.com",
+    "phone": "12345678",
+    "home_address": "lot 34, lot5",
+    "account_created": "Oct 14, 2026",
+    "language": "English",
+    "timezone": "Australia/Melbourne",
+    "linked_accounts": [
+      {
+        "provider": "google",
+        "connected": false
+      }
+    ],
+    "password_updated_at": "2026-10-14",
+    "status": "Pending",
+    "assigned_projects": [
+      "lot 34",
+      "lot5"
+    ],
+    "assigned_projects_count": 2,
+    "last_active": "Invite Sent (Just now)"
+  },
+  {
+    "user_id": "7ab56015-4412-494e-8aff-dbb5095e0096",
+    "role": "customer",
+    "avatar_url": "/profile-avatar.png",
+    "avatarBg": "bg-burning-flame",
+    "full_name": "Anuradha Harshana",
+    "email": "customer@stagen.com",
+    "phone": "+61 400 123 456",
+    "home_address": "Lot 104, 12 Harrison Street, Richmond VIC",
+    "account_created": "Jan 15, 2025",
+    "language": "English",
+    "timezone": "Australia/Melbourne",
+    "linked_accounts": [
+      {
+        "provider": "google",
+        "connected": true
+      }
+    ],
+    "password_updated_at": "2026-06-28",
+    "status": "Active",
+    "assigned_projects": [
+      "Lot 104, 12 Harrison Street, Richmond VIC"
+    ],
+    "assigned_projects_count": 1,
+    "last_active": "Today"
+  },
+  {
+    "user_id": "USR-3785",
+    "role": "company-management",
+    "avatar_url": "/profile-avatar.png",
+    "avatarBg": "bg-blue-fantastic",
+    "full_name": "nm",
+    "email": "n@gmail.com",
+    "phone": "710383293",
+    "home_address": "All Company Projects, 1",
+    "account_created": "Oct 9, 2026",
+    "language": "English",
+    "timezone": "Australia/Melbourne",
+    "linked_accounts": [
+      {
+        "provider": "google",
+        "connected": false
+      }
+    ],
+    "password_updated_at": "2026-10-09",
+    "status": "Pending",
+    "assigned_projects": [
+      "All Company Projects",
+      "1"
+    ],
+    "assigned_projects_count": 2,
+    "last_active": "Invite Sent (Just now)"
+  },
+  {
+    "user_id": "USR-102",
+    "role": "company-management",
+    "avatar_url": "/profile-avatar.png",
+    "avatarBg": "bg-blue-fantastic",
+    "full_name": "Elena Rostova",
+    "email": "elena.r@stagenhomes.com.au",
+    "phone": "+61 423 456 789",
+    "home_address": "all",
+    "account_created": "Oct 9, 2026",
+    "language": "English",
+    "timezone": "Australia/Melbourne",
+    "linked_accounts": [
+      {
+        "provider": "google",
+        "connected": false
+      }
+    ],
+    "password_updated_at": "2026-10-09",
+    "status": "Active",
+    "assigned_projects": [
+      "all"
+    ],
+    "assigned_projects_count": 1,
+    "last_active": "15 mins ago"
+  }
+]

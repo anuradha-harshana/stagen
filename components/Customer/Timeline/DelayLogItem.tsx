@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { DelayLogEntry } from "@/lib/timeline/data";
+import { DelayLogEntry } from "@/lib/customer/timelineTypes";
 import { cn } from "@/lib/utils";
 import { CloudRain, Wrench, FileCheck, Users, Package, ArrowRight, HelpCircle } from "lucide-react";
 
