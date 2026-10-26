@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { getCompanyProjects } from "@/lib/tenant/projects";
+import { User } from "@/lib/types/types";
+import { Project } from "@/lib/types/project";
 
 
 import {
@@ -170,7 +172,13 @@ const RECENT_LOGINS = [
   },
 ];
 
-export default function CompanyDashboardClient({ user }: { user: User }) {
+export default function CompanyDashboardClient({
+  user,
+  projects: initialProjects,
+}: {
+  user: User;
+  projects?: Project[];
+}) {
   
 
   // State management

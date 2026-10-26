@@ -1,14 +1,20 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { toast } from "sonner"
 import { CompanyDocument } from "./CompanyUploadDocumentModal"
 import { CompanyDocumentsHeader } from "./CompanyDocumentsHeader"
 import { CompanyDocumentsTable } from "./CompanyDocumentsTable"
 import { CompanyUploadDocumentModal } from "./CompanyUploadDocumentModal"
 import { CompanyDocumentDetailsModal } from "./CompanyDocumentDetailsModal"
+import {
+  fetchCompanyDocumentsAction,
+  createCompanyDocumentAction,
+  updateCompanyDocumentAction,
+  removeCompanyDocumentAction,
+} from "@/lib/company/actions"
 
-// Initial mock data matching the user's provided images
+// Initial mock data fallback
 const INITIAL_COMPANY_DOCUMENTS: CompanyDocument[] = [
   {
     id: "doc-101",
@@ -73,17 +79,53 @@ export function CompanyDocumentsOverview() {
   const [selectedDocument, setSelectedDocument] = useState<CompanyDocument | null>(null)
   const [detailsModalMode, setDetailsModalMode] = useState<"view" | "edit">("view")
 
+  // Load from JSON file on mount
+  useEffect(() => {
+    fetchCompanyDocumentsAction()
+      .then((docs) => {
+        if (docs && docs.length > 0) {
+          setDocuments(docs)
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch company documents from JSON:", err)
+      })
+  }, [])
+
   // Add uploaded document
-  const handleUploadDocument = (newDoc: CompanyDocument) => {
-    setDocuments((prev) => [newDoc, ...prev])
+  const handleUploadDocument = async (newDoc: CompanyDocument) => {
+    try {
+      const savedDoc = await createCompanyDocumentAction({
+        name: newDoc.name,
+        category: newDoc.category,
+        visibleTo: newDoc.visibleTo,
+        fileName: newDoc.fileName,
+        fileSize: newDoc.fileSize,
+        fileType: newDoc.fileType,
+        description: newDoc.description,
+      })
+      setDocuments((prev) => [savedDoc, ...prev.filter((d) => d.id !== savedDoc.id)])
+    } catch (err) {
+      console.error("Failed to save uploaded document to JSON:", err)
+      setDocuments((prev) => [newDoc, ...prev])
+    }
   }
 
   // Delete document
-  const handleDeleteDocument = (docId: string) => {
+  const handleDeleteDocument = async (docId: string) => {
     const docToDelete = documents.find((d) => d.id === docId)
     setDocuments((prev) => prev.filter((d) => d.id !== docId))
-    if (docToDelete) {
-      toast.success(`Deleted "${docToDelete.name}"`)
+    try {
+      await removeCompanyDocumentAction(docId)
+      if (docToDelete) {
+        toast.success(`Deleted "${docToDelete.name}"`)
+      }
+    } catch (err) {
+      console.error("Failed to delete document from JSON:", err)
+      if (docToDelete) {
+        setDocuments((prev) => [...prev, docToDelete])
+      }
+      toast.error("Failed to delete document.")
     }
   }
 
@@ -100,8 +142,23 @@ export function CompanyDocumentsOverview() {
   }
 
   // Save updated document
-  const handleSaveDocument = (updatedDoc: CompanyDocument) => {
+  const handleSaveDocument = async (updatedDoc: CompanyDocument) => {
     setDocuments((prev) => prev.map((d) => (d.id === updatedDoc.id ? updatedDoc : d)))
+    try {
+      await updateCompanyDocumentAction(updatedDoc.id, {
+        name: updatedDoc.name,
+        category: updatedDoc.category,
+        visibleTo: updatedDoc.visibleTo,
+        fileName: updatedDoc.fileName,
+        fileSize: updatedDoc.fileSize,
+        fileType: updatedDoc.fileType,
+        description: updatedDoc.description,
+      })
+      toast.success(`Updated "${updatedDoc.name}"`)
+    } catch (err) {
+      console.error("Failed to update document in JSON:", err)
+      toast.error("Failed to save changes.")
+    }
   }
 
   return (

@@ -67,7 +67,30 @@ export interface Customer {
 }
 
 export interface ResetPasswordFormData {
-  password: string;
-  confirmPassword: string;
-  revokeSessions: boolean;
+    password: string;
+    confirmPassword: string;
+    revokeSessions: boolean;
+}
+
+export interface CustomerProfile {
+    userId: string;              // Links to User.id in users.json
+    fullName: string;
+    email: string;
+    phone: string;
+    avatarUrl?: string;
+    homeAddress: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+    country?: string;
+    preferredLanguage: string;
+    timeZone: string;
+    accountCreatedAt: string;
+    passwordUpdatedAt?: string;
+    linkedAccounts?: {
+        provider: string;
+        connected: boolean;
+        email?: string;
+    }[];
+    updatedAt?: string;
 }

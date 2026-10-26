@@ -9,7 +9,9 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import { NavbarProps } from "@/lib/types/types"
-import {NavbarLinks} from "@/components/Navbar/NavbarLinks"
+
+import { NavbarLinks } from "@/components/Navbar/NavbarLinks"
+
 import { LogoutButton } from "../auth/LogoutButton"
 
 
@@ -18,12 +20,14 @@ type props = {
 }
 
 export async function Navbar({ role }: props) {
+
   let data: NavbarProps[] = []
+
 
   try {
     const baseUrl = process.env.APP_URL || 'http://localhost:3000'
     const url = `${baseUrl}/api/navbar?role=${encodeURIComponent(role)}`
-    
+
     const res = await fetch(url, {
       cache: "no-store"
     })
