@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Bell, Globe, FileText, Sparkles, Mail, Save } from "lucide-react"
 import { toast } from "sonner"
 import {
@@ -11,22 +11,68 @@ import {
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { CustomerSettings } from "@/lib/types/types"
+import { saveCustomerSettingsAction } from "@/lib/customer/actions"
 
-export default function NotificationSettings() {
-  const [projectUpdates, setProjectUpdates] = useState(true)
-  const [invoiceReminders, setInvoiceReminders] = useState(true)
-  const [aiNotifications, setAiNotifications] = useState(true)
-  const [emailNotifications, setEmailNotifications] = useState(true)
-  const [pushNotifications, setPushNotifications] = useState(true)
+interface NotificationSettingsProps {
+  settings?: CustomerSettings | null
+  onUpdate?: (updated: CustomerSettings) => void
+}
+
+export default function NotificationSettings({ settings, onUpdate }: NotificationSettingsProps = {}) {
+  const [projectUpdates, setProjectUpdates] = useState(
+    settings?.notifications?.projectUpdates ?? true
+  )
+  const [invoiceReminders, setInvoiceReminders] = useState(
+    settings?.notifications?.invoiceReminders ?? true
+  )
+  const [aiNotifications, setAiNotifications] = useState(
+    settings?.notifications?.aiNotifications ?? true
+  )
+  const [emailNotifications, setEmailNotifications] = useState(
+    settings?.notifications?.emailNotifications ?? true
+  )
+  const [pushNotifications, setPushNotifications] = useState(
+    settings?.notifications?.pushNotifications ?? true
+  )
   const [isSaving, setIsSaving] = useState(false)
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (settings?.notifications) {
+      setProjectUpdates(settings.notifications.projectUpdates ?? true)
+      setInvoiceReminders(settings.notifications.invoiceReminders ?? true)
+      setAiNotifications(settings.notifications.aiNotifications ?? true)
+      setEmailNotifications(settings.notifications.emailNotifications ?? true)
+      setPushNotifications(settings.notifications.pushNotifications ?? true)
+    }
+  }, [settings])
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSaving(true)
-    setTimeout(() => {
+
+    try {
+      const res = await saveCustomerSettingsAction({
+        notifications: {
+          projectUpdates,
+          invoiceReminders,
+          aiNotifications,
+          emailNotifications,
+          pushNotifications,
+        },
+      })
+
+      if (res.success && res.settings) {
+        toast.success("Notification settings saved successfully!")
+        onUpdate?.(res.settings)
+      } else {
+        toast.error(res.error || "Failed to save settings")
+      }
+    } catch (err: any) {
+      toast.error(err.message || "An error occurred while saving")
+    } finally {
       setIsSaving(false)
-      toast.success("Notification settings saved successfully!")
-    }, 800)
+    }
   }
 
   const toggleItems = [
