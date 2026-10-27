@@ -13,8 +13,7 @@ import { BrandColorsCard } from "@/components/ui/SettingsPage/BrandColorsCard"
 import { LocaleCard } from "@/components/ui/SettingsPage/LocaleCard"
 import { TimezoneCard } from "@/components/ui/SettingsPage/TimezoneCard"
 import { LivePreview } from "@/components/ui/SettingsPage/LivePreview"
-
-import { fetchCompanySettingsAction, saveCompanySettingsAction } from "@/lib/company/actions"
+import { useCompanyTheme } from "@/components/Providers/CompanyThemeProvider"
 
 // Theme Preset Definition
 interface ThemePreset {
@@ -26,6 +25,8 @@ interface ThemePreset {
 }
 
 export default function SettingsPage() {
+  const { applyThemeLive, setTheme } = useCompanyTheme()
+
   // --- STATE MANAGEMENT ---
   const [logo, setLogo] = useState<string>("/images/logo.png")
   const [logoName, setLogoName] = useState<string>("logo.png")
@@ -47,10 +48,15 @@ export default function SettingsPage() {
   })
   
   const [isSaving, setIsSaving] = useState(false)
+  const [initialLoaded, setInitialLoaded] = useState(false)
 
-  // --- FETCH SETTINGS FROM JSON ---
+  // --- FETCH SETTINGS FROM API ROUTE HANDLER ---
   useEffect(() => {
-    fetchCompanySettingsAction()
+    fetch("/api/company/settings")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load company settings")
+        return res.json()
+      })
       .then((data) => {
         if (data) {
           if (data.logo) setLogo(data.logo)
@@ -60,12 +66,15 @@ export default function SettingsPage() {
           if (data.accentColor) setAccentColor(data.accentColor)
           if (data.selectedLocale) setSelectedLocale(data.selectedLocale)
           if (data.selectedTimezone) setSelectedTimezone(data.selectedTimezone)
+          setTheme(data)
         }
+        setInitialLoaded(true)
       })
       .catch((err) => {
         console.error("Failed to load company settings:", err)
+        setInitialLoaded(true)
       })
-  }, [])
+  }, [setTheme])
 
   // --- TIMEZONE CLOCK LOGIC ---
   useEffect(() => {
@@ -107,26 +116,48 @@ export default function SettingsPage() {
   const handleLogoUpload = (newLogo: string, name: string) => {
     setLogo(newLogo)
     setLogoName(name)
+    applyThemeLive({ logo: newLogo, logoName: name })
     showToast("Logo preview updated!", "success")
   }
 
   const handleResetLogo = () => {
     setLogo("/images/logo.png")
     setLogoName("logo.png")
+    applyThemeLive({ logo: "/images/logo.png", logoName: "logo.png" })
     showToast("Logo reset to default.", "info")
+  }
+
+  const handleSetPrimary = (color: string) => {
+    setPrimaryColor(color)
+    applyThemeLive({ primaryColor: color })
+  }
+
+  const handleSetSecondary = (color: string) => {
+    setSecondaryColor(color)
+    applyThemeLive({ secondaryColor: color })
+  }
+
+  const handleSetAccent = (color: string) => {
+    setAccentColor(color)
+    applyThemeLive({ accentColor: color })
   }
 
   const applyPreset = (preset: ThemePreset) => {
     setPrimaryColor(preset.primary)
     setSecondaryColor(preset.secondary)
     setAccentColor(preset.accent)
+    applyThemeLive({
+      primaryColor: preset.primary,
+      secondaryColor: preset.secondary,
+      accentColor: preset.accent,
+    })
     showToast(`Applied preset: ${preset.name}`, "success")
   }
 
   const handleSave = async () => {
     setIsSaving(true)
     try {
-      await saveCompanySettingsAction({
+      const payload = {
         logo,
         logoName,
         primaryColor,
@@ -134,11 +165,25 @@ export default function SettingsPage() {
         accentColor,
         selectedLocale,
         selectedTimezone,
+      }
+
+      const res = await fetch("/api/company/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       })
-      showToast("Company settings saved successfully!", "success")
-    } catch (err) {
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}))
+        throw new Error(errorData.error || "Failed to save settings")
+      }
+
+      const updated = await res.json()
+      setTheme(updated)
+      showToast("Company settings & localization synchronized across system!", "success")
+    } catch (err: any) {
       console.error("Failed to save settings:", err)
-      showToast("Failed to save settings. Please try again.", "info")
+      showToast(err.message || "Failed to save settings. Please try again.", "info")
     } finally {
       setIsSaving(false)
     }
@@ -156,7 +201,7 @@ export default function SettingsPage() {
       <PageHeader
         icon={<Settings className="h-5 w-5 text-burning-flame" />}
         title="Company Settings"
-        subtitle="Configure your brand identity, regional formats, and localization settings for Australia."
+        subtitle="Configure your brand identity, regional formats, and localization settings."
         rightContent={
           <div className="flex gap-3">
             <Button
@@ -217,11 +262,11 @@ export default function SettingsPage() {
 
           <BrandColorsCard 
             primaryColor={primaryColor}
-            setPrimaryColor={setPrimaryColor}
+            setPrimaryColor={handleSetPrimary}
             secondaryColor={secondaryColor}
-            setSecondaryColor={setSecondaryColor}
+            setSecondaryColor={handleSetSecondary}
             accentColor={accentColor}
-            setAccentColor={setAccentColor}
+            setAccentColor={handleSetAccent}
             onApplyPreset={applyPreset}
           />
 
