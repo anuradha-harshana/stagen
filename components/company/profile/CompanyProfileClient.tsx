@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Save,
   RotateCcw,
@@ -31,8 +31,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CompanyProfileData } from "@/lib/company/companyProfile";
 
-const INITIAL_PROFILE = {
+const DEFAULT_PROFILE: CompanyProfileData = {
+  companyId: "7ab56015-4412-494e-8aff-dbb5095e0095",
   companyName: "STAGEN Constructions",
   abn: "98 123 456 789",
   businessAddress: "Level 14, 100 St Kilda Road, Melbourne VIC 3004",
@@ -44,39 +46,126 @@ const INITIAL_PROFILE = {
   logoUrl: "/images/logo.png",
 };
 
-export default function CompanyProfileClient() {
+interface CompanyProfileClientProps {
+  initialProfile?: CompanyProfileData | null;
+}
 
-  // Form State
-  const [profile, setProfile] = useState(INITIAL_PROFILE);
+export default function CompanyProfileClient({ initialProfile }: CompanyProfileClientProps) {
+  const [profile, setProfile] = useState<CompanyProfileData>(initialProfile || DEFAULT_PROFILE);
+  const [savedProfile, setSavedProfile] = useState<CompanyProfileData>(initialProfile || DEFAULT_PROFILE);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(!initialProfile);
   const [hasChanges, setHasChanges] = useState(false);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Fetch from API route if initialProfile wasn't supplied
+  useEffect(() => {
+    if (!initialProfile) {
+      setIsLoading(true);
+      fetch("/api/company/profile")
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to load profile");
+          return res.json();
+        })
+        .then((data: CompanyProfileData) => {
+          if (data && data.companyId) {
+            setProfile(data);
+            setSavedProfile(data);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching company profile:", err);
+          toast.error("Could not fetch latest profile from server.");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [initialProfile]);
+
   // Handle Input Changes
-  const handleChange = (field: keyof typeof INITIAL_PROFILE, value: string) => {
+  const handleChange = (field: keyof CompanyProfileData, value: string) => {
     setProfile((prev) => ({ ...prev, [field]: value }));
     setHasChanges(true);
   };
 
-  // Save Changes Handler
-  const handleSave = (e?: React.FormEvent) => {
+  // Handle Logo Upload
+  const handleLogoFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please upload a valid image file");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target?.result as string;
+      if (dataUrl) {
+        setProfile((prev) => ({ ...prev, logoUrl: dataUrl }));
+        setHasChanges(true);
+        toast.success("Logo preview updated! Save changes to persist.");
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Save Changes Handler via API route handler
+  const handleSave = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsSaving(true);
 
-    setTimeout(() => {
-      setIsSaving(false);
-      setHasChanges(false);
-      toast.success("Company Profile updated successfully!", {
-        description: "All core business details and regional preferences saved.",
+    try {
+      const res = await fetch("/api/company/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profile),
       });
-    }, 1000);
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to update profile");
+      }
+
+      const updated = (await res.json()) as CompanyProfileData;
+      setProfile(updated);
+      setSavedProfile(updated);
+      setHasChanges(false);
+
+      toast.success("Company Profile updated successfully!", {
+        description: "All core business details and regional preferences saved to JSON storage.",
+      });
+    } catch (err: any) {
+      console.error("Save profile error:", err);
+      toast.error(err.message || "Failed to save company profile.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   // Reset Changes Handler
   const handleReset = () => {
-    setProfile(INITIAL_PROFILE);
+    setProfile(savedProfile);
     setHasChanges(false);
-    toast.info("Form reset to original company details.");
+    toast.info("Form reset to saved company details.");
   };
+
+  if (isLoading) {
+    return (
+      <div className={PAGE_SHELL_CLASS}>
+        <div className="flex h-64 items-center justify-center">
+          <div className="flex items-center gap-2 text-sm text-blue-fantastic/70">
+            <span className="h-4 w-4 border-2 border-blue-fantastic border-t-transparent rounded-full animate-spin" />
+            Loading company profile...
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={PAGE_SHELL_CLASS}>
@@ -124,14 +213,13 @@ export default function CompanyProfileClient() {
       <Card className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-blue-fantastic/15">
         <CardContent className="p-0">
           <form onSubmit={handleSave} className="space-y-6">
-            
             {/* Top Logo & Branding Banner */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-gray-100 gap-4">
               <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16 border-2 border-gray-100 shadow-xs bg-[#eee9df]">
                   <AvatarImage src={profile.logoUrl} alt="Company Logo" />
                   <AvatarFallback className="bg-blue-fantastic text-white font-bold text-lg">
-                    ST
+                    {profile.companyName ? profile.companyName.slice(0, 2).toUpperCase() : "ST"}
                   </AvatarFallback>
                 </Avatar>
                 <div>
@@ -149,18 +237,27 @@ export default function CompanyProfileClient() {
                 </div>
               </div>
 
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => toast.info("Brand Logo update dialog opened.")}
-                className="rounded-xl border-gray-200 text-xs text-blue-fantastic hover:bg-gray-50 h-9"
-              >
-                <Upload className="mr-1.5 h-3.5 w-3.5" />
-                Change Logo
-              </Button>
+              <div>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleLogoFileChange}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="rounded-xl border-gray-200 text-xs text-blue-fantastic hover:bg-gray-50 h-9"
+                >
+                  <Upload className="mr-1.5 h-3.5 w-3.5" />
+                  Change Logo
+                </Button>
+              </div>
             </div>
 
-            {/* FORM FIELDS GRID - Exact match to Figma layout */}
+            {/* FORM FIELDS GRID */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
               {/* Field 1: Company Name */}
               <div className="space-y-2">

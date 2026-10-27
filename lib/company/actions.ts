@@ -60,6 +60,25 @@ export async function saveCompanySettingsAction(
 }
 
 // ==========================================
+//           PROFILE ACTIONS
+// ==========================================
+
+export async function fetchCompanyProfileAction(companyId?: string) {
+  const { getCompanyProfile } = await import("./companyProfile");
+  const targetId = await resolveCompanyId(companyId);
+  return await getCompanyProfile(targetId);
+}
+
+export async function saveCompanyProfileAction(
+  profile: any,
+  companyId?: string
+) {
+  const { updateCompanyProfile } = await import("./companyProfile");
+  const targetId = await resolveCompanyId(companyId);
+  return await updateCompanyProfile(targetId, profile);
+}
+
+// ==========================================
 //          DOCUMENTS ACTIONS
 // ==========================================
 

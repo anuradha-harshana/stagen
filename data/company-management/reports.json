@@ -1,7 +1,7 @@
 [
   {
     "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
-    "companyName": "Build & Co",
+    "companyName": "STAGEN Constructions Ltd",
     "header": {
       "title": "Reports & Analytics",
       "subtitle": "Track site velocity, stage durations, regional performance matrix, and operational efficiency metrics.",
@@ -41,12 +41,36 @@
           }
         },
         "monthlyTrends": [
-          { "month": "Jan", "scheduled": 28, "completed": 24 },
-          { "month": "Feb", "scheduled": 34, "completed": 31 },
-          { "month": "Mar", "scheduled": 38, "completed": 36 },
-          { "month": "Apr", "scheduled": 32, "completed": 29 },
-          { "month": "May", "scheduled": 42, "completed": 40 },
-          { "month": "Jun", "scheduled": 45, "completed": 43 }
+          {
+            "month": "Jan",
+            "scheduled": 28,
+            "completed": 24
+          },
+          {
+            "month": "Feb",
+            "scheduled": 34,
+            "completed": 31
+          },
+          {
+            "month": "Mar",
+            "scheduled": 38,
+            "completed": 36
+          },
+          {
+            "month": "Apr",
+            "scheduled": 32,
+            "completed": 29
+          },
+          {
+            "month": "May",
+            "scheduled": 42,
+            "completed": 40
+          },
+          {
+            "month": "Jun",
+            "scheduled": 45,
+            "completed": 43
+          }
         ],
         "stageDurations": [
           {
@@ -122,7 +146,7 @@
             "code": "QLD",
             "totalSites": 24,
             "activeSites": 18,
-            "onTimePct": 88.0,
+            "onTimePct": 88,
             "avgDelayDays": 2.5,
             "supervisors": 6,
             "efficiencyScore": 90
@@ -143,7 +167,7 @@
             "totalSites": 8,
             "activeSites": 6,
             "onTimePct": 87.5,
-            "avgDelayDays": 2.0,
+            "avgDelayDays": 2,
             "supervisors": 2,
             "efficiencyScore": 89
           }
@@ -180,10 +204,26 @@
           }
         },
         "monthlyTrends": [
-          { "month": "Week 1", "scheduled": 8, "completed": 7 },
-          { "month": "Week 2", "scheduled": 10, "completed": 9 },
-          { "month": "Week 3", "scheduled": 11, "completed": 11 },
-          { "month": "Week 4", "scheduled": 12, "completed": 11 }
+          {
+            "month": "Week 1",
+            "scheduled": 8,
+            "completed": 7
+          },
+          {
+            "month": "Week 2",
+            "scheduled": 10,
+            "completed": 9
+          },
+          {
+            "month": "Week 3",
+            "scheduled": 11,
+            "completed": 11
+          },
+          {
+            "month": "Week 4",
+            "scheduled": 12,
+            "completed": 11
+          }
         ],
         "stageDurations": [
           {
@@ -239,7 +279,7 @@
             "code": "NSW",
             "totalSites": 48,
             "activeSites": 37,
-            "onTimePct": 94.0,
+            "onTimePct": 94,
             "avgDelayDays": 1.4,
             "supervisors": 12,
             "efficiencyScore": 96
@@ -269,7 +309,7 @@
             "code": "WA",
             "totalSites": 12,
             "activeSites": 8,
-            "onTimePct": 95.0,
+            "onTimePct": 95,
             "avgDelayDays": 0.9,
             "supervisors": 3,
             "efficiencyScore": 98
@@ -279,7 +319,7 @@
             "code": "SA",
             "totalSites": 8,
             "activeSites": 6,
-            "onTimePct": 88.0,
+            "onTimePct": 88,
             "avgDelayDays": 1.9,
             "supervisors": 2,
             "efficiencyScore": 90
@@ -317,12 +357,36 @@
           }
         },
         "monthlyTrends": [
-          { "month": "Jan", "scheduled": 28, "completed": 24 },
-          { "month": "Feb", "scheduled": 34, "completed": 31 },
-          { "month": "Mar", "scheduled": 38, "completed": 36 },
-          { "month": "Apr", "scheduled": 32, "completed": 29 },
-          { "month": "May", "scheduled": 42, "completed": 40 },
-          { "month": "Jun", "scheduled": 45, "completed": 43 }
+          {
+            "month": "Jan",
+            "scheduled": 28,
+            "completed": 24
+          },
+          {
+            "month": "Feb",
+            "scheduled": 34,
+            "completed": 31
+          },
+          {
+            "month": "Mar",
+            "scheduled": 38,
+            "completed": 36
+          },
+          {
+            "month": "Apr",
+            "scheduled": 32,
+            "completed": 29
+          },
+          {
+            "month": "May",
+            "scheduled": 42,
+            "completed": 40
+          },
+          {
+            "month": "Jun",
+            "scheduled": 45,
+            "completed": 43
+          }
         ],
         "stageDurations": [
           {
@@ -378,7 +442,7 @@
             "code": "NSW",
             "totalSites": 56,
             "activeSites": 42,
-            "onTimePct": 91.0,
+            "onTimePct": 91,
             "avgDelayDays": 2.1,
             "supervisors": 14,
             "efficiencyScore": 93
@@ -418,7 +482,7 @@
             "code": "SA",
             "totalSites": 9,
             "activeSites": 7,
-            "onTimePct": 85.0,
+            "onTimePct": 85,
             "avgDelayDays": 2.4,
             "supervisors": 2,
             "efficiencyScore": 87
