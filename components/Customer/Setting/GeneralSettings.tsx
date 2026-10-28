@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Globe, Save } from "lucide-react"
 import { toast } from "sonner"
 import {
@@ -10,22 +10,58 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { CustomerSettings } from "@/lib/types/types"
+import { saveCustomerSettingsAction } from "@/lib/customer/actions"
 
-export default function GeneralSettings() {
-  const [language, setLanguage] = useState("English")
-  const [timeZone, setTimeZone] = useState("(AEST) Australia/Sydney")
-  const [dateFormat, setDateFormat] = useState("DD MMM YYYY")
-  const [currency, setCurrency] = useState("AUD - Australian Dollar")
-  const [measurement, setMeasurement] = useState("Metric (m², km)")
+interface GeneralSettingsProps {
+  settings?: CustomerSettings | null
+  onUpdate?: (updated: CustomerSettings) => void
+}
+
+export default function GeneralSettings({ settings, onUpdate }: GeneralSettingsProps = {}) {
+  const [language, setLanguage] = useState(settings?.general?.language || "English")
+  const [timeZone, setTimeZone] = useState(settings?.general?.timeZone || "(AEST) Australia/Sydney")
+  const [dateFormat, setDateFormat] = useState(settings?.general?.dateFormat || "DD MMM YYYY")
+  const [currency, setCurrency] = useState(settings?.general?.currency || "AUD - Australian Dollar")
+  const [measurement, setMeasurement] = useState(settings?.general?.measurement || "Metric (m², km)")
   const [isSaving, setIsSaving] = useState(false)
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (settings?.general) {
+      setLanguage(settings.general.language || "English")
+      setTimeZone(settings.general.timeZone || "(AEST) Australia/Sydney")
+      setDateFormat(settings.general.dateFormat || "DD MMM YYYY")
+      setCurrency(settings.general.currency || "AUD - Australian Dollar")
+      setMeasurement(settings.general.measurement || "Metric (m², km)")
+    }
+  }, [settings])
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSaving(true)
-    setTimeout(() => {
+
+    try {
+      const res = await saveCustomerSettingsAction({
+        general: {
+          language,
+          timeZone,
+          dateFormat,
+          currency,
+          measurement,
+        },
+      })
+
+      if (res.success && res.settings) {
+        toast.success("General settings saved successfully!")
+        onUpdate?.(res.settings)
+      } else {
+        toast.error(res.error || "Failed to save settings")
+      }
+    } catch (err: any) {
+      toast.error(err.message || "An error occurred while saving")
+    } finally {
       setIsSaving(false)
-      toast.success("General settings saved successfully!")
-    }, 800)
+    }
   }
 
   return (

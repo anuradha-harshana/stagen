@@ -95,3 +95,45 @@ export interface CustomerProfile {
     }[];
     updatedAt?: string;
 }
+
+export interface CustomerGeneralSettings {
+    language: string;
+    timeZone: string;
+    dateFormat: string;
+    currency: string;
+    measurement: string;
+}
+
+export interface CustomerNotificationSettings {
+    projectUpdates: boolean;
+    invoiceReminders: boolean;
+    aiNotifications: boolean;
+    emailNotifications: boolean;
+    pushNotifications: boolean;
+}
+
+export interface CustomerSecuritySettings {
+    twoFactorEnabled: boolean;
+}
+
+export interface CustomerPrivacySettings {
+    profileVisibility: string;
+    dataSharing: boolean;
+}
+
+export interface CustomerBillingSettings {
+    plan: string;
+    billingEmail: string;
+    paymentMethod: string;
+    billingCycle: string;
+}
+
+export interface CustomerSettings {
+    userId: string;
+    general: CustomerGeneralSettings;
+    notifications: CustomerNotificationSettings;
+    security: CustomerSecuritySettings;
+    privacy: CustomerPrivacySettings;
+    billing: CustomerBillingSettings;
+    updatedAt?: string;
+}

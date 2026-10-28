@@ -7,7 +7,11 @@ import {
     updateCustomerProfile,
     updateCustomerPassword
 } from "./customerProfile";
-import { CustomerProfile } from "../types/types";
+import {
+    getCustomerSettings,
+    updateCustomerSettings
+} from "./customerSettings";
+import { CustomerProfile, CustomerSettings } from "../types/types";
 
 // 1. Fetch current customer profile
 export async function fetchCustomerProfileAction(): Promise<CustomerProfile | null> {
@@ -52,3 +56,46 @@ export async function changePasswordAction(
         return { success: false, error: error.message };
     }
 }
+
+// 4. Fetch current customer settings
+export async function fetchCustomerSettingsAction(): Promise<CustomerSettings | null> {
+    const user = await getCurrentUser();
+    if (!user) return null;
+    return await getCustomerSettings(user.id);
+}
+
+// 5. Save customer settings updates
+export async function saveCustomerSettingsAction(
+    data: Partial<CustomerSettings>
+): Promise<{ success: boolean; error?: string; settings?: CustomerSettings }> {
+    try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error("Unauthorized");
+
+        const updated = await updateCustomerSettings(user.id, data);
+        revalidatePath("/customer/settings");
+        revalidatePath("/customer/profile");
+        return { success: true, settings: updated };
+    } catch (error: any) {
+        return { success: false, error: error.message };
+    }
+}
+
+// 6. Export customer data bundle (profile + settings)
+export async function exportCustomerDataAction(): Promise<{
+    success: boolean;
+    data?: { profile: CustomerProfile | null; settings: CustomerSettings | null };
+    error?: string;
+}> {
+    try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error("Unauthorized");
+
+        const profile = await getCustomerProfile(user.id);
+        const settings = await getCustomerSettings(user.id);
+        return { success: true, data: { profile, settings } };
+    } catch (error: any) {
+        return { success: false, error: error.message };
+    }
+}
+
