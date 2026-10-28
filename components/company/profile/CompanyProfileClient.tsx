@@ -1,6 +1,6 @@
 "use client";
 
-import { useCompanySection, DataState } from "@/components/supervisor/useSupervisorData";
+import { DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState, useEffect, useRef } from "react";
 import {
   Save,
@@ -32,19 +32,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CompanyProfileData } from "@/lib/company/companyProfile";
+import type { CompanyProfileData } from "@/lib/company/companyProfile";
 
-const INITIAL_PROFILE = { companyName: "", abn: "", businessAddress: "", contactNumber: "", primaryEmail: "", websiteUrl: "", timezone: "Australia/Sydney", defaultCurrency: "AUD ($)", logoUrl: "" };
+const DEFAULT_PROFILE: CompanyProfileData = { companyId: "", companyName: "", abn: "", businessAddress: "", contactNumber: "", primaryEmail: "", websiteUrl: "", timezone: "Australia/Sydney", defaultCurrency: "AUD ($)", logoUrl: "" };
 
 interface CompanyProfileClientProps {
   initialProfile?: CompanyProfileData | null;
 }
 
-  const stored = useCompanySection("profile", INITIAL_PROFILE);
-  useEffect(() => { setProfile(stored.data); }, [stored.data]);
-  // Form State
-  const [profile, setProfile] = useState(INITIAL_PROFILE);
+export default function CompanyProfileClient({ initialProfile }: CompanyProfileClientProps) {
+  const [profile, setProfile] = useState<CompanyProfileData>(initialProfile || DEFAULT_PROFILE);
+  const [savedProfile, setSavedProfile] = useState<CompanyProfileData>(initialProfile || DEFAULT_PROFILE);
   const [isSaving, setIsSaving] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(!initialProfile);
   const [hasChanges, setHasChanges] = useState(false);
 
@@ -54,6 +54,7 @@ interface CompanyProfileClientProps {
   useEffect(() => {
     if (!initialProfile) {
       setIsLoading(true);
+      setLoadError(null);
       fetch("/api/company/profile")
         .then((res) => {
           if (!res.ok) throw new Error("Failed to load profile");
@@ -67,7 +68,7 @@ interface CompanyProfileClientProps {
         })
         .catch((err) => {
           console.error("Error fetching company profile:", err);
-          toast.error("Could not fetch latest profile from server.");
+          setLoadError("Could not fetch latest profile from server.");
         })
         .finally(() => {
           setIsLoading(false);
@@ -81,23 +82,71 @@ interface CompanyProfileClientProps {
     setHasChanges(true);
   };
 
-  // Save Changes Handler
+  // Handle Logo Upload
+  const handleLogoFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please upload a valid image file");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target?.result as string;
+      if (dataUrl) {
+        setProfile((prev) => ({ ...prev, logoUrl: dataUrl }));
+        setHasChanges(true);
+        toast.success("Logo preview updated! Save changes to persist.");
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Save Changes Handler via API route handler
   const handleSave = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsSaving(true);
 
-    if (await stored.save(profile)) setHasChanges(false);
-    setIsSaving(false);
+    try {
+      const res = await fetch("/api/company/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profile),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to update profile");
+      }
+
+      const updated = (await res.json()) as CompanyProfileData;
+      setProfile(updated);
+      setSavedProfile(updated);
+      setHasChanges(false);
+
+      toast.success("Company Profile updated successfully!", {
+        description: "All core business details and regional preferences saved to JSON storage.",
+      });
+    } catch (err: any) {
+      console.error("Save profile error:", err);
+      toast.error(err.message || "Failed to save company profile.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   // Reset Changes Handler
   const handleReset = () => {
-    setProfile(stored.data);
+    setProfile(savedProfile);
     setHasChanges(false);
-    toast.info("Form reset to original company details.");
+    toast.info("Form reset to saved company details.");
   };
 
-  if (stored.loading || stored.error) return <DataState loading={stored.loading} error={stored.error} />;
+  if (isLoading || loadError) return <DataState loading={isLoading} error={loadError ?? ""} />;
   return (
     <div className={PAGE_SHELL_CLASS}>
       <PageHeader

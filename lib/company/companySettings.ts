@@ -144,3 +144,20 @@ async function cascadeSettingsChanges(companyId: string, settings: CompanySettin
     console.error("Failed to cascade settings changes:", err);
   }
 }
+
+export async function getCompanyPortalSection(companyId: string, section: string) {
+  return (await getCompanySettings(companyId))?.portal?.[section] ?? null;
+}
+
+export async function saveCompanyPortalSection(companyId: string, section: string, value: unknown) {
+  const records = await readSettingsRecords();
+  let record = records.find(r => r.companyId === companyId);
+  if (!record) {
+    record = { companyId, logo: "", logoName: "", primaryColor: "#2c3e50", secondaryColor: "#a35139", accentColor: "#ffb162", selectedLocale: "en-AU", selectedTimezone: "Australia/Sydney" };
+    records.push(record);
+  }
+  record.portal = { ...record.portal, [section]: value };
+  record.updatedAt = new Date().toISOString();
+  await writeSettingsRecords(records);
+  return value;
+}

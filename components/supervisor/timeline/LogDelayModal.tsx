@@ -163,6 +163,7 @@ export function LogDelayModal({
               </label>
               <Input
                 type="date"
+                max={toDate || undefined}
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
                 className="bg-white border-blue-fantastic/20 text-blue-fantastic h-8 text-xs font-sans rounded-xl"
@@ -174,6 +175,7 @@ export function LogDelayModal({
               </label>
               <Input
                 type="date"
+                min={fromDate || undefined}
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
                 className="bg-white border-truffle-trouble/30 text-blue-fantastic h-8 text-xs font-sans rounded-xl"

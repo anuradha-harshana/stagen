@@ -44,5 +44,12 @@
     "email": "admin@stagen.com.au",
     "password": "Stagen@123456",
     "role": "company"
+  },
+  {
+    "id": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "username": "Buildit & Co",
+    "email": "buildit@stagen.com",
+    "password": "Stagen@123456",
+    "role": "company"
   }
 ]

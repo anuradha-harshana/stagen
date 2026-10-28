@@ -15,6 +15,8 @@ export interface CompanyProfileData {
   updatedAt?: string;
 }
 
+type CompanySettingsProfile = { companyId: string; logo?: string; selectedTimezone?: string; portal?: { profile?: Partial<CompanyProfileData> } };
+
 const profileFilePath = path.join(process.cwd(), "data", "company", "companyProfile.json");
 const usersFilePath = path.join(process.cwd(), "data", "users", "users.json");
 const auditFilePath = path.join(process.cwd(), "data", "company-management", "audit.json");
@@ -23,18 +25,7 @@ const governanceFilePath = path.join(process.cwd(), "data", "company", "governan
 const settingsFilePath = path.join(process.cwd(), "data", "company", "companySettings.json");
 const localisationFilePath = path.join(process.cwd(), "data", "company", "localisation.json");
 
-const DEFAULT_PROFILE: CompanyProfileData = {
-  companyId: "7ab56015-4412-494e-8aff-dbb5095e0095",
-  companyName: "STAGEN Constructions",
-  abn: "98 123 456 789",
-  businessAddress: "Level 14, 100 St Kilda Road, Melbourne VIC 3004",
-  contactNumber: "+61 3 9876 5432",
-  primaryEmail: "admin@stagen.com.au",
-  websiteUrl: "https://stagen.com.au",
-  timezone: "Australia/Melbourne",
-  defaultCurrency: "AUD ($)",
-  logoUrl: "/images/logo.png",
-};
+const DEFAULT_PROFILE: CompanyProfileData = { companyId: "", companyName: "", abn: "", businessAddress: "", contactNumber: "", primaryEmail: "", websiteUrl: "", timezone: "Australia/Sydney", defaultCurrency: "AUD ($)", logoUrl: "" };
 
 async function readJsonFile<T>(filePath: string, fallback: T): Promise<T> {
   try {
@@ -57,15 +48,20 @@ export async function getCompanyProfile(companyId: string): Promise<CompanyProfi
     return found;
   }
 
-  // Create default entry if not found
-  const newProfile: CompanyProfileData = {
+  // Support profiles saved before the dedicated profile store was merged.
+  const settings = await readJsonFile<CompanySettingsProfile[]>(settingsFilePath, []);
+  const saved = settings.find(r => r.companyId === companyId);
+  const users = await readJsonFile<{ id: string; username: string; email: string }[]>(usersFilePath, []);
+  const owner = users.find(u => u.id === companyId);
+  return {
     ...DEFAULT_PROFILE,
+    companyName: owner?.username ?? "",
+    primaryEmail: owner?.email ?? "",
+    logoUrl: saved?.logo ?? "",
+    timezone: saved?.selectedTimezone ?? DEFAULT_PROFILE.timezone,
+    ...saved?.portal?.profile,
     companyId,
-    updatedAt: new Date().toISOString(),
   };
-  records.push(newProfile);
-  await writeJsonFile(profileFilePath, records);
-  return newProfile;
 }
 
 export async function updateCompanyProfile(
@@ -75,7 +71,7 @@ export async function updateCompanyProfile(
   const records = await readJsonFile<CompanyProfileData[]>(profileFilePath, []);
   const existingIndex = records.findIndex((r) => r.companyId === companyId);
 
-  const currentProfile = existingIndex >= 0 ? records[existingIndex] : { ...DEFAULT_PROFILE, companyId };
+  const currentProfile = existingIndex >= 0 ? records[existingIndex] : await getCompanyProfile(companyId);
   const updatedProfile: CompanyProfileData = {
     ...currentProfile,
     ...updates,

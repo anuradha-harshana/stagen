@@ -162,7 +162,8 @@ function LogDelayFormModalDraft({
                 <Label className="text-[11px] font-bold text-blue-fantastic/70">Original Target Date</Label>
                 <Input
                   type="date"
-                  value={fromDate}
+                  max={toDate || undefined}
+                value={fromDate}
                   onChange={(e) => setFromDate(e.target.value)}
                   className="bg-white border-blue-fantastic/20 text-xs h-8 rounded-lg"
                 />
@@ -171,7 +172,8 @@ function LogDelayFormModalDraft({
                 <Label className="text-[11px] font-bold text-blue-fantastic">Revised Projected Date</Label>
                 <Input
                   type="date"
-                  value={toDate}
+                  min={fromDate || undefined}
+                value={toDate}
                   onChange={(e) => setToDate(e.target.value)}
                   className="bg-white border-blue-fantastic/20 text-xs h-8 rounded-lg font-bold text-truffle-trouble"
                 />

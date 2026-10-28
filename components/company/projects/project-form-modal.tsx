@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { toDateInputValue } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -129,8 +130,8 @@ export default function ProjectFormModal({
       setStatus(project.status);
       setCurrentStage(project.currentStage);
       setProgress(project.progress);
-      setStartDate(project.startDate);
-      setEstHandover(project.estHandover);
+      setStartDate(toDateInputValue(project.startDate));
+      setEstHandover(toDateInputValue(project.estHandover));
 
       // Try to recover supervisor ID from the supplied supervisors list.
       const existingSupervisor = supervisors.find(
@@ -149,13 +150,7 @@ export default function ProjectFormModal({
       setProgress(0);
       setSelectedStages(stageTemplates.map(s => s.name));
 
-      setStartDate(
-        new Date().toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })
-      );
+      setStartDate(toDateInputValue(new Date()));
 
       setEstHandover("");
       setSupervisorId("");
@@ -764,7 +759,9 @@ export default function ProjectFormModal({
 
                 <Input
                   id="startDate"
-                  placeholder="e.g. Mar 10, 2026"
+                  type="date"
+                  required
+                  max={estHandover || undefined}
                   value={startDate}
                   onChange={(e) =>
                     setStartDate(
@@ -796,7 +793,9 @@ export default function ProjectFormModal({
 
                 <Input
                   id="estHandover"
-                  placeholder="e.g. Nov 15, 2026"
+                  type="date"
+                  required
+                  min={startDate || undefined}
                   value={estHandover}
                   onChange={(e) =>
                     setEstHandover(

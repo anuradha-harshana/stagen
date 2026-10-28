@@ -16,7 +16,7 @@ const customerSettingsFilePath = path.join(
  */
 export function getDefaultCustomerSettings(
   userId: string,
-  email: string = "customer@stagen.com",
+  email: string = "",
   preferredLanguage: string = "English",
   timeZone: string = "(AEST) Australia/Sydney"
 ): CustomerSettings {
@@ -37,16 +37,16 @@ export function getDefaultCustomerSettings(
       pushNotifications: true,
     },
     security: {
-      twoFactorEnabled: true,
+      twoFactorEnabled: false,
     },
     privacy: {
       profileVisibility: "Only Construction Team",
       dataSharing: false,
     },
     billing: {
-      plan: "Professional",
+      plan: "Not configured",
       billingEmail: email,
-      paymentMethod: "Visa ending in 4242",
+      paymentMethod: "Not configured",
       billingCycle: "Monthly",
     },
     updatedAt: new Date().toISOString(),
@@ -107,7 +107,7 @@ export async function getCustomerSettings(
 
   const fallback = getDefaultCustomerSettings(
     userId,
-    userProfile?.email || "customer@stagen.com",
+    userProfile?.email || "",
     userProfile?.preferredLanguage,
     userProfile?.timeZone
   );
@@ -135,7 +135,7 @@ export async function getCustomerSettings(
 
   const newSettings = getDefaultCustomerSettings(
     userId,
-    user?.email || userProfile?.email || "customer@stagen.com",
+    user?.email || userProfile?.email || "",
     userProfile?.preferredLanguage,
     userProfile?.timeZone
   );

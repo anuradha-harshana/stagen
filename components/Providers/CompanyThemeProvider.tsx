@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
+import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from "react";
 import { CompanySettingsData } from "@/lib/company/companySettings";
 
 interface ThemeColors {
@@ -59,16 +59,16 @@ export function CompanyThemeProvider({
     };
   }, [theme.primaryColor, theme.secondaryColor, theme.accentColor]);
 
-  const applyThemeLive = (colors: Partial<ThemeColors>) => {
+  const applyThemeLive = useCallback((colors: Partial<ThemeColors>) => {
     setThemeState((prev) => ({
       ...prev,
       ...colors,
     }));
-  };
+  }, []);
 
-  const setTheme = (settings: CompanySettingsData) => {
+  const setTheme = useCallback((settings: CompanySettingsData) => {
     setThemeState(settings);
-  };
+  }, []);
 
   const dynamicStyles = useMemo<React.CSSProperties>(() => {
     const styleObj: Record<string, string> = {};

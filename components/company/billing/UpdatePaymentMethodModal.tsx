@@ -109,28 +109,14 @@ export function UpdatePaymentMethodModal({
           </div>
 
           <div className="grid grid-cols-3 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-blue-fantastic block">Exp Month</label>
+            <div className="space-y-1.5 col-span-2">
+              <label htmlFor="card-expiry" className="text-xs font-bold text-blue-fantastic block">Expiry month</label>
               <Input
-                type="text"
-                value={expMonth}
-                onChange={(e) => setExpMonth(e.target.value)}
-                placeholder="MM"
-                maxLength={2}
-                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
-                required
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-blue-fantastic block">Exp Year</label>
-              <Input
-                type="text"
-                value={expYear}
-                onChange={(e) => setExpYear(e.target.value)}
-                placeholder="YY"
-                maxLength={2}
-                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
+                id="card-expiry"
+                type="month"
+                value={expYear && expMonth ? `${expYear.length === 2 ? "20" + expYear : expYear}-${expMonth.padStart(2, "0")}` : ""}
+                onChange={(e) => { const [year = "", month = ""] = e.target.value.split("-"); setExpYear(year); setExpMonth(month); }}
+                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
                 required
               />
             </div>

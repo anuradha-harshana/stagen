@@ -174,6 +174,8 @@ function SupervisorStageEditorDraft({
               <label className="block text-[10px] font-bold text-blue-fantastic/70 uppercase mb-0.5">Actual/Est. Start</label>
               <Input
                 type="date"
+                aria-label="Actual start date"
+                max={actualEnd || undefined}
                 value={actualStart}
                 onChange={(e) => setActualStart(e.target.value)}
                 className="bg-white border-blue-fantastic/20 text-blue-fantastic h-7 text-xs font-sans rounded-lg"
@@ -191,6 +193,8 @@ function SupervisorStageEditorDraft({
               <label className="block text-[10px] font-bold text-truffle-trouble uppercase mb-0.5">Actual/Est. End</label>
               <Input
                 type="date"
+                aria-label="Actual or estimated end date"
+                min={actualStart || undefined}
                 value={actualEnd}
                 onChange={(e) => setActualEnd(e.target.value)}
                 className="bg-white border-truffle-trouble/30 text-blue-fantastic h-7 text-xs font-sans rounded-lg"
@@ -227,6 +231,7 @@ function SupervisorStageEditorDraft({
                 <div className="grid grid-cols-2 gap-2">
                   <Input
                     type="date"
+                    aria-label="Milestone date"
                     value={newMilestoneDate}
                     onChange={(e) => setNewMilestoneDate(e.target.value)}
                     className="bg-white border-blue-fantastic/20 text-xs h-7 rounded-lg"
