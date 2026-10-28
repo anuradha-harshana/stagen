@@ -1,13 +1,13 @@
 [
   {
-    "user_id": "d6e39c53-8a2d-4380-aa54-7ddc45a9f35d",
-    "role": "supervisor",
+    "user_id": "77eb9763-974d-4d64-902f-65605397b78d",
+    "role": "customer",
     "avatar_url": "/profile-avatar.png",
-    "avatarBg": "bg-burning-flame",
-    "full_name": "Imesha",
-    "email": "imesha@stagen.com",
-    "phone": "61400400400",
-    "home_address": "",
+    "avatarBg": "bg-blue-fantastic",
+    "full_name": "customer",
+    "email": "customer2@stagen.com",
+    "phone": "61500867476",
+    "home_address": "tenant-lot-1080",
     "account_created": "Oct 28, 2026",
     "language": "English",
     "timezone": "Australia/Melbourne",
@@ -19,8 +19,36 @@
     ],
     "password_updated_at": "2026-10-28",
     "status": "Active",
-    "assigned_projects": [],
-    "assigned_projects_count": 0,
+    "assigned_projects": [
+      "tenant-lot-1080"
+    ],
+    "assigned_projects_count": 1,
+    "last_active": "Account created"
+  },
+  {
+    "user_id": "d6e39c53-8a2d-4380-aa54-7ddc45a9f35d",
+    "role": "supervisor",
+    "avatar_url": "/profile-avatar.png",
+    "avatarBg": "bg-burning-flame",
+    "full_name": "Imesha",
+    "email": "imesha@stagen.com",
+    "phone": "61400400400",
+    "home_address": "tenant-lot-1080",
+    "account_created": "Oct 28, 2026",
+    "language": "English",
+    "timezone": "Australia/Melbourne",
+    "linked_accounts": [
+      {
+        "provider": "google",
+        "connected": false
+      }
+    ],
+    "password_updated_at": "2026-10-28",
+    "status": "Active",
+    "assigned_projects": [
+      "tenant-lot-1080"
+    ],
+    "assigned_projects_count": 1,
     "last_active": "Account created"
   },
   {

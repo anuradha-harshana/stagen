@@ -29,5 +29,36 @@
       "billingCycle": "Monthly"
     },
     "updatedAt": "2026-10-26T07:15:52.818Z"
+  },
+  {
+    "userId": "77eb9763-974d-4d64-902f-65605397b78d",
+    "general": {
+      "language": "English",
+      "timeZone": "(AEST) Australia/Sydney",
+      "dateFormat": "DD MMM YYYY",
+      "currency": "AUD - Australian Dollar",
+      "measurement": "Metric (m², km)"
+    },
+    "notifications": {
+      "projectUpdates": true,
+      "invoiceReminders": true,
+      "aiNotifications": true,
+      "emailNotifications": true,
+      "pushNotifications": true
+    },
+    "security": {
+      "twoFactorEnabled": false
+    },
+    "privacy": {
+      "profileVisibility": "Only Construction Team",
+      "dataSharing": false
+    },
+    "billing": {
+      "plan": "Not configured",
+      "billingEmail": "customer2@stagen.com",
+      "paymentMethod": "Not configured",
+      "billingCycle": "Monthly"
+    },
+    "updatedAt": "2026-10-28T05:51:42.755Z"
   }
 ]

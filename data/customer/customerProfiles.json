@@ -22,5 +22,23 @@
       }
     ],
     "updatedAt": "2026-10-26T07:05:29.874Z"
+  },
+  {
+    "avatarUrl": "",
+    "homeAddress": "",
+    "city": "",
+    "state": "",
+    "postalCode": "",
+    "country": "Australia",
+    "preferredLanguage": "English",
+    "timeZone": "(AEST) Australia/Sydney",
+    "accountCreatedAt": "2026-10-28T05:51:42.753Z",
+    "passwordUpdatedAt": "2026-10-28T05:51:42.753Z",
+    "linkedAccounts": [],
+    "userId": "77eb9763-974d-4d64-902f-65605397b78d",
+    "fullName": "customer",
+    "email": "customer2@stagen.com",
+    "phone": "61500867476",
+    "updatedAt": "2026-10-28T05:51:42.753Z"
   }
 ]

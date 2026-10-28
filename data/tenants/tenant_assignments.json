@@ -36,9 +36,15 @@
     "role": "supervisor"
   },
   {
-    "id": "assign-lot-1080-supervisor",
+    "id": "e7da2e50-8931-4426-ba34-71220c38b4d9",
     "tenant_id": "tenant-lot-1080",
     "user_id": "d6e39c53-8a2d-4380-aa54-7ddc45a9f35d",
     "role": "supervisor"
+  },
+  {
+    "id": "0f7c421c-dedb-4e65-beee-87219c0b66c8",
+    "tenant_id": "tenant-lot-1080",
+    "user_id": "77eb9763-974d-4d64-902f-65605397b78d",
+    "role": "customer"
   }
 ]

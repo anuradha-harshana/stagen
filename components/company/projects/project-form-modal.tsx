@@ -170,7 +170,7 @@ export default function ProjectFormModal({
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!id.trim()) {
+    if (isEdit && !id.trim()) {
       newErrors.id = "Lot ID is required";
     }
 
@@ -201,7 +201,7 @@ export default function ProjectFormModal({
   const handleSave = () => {
     if (!validate()) return;
 
-    const tenantId = id.trim();
+    const tenantId = isEdit ? id.trim() : "new";
 
     /*
      * ---------------------------------------------------------
@@ -470,19 +470,15 @@ export default function ProjectFormModal({
                 htmlFor="id"
                 className="text-xs font-bold text-blue-fantastic/70"
               >
-                Lot ID / Project ID
+                Project ID
               </Label>
 
               <Input
                 id="id"
-                placeholder="e.g. lot-104"
+                placeholder="Generated automatically when created"
                 value={id}
-                onChange={(e) =>
-                  setId(
-                    e.target.value.toLowerCase()
-                  )
-                }
-                disabled={isEdit}
+                readOnly
+                aria-describedby="project-id-hint"
                 className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                   errors.id
                     ? "border-red-500"
@@ -490,6 +486,7 @@ export default function ProjectFormModal({
                 }`}
               />
 
+              <p id="project-id-hint" className="text-xs text-blue-fantastic/60">{isEdit ? "This project ID stays unchanged." : "A unique ID will be generated when you create the project."}</p>
               {errors.id && (
                 <p className="text-[10px] text-red-500 font-bold">
                   {errors.id}

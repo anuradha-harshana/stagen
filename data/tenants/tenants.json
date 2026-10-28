@@ -104,7 +104,7 @@
   {
     "tenant_id": "tenant-lot-1080",
     "display_name": "Jason Mamoa",
-    "client_user_id": null,
+    "client_user_id": "77eb9763-974d-4d64-902f-65605397b78d",
     "client_name": "Jason Mamoa",
     "address": "Lot 104, 12 Harrison Street, Richmond VIC",
     "status": "On Track",

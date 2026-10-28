@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import type { OrganizationUser } from "@/lib/company/organizationUsers";
+import { ProjectAssignmentPicker } from "@/components/company/projects/projects-filters";
 import PageHeader from "@/components/shared/PageHeader";
 
 export default function CompanyManagementUsersPage() {
@@ -94,43 +95,34 @@ export default function CompanyManagementUsersPage() {
     return matchesSearch && matchesRole && matchesStatus;
   });
 
+  const [createError, setCreateError] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
   const handleInviteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inviteForm.name.trim() || !inviteForm.email.trim()) return;
-
-    const bgColors = ["bg-burning-flame", "bg-blue-fantastic", "bg-truffle-trouble"];
-    const randomBg = bgColors[Math.floor(Math.random() * bgColors.length)];
-
-    const payload = {
-      name: inviteForm.name.trim(),
-      email: inviteForm.email.trim(),
-      phone: inviteForm.phone.trim(),
-      password: inviteForm.password,
-      role: inviteForm.role,
-      status: "Active" as const,
-      assignedProjectsCount: inviteForm.assignedProjects.trim() ? 1 : 0,
-      assignedProjects: inviteForm.assignedProjects.split(",").map(p => p.trim()).filter(Boolean),
-      avatarBg: randomBg,
-    };
-
+    if (isCreating) return;
+    setCreateError("");
+    setIsCreating(true);
     try {
-      const res = await fetch("/api/company-management/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      const response = await fetch("/api/company-management/users", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: inviteForm.name.trim(), email: inviteForm.email.trim(), phone: inviteForm.phone.trim(),
+          password: inviteForm.password, role: inviteForm.role, status: "Active",
+          assignedProjects: inviteForm.assignedProjects.split(",").map(p => p.trim()).filter(Boolean),
+          avatarBg: "bg-blue-fantastic",
+        }),
       });
-
-      if (!res.ok) throw new Error((await res.json()).error || "Failed to create user");
-      const { user } = await res.json();
-      setUsers((prev) => [user, ...prev]);
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Unable to create user");
+      setUsers(prev => [result.user, ...prev]);
       setIsInviteOpen(false);
       setInviteForm({ name: "", email: "", phone: "", password: "", role: "Site Supervisor", assignedProjects: "" });
-      showNotification(`User account created for ${user.email}`);
-    } catch (err) {
-      showNotification(err instanceof Error ? err.message : "Failed to create user.");
-    }
+      void loadUsers();
+      showNotification("User account created for " + result.user.email);
+    } catch (error) {
+      setCreateError(error instanceof Error ? error.message : "Unable to create user. Please try again.");
+    } finally { setIsCreating(false); }
   };
-
   const handleToggleStatus = async (user: OrganizationUser) => {
     const newStatus: OrganizationUser["status"] = user.status === "Suspended" ? "Active" : "Suspended";
 
@@ -216,6 +208,7 @@ export default function CompanyManagementUsersPage() {
       setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
       setSelectedUser((prev) => (prev && prev.id === updated.id ? updated : prev));
       setIsEditOpen(false);
+      void loadUsers();
       showNotification(`User details for '${updated.name}' updated successfully.`);
     } catch (err) {
       showNotification(err instanceof Error ? err.message : "Failed to update user details.");
@@ -598,8 +591,9 @@ export default function CompanyManagementUsersPage() {
           </DialogHeader>
 
           <form onSubmit={handleInviteSubmit} className="space-y-3 py-2">
+            {createError && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-700">{createError}</p>}
             <label className="block text-xs font-semibold">Initial password<Input type="password" autoComplete="new-password" minLength={8} required value={inviteForm.password} onChange={e => setInviteForm({...inviteForm, password:e.target.value})} /></label>
-            <p className="text-xs text-blue-fantastic/60">Creates an active login account. Share credentials securely; no invitation email is sent. Enter project IDs separated by commas.</p>
+            <p className="text-xs text-blue-fantastic/60">Creates an active login account. Share credentials securely; no invitation email is sent. Select project assignments below.</p>
             <div>
               <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Full Name</label>
               <Input
@@ -637,7 +631,7 @@ export default function CompanyManagementUsersPage() {
               <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Role Type</label>
               <select
                 value={inviteForm.role}
-                onChange={(e: any) => setInviteForm({ ...inviteForm, role: e.target.value })}
+                onChange={(e: any) => setInviteForm({ ...inviteForm, role: e.target.value, assignedProjects: ["Site Supervisor", "Customer"].includes(e.target.value) ? inviteForm.assignedProjects : "" })}
                 className="w-full bg-white border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
               >
                 <option value="Site Supervisor">Site Supervisor</option>
@@ -648,15 +642,7 @@ export default function CompanyManagementUsersPage() {
               </select>
             </div>
 
-            <div>
-              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Initial Project Assignment</label>
-              <Input
-                placeholder="e.g. Lot 42 Greenvale"
-                value={inviteForm.assignedProjects}
-                onChange={(e) => setInviteForm({ ...inviteForm, assignedProjects: e.target.value })}
-                className="bg-white border-blue-fantastic/20 text-xs"
-              />
-            </div>
+            <ProjectAssignmentPicker role={inviteForm.role} value={inviteForm.assignedProjects} onChange={value => setInviteForm({...inviteForm, assignedProjects:value})} />
 
             <div className="flex justify-end gap-2 border-t border-blue-fantastic/10 pt-3 mt-4">
               <Button
@@ -669,9 +655,10 @@ export default function CompanyManagementUsersPage() {
               </Button>
               <Button
                 type="submit"
+                disabled={isCreating}
                 className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
               >
-                Create Account
+                {isCreating ? "Creating account…" : "Create Account"}
               </Button>
             </div>
           </form>
@@ -729,7 +716,7 @@ export default function CompanyManagementUsersPage() {
               <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Role Type</label>
               <select
                 value={editForm.role}
-                onChange={(e: any) => setEditForm({ ...editForm, role: e.target.value })}
+                onChange={(e: any) => setEditForm({ ...editForm, role: e.target.value, assignedProjects: ["Site Supervisor", "Customer"].includes(e.target.value) ? editForm.assignedProjects : "" })}
                 className="w-full bg-white border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
               >
                 <option value="Site Supervisor">Site Supervisor</option>
@@ -740,17 +727,7 @@ export default function CompanyManagementUsersPage() {
               </select>
             </div>
 
-            <div>
-              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">
-                Assigned Projects (comma separated)
-              </label>
-              <Input
-                placeholder="e.g. Lot 42 Greenvale, 18 Oakwood"
-                value={editForm.assignedProjects}
-                onChange={(e) => setEditForm({ ...editForm, assignedProjects: e.target.value })}
-                className="bg-white border-blue-fantastic/20 text-xs"
-              />
-            </div>
+            <ProjectAssignmentPicker role={editForm.role} value={editForm.assignedProjects} onChange={value => setEditForm({...editForm, assignedProjects:value})} />
 
             <div className="flex justify-end gap-2 border-t border-blue-fantastic/10 pt-3 mt-4">
               <Button
@@ -763,6 +740,7 @@ export default function CompanyManagementUsersPage() {
               </Button>
               <Button
                 type="submit"
+                disabled={isCreating}
                 className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
               >
                 Save Changes

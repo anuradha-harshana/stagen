@@ -53,7 +53,24 @@
     "status": "Active",
     "avatarBg": "bg-burning-flame",
     "lastActive": "Account created",
-    "assignedProjects": [],
-    "assignedProjectsCount": 0
+    "assignedProjects": [
+      "tenant-lot-1080"
+    ],
+    "assignedProjectsCount": 1
+  },
+  {
+    "id": "77eb9763-974d-4d64-902f-65605397b78d",
+    "companyId": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "name": "customer",
+    "email": "customer2@stagen.com",
+    "role": "Customer",
+    "phone": "61500867476",
+    "status": "Active",
+    "avatarBg": "bg-blue-fantastic",
+    "lastActive": "Account created",
+    "assignedProjects": [
+      "tenant-lot-1080"
+    ],
+    "assignedProjectsCount": 1
   }
 ]

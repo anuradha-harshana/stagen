@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
+import { getDefaultCustomerSettings } from "../customer/customerSettings";
 import { z } from "zod";
 import { exclusive, ApiError } from "../supervisor/store";
 import { syncOrgUserToProfile, deleteOrgUserProfile, mapOrgRoleToProfileRole } from "../users/userProfiles";
@@ -76,11 +77,41 @@ async function save(companyId: string, data: unknown, id?: string) {
     nextAssignments.push({id:randomUUID(),tenant_id:p.tenant_id,user_id:userId,role});
     if (role === "customer") p.client_user_id = userId;
   }
-  await write(accountFile, [...accounts.filter(a=>a.id!==userId),nextAccount]);
-  await write(orgFile, [...org.filter(o=>o.id!==userId && !(account && o.email.toLowerCase()===account.email.toLowerCase())),newOrg]);
-  await write(assignmentFile,nextAssignments);
-  await write(projectFile,projects);
-  await syncOrgUserToProfile(newOrg);
+  const writes: [string, unknown[]][] = [
+    [accountFile, [...accounts.filter(a=>a.id!==userId),nextAccount]],
+    [orgFile, [...org.filter(o=>o.id!==userId && !(account && o.email.toLowerCase()===account.email.toLowerCase())),newOrg]],
+    [assignmentFile, nextAssignments], [projectFile, projects],
+  ];
+  if (role === "customer") {
+    const profileFile = "customer/customerProfiles.json";
+    const settingsFile = "customer/customerSettings.json";
+    const [profiles, settings] = await Promise.all([read(profileFile), read(settingsFile)]);
+    const previous = profiles.find(p => p.userId === userId);
+    const now = new Date().toISOString();
+    const profile = {
+      avatarUrl: "", homeAddress: "", city: "", state: "", postalCode: "", country: "Australia",
+      preferredLanguage: "English", timeZone: "(AEST) Australia/Sydney",
+      accountCreatedAt: now, passwordUpdatedAt: now, linkedAccounts: [],
+      ...previous, userId, fullName: b.name, email: nextAccount.email, phone: b.phone, updatedAt: now,
+    };
+    const previousSettings = settings.find(p => p.userId === userId);
+    const customerSettings = previousSettings ?? getDefaultCustomerSettings(userId, nextAccount.email, profile.preferredLanguage, profile.timeZone);
+    writes.push([profileFile, [...profiles.filter(p=>p.userId!==userId), profile]]);
+    writes.push([settingsFile, [...settings.filter(p=>p.userId!==userId), customerSettings]]);
+  }
+  // Snapshot existing files before the first write so failed provisioning is retryable.
+  const snapshots = new Map<string, string>();
+  for (const name of [...writes.map(([name]) => name), "users/user_profiles.json"]) snapshots.set(name, await fs.readFile(file(name), "utf8"));
+  const touched: string[] = [];
+  try {
+    for (const [name, rows] of writes) { touched.push(name); await write(name, rows); }
+    touched.push("users/user_profiles.json");
+    await syncOrgUserToProfile(newOrg);
+  } catch (error) {
+    const restored = await Promise.allSettled(touched.map(name => fs.writeFile(file(name), snapshots.get(name)!, "utf8")));
+    if (restored.some(result => result.status === "rejected")) throw new ApiError(500, "User save failed and could not be fully restored. Check JSON storage permissions before retrying.");
+    throw new ApiError(500, "User was not saved. Please retry. " + (error instanceof Error ? error.message : ""));
+  }
   return newOrg;
 }
 export const createCompanyUser = (companyId: string, data: unknown) => exclusive(()=>save(companyId,data));

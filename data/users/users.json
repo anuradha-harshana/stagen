@@ -60,5 +60,14 @@
     "companyId": "87862a2a-24ae-4965-b036-d8f170fbe268",
     "status": "Active",
     "password": "Stagen@12456"
+  },
+  {
+    "id": "77eb9763-974d-4d64-902f-65605397b78d",
+    "username": "customer",
+    "email": "customer2@stagen.com",
+    "role": "customer",
+    "companyId": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "status": "Active",
+    "password": "Stagen@123456"
   }
 ]

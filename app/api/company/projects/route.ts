@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { getCompanyDashboard } from "@/lib/company/company";
 import { exclusive } from "@/lib/supervisor/store";
@@ -29,6 +30,14 @@ export async function POST(request: Request) {
 	const user = await requireRole(["company", "company-management"]);
 	const companyId = user.companyId || user.id;
 	const payload = (await request.json()) as ProjectPayload;
+  if (payload?.project && payload.tenant && payload.stages && payload.timeline) {
+    const id = "lot-" + randomUUID();
+    payload.project.id = id;
+    payload.tenant.tenant_id = id;
+    payload.stages.tenant_id = id;
+    payload.timeline.tenant_id = id;
+    if (payload.assignment) { payload.assignment.tenant_id = id; payload.assignment.id = "assign-" + randomUUID(); }
+  }
 
 	if (!payloadSchema.safeParse(payload).success) {
 		return NextResponse.json({ error: "Invalid project payload" }, { status: 400 });
