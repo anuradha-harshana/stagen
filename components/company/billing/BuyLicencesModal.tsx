@@ -32,7 +32,6 @@ export function BuyLicencesModal({
 
   const handleConfirmPurchase = () => {
     onPurchase(additionalCount)
-    toast.success(`Successfully added ${additionalCount} site licences! Total licences: ${newTotalLicences}`)
     onClose()
   }
 

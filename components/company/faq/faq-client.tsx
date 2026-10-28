@@ -129,7 +129,7 @@ export default function FAQClient({
   const categories = Array.from(new Set(articles.map((art) => art.category)));
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Page Header */}
       <FAQHeader
         onAddClick={() => {

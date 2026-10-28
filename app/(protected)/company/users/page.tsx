@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { 
-  UserRoundPen, 
-  Search, 
-  UserPlus, 
-  Building2, 
-  Briefcase, 
-  Clock, 
-  CheckCircle2, 
+import {
+  UserRoundPen,
+  Search,
+  UserPlus,
+  Building2,
+  Briefcase,
+  Clock,
+  CheckCircle2,
   ChevronRight,
   ShieldCheck,
   UserCheck,
@@ -21,7 +21,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import type { OrganizationUser } from "@/lib/company/organizationUsers"; 
+import type { OrganizationUser } from "@/lib/company/organizationUsers";
+import { ProjectAssignmentPicker } from "@/components/company/projects/projects-filters";
 import PageHeader from "@/components/shared/PageHeader";
 import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 
@@ -47,49 +48,45 @@ useEffect(() => {
   loadUsers();
 }, []);
 
+  const [createError, setCreateError] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
   const handleInviteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inviteForm.name.trim() || !inviteForm.email.trim()) return;
-
-    const bgColors = ["bg-burning-flame", "bg-blue-fantastic", "bg-truffle-trouble"];
-    const randomBg = bgColors[Math.floor(Math.random() * bgColors.length)];
-
-    const payload = {
-      name: inviteForm.name.trim(),
-      email: inviteForm.email.trim(),
-      phone: inviteForm.phone.trim() || "+61 400 000 000",
-      role: inviteForm.role,
-      status: "Pending" as const,
-      assignedProjectsCount: inviteForm.assignedProjects.trim() ? 1 : 0,
-      assignedProjects: inviteForm.assignedProjects.trim() ? [inviteForm.assignedProjects.trim()] : ["Unassigned"],
-      avatarBg: randomBg,
-    };
-
-  const res = await fetch("/api/company/users", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
-  if (res.ok) {
-    const { user } = await res.json();
-    setUsers((prev) => [user, ...prev]);
-    setIsInviteOpen(false);
-    setInviteForm({ name: "", email: "", phone: "", role: "Site Supervisor", assignedProjects: "" });
-    showNotification(`User invitation sent to ${user.email}`);
-  }
-};
-
+    if (isCreating) return;
+    setCreateError("");
+    setIsCreating(true);
+    try {
+      const response = await fetch("/api/company/users", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: inviteForm.name.trim(), email: inviteForm.email.trim(), phone: inviteForm.phone.trim(),
+          password: inviteForm.password, role: inviteForm.role, status: "Active",
+          assignedProjects: inviteForm.assignedProjects.split(",").map(p => p.trim()).filter(Boolean),
+          avatarBg: "bg-blue-fantastic",
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Unable to create user");
+      setUsers(prev => [result.user, ...prev]);
+      setIsInviteOpen(false);
+      setInviteForm({ name: "", email: "", phone: "", password: "", role: "Site Supervisor", assignedProjects: "" });
+      void loadUsers();
+      showNotification("User account created for " + result.user.email);
+    } catch (error) {
+      setCreateError(error instanceof Error ? error.message : "Unable to create user. Please try again.");
+    } finally { setIsCreating(false); }
+  };
 
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("All");
   const [statusFilter, setStatusFilter] = useState<string>("All");
-  
+
   const [selectedUser, setSelectedUser] = useState<OrganizationUser | null>(null);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const [inviteForm, setInviteForm] = useState({
+    password: "",
     name: "",
     email: "",
     phone: "",
@@ -137,7 +134,7 @@ useEffect(() => {
     const updates: Partial<OrganizationUser> = {
       name: editForm.name.trim(),
       email: editForm.email.trim(),
-      phone: editForm.phone.trim() || "+61 400 000 000",
+      phone: editForm.phone.trim(),
       role: editForm.role,
       assignedProjects: projectList.length > 0 ? projectList : ["Unassigned"],
       assignedProjectsCount: projectList.length
@@ -150,28 +147,29 @@ useEffect(() => {
         body: JSON.stringify({ id: editForm.id, updates })
       });
 
-      if (!res.ok) throw new Error("Failed to update user");
+      if (!res.ok) throw new Error((await res.json()).error || "Failed to update user");
 
       const { user: updated } = await res.json();
       setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
       setSelectedUser((prev) => (prev && prev.id === updated.id ? updated : prev));
       setIsEditOpen(false);
+      void loadUsers();
       showNotification(`User details for '${updated.name}' updated successfully.`);
     } catch (err) {
-      showNotification("Failed to update user details.");
+      showNotification(err instanceof Error ? err.message : "Failed to update user details.");
     }
   };
 
   // Filter users
   const filteredUsers = users.filter((u) => {
     const query = searchTerm.toLowerCase();
-    const matchesSearch = 
+    const matchesSearch =
       u.name.toLowerCase().includes(query) ||
       u.email.toLowerCase().includes(query) ||
       u.role.toLowerCase().includes(query) ||
       u.phone.toLowerCase().includes(query) ||
       u.assignedProjects.some((p) => p.toLowerCase().includes(query));
-    
+
     const matchesRole = roleFilter === "All" || u.role === roleFilter;
     const matchesStatus = statusFilter === "All" || u.status === statusFilter;
 
@@ -241,7 +239,7 @@ useEffect(() => {
             className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold h-9 rounded-xl shadow-sm"
           >
             <UserPlus className="mr-1.5 h-3.5 w-3.5" />
-            Invite New User
+            Create User
           </Button>
         }
       />
@@ -282,7 +280,7 @@ useEffect(() => {
               <Clock className="h-5 w-5 text-truffle-trouble" />
             </div>
             <div>
-              <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Pending Invites</p>
+              <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Pending Accounts</p>
               <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">
                 {users.filter((u) => u.status === "Pending").length} Pending
               </h3>
@@ -299,7 +297,7 @@ useEffect(() => {
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Active Build Coverage</p>
               <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">{totalAssignedSites} Projects</h3>
-              <p className="text-[10px] text-blue-fantastic/50">100% supervisor assigned</p>
+              <p className="text-[10px] text-blue-fantastic/50">Company user records</p>
             </div>
           </CardContent>
         </Card>
@@ -329,7 +327,7 @@ useEffect(() => {
             </div>
 
             <div className="flex gap-1 bg-blue-fantastic/8 p-0.5 rounded-xl border border-blue-fantastic/10 overflow-x-auto">
-              {["All", "Executive Management", "Site Supervisor", "Trade Contractor"].map((role) => (
+              {["All", "Company Admin", "Executive Management", "Site Supervisor", "Trade Contractor", "Customer"].map((role) => (
                 <button
                   key={role}
                   onClick={() => setRoleFilter(role)}
@@ -602,14 +600,17 @@ useEffect(() => {
           <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
             <DialogTitle className="text-lg font-bold text-blue-fantastic flex items-center gap-2">
               <UserPlus className="h-5 w-5 text-truffle-trouble" />
-              Invite New User Account
+              Create User Account
             </DialogTitle>
             <DialogDescription className="text-xs text-blue-fantastic/60">
-              Send an email invitation link to join Stagen Build Progress OS
+              Create a login account and assign its role and projects
             </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleInviteSubmit} className="space-y-3 py-2">
+            {createError && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-700">{createError}</p>}
+            <label className="block text-xs font-semibold">Initial password<Input type="password" autoComplete="new-password" minLength={8} required value={inviteForm.password} onChange={e => setInviteForm({...inviteForm, password:e.target.value})} /></label>
+            <p className="text-xs text-blue-fantastic/60">Creates an active login account. Share credentials securely; no invitation email is sent. Select project assignments below.</p>
             <div>
               <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Full Name</label>
               <Input
@@ -647,24 +648,18 @@ useEffect(() => {
               <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Role Type</label>
               <select
                 value={inviteForm.role}
-                onChange={(e: any) => setInviteForm({ ...inviteForm, role: e.target.value })}
+                onChange={(e: any) => setInviteForm({ ...inviteForm, role: e.target.value, assignedProjects: ["Site Supervisor", "Customer"].includes(e.target.value) ? inviteForm.assignedProjects : "" })}
                 className="w-full bg-white border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
               >
                 <option value="Site Supervisor">Site Supervisor</option>
                 <option value="Executive Management">Executive Management</option>
+                <option value="Company Admin">Company Admin</option>
                 <option value="Trade Contractor">Trade Contractor</option>
+                <option value="Customer">Customer</option>
               </select>
             </div>
 
-            <div>
-              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Initial Project Assignment</label>
-              <Input
-                placeholder="e.g. Lot 42 Greenvale"
-                value={inviteForm.assignedProjects}
-                onChange={(e) => setInviteForm({ ...inviteForm, assignedProjects: e.target.value })}
-                className="bg-white border-blue-fantastic/20 text-xs"
-              />
-            </div>
+            <ProjectAssignmentPicker role={inviteForm.role} value={inviteForm.assignedProjects} onChange={value => setInviteForm({...inviteForm, assignedProjects:value})} />
 
             <div className="flex justify-end gap-2 border-t border-blue-fantastic/10 pt-3 mt-4">
               <Button
@@ -677,9 +672,10 @@ useEffect(() => {
               </Button>
               <Button
                 type="submit"
+                disabled={isCreating}
                 className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
               >
-                Send Invitation
+                {isCreating ? "Creating account…" : "Create Account"}
               </Button>
             </div>
           </form>
@@ -737,24 +733,18 @@ useEffect(() => {
               <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Role Type</label>
               <select
                 value={editForm.role}
-                onChange={(e: any) => setEditForm({ ...editForm, role: e.target.value })}
+                onChange={(e: any) => setEditForm({ ...editForm, role: e.target.value, assignedProjects: ["Site Supervisor", "Customer"].includes(e.target.value) ? editForm.assignedProjects : "" })}
                 className="w-full bg-white border border-blue-fantastic/20 text-xs font-bold rounded-md h-9 px-3 text-blue-fantastic focus:outline-none"
               >
                 <option value="Site Supervisor">Site Supervisor</option>
                 <option value="Executive Management">Executive Management</option>
+                <option value="Company Admin">Company Admin</option>
                 <option value="Trade Contractor">Trade Contractor</option>
+                <option value="Customer">Customer</option>
               </select>
             </div>
 
-            <div>
-              <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Assigned Projects (comma separated)</label>
-              <Input
-                placeholder="e.g. Lot 42 Greenvale, Lot 88 Tarneit"
-                value={editForm.assignedProjects}
-                onChange={(e) => setEditForm({ ...editForm, assignedProjects: e.target.value })}
-                className="bg-white border-blue-fantastic/20 text-xs"
-              />
-            </div>
+            <ProjectAssignmentPicker role={editForm.role} value={editForm.assignedProjects} onChange={value => setEditForm({...editForm, assignedProjects:value})} />
 
             <div className="flex justify-end gap-2 border-t border-blue-fantastic/10 pt-3 mt-4">
               <Button
@@ -767,6 +757,7 @@ useEffect(() => {
               </Button>
               <Button
                 type="submit"
+                disabled={isCreating}
                 className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
               >
                 Save Changes

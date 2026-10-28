@@ -1,106 +1,82 @@
 "use client";
 
-import React, { useState } from "react";
-import DemoControls from "../Progress/DemoControls";
+import { useEffect, useState } from "react";
 import TimelineHeader from "./TimelineHeader";
 import ZoomToggle, { ZoomScale } from "./ZoomToggle";
 import GanttChart from "./GanttChart";
 import MobileTimeline from "./MobileTimeline";
 import DelayLog from "./DelayLog";
-import { User } from "@/lib/types/types";
-import {
-  timelineNotStartedData,
-  timelineActiveData,
-  timelineCompletedData,
-  TimelinePageData
-} from "@/lib/timeline/data";
+import type { CustomerTimelineProject } from "@/lib/customer/timelineTypes";
 
-interface TimelinePageClientProps {
-  user: User;
-}
-
-export default function TimelinePageClient({ user }: TimelinePageClientProps) {
-  const [demoState, setDemoState] = useState<"active" | "not-started" | "completed">("active");
+export default function TimelinePageClient() {
+  const [projects, setProjects] = useState<CustomerTimelineProject[]>([]);
+  const [selectedId, setSelectedId] = useState("");
   const [zoomScale, setZoomScale] = useState<ZoomScale>("project");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [revision, setRevision] = useState(0);
 
-  // Select dataset based on review toggle
-  const data: TimelinePageData =
-    demoState === "not-started"
-      ? timelineNotStartedData
-      : demoState === "completed"
-        ? timelineCompletedData
-        : timelineActiveData;
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/customer/timeline", { cache: "no-store", signal: controller.signal })
+      .then(async response => {
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message ?? "Unable to load your timeline");
+        return result as { projects: CustomerTimelineProject[] };
+      })
+      .then(result => { if (!controller.signal.aborted) { setProjects(result.projects); setError(""); } })
+      .catch(err => { if (!controller.signal.aborted) setError(err instanceof Error ? err.message : "Unable to load your timeline"); })
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, [revision]);
 
-  // Determine Today's simulated date based on active demo state to keep display correct
-  const getSimulatedToday = () => {
-    switch (demoState) {
-      case "not-started":
-        return "2024-10-20";
-      case "completed":
-        return "2024-09-12";
-      case "active":
-      default:
-        return "2024-07-10";
-    }
-  };
+  useEffect(() => {
+    const refreshSaved = () => { if (document.visibilityState === "visible") setRevision(value => value + 1); };
+    const timer = window.setInterval(refreshSaved, 15000);
+    window.addEventListener("focus", refreshSaved);
+    return () => { window.clearInterval(timer); window.removeEventListener("focus", refreshSaved); };
+  }, []);
 
-  const simulatedToday = getSimulatedToday();
+  const refresh = () => { setLoading(true); setError(""); setRevision(value => value + 1); };
+  if (loading) return <div className="p-6 text-blue-fantastic" role="status">Loading your timeline…</div>;
+  if (error) return <div className="p-6 text-blue-fantastic" role="alert">{error} <button className="ml-3 underline" onClick={refresh}>Retry</button></div>;
+  const project = projects.find(p => p.id === selectedId) ?? projects[0];
+  if (!project) return <div className="p-6 text-blue-fantastic" role="status">No project is linked to your account yet. <button className="ml-3 underline" onClick={refresh}>Refresh</button></div>;
+
+  const data = project.timeline;
+  const today = new Date().toLocaleDateString("en-CA");
+  const scheduledStages = data.stages.filter(s => s.plannedStart && s.plannedEnd && Date.parse(s.plannedEnd) >= Date.parse(s.plannedStart));
+  const unscheduledStages = data.stages.filter(s => !scheduledStages.includes(s));
+  const chartReady = scheduledStages.length > 0 && !!data.startDate && !!data.currentProjectedCompletion;
 
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
-      {/* 1. Main Timeline Header Widget */}
-      <TimelineHeader
-        percentage={data.percentage}
-        startDate={data.startDate}
-        originalEstCompletion={data.originalEstCompletion}
-        currentProjectedCompletion={data.currentProjectedCompletion}
-        statusFlag={data.statusFlag}
-        delayDays={data.delayDays}
-        stages={data.stages}
-      />
-
-      {/* 2. Interactive Review Mode Header (Aligned Right, Card style removed) */}
-      <div className="flex justify-end w-full">
-        <DemoControls currentState={demoState} onChange={setDemoState} />
+      <div className="flex items-center justify-between gap-3 flex-wrap text-blue-fantastic">
+        {projects.length > 1 ? <label className="text-sm font-semibold">Project
+          <select className="ml-3 rounded-lg border p-2" value={project.id} onChange={e => setSelectedId(e.target.value)}>
+            {projects.map(p => <option key={p.id} value={p.id}>{p.name} — {p.address}</option>)}
+          </select>
+        </label> : <p className="text-sm font-semibold">{project.name}{project.address && ` — ${project.address}`}</p>}
+        <button className="text-sm underline" onClick={refresh}>Refresh timeline</button>
       </div>
-
-      {/* 3. Gantt Layout Controls Header Row */}
-      <div className="flex items-center justify-between gap-4 bg-white/80 border border-blue-fantastic/5 px-6 py-3 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          <span className="text-xs font-bold text-blue-fantastic uppercase tracking-wider">
-            Build Schedule Visualization
-          </span>
+      <TimelineHeader percentage={data.percentage} startDate={data.startDate || "Not scheduled"}
+        originalEstCompletion={data.originalEstCompletion || "Not scheduled"}
+        currentProjectedCompletion={data.currentProjectedCompletion || "Not scheduled"}
+        statusFlag={data.statusFlag} delayDays={data.delayDays} stages={data.stages} />
+      {data.stages.length === 0 ? <p className="text-blue-fantastic/70">No construction stages have been scheduled yet.</p> : <>
+        <div className="flex items-center justify-between gap-4 bg-white/80 border border-blue-fantastic/5 px-6 py-3 rounded-2xl shadow-sm">
+          <span className="text-xs font-bold text-blue-fantastic uppercase tracking-wider">Build Schedule Visualization</span>
+          {chartReady && <div className="hidden md:block"><ZoomToggle currentScale={zoomScale} onChange={setZoomScale} /></div>}
         </div>
-
-        {/* Only show zoom toggle on desktop since Gantt is desktop-only */}
-        <div className="hidden md:block">
-          <ZoomToggle currentScale={zoomScale} onChange={setZoomScale} />
+        <div className="hidden md:block w-full">
+          {chartReady ? <>
+            <GanttChart data={{ ...data, stages: scheduledStages }} zoomScale={zoomScale} simulatedToday={today} />
+            {unscheduledStages.length > 0 && <div className="mt-6"><MobileTimeline key={`${project.id}-unscheduled`} stages={unscheduledStages} /></div>}
+          </> : <MobileTimeline key={project.id} stages={data.stages} />}
         </div>
-
-        <div className="block md:hidden text-[10px] font-bold text-blue-fantastic/50 uppercase tracking-widest">
-          Mobile Stack List
-        </div>
-      </div>
-
-      {/* 4. Desktop Gantt Chart (Hidden on Mobile) */}
-      <div className="hidden md:block w-full">
-        <GanttChart
-          data={data}
-          zoomScale={zoomScale}
-          simulatedToday={simulatedToday}
-        />
-      </div>
-
-      {/* 5. Mobile Fallback (Stacked List) */}
-      <div className="block md:hidden w-full">
-        <MobileTimeline stages={data.stages} />
-      </div>
-
-      {/* 6. Delay and Shift Logs Log list */}
-      <div className="w-full">
-        <DelayLog logs={data.delayLog} />
-      </div>
+        <div className="block md:hidden w-full"><MobileTimeline key={project.id} stages={data.stages} /></div>
+      </>}
+      <DelayLog logs={data.delayLog} />
     </div>
   );
 }

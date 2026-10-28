@@ -13,7 +13,7 @@ export async function loginUser(
 
     return users.find(
         user => 
-            user.email.toLowerCase() === email.toLowerCase() && user.password === password
+            user.status !== "Suspended" && user.status !== "Pending" && !!user.password && user.email.toLowerCase() === email.trim().toLowerCase() && user.password === password
     );
 
 }

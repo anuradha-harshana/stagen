@@ -1,5 +1,6 @@
 "use client"
 
+import { useCompanySection, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState } from "react"
 import { CompanyNotificationsHeader } from "./CompanyNotificationsHeader"
 import { MessageTemplatesList } from "./MessageTemplatesList"
@@ -11,83 +12,13 @@ import { AddRuleModal } from "./AddRuleModal"
 import { NotificationTemplate, AutomationRule } from "./types"
 import { toast } from "sonner"
 
-const INITIAL_TEMPLATES: NotificationTemplate[] = [
-  {
-    id: "tmpl-1",
-    title: "Stage Completed",
-    channels: ["email", "in_app", "push"],
-    subject: "Stage Completed: {{stage_name}} for {{project_name}}",
-    body: "Hi {{customer_name}},\n\nWe are pleased to inform you that {{stage_name}} for {{project_name}} has been completed by supervisor {{supervisor_name}}.\n\nYou can log in to your portal to inspect photos and full milestone logs.\n\nBest regards,\nStagen Team",
-    updatedAt: "2026-08-01",
-  },
-  {
-    id: "tmpl-2",
-    title: "Milestone Overdue",
-    channels: ["email", "in_app"],
-    subject: "Milestone Alert: {{stage_name}} is past due date",
-    body: "Attention {{supervisor_name}},\n\nThe milestone {{stage_name}} for {{project_name}} was expected to complete on {{due_date}} but is currently overdue.\n\nPlease update stage status or log a delay notice immediately.\n\nThank you,\nStagen Operations",
-    updatedAt: "2026-07-28",
-  },
-  {
-    id: "tmpl-3",
-    title: "New Document Uploaded",
-    channels: ["in_app"],
-    subject: "New Document Available: {{document_name}}",
-    body: "Hello {{customer_name}},\n\nA new document ({{document_name}}) has been uploaded to your project portal for {{project_name}}.\n\nPlease review and approve the document at your earliest convenience.",
-    updatedAt: "2026-07-25",
-  },
-  {
-    id: "tmpl-4",
-    title: "Invoice Issued",
-    channels: ["email", "in_app"],
-    subject: "Invoice Issued for {{project_name}} - {{stage_name}}",
-    body: "Dear {{customer_name}},\n\nAn invoice for {{stage_name}} on {{project_name}} has been generated and is ready for payment.\n\nLog in to your account to view breakdown and download receipt.",
-    updatedAt: "2026-07-20",
-  },
-]
-
-const INITIAL_RULES: AutomationRule[] = [
-  {
-    id: "rule-1",
-    name: "Notify Customer on Stage Completion",
-    event: "stage_completed",
-    eventLabel: "Stage Completed",
-    templateId: "tmpl-1",
-    templateName: "Stage Completed",
-    targetRoles: ["customer"],
-    channels: ["email", "in_app", "push"],
-    active: true,
-  },
-  {
-    id: "rule-2",
-    name: "Alert Supervisor on Overdue Milestone",
-    event: "milestone_overdue",
-    eventLabel: "Milestone Overdue",
-    templateId: "tmpl-2",
-    templateName: "Milestone Overdue",
-    targetRoles: ["supervisor", "company-admin"],
-    channels: ["email", "in_app"],
-    active: true,
-    delayMinutes: 60,
-  },
-  {
-    id: "rule-3",
-    name: "Notify Customer on New Document Upload",
-    event: "document_uploaded",
-    eventLabel: "New Document Uploaded",
-    templateId: "tmpl-3",
-    templateName: "New Document Uploaded",
-    targetRoles: ["customer"],
-    channels: ["in_app"],
-    active: true,
-  },
-]
-
 export function CompanyNotificationsOverview() {
   const [activeTab, setActiveTab] = useState<"templates" | "rules">("templates")
-  const [templates, setTemplates] = useState<NotificationTemplate[]>(INITIAL_TEMPLATES)
-  const [rules, setRules] = useState<AutomationRule[]>(INITIAL_RULES)
-  const [selectedTemplateId, setSelectedTemplateId] = useState<string>("tmpl-1")
+  const stored = useCompanySection<{ templates: NotificationTemplate[]; rules: AutomationRule[] }>("notifications", { templates: [], rules: [] });
+  const { templates, rules } = stored.data;
+  const setTemplates = (update: (prev: NotificationTemplate[]) => NotificationTemplate[]) => { void stored.save({ ...stored.data, templates: update(templates) }); };
+  const setRules = (update: (prev: AutomationRule[]) => AutomationRule[]) => { void stored.save({ ...stored.data, rules: update(rules) }); };
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>("")
 
   // Modals state
   const [isNewTemplateModalOpen, setIsNewTemplateModalOpen] = useState(false)
@@ -106,7 +37,6 @@ export function CompanyNotificationsOverview() {
   const handleCreateTemplate = (newTmpl: NotificationTemplate) => {
     setTemplates((prev) => [newTmpl, ...prev])
     setSelectedTemplateId(newTmpl.id)
-    toast.success(`Created template "${newTmpl.title}"`)
   }
 
   const handleDeleteTemplate = (id: string) => {
@@ -118,7 +48,6 @@ export function CompanyNotificationsOverview() {
       const remaining = templates.filter((t) => t.id !== id)
       setSelectedTemplateId(remaining[0]?.id || "")
     }
-    toast.info(`Deleted template "${target.title}"`)
   }
 
   // Automation Rule Handlers
@@ -130,14 +59,13 @@ export function CompanyNotificationsOverview() {
 
   const handleDeleteRule = (id: string) => {
     setRules((prev) => prev.filter((r) => r.id !== id))
-    toast.info("Automation rule removed")
   }
 
   const handleAddRule = (newRule: AutomationRule) => {
     setRules((prev) => [newRule, ...prev])
-    toast.success(`Added rule "${newRule.name}"`)
   }
 
+  if (stored.loading || stored.error) return <DataState loading={stored.loading} error={stored.error} />;
   return (
     <div className="flex flex-col gap-6 w-full font-sans">
       {/* Header */}
@@ -207,8 +135,7 @@ export function CompanyNotificationsOverview() {
             onToggleRule={handleToggleRule}
             onDeleteRule={handleDeleteRule}
             onEditRule={(rule) => {
-              toast.info(`Editing rule "${rule.name}"`)
-            }}
+                      }}
           />
         </div>
       )}

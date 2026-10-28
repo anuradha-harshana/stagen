@@ -13,8 +13,8 @@ export default function InsightsStats({
   totalQueries,
   pendingCount,
 }: InsightsStatsProps) {
-  const csat = 4.8;
-  const aiRate = 75;
+  const csat = "Not recorded";
+  const aiRate = totalQueries ? Math.round((totalQueries - pendingCount) / totalQueries * 100) : 0;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full font-sans">
@@ -38,18 +38,18 @@ export default function InsightsStats({
         </CardContent>
       </Card>
 
-      {/* AI Resolution Rate Card */}
+      {/* Answered Questions Card */}
       <Card className="bg-white border border-blue-fantastic/5 hover:border-truffle-trouble/10 shadow-[0_6px_20px_rgba(27,38,50,0.03)] hover:shadow-[0_12px_30px_rgba(27,38,50,0.06)] hover:scale-[1.01] transition-all duration-300 rounded-2xl overflow-hidden group">
         <CardContent className="p-6 flex items-center justify-between">
           <div className="space-y-1">
             <span className="text-[11px] font-bold uppercase tracking-wider text-blue-fantastic/50 font-sans">
-              AI Resolution Rate
+              Answered Questions
             </span>
             <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
               {aiRate}%
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">
-              Resolved automatically by the AI model
+              Questions with recorded replies
             </p>
           </div>
           <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 group-hover:rotate-6 transition-all duration-300">
@@ -66,10 +66,10 @@ export default function InsightsStats({
               Customer Satisfaction
             </span>
             <h2 className="text-3xl font-extrabold text-blue-fantastic font-sans tracking-tight group-hover:text-truffle-trouble transition-colors duration-300">
-              {csat} <span className="text-base text-blue-fantastic/40">/ 5.0</span>
+              {csat}
             </h2>
             <p className="text-xs text-blue-fantastic/45 font-medium">
-              Average CSAT rating of AI resolutions
+              No satisfaction feedback recorded
             </p>
           </div>
           <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-burning-flame/15 text-truffle-trouble group-hover:rotate-6 transition-all duration-300">

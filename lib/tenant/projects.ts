@@ -75,11 +75,12 @@ function toProject(
 
   return {
     id: projectIdFromTenantId(String(tenant.tenant_id)),
+    clientUserId: tenant.client_user_id,
     clientName: String(tenant.client_name ?? ""),
     address: String(tenant.address ?? ""),
-    status: toStatus(String(tenant.status ?? "On Track")),
-    progress: Number(tenant.progress ?? timeline?.percentage ?? 0),
-    currentStage: tenant.current_stage as Stage["name"],
+    status: stages.length && stages.every(s => s.status === "Completed") ? "Completed" : tenant.status === "Completed" ? "On Track" : toStatus(String(tenant.status ?? "On Track")),
+    progress: stages.length ? Math.round(stages.reduce((n, s) => n + s.progress, 0) / stages.length) : 0,
+    currentStage: (stages.find(s => s.status === "Active") ?? stages.find(s => s.status === "Pending") ?? stages.at(-1))?.name ?? "",
     startDate: String(tenant.start_date ?? ""),
     estHandover: String(tenant.est_handover ?? ""),
     imageGradient: String(tenant.image_gradient ?? "from-blue-fantastic/40 to-abyssal-blue/80"),
@@ -99,6 +100,7 @@ function toProject(
       replied: String(question.status).toUpperCase() === "ANSWERED",
       replyText: question.answer_text ?? undefined,
     })),
+    supervisorId: assignment?.user_id,
     supervisorName: assignment?.user_name,
     delayDays: Number(timeline?.delay_days ?? 0),
   };
@@ -114,7 +116,7 @@ export async function getCompanyProjects(companyId: string): Promise<Project[]> 
     .filter((tenant) => tenant.company_id === companyId)
     .map((tenant) => {
       const tenantId = tenant.tenant_id;
-      const assignment = assignments.find((item) => item.tenant_id === tenantId);
+      const assignment = assignments.find((item) => item.tenant_id === tenantId && item.role === "supervisor");
       const supervisor = assignment
         ? {
             ...assignment,
@@ -148,8 +150,17 @@ export async function saveCompanyProject(
   const [tenants, stageRecords, timelines, assignments, delays, questions] = await Promise.all(
     Object.values(files).map((fileName) => readRecords(fileName))
   );
+  const existing = tenants.find(item => item.tenant_id === tenantId);
+  if (existing && existing.company_id !== companyId) throw new Error("Project ID is already in use");
+  const users = JSON.parse(await fs.readFile(usersFile, "utf8")) as RecordValue[];
+  if (payload.assignment && !users.some(u => u.id === payload.assignment!.user_id && u.role === "supervisor" && u.companyId === companyId)) throw new Error("Invalid supervisor");
+  if (payload.tenant.client_user_id && !users.some(u => u.id === payload.tenant.client_user_id && u.role === "customer" && u.companyId === companyId)) throw new Error("Invalid customer");
+  const previousStages = stageRecords.find(item => item.tenant_id === tenantId)?.stages ?? [];
+  payload.stages.stages = payload.stages.stages.map((stage: RecordValue) => ({ ...previousStages.find((old: RecordValue) => old.name === stage.name), ...stage }));
+  const previousTimeline = timelines.find(item => item.tenant_id === tenantId);
+  if (previousTimeline) payload.timeline = { ...previousTimeline, ...payload.timeline, original_est_completion: previousTimeline.original_est_completion, stages: previousTimeline.stages };
   const now = new Date().toISOString();
-  const tenant = {
+  const tenant: RecordValue = {
     ...payload.tenant,
     tenant_id: tenantId,
     company_id: companyId,
@@ -162,16 +173,22 @@ export async function saveCompanyProject(
     else records[index] = { ...records[index], ...record };
   };
 
+  const normalizedStages = payload.stages.stages as RecordValue[];
+  tenant.progress = normalizedStages.length ? Math.round(normalizedStages.reduce((n, s) => n + Number(s.progress || 0), 0) / normalizedStages.length) : 0;
+  tenant.current_stage = (normalizedStages.find(s => s.status === "Active") ?? normalizedStages.find(s => s.status === "Pending") ?? normalizedStages.at(-1))?.name ?? "";
+  tenant.status = normalizedStages.length && normalizedStages.every(s => s.status === "Completed") ? "Completed" : tenant.status === "Completed" ? "On Track" : tenant.status;
+  payload.timeline.percentage = tenant.progress;
   replace(tenants, tenant);
   replace(stageRecords, { ...payload.stages, tenant_id: tenantId });
   replace(timelines, { ...payload.timeline, tenant_id: tenantId });
 
-  const assignmentIndex = assignments.findIndex((item) => item.tenant_id === tenantId);
+  const assignmentIndex = assignments.findIndex((item) => item.tenant_id === tenantId && item.role === "supervisor");
   if (payload.assignment) {
     const assignment = {
       ...payload.assignment,
       id: payload.assignment.id || `assign-${crypto.randomUUID()}`,
       tenant_id: tenantId,
+      role: "supervisor",
     };
     if (assignmentIndex === -1) assignments.push(assignment);
     else assignments[assignmentIndex] = assignment;
@@ -179,6 +196,9 @@ export async function saveCompanyProject(
     assignments.splice(assignmentIndex, 1);
   }
 
+  if (Object.hasOwn(payload.tenant, "client_user_id")) {
+    for (let i = assignments.length - 1; i >= 0; i--) if (assignments[i].tenant_id === tenantId && assignments[i].role === "customer") assignments.splice(i, 1);
+  }
   await Promise.all([
     writeRecords(files.tenants, tenants),
     writeRecords(files.stages, stageRecords),
@@ -190,7 +210,7 @@ export async function saveCompanyProject(
     tenant,
     stageRecords.find((item) => item.tenant_id === tenantId),
     timelines.find((item) => item.tenant_id === tenantId),
-    assignments.find((item) => item.tenant_id === tenantId),
+    { ...assignments.find((item) => item.tenant_id === tenantId && item.role === "supervisor"), user_name: users.find(u => u.id === payload.assignment?.user_id)?.username },
     delays.filter((item) => item.tenant_id === tenantId),
     questions.filter((item) => item.tenant_id === tenantId)
   );
@@ -216,4 +236,91 @@ export async function deleteCompanyProject(companyId: string, projectId: string)
     writeRecords("tenant_activities.json", remove(activities)),
   ]);
   return true;
+}
+
+export interface ProjectActivity {
+  id: string;
+  tenant_id: string;
+  title: string;
+  description: string;
+  date: string;
+  stage_id: string;
+  stage_name: string;
+  type: "success" | "warning" | "info";
+  created_by?: string;
+}
+
+export interface ProjectPhoto {
+  id: string;
+  tenant_id: string;
+  stage_name: string;
+  url: string;
+  file_name?: string;
+  file_size?: number;
+  label: string;
+  caption?: string;
+  uploader_name?: string;
+  timestamp: string;
+}
+
+export async function getCustomerProjects(
+  userId: string,
+  companyId?: string
+): Promise<Project[]> {
+  const [tenants, stageRecords, timelines, assignments, delays, questions] = await Promise.all(
+    Object.values(files).map((fileName) => readRecords(fileName))
+  );
+  const users = JSON.parse(await fs.readFile(usersFile, "utf8")) as RecordValue[];
+  const currentUser = users.find((user) => user.id === userId);
+
+  const customerAssignments = new Set(assignments.filter(a => a.user_id === userId && a.role === "customer").map(a => a.tenant_id));
+  const customerTenants = tenants.filter(t => (t.client_user_id === userId || customerAssignments.has(t.tenant_id)) && (!companyId || t.company_id === companyId));
+
+  return customerTenants.map((tenant) => {
+    const tenantId = tenant.tenant_id;
+    const assignment = assignments.find((item) => item.tenant_id === tenantId && item.role === "supervisor");
+    const supervisor = assignment
+      ? {
+          ...assignment,
+          user_name: users.find((user) => user.id === assignment.user_id)?.username,
+        }
+      : undefined;
+    return toProject(
+      tenant,
+      stageRecords.find((item) => item.tenant_id === tenantId),
+      timelines.find((item) => item.tenant_id === tenantId),
+      supervisor,
+      delays.filter((item) => item.tenant_id === tenantId),
+      questions.filter((item) => item.tenant_id === tenantId)
+    );
+  });
+}
+
+export async function getCustomerActivities(tenantIds: string[]): Promise<ProjectActivity[]> {
+  try {
+    const activities = (await readRecords("tenant_activities.json")) as ProjectActivity[];
+    if (tenantIds.length === 0) return [];
+    const matched = activities.filter((act) => tenantIds.includes(act.tenant_id));
+    return matched;
+  } catch (error) {
+    console.error("Failed to load customer activities", error);
+    return [];
+  }
+}
+
+export async function getCustomerPhotos(tenantIds: string[]): Promise<ProjectPhoto[]> {
+  try {
+    const photos = (await readRecords("tenant_photos.json")) as ProjectPhoto[];
+    if (tenantIds.length === 0) return [];
+    const matched = photos.filter((photo) => tenantIds.includes(photo.tenant_id));
+    return matched;
+  } catch (error) {
+    console.error("Failed to load customer photos", error);
+    return [];
+  }
+}
+export async function getCustomerDocuments(userId: string, companyId?: string) {
+  const projects = await getCustomerProjects(userId, companyId);
+  const ids = new Set(projects.map(p => tenantIdFromProjectId(p.id)));
+  return (await readRecords("tenant_documents.json")).filter(d => ids.has(d.tenant_id) && ["customer", "all"].includes(String(d.visibility).toLowerCase())).map(d => ({ id: String(d.id), name: String(d.title ?? d.file_name), type: String(d.file_type ?? ""), size: String(d.file_size ?? ""), date: String(d.date_of_update ?? ""), category: String(d.category ?? "Document"), url: String(d.url ?? d.file_url ?? "") }));
 }

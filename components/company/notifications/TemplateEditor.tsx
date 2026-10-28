@@ -65,7 +65,7 @@ export function TemplateEditor({
     const end = textarea.selectionEnd
     const text = formData.body
     const newText = text.substring(0, start) + varKey + text.substring(end)
-    
+
     setFormData((prev) => (prev ? { ...prev, body: newText } : null))
 
     // Reset focus and position cursor after inserted variable
@@ -81,19 +81,11 @@ export function TemplateEditor({
       return
     }
     onSave(formData)
-    toast.success("Template saved successfully!")
+
   }
 
   // Rendered preview replace
-  const renderPreviewText = (text: string) => {
-    return text
-      .replace(/\{\{project_name\}\}/g, "Oakwood Heights Villa")
-      .replace(/\{\{stage_name\}\}/g, "Frame & Structure Approval")
-      .replace(/\{\{customer_name\}\}/g, "Sarah Jenkins")
-      .replace(/\{\{due_date\}\}/g, "August 15, 2026")
-      .replace(/\{\{supervisor_name\}\}/g, "Michael Vance")
-      .replace(/\{\{document_name\}\}/g, "Structural_Engineering_Report.pdf")
-  }
+  const renderPreviewText = (text: string) => text
 
   return (
     <div className="bg-white rounded-3xl p-6 sm:p-8 border border-blue-fantastic/15 shadow-sm flex flex-col gap-6 font-sans">

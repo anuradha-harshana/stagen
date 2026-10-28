@@ -32,7 +32,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
   const formatDate = (dateStr: string) => {
     try {
       const d = new Date(dateStr);
-      if (isNaN(d.getTime())) return dateStr;
+      if (isNaN(d.getTime())) return "Not scheduled";
       return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
     } catch {
       return dateStr;
@@ -43,7 +43,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
     const s = new Date(startStr);
     const e = new Date(endStr);
     const diff = e.getTime() - s.getTime();
-    return Math.max(1, Math.ceil(diff / (24 * 60 * 60 * 1000)));
+    return Number.isFinite(diff) ? Math.max(1, Math.ceil(diff / (24 * 60 * 60 * 1000))) : 0;
   };
 
   // Milestone icon selector
@@ -63,7 +63,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
   };
 
   return (
-    <div className="space-y-4 md:hidden">
+    <div className="space-y-4">
       <div className="flex items-center justify-between border-b border-blue-fantastic/5 pb-2">
         <h3 className="text-sm font-extrabold text-blue-fantastic uppercase tracking-wider">
           Stage Breakdown
@@ -83,7 +83,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
           const actualDays = getDaysBetween(actualStartStr, actualEndStr);
 
           const isProjected = stage.status === "in-progress" || stage.status === "upcoming" || stage.status === "delayed";
-          const delayVariance = actualDays - plannedDays;
+          const delayVariance = actualDays && plannedDays ? actualDays - plannedDays : 0;
 
           // Badges classes
           let badgeColor = "bg-white text-blue-fantastic border-blue-fantastic/10";
@@ -169,7 +169,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
                       </div>
                       <div className="text-[10px] font-semibold text-blue-fantastic/50 flex items-center gap-1">
                         <Clock className="h-3 w-3 shrink-0" />
-                        <span>Duration: {plannedDays} days</span>
+                        <span>Duration: {plannedDays ? `${plannedDays} days` : "Not scheduled"}</span>
                       </div>
                     </div>
 
@@ -187,7 +187,7 @@ export default function MobileTimeline({ stages }: MobileTimelineProps) {
                       <div className="text-[10px] font-semibold text-blue-fantastic/50 flex items-center gap-1">
                         <Calendar className="h-3 w-3 shrink-0" />
                         <span>
-                          {isProjected ? "Proj" : "Act"} Duration: {actualDays} days
+                          {isProjected ? "Proj" : "Act"} Duration: {actualDays ? `${actualDays} days` : "Not scheduled"}
                         </span>
                       </div>
                     </div>

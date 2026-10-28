@@ -7,96 +7,60 @@ import DefectsList from "./DefectsList";
 import WarrantyCoverageSummary from "./WarrantyCoverageSummary";
 import DefectManagementModal from "./DefectManagementModal";
 
-const INITIAL_DEFECTS: DefectItem[] = [
-  {
-    id: "DEF-001",
-    projectId: "208",
-    clientName: "Sarah Jenkins",
-    title: "Garage door alignment issue",
-    area: "Garage",
-    priority: "High",
-    reported: "2026-07-25",
-    status: "resolved",
-    assignedSupervisor: "Eric",
-    description: "Garage door rollers are catching on the tracks during closure, preventing it from sealing properly at the base."
-  },
-  {
-    id: "DEF-002",
-    projectId: "104",
-    clientName: "Anuradha Harshana",
-    title: "Hairline crack – master bedroom wall",
-    area: "Bedroom 1",
-    priority: "Low",
-    reported: "2026-07-28",
-    status: "in-progress",
-    assignedSupervisor: "Eric",
-    description: "Small hairline crack has appeared along the plaster joint above the walk-in wardrobe door."
-  },
-  {
-    id: "DEF-003",
-    projectId: "104",
-    clientName: "Anuradha Harshana",
-    title: "Laundry tap dripping",
-    area: "Laundry",
-    priority: "Medium",
-    reported: "2026-08-01",
-    status: "open",
-    assignedSupervisor: "Unassigned",
-    description: "The cold water tap in the laundry basin is dripping continuously at a rate of 1 drip per 5 seconds, causing moisture build-up."
-  },
-  {
-    id: "DEF-004",
-    projectId: "312",
-    clientName: "Marcus Vance",
-    title: "Kitchen splashback silicone peeling",
-    area: "Kitchen",
-    priority: "Low",
-    reported: "2026-08-03",
-    status: "open",
-    assignedSupervisor: "Unassigned",
-    description: "The silicone seal between the stone benchtop and glass splashback is peeling behind the sink."
-  }
-];
+const INITIAL_DEFECTS: DefectItem[] = [];
 
-export default function WarrantyClient() {
-  const [defects, setDefects] = useState<DefectItem[]>([]);
-  const [isHydrated, setIsHydrated] = useState(false);
+import {
+  fetchCompanyDefectsAction,
+  updateCompanyDefectAction,
+} from "@/lib/company/actions";
+
+interface WarrantyClientProps {
+  initialDefects?: DefectItem[];
+  supervisors?: string[];
+}
+
+export default function WarrantyClient({ initialDefects, supervisors }: WarrantyClientProps) {
+  const [defects, setDefects] = useState<DefectItem[]>(initialDefects || []);
   const [selectedDefect, setSelectedDefect] = useState<DefectItem | null>(null);
 
-  // Sync state with localStorage
+  // Sync state with server JSON file
   useEffect(() => {
-    const saved = localStorage.getItem("stagen_warranty_defects");
-    if (saved) {
+    async function loadData() {
       try {
-        setDefects(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse defects from localStorage", e);
-        setDefects(INITIAL_DEFECTS);
+        const data = await fetchCompanyDefectsAction();
+        if (data && data.length > 0) {
+          setDefects(data);
+        }
+      } catch (err) {
+        console.error("Failed to load company defects from JSON file:", err);
       }
-    } else {
-      setDefects(INITIAL_DEFECTS);
     }
-    setIsHydrated(true);
-  }, []);
 
-  useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem("stagen_warranty_defects", JSON.stringify(defects));
+    if (!initialDefects || initialDefects.length === 0) {
+      loadData();
     }
-  }, [defects, isHydrated]);
+  }, [initialDefects]);
 
-  const handleSaveDefect = (id: string, updates: Partial<DefectItem>) => {
+  const handleSaveDefect = async (id: string, updates: Partial<DefectItem>) => {
+    // 1. Optimistic UI update
     const nextDefects = defects.map((d) =>
       d.id === id ? { ...d, ...updates } : d
     );
     setDefects(nextDefects);
     setSelectedDefect(null);
+
+    // 2. Persist update to JSON file
+    try {
+      await updateCompanyDefectAction(id, updates);
+    } catch (err) {
+      console.error("Failed to update defect in JSON file:", err);
+    }
   };
 
-  const supervisorsList = ["Eric"];
+  const supervisorsList = supervisors ?? [];
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header */}
       <WarrantyHeader />
 

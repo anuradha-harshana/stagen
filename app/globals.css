@@ -80,7 +80,7 @@
   --font-sans: "Cream", sans-serif;
   --font-bebas-neue: "Bebas Neue", sans-serif;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: var(--blue-fantastic);
   --palladian: #eee9df; /* color pallete starts */
   --oatmeal: #c9c1b1;
   --blue-fantastic: #2c3b4d;
@@ -88,15 +88,15 @@
   --truffle-trouble: #a35139;
   --abyssal-blue: #1b2632; /* color pallete ends */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: var(--blue-fantastic);
   --surface-card: oklch(1 0 0);
   --surface-inset: oklch(0.98 0.004 85);
   --surface-muted: oklch(0.96 0.006 85);
   --surface-input: oklch(0.985 0.003 85);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --popover-foreground: var(--blue-fantastic);
+  --primary: var(--truffle-trouble);
+  --primary-foreground: var(--palladian);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -167,4 +167,21 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Keep native calendar controls visible and consistent across all role forms. */
+input[type="date"], input[type="month"], input[type="datetime-local"] {
+  color-scheme: light;
+  min-width: 0;
+}
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: .7;
+  padding: .25rem;
+}
+input[type="date"]:disabled::-webkit-calendar-picker-indicator,
+input[type="month"]:disabled::-webkit-calendar-picker-indicator {
+  cursor: not-allowed;
 }

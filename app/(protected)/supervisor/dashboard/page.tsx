@@ -2,7 +2,7 @@
 
 import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import Link from "next/link";
 import {
   Building2,
   AlertTriangle,
@@ -109,20 +109,10 @@ export default function SupervisorDashboard() {
         subtitle={`Supervisor Dashboard · ${totalProjects} active construction site${totalProjects === 1 ? "" : "s"} under management`}
         rightContent={
           <div className="flex gap-3 items-center">
-            <div className="relative h-10 w-10 rounded-xl bg-blue-fantastic/10 flex items-center justify-center border border-blue-fantastic/15 hover:bg-blue-fantastic/15 transition-all">
+            <Link href="/supervisor/notifications" aria-label="Notifications" className="relative h-10 w-10 rounded-xl bg-blue-fantastic/10 flex items-center justify-center border border-blue-fantastic/15 hover:bg-blue-fantastic/15 transition-all">
               <Bell className="h-4 w-4 text-blue-fantastic" />
-              <span className="absolute top-1.5 right-1.5 h-2.5 w-2.5 rounded-full bg-truffle-trouble border-2 border-oatmeal" />
-            </div>
-            <Image
-              src="/images/user.jpg"
-              width={40}
-              height={40}
-              alt="supervisor"
-              className="rounded-xl border border-blue-fantastic/20 object-cover h-10 w-10"
-              onError={(e) => {
-                e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100";
-              }}
-            />
+            </Link>
+            <Link href="/supervisor/profile" aria-label="Profile" className="h-10 w-10 rounded-xl bg-blue-fantastic text-white flex items-center justify-center">{user.username.slice(0, 2).toUpperCase()}</Link>
           </div>
         }
       />

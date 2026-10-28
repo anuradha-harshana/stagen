@@ -41,7 +41,16 @@ export interface Project {
   stages: Stage[];
   delays: DelayLog[];
   questions: CustomerQuestion[];
+  clientUserId?: string;
+  supervisorId?: string;
   supervisorName?: string;
+  region?: "NSW" | "VIC" | "QLD" | "WA" | "SA";
+  riskSeverity?: "Critical" | "High" | "Medium" | "Low";
   delayDays?: number;
   lastUpdate?: string;
+}
+export function projectProgress(stages: { name: string; status: string; progress: number }[], previousStatus: string) {
+  const progress = stages.length ? Math.round(stages.reduce((n, s) => n + Number(s.progress || 0), 0) / stages.length) : 0;
+  const complete = stages.length > 0 && stages.every(s => s.status.toLowerCase() === "completed");
+  return { progress, currentStage: (stages.find(s => s.status.toLowerCase() === "active") ?? stages.find(s => s.status.toLowerCase() === "pending") ?? stages.at(-1))?.name ?? "", status: complete ? "Completed" : previousStatus === "Completed" ? "On Track" : previousStatus };
 }

@@ -33,7 +33,7 @@ interface DashboardClientProps {
 }
 
 export default function DashboardClient({ data }: DashboardClientProps) {
-  const [dateRange] = useState("Current Quarter (Q3 2026)");
+  const [dateRange] = useState("Current project records");
   const [activeTab, setActiveTab] = useState<"overview" | "insights" | "operations">("overview");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 

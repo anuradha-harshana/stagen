@@ -153,5 +153,84 @@
     ],
     "createdAt": "2026-08-19T00:00:00Z",
     "updatedAt": "2026-08-19T09:05:33.013Z"
+  },
+  {
+    "companyId": "5451a447-bb11-4c51-b243-3ea2129a2145",
+    "stages": [
+      {
+        "name": "Slab",
+        "weight": 15,
+        "checklist": [],
+        "id": "stage-333c7f5b-8d9d-407c-9b14-53dfb4a01a85"
+      },
+      {
+        "name": "Frame",
+        "weight": 20,
+        "checklist": [],
+        "id": "stage-542d92cb-a8ad-4459-8123-af87e419a71f"
+      },
+      {
+        "name": "Site Cut",
+        "weight": 35,
+        "checklist": [],
+        "id": "stage-67661275-ab07-4c65-9ef5-12aa92407767"
+      },
+      {
+        "name": "Lockup",
+        "weight": 30,
+        "checklist": [],
+        "id": "stage-5857ce5c-59ea-441d-a6f5-b9689aa21ab6"
+      }
+    ],
+    "createdAt": "2026-10-27T04:08:30.194Z",
+    "updatedAt": "2026-10-27T04:09:40.895Z"
+  },
+  {
+    "companyId": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "stages": [
+      {
+        "name": "Slab",
+        "weight": 20,
+        "checklist": [
+          {
+            "id": "item-1793165427043",
+            "label": "Slab 1"
+          },
+          {
+            "id": "item-1793165431803",
+            "label": "Slab 2"
+          }
+        ],
+        "id": "stage-df39df28-c5d5-43f5-acc7-26ac4168525b"
+      },
+      {
+        "name": "Frame",
+        "weight": 40,
+        "checklist": [
+          {
+            "id": "item-1793165436765",
+            "label": "Frame 1"
+          },
+          {
+            "id": "item-1793165441467",
+            "label": "Frame 2"
+          }
+        ],
+        "id": "stage-92621e2f-8186-4f8e-b4f1-6ffaede898cd"
+      },
+      {
+        "name": "Handover",
+        "weight": 40,
+        "checklist": [
+          {
+            "id": "item-1793165449505",
+            "label": "Lockup"
+          }
+        ],
+        "id": "stage-8e1ebe92-52b1-46eb-82f3-7aa149b91799"
+      }
+    ],
+    "createdAt": "2026-10-28T05:29:50.002Z",
+    "updatedAt": "2026-10-28T05:30:49.653Z"
   }
 ]

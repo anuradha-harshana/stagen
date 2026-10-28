@@ -9,21 +9,27 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import { NavbarProps } from "@/lib/types/types"
-import {NavbarLinks} from "@/components/Navbar/NavbarLinks"
+
+import { NavbarLinks } from "@/components/Navbar/NavbarLinks"
+
 import { LogoutButton } from "../auth/LogoutButton"
 
 
 type props = {
   role: string
+  logoUrl?: string
+  brandName?: string
 }
 
-export async function Navbar({ role }: props) {
+export async function Navbar({ role, logoUrl, brandName }: props) {
+
   let data: NavbarProps[] = []
+
 
   try {
     const baseUrl = process.env.APP_URL || 'http://localhost:3000'
     const url = `${baseUrl}/api/navbar?role=${encodeURIComponent(role)}`
-    
+
     const res = await fetch(url, {
       cache: "no-store"
     })
@@ -47,15 +53,15 @@ export async function Navbar({ role }: props) {
       <SidebarHeader>
         <div className="flex items-center gap-3 mx-3 mt-5 mb-4 group-data-[collapsible=icon]:mx-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0">
           <Image
-            src="/images/logo.png"
-            alt="Logo"
+            src={logoUrl || "/images/logo.png"}
+            alt={brandName || "Logo"}
             height={28}
             width={28}
             className="bg-oatmeal border-2 border-white/10 rounded-full shrink-0 object-cover"
           />
           <div className="flex flex-col min-w-0 group-data-[collapsible=icon]:hidden">
             <span className="font-bebas-neue text-3xl leading-none text-palladian truncate">
-              Stagen
+              {brandName || "Stagen"}
             </span>
             <span className="text-[11px] uppercase tracking-widest text-oatmeal/70 truncate">
               Build Progress OS

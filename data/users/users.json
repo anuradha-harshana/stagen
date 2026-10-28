@@ -1,8 +1,8 @@
 [
   {
     "id": "7ab56015-4412-494e-8aff-dbb5095e0095",
-    "username": "Build & Co",
-    "email": "buildit@stagen.com",
+    "username": "STAGEN Constructions Ltd",
+    "email": "admin@stagen.com.au",
     "password": "Stagen@123456",
     "role": "company"
   },
@@ -25,7 +25,7 @@
   {
     "id": "7ab56015-4412-484e-8aff-dbb5095e0095",
     "companyId": "7ab56015-4412-494e-8aff-dbb5095e0095",
-    "username": "Build & Co",
+    "username": "STAGEN Constructions Ltd",
     "email": "management@stagen.com",
     "password": "Stagen@123456",
     "role": "company-management"
@@ -37,5 +37,37 @@
     "email": "eric@stagen.com",
     "password": "Stagen@123456",
     "role": "supervisor"
+  },
+  {
+    "id": "5451a447-bb11-4c51-b243-3ea2129a2145",
+    "username": "Build It & CO",
+    "email": "admin@stagen.com.au",
+    "password": "Stagen@123456",
+    "role": "company"
+  },
+  {
+    "id": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "username": "Buildit & Co",
+    "email": "buildit@stagen.com",
+    "password": "Stagen@123456",
+    "role": "company"
+  },
+  {
+    "id": "d6e39c53-8a2d-4380-aa54-7ddc45a9f35d",
+    "username": "Imesha",
+    "email": "imesha@stagen.com",
+    "role": "supervisor",
+    "companyId": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "status": "Active",
+    "password": "Stagen@12456"
+  },
+  {
+    "id": "77eb9763-974d-4d64-902f-65605397b78d",
+    "username": "customer",
+    "email": "customer2@stagen.com",
+    "role": "customer",
+    "companyId": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "status": "Active",
+    "password": "Stagen@123456"
   }
 ]

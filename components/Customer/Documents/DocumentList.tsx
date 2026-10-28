@@ -3,13 +3,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { FileText, Download, Eye, FileSpreadsheet, FileImage, ArrowUpRight } from "lucide-react"
 
-const DOCUMENTS = [
-  { id: 1, name: "Building Contract.pdf", type: "pdf", size: "2.4 MB", date: "Apr 1, 2025", category: "Contract" },
-  { id: 2, name: "Floor Plan - Rev 3.pdf", type: "pdf", size: "5.1 MB", date: "Apr 12, 2025", category: "Plans" },
-  { id: 3, name: "Inspection Report - June.pdf", type: "pdf", size: "1.2 MB", date: "Jun 28, 2025", category: "Report" },
-  { id: 4, name: "Variation Order #1.pdf", type: "pdf", size: "0.8 MB", date: "Jul 10, 2025", category: "Variation" },
-  { id: 5, name: "Schedule of Works.xlsx", type: "xlsx", size: "320 KB", date: "Apr 1, 2025", category: "Schedule" },
-]
 
 const categoryConfig: Record<string, { bg: string; text: string; border: string; iconBg: string }> = {
   Contract: { bg: "bg-blue-fantastic/10", text: "text-blue-fantastic font-bold", border: "border-blue-fantastic/30", iconBg: "bg-blue-fantastic/15 border border-blue-fantastic/20" },
@@ -29,7 +22,7 @@ function FileIcon({ type, category }: { type: string; category: string }) {
   )
 }
 
-export function DocumentList() {
+export function DocumentList({ documents: DOCUMENTS }: { documents: { id: string; name: string; type: string; size: string; date: string; category: string; url: string }[] }) {
   return (
     <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
@@ -71,12 +64,8 @@ export function DocumentList() {
                   {doc.category}
                 </Badge>
                 <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <Button variant="ghost" size="icon-xs" className="text-blue-fantastic/60 hover:text-blue-fantastic hover:bg-blue-fantastic/10">
-                    <Eye className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button variant="ghost" size="icon-xs" className="text-blue-fantastic/60 hover:text-truffle-trouble hover:bg-truffle-trouble/10">
-                    <Download className="h-3.5 w-3.5" />
-                  </Button>
+                  {doc.url && <a href={doc.url} target="_blank" rel="noreferrer" aria-label={`View ${doc.name}`}><Eye className="h-3.5 w-3.5" /></a>}
+                  {doc.url ? <a href={doc.url} download aria-label={`Download ${doc.name}`}><Download className="h-3.5 w-3.5" /></a> : <span className="text-xs">File not attached</span>}
                 </div>
                 <ArrowUpRight className="h-3.5 w-3.5 text-blue-fantastic/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 shrink-0" />
               </div>

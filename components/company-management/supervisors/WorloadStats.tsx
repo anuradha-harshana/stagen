@@ -3,7 +3,7 @@
 import React from "react";
 import { UsersRound, AlertOctagon, BarChart3 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 
 interface WorkloadStatsProps {
   projects: Project[];

@@ -29,12 +29,12 @@ export function UpdatePaymentMethodModal({
 
   useEffect(() => {
     if (currentPaymentMethod) {
-      setCardholderName(currentPaymentMethod.cardholderName || "John Doe")
+      setCardholderName(currentPaymentMethod.cardholderName || "")
       setCardNumber(`•••• •••• •••• ${currentPaymentMethod.last4}`)
       setExpMonth(currentPaymentMethod.expMonth)
       setExpYear(currentPaymentMethod.expYear)
       setCvc("•••")
-      setPostalCode("90210")
+      setPostalCode("")
     }
   }, [currentPaymentMethod, isOpen])
 
@@ -46,7 +46,7 @@ export function UpdatePaymentMethodModal({
     const last4Digit = cardNumber.replace(/\s+/g, "").slice(-4) || currentPaymentMethod.last4
 
     const updated: PaymentMethodInfo = {
-      brand: "Visa",
+      brand: currentPaymentMethod.brand,
       last4: last4Digit,
       expMonth: expMonth.padStart(2, "0"),
       expYear: expYear.slice(-2),
@@ -54,7 +54,7 @@ export function UpdatePaymentMethodModal({
     }
 
     onSave(updated)
-    toast.success("Payment method updated successfully!")
+
     onClose()
   }
 
@@ -109,28 +109,14 @@ export function UpdatePaymentMethodModal({
           </div>
 
           <div className="grid grid-cols-3 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-blue-fantastic block">Exp Month</label>
+            <div className="space-y-1.5 col-span-2">
+              <label htmlFor="card-expiry" className="text-xs font-bold text-blue-fantastic block">Expiry month</label>
               <Input
-                type="text"
-                value={expMonth}
-                onChange={(e) => setExpMonth(e.target.value)}
-                placeholder="MM"
-                maxLength={2}
-                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
-                required
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-blue-fantastic block">Exp Year</label>
-              <Input
-                type="text"
-                value={expYear}
-                onChange={(e) => setExpYear(e.target.value)}
-                placeholder="YY"
-                maxLength={2}
-                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans text-center"
+                id="card-expiry"
+                type="month"
+                value={expYear && expMonth ? `${expYear.length === 2 ? "20" + expYear : expYear}-${expMonth.padStart(2, "0")}` : ""}
+                onChange={(e) => { const [year = "", month = ""] = e.target.value.split("-"); setExpYear(year); setExpMonth(month); }}
+                className="bg-white border-blue-fantastic/15 text-blue-fantastic rounded-xl text-xs h-10 font-sans"
                 required
               />
             </div>

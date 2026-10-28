@@ -2,14 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Camera, ZoomIn, CalendarDays } from "lucide-react"
 
-const PHOTOS = [
-  { id: 1, label: "Foundation Work", date: "Jun 10, 2025", stage: "Foundation", gradient: "from-blue-fantastic/40 to-abyssal-blue/80" },
-  { id: 2, label: "Framing Complete", date: "Jul 2, 2025", stage: "Framing", gradient: "from-burning-flame/30 to-abyssal-blue/80" },
-  { id: 3, label: "Roof Installation", date: "Jul 15, 2025", stage: "Roofing", gradient: "from-truffle-trouble/40 to-abyssal-blue/80" },
-  { id: 4, label: "Electrical Rough-in", date: "Aug 1, 2025", stage: "Electrical", gradient: "from-blue-fantastic/30 to-abyssal-blue/70" },
-  { id: 5, label: "Insulation", date: "Aug 20, 2025", stage: "Insulation", gradient: "from-burning-flame/30 to-truffle-trouble/40" },
-  { id: 6, label: "Drywall Hanging", date: "Sep 5, 2025", stage: "Interior", gradient: "from-blue-fantastic/30 to-truffle-trouble/30" },
-]
 
 const stageColors: Record<string, string> = {
   Foundation: "bg-blue-fantastic/10 text-blue-fantastic border-blue-fantastic/30 font-semibold",
@@ -20,7 +12,7 @@ const stageColors: Record<string, string> = {
   Interior: "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 font-semibold",
 }
 
-export function PhotoGrid() {
+export function PhotoGrid({ photos: PHOTOS }: { photos: { id: string; label: string; date: string; stage: string; url: string }[] }) {
   return (
     <Card className="bg-white border border-blue-fantastic/15 shadow-sm font-sans">
       <CardHeader className="border-b border-blue-fantastic/10 pb-3">
@@ -45,7 +37,7 @@ export function PhotoGrid() {
               className="group relative rounded-2xl overflow-hidden aspect-video cursor-pointer border border-blue-fantastic/15 hover:border-truffle-trouble/50 hover:shadow-md transition-all duration-300"
             >
               {/* gradient placeholder standing in for a real image */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${photo.gradient}`} />
+              <img src={photo.url} alt={photo.label} className="absolute inset-0 w-full h-full object-cover" />
               {/* subtle grid texture */}
               <div className="absolute inset-0 opacity-15" style={{ backgroundImage: "radial-gradient(circle, #ffb162 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
 

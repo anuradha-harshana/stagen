@@ -4,16 +4,18 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { AuthLogo } from "@/components/Auth/logo"
-import { BrandPanel } from "@/components/Auth/BrandPanel"
+import { AuthLogo } from "@/components/auth/Logo"
+import { BrandPanel } from "@/components/auth/BrandPanel"
+
 import { useForm } from "react-hook-form"
 import { LoginFormData, loginSchema } from "@/lib/login/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useRouter } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
+import { Suspense, useEffect } from "react"
 import { getRedirectPath } from "@/hooks/Auth/redirection"
 import { toast } from "sonner"
 
-export default function LoginPage() {
+function LoginForm() {
 
   const {
     register,
@@ -24,6 +26,14 @@ export default function LoginPage() {
   });
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const errorParam = searchParams.get("error");
+    if (errorParam) {
+      toast.error(`Authentication Error: ${errorParam}`, { position: "top-right" });
+    }
+  }, [searchParams]);
 
   const onSubmit = async (data: LoginFormData) => {
     const res = await fetch(`/api/login`, {
@@ -61,11 +71,17 @@ export default function LoginPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <Button variant="outline" className="justify-center gap-2">
-              Sign in with Google
+            <Button
+              type="button"
+              className="w-full justify-center gap-2 bg-blue-fantastic text-white hover:bg-blue-fantastic/90 font-medium py-2 rounded-md shadow-sm"
+              onClick={() => {
+                window.location.href = "/api/auth/login";
+              }}
+            >
+              Sign in with WSO2 IS (Enterprise SSO)
             </Button>
             <Button variant="outline" className="justify-center gap-2">
-              Sign in with Apple
+              Sign in with Google
             </Button>
           </div>
 
@@ -105,4 +121,8 @@ export default function LoginPage() {
       </div>
     </div>
   )
+}
+
+export default function LoginPage() {
+  return <Suspense fallback={<div className="min-h-screen bg-abyssal-blue text-palladian flex items-center justify-center">Loading sign in…</div>}><LoginForm /></Suspense>;
 }

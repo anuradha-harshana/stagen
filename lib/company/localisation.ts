@@ -52,74 +52,7 @@ const DEFAULT_SETTINGS: LocalisationSettings = {
   timeStandard: "12-Hour AM/PM (Sydney Time)",
 };
 
-const DEFAULT_KEYS: TranslationKey[] = [
-  {
-    id: "TR-001",
-    key: "dashboard.welcome_banner",
-    category: "Dashboard",
-    enAU: "Welcome back to your Build Progress OS",
-    zhCN: "欢迎回到您的施工进度系统",
-    viVN: "Chào mừng trở lại với Hệ thống Tiến độ Xây dựng",
-    esES: "Bienvenido de nuevo a su Sistema de Progreso de Construcción",
-    lastUpdated: "2026-08-01",
-    status: "Translated",
-  },
-  {
-    id: "TR-002",
-    key: "progress.stage_slab_complete",
-    category: "Progress",
-    enAU: "Slab poured and inspected successfully",
-    zhCN: "混凝土地基已浇筑并通过检验",
-    viVN: "Móng bê tông đã đỗ và kiểm định thành công",
-    esES: "Losa vertida e inspeccionada con éxito",
-    lastUpdated: "2026-07-28",
-    status: "Translated",
-  },
-  {
-    id: "TR-003",
-    key: "invoices.payment_due_reminder",
-    category: "Invoices",
-    enAU: "Progress payment for Frame Stage is due in 5 days",
-    zhCN: "框架阶段进度款需在5天内支付",
-    viVN: "Thanh toán tiến độ Giai đoạn Khung đỗ hạn trong 5 ngày",
-    esES: "El pago de progreso para la Etapa de Estructura vence en 5 días",
-    lastUpdated: "2026-08-02",
-    status: "Translated",
-  },
-  {
-    id: "TR-004",
-    key: "warranty.report_defect_prompt",
-    category: "Warranty",
-    enAU: "Submit maintenance items with photos within your 90-day defect liability period",
-    zhCN: "请在90天保修期内提交带有照片的维修项目",
-    viVN: "Gửi các mục bảo trì kèm ảnh trong thời hạn bảo hành 90 ngày",
-    esES: "Envíe los elementos de mantenimiento con fotos dentro de su período de garantía de 90 días",
-    lastUpdated: "2026-07-15",
-    status: "Translated",
-  },
-  {
-    id: "TR-005",
-    key: "ai.ask_assistant_placeholder",
-    category: "AI Assistant",
-    enAU: "Ask questions about your build, PCI inspections, or variations...",
-    zhCN: "询问关于您的房屋建造、PCI验收或变更的问题...",
-    viVN: "Đặt câu hỏi về công trình, kiểm tra PCI, hoặc thay đổi...",
-    esES: "Haga preguntas sobre su construcción, inspecciones PCI o variaciones...",
-    lastUpdated: "2026-08-04",
-    status: "Translated",
-  },
-  {
-    id: "TR-006",
-    key: "stage.lockup_delayed_weather",
-    category: "Progress",
-    enAU: "Lockup stage extended due to severe weather delays in Melbourne Metro",
-    zhCN: "因墨尔本大都会区恶劣天气延误，封顶阶段已延长",
-    viVN: "Giai đoạn đóng cửa kéo dài do thời tiết xấu ở Melbourne Metro",
-    esES: "Etapa de cerramiento extendida debido a demasías por mal tiempo en Melbourne Metro",
-    lastUpdated: "2026-08-05",
-    status: "Pending Review",
-  },
-];
+const DEFAULT_KEYS: TranslationKey[] = [];
 
 async function readLocalisationRecords(): Promise<CompanyLocalisationRecord[]> {
   try {

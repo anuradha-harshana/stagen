@@ -21,8 +21,9 @@ import { Project } from "@/lib/types/project";
 interface ProjectCardProps {
   project: Project;
   onViewDetails: (project: Project) => void;
-  onEdit: (project: Project) => void;
-  onDelete: (project: Project) => void;
+  onEdit?: (project: Project) => void;
+  onDelete?: (project: Project) => void;
+  onTrackProgress?: (project: Project) => void;
 }
 
 export default function ProjectCard({
@@ -30,6 +31,7 @@ export default function ProjectCard({
   onViewDetails,
   onEdit,
   onDelete,
+  onTrackProgress,
 }: ProjectCardProps) {
   const activeStage = project.stages.find((s) => s.status === "Active")?.name || project.currentStage;
   const delayCount = project.delays?.length || 0;
@@ -141,30 +143,45 @@ export default function ProjectCard({
 
         {/* Buttons */}
         <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => onEdit(project)}
-            className="border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 text-xs font-semibold h-8 rounded-xl flex items-center gap-1"
-          >
-            <Edit2 className="h-3.5 w-3.5" />
-            <span>Edit</span>
-          </Button>
+          {onEdit && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onEdit(project)}
+              className="border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 text-xs font-semibold h-8 rounded-xl flex items-center gap-1 cursor-pointer"
+            >
+              <Edit2 className="h-3.5 w-3.5" />
+              <span>Edit</span>
+            </Button>
+          )}
 
-          <Button
-            size="icon"
-            variant="outline"
-            onClick={() => onDelete(project)}
-            className="border-red-200 text-red-600 hover:bg-red-50 h-8 w-8 rounded-xl"
-            title="Delete project"
-          >
-            <Trash2 className="h-3.5 w-3.5" />
-          </Button>
+          {onDelete && (
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={() => onDelete(project)}
+              className="border-red-200 text-red-600 hover:bg-red-50 h-8 w-8 rounded-xl cursor-pointer"
+              title="Delete project"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+            </Button>
+          )}
+
+          {onTrackProgress && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onTrackProgress(project)}
+              className="border-truffle-trouble/30 text-truffle-trouble hover:bg-truffle-trouble/10 text-xs font-semibold h-8 rounded-xl flex items-center gap-1 cursor-pointer"
+            >
+              <span>Track Stage</span>
+            </Button>
+          )}
 
           <Button
             size="sm"
             onClick={() => onViewDetails(project)}
-            className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/85 text-xs font-semibold h-8 rounded-xl flex items-center gap-1.5"
+            className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/85 text-xs font-semibold h-8 rounded-xl flex items-center gap-1.5 cursor-pointer"
           >
             <span>Details</span>
             <ChevronRight className="h-3.5 w-3.5" />

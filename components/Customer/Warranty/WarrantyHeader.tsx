@@ -1,6 +1,14 @@
 import { ShieldCheck } from "lucide-react"
 
-export function WarrantyHeader() {
+interface WarrantyHeaderProps {
+  activeCount?: number;
+  scheduledCount?: number;
+}
+
+export function WarrantyHeader({
+  activeCount = 4,
+  scheduledCount = 1,
+}: WarrantyHeaderProps) {
   return (
     <div className="flex items-start justify-between flex-wrap gap-4 pb-4 border-b border-blue-fantastic/15 font-sans">
       <div className="flex items-center gap-3">
@@ -21,11 +29,15 @@ export function WarrantyHeader() {
       <div className="flex gap-2 flex-wrap">
         <div className="flex items-center gap-1.5 rounded-full border border-blue-fantastic/15 bg-blue-fantastic/5 px-3 py-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-truffle-trouble" />
-          <span className="text-xs text-blue-fantastic font-semibold">4 Active Warranties</span>
+          <span className="text-xs text-blue-fantastic font-semibold">
+            {activeCount} Active Warrant{activeCount === 1 ? "y" : "ies"}
+          </span>
         </div>
         <div className="flex items-center gap-1.5 rounded-full border border-blue-fantastic/15 bg-blue-fantastic/5 px-3 py-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-truffle-trouble" />
-          <span className="text-xs text-blue-fantastic font-semibold">1 Scheduled Service</span>
+          <span className="text-xs text-blue-fantastic font-semibold">
+            {scheduledCount} Scheduled Service{scheduledCount === 1 ? "" : "s"}
+          </span>
         </div>
       </div>
     </div>

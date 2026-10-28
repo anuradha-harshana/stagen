@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   typescript: {
-    // Ignore build errors from empty placeholder files in other customer routes
-    ignoreBuildErrors: true,
+    // Verify application types during production builds.
+    ignoreBuildErrors: false,
   },
 };
 

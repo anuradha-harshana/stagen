@@ -1,97 +1,35 @@
 "use client"
 
 import React, { useState } from "react"
-import { X, Check, Sparkles, ShieldCheck } from "lucide-react"
+import { X, Check, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { toast } from "sonner"
 import { BillingPlan } from "./types"
 
 interface UpgradePlanModalProps {
+  plans?: BillingPlan[]
   isOpen: boolean
   currentPlanName: string
   onClose: () => void
   onSelectPlan: (plan: BillingPlan) => void
 }
 
-const AVAILABLE_PLANS: BillingPlan[] = [
-  {
-    id: "plan-starter",
-    name: "Starter",
-    price: 199,
-    billingCycle: "Monthly",
-    description: "Ideal for small builders and emerging contractors.",
-    features: [
-      "Up to 5 active site licences",
-      "Standard document management",
-      "Email support",
-      "Basic reporting & audit logs",
-    ],
-  },
-  {
-    id: "plan-pro",
-    name: "Pro Standard",
-    price: 299,
-    billingCycle: "Monthly",
-    description: "For growing construction firms with multi-site operations.",
-    features: [
-      "Up to 10 active site licences",
-      "Advanced safety policies & QA",
-      "Priority customer support",
-      "Custom branding & workflows",
-    ],
-  },
-  {
-    id: "plan-enterprise-plus",
-    name: "Enterprise Plus",
-    price: 499,
-    billingCycle: "Monthly",
-    description: "Full suite power for large-scale enterprise developments.",
-    recommended: true,
-    features: [
-      "Up to 15 active site licences",
-      "Unlimited document storage",
-      "24/7 dedicated account supervisor",
-      "Custom stage templates & AI insights",
-      "Full API & Webhook integrations",
-    ],
-  },
-  {
-    id: "plan-ultimate",
-    name: "Unlimited Scale",
-    price: 899,
-    billingCycle: "Monthly",
-    description: "Maximum scale for nationwide home builders.",
-    features: [
-      "Up to 50 active site licences",
-      "Dedicated infrastructure & SLAs",
-      "Multi-subsidiary management",
-      "Custom SSO & security controls",
-      "Quarterly strategy reviews",
-    ],
-  },
-]
 
 export function UpgradePlanModal({
+  plans: AVAILABLE_PLANS = [],
   isOpen,
   currentPlanName,
   onClose,
   onSelectPlan,
 }: UpgradePlanModalProps) {
-  const [selectedPlanId, setSelectedPlanId] = useState<string>("plan-enterprise-plus")
-  const [isAnnual, setIsAnnual] = useState(false)
+  const [selectedPlanId, setSelectedPlanId] = useState<string>("")
 
   if (!isOpen) return null
 
   const handleConfirm = () => {
     const targetPlan = AVAILABLE_PLANS.find((p) => p.id === selectedPlanId)
     if (targetPlan) {
-      const finalPlan = {
-        ...targetPlan,
-        price: isAnnual ? Math.round(targetPlan.price * 0.85) : targetPlan.price,
-        billingCycle: (isAnnual ? "Annual" : "Monthly") as "Monthly" | "Annual",
-      }
-      onSelectPlan(finalPlan)
-      toast.success(`Successfully updated subscription to ${targetPlan.name}!`)
+      onSelectPlan(targetPlan)
+
       onClose()
     }
   }
@@ -122,41 +60,15 @@ export function UpgradePlanModal({
           </button>
         </div>
 
+        {!AVAILABLE_PLANS.length && <p className="p-6">No subscription plans configured.</p>}
         {/* Content */}
         <div className="p-6 overflow-y-auto space-y-6">
-          {/* Annual vs Monthly Toggle */}
-          <div className="flex items-center justify-center gap-3">
-            <span className={`text-xs font-bold ${!isAnnual ? "text-blue-fantastic" : "text-neutral-400"}`}>
-              Monthly Billing
-            </span>
-            <button
-              onClick={() => setIsAnnual(!isAnnual)}
-              className={`w-12 h-6.5 rounded-full p-1 transition-colors cursor-pointer ${
-                isAnnual ? "bg-blue-fantastic" : "bg-neutral-200"
-              }`}
-            >
-              <div
-                className={`w-4.5 h-4.5 rounded-full bg-white transition-transform ${
-                  isAnnual ? "translate-x-5.5" : "translate-x-0"
-                }`}
-              />
-            </button>
-            <div className="flex items-center gap-1.5">
-              <span className={`text-xs font-bold ${isAnnual ? "text-blue-fantastic" : "text-neutral-400"}`}>
-                Annual Billing
-              </span>
-              <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">
-                Save 15%
-              </span>
-            </div>
-          </div>
-
           {/* Grid of Plans */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {AVAILABLE_PLANS.map((plan) => {
               const isCurrent = plan.name === currentPlanName
               const isSelected = plan.id === selectedPlanId
-              const displayPrice = isAnnual ? Math.round(plan.price * 0.85) : plan.price
+              const displayPrice = plan.price
 
               return (
                 <div
@@ -191,7 +103,7 @@ export function UpgradePlanModal({
                       <span className="text-2xl font-bold text-blue-fantastic">
                         ${displayPrice}
                       </span>
-                      <span className="text-xs text-neutral-400 font-normal">/mo</span>
+                      <span className="text-xs text-neutral-400 font-normal">{plan.billingCycle === "Annual" ? "/year" : "/month"}</span>
                     </div>
 
                     <ul className="space-y-2 mb-4 border-t border-neutral-100 pt-3">
@@ -231,6 +143,7 @@ export function UpgradePlanModal({
             Cancel
           </Button>
           <Button
+            disabled={!selectedPlanId}
             onClick={handleConfirm}
             className="h-10 px-5 bg-burning-flame text-blue-fantastic hover:bg-burning-flame/90 text-xs font-bold rounded-xl shadow-sm cursor-pointer"
           >

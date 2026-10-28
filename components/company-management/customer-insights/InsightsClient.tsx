@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { INITIAL_PROJECTS, Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
+import { fetchCompanyProjectsAction, replyToCompanyQuestionAction } from "@/lib/company/actions";
 
 import InsightsHeader from "./InsightsHeader";
 import InsightsStats from "./InsightsStats";
@@ -9,31 +10,33 @@ import QuestionsFeed, { CustomerQuery } from "./QuestionsFed";
 import TopicInsights from "./TopicInsights";
 import ReplyModal from "./ReplyModel";
 
-export default function CustomerInsightsClient() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isHydrated, setIsHydrated] = useState(false);
+interface CustomerInsightsClientProps {
+  initialProjects?: Project[];
+}
+
+export default function CustomerInsightsClient({ initialProjects }: CustomerInsightsClientProps) {
+  const [projects, setProjects] = useState<Project[]>(initialProjects || []);
   const [selectedQuery, setSelectedQuery] = useState<CustomerQuery | null>(null);
+  const [loading, setLoading] = useState(!initialProjects || initialProjects.length === 0);
 
   useEffect(() => {
-    const saved = localStorage.getItem("stagen_company_projects");
-    if (saved) {
+    async function loadData() {
       try {
-        setProjects(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse projects from localStorage", e);
-        setProjects(INITIAL_PROJECTS);
+        const data = await fetchCompanyProjectsAction();
+        if (data && data.length > 0) {
+          setProjects(data);
+        }
+      } catch (err) {
+        console.error("Failed to load company projects for customer insights:", err);
+      } finally {
+        setLoading(false);
       }
-    } else {
-      setProjects(INITIAL_PROJECTS);
     }
-    setIsHydrated(true);
-  }, []);
 
-  useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem("stagen_company_projects", JSON.stringify(projects));
+    if (!initialProjects || initialProjects.length === 0) {
+      loadData();
     }
-  }, [projects, isHydrated]);
+  }, [initialProjects]);
 
   // Extract queries
   const queries: CustomerQuery[] = projects.flatMap((p) =>
@@ -51,7 +54,8 @@ export default function CustomerInsightsClient() {
 
   const pendingCount = queries.filter((q) => !q.replied).length;
 
-  const handleSendReply = (questionId: string, replyText: string) => {
+  const handleSendReply = async (questionId: string, replyText: string) => {
+    // 1. Optimistic UI update
     const nextProjects = projects.map((p) => {
       const hasQuestion = (p.questions || []).some((q) => q.id === questionId);
       if (!hasQuestion) return p;
@@ -68,10 +72,20 @@ export default function CustomerInsightsClient() {
 
     setProjects(nextProjects);
     setSelectedQuery(null);
+
+    // 2. Persist to JSON file via server action
+    try {
+      const updated = await replyToCompanyQuestionAction(questionId, replyText);
+      if (updated) {
+        setProjects(updated);
+      }
+    } catch (err) {
+      console.error("Failed to save reply to JSON file:", err);
+    }
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header */}
       <InsightsHeader />
 

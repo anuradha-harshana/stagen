@@ -121,7 +121,7 @@ function SupervisorStageEditorDraft({
                 Manage {stage.name} Stage
               </h3>
               <p className="text-xs text-blue-fantastic/60 font-sans">
-                Update status, dates & milestone markers
+                Update dates and milestones. Complete checklists in Stage Updates.
               </p>
             </div>
           </div>
@@ -145,19 +145,19 @@ function SupervisorStageEditorDraft({
                 <SelectValue placeholder="Select Status..." />
               </SelectTrigger>
               <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
-                <SelectItem value="upcoming" className="text-xs cursor-pointer">
+                <SelectItem disabled={stage.status !== "upcoming"} value="upcoming" className="text-xs cursor-pointer">
                   ⚪ Not Started (Upcoming)
                 </SelectItem>
-                <SelectItem value="in-progress" className="text-xs cursor-pointer">
+                <SelectItem disabled={!["in-progress", "delayed"].includes(stage.status)} value="in-progress" className="text-xs cursor-pointer">
                   🔵 Active Build (In Progress)
                 </SelectItem>
-                <SelectItem value="completed-on-time" className="text-xs cursor-pointer text-emerald-700">
+                <SelectItem disabled={!stage.status.startsWith("completed")} value="completed-on-time" className="text-xs cursor-pointer text-emerald-700">
                   🟢 Completed On-Time
                 </SelectItem>
-                <SelectItem value="completed-late" className="text-xs cursor-pointer text-amber-700">
+                <SelectItem disabled={!stage.status.startsWith("completed")} value="completed-late" className="text-xs cursor-pointer text-amber-700">
                   🟠 Completed Late
                 </SelectItem>
-                <SelectItem value="delayed" className="text-xs cursor-pointer text-red-700">
+                <SelectItem disabled={!["in-progress", "delayed"].includes(stage.status)} value="delayed" className="text-xs cursor-pointer text-red-700">
                   🔴 Projected Delay
                 </SelectItem>
               </SelectContent>
@@ -174,6 +174,8 @@ function SupervisorStageEditorDraft({
               <label className="block text-[10px] font-bold text-blue-fantastic/70 uppercase mb-0.5">Actual/Est. Start</label>
               <Input
                 type="date"
+                aria-label="Actual start date"
+                max={actualEnd || undefined}
                 value={actualStart}
                 onChange={(e) => setActualStart(e.target.value)}
                 className="bg-white border-blue-fantastic/20 text-blue-fantastic h-7 text-xs font-sans rounded-lg"
@@ -191,6 +193,8 @@ function SupervisorStageEditorDraft({
               <label className="block text-[10px] font-bold text-truffle-trouble uppercase mb-0.5">Actual/Est. End</label>
               <Input
                 type="date"
+                aria-label="Actual or estimated end date"
+                min={actualStart || undefined}
                 value={actualEnd}
                 onChange={(e) => setActualEnd(e.target.value)}
                 className="bg-white border-truffle-trouble/30 text-blue-fantastic h-7 text-xs font-sans rounded-lg"
@@ -227,6 +231,7 @@ function SupervisorStageEditorDraft({
                 <div className="grid grid-cols-2 gap-2">
                   <Input
                     type="date"
+                    aria-label="Milestone date"
                     value={newMilestoneDate}
                     onChange={(e) => setNewMilestoneDate(e.target.value)}
                     className="bg-white border-blue-fantastic/20 text-xs h-7 rounded-lg"

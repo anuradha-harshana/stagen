@@ -1,83 +1,54 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useCallback } from "react"
+import { toast } from "sonner"
 import { NotificationHeader } from "./NotificationHeader"
 import { NotificationList } from "./NotificationList"
 import { NotificationSidebar } from "./NotificationSidebar"
 import { FilterCategory } from "./NotificationFilter"
 import { NotificationItem } from "./NotificationCard"
+import { Loader2 } from "lucide-react"
 
-const INITIAL_NOTIFICATIONS: NotificationItem[] = [
-  {
-    id: "1",
-    title: "Frame stage completed",
-    description: "The Frame stage has been marked as completed by your site supervisor. Quality inspection passed.",
-    time: "10 mins ago",
-    category: "Progress Updates",
-    read: false,
-  },
-  {
-    id: "2",
-    title: "New photos uploaded",
-    description: "5 new site progress photos were added to your project documents gallery.",
-    time: "1 hour ago",
-    category: "Progress Updates",
-    read: false,
-  },
-  {
-    id: "3",
-    title: "Invoice #INV-2024-0456 issued",
-    description: "A new stage payment invoice of $12,450.00 is ready for review and payment.",
-    time: "3 hours ago",
-    category: "Invoices & Payments",
-    read: false,
-  },
-  {
-    id: "4",
-    title: "Plumbing inspection scheduled",
-    description: "Pre-lining plumbing & drainage inspection confirmed for Thursday, 10:00 AM.",
-    time: "Yesterday",
-    category: "Inspections",
-    read: false,
-  },
-  {
-    id: "5",
-    title: "Warranty issue updated",
-    description: "Technician assigned to repair minor tile hairline defect reported in master ensuite.",
-    time: "2 days ago",
-    category: "Warranty",
-    read: true,
-  },
-  {
-    id: "6",
-    title: "System maintenance complete",
-    description: "Customer portal system updates and performance enhancements have been deployed.",
-    time: "3 days ago",
-    category: "System",
-    read: true,
-  },
-  {
-    id: "7",
-    title: "Variation Order #1 approved",
-    description: "Kitchen island extension variation order signed and updated in project schedule.",
-    time: "4 days ago",
-    category: "Invoices & Payments",
-    read: true,
-  },
-  {
-    id: "8",
-    title: "Site meeting request received",
-    description: "Supervisor requested site walk-through to review electrical layout locations.",
-    time: "5 days ago",
-    category: "Inspections",
-    read: true,
-  },
-]
+export interface NotificationContainerProps {
+  initialNotifications?: NotificationItem[]
+}
 
-export function NotificationContainer() {
-  const [notifications, setNotifications] = useState<NotificationItem[]>(INITIAL_NOTIFICATIONS)
+export function NotificationContainer({
+  initialNotifications,
+}: NotificationContainerProps = {}) {
+  const [notifications, setNotifications] = useState<NotificationItem[]>(
+    initialNotifications && initialNotifications.length > 0 ? initialNotifications : []
+  )
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("All")
   const [searchQuery, setSearchQuery] = useState("")
+  const [isLoading, setIsLoading] = useState(
+    !initialNotifications || initialNotifications.length === 0
+  )
+
+  // Fetch notifications from the backend API
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const res = await fetch("/api/customer/notifications")
+      if (res.ok) {
+        const data = await res.json()
+        const items: NotificationItem[] = data.notifications || data || []
+        setNotifications(items)
+      } else if (!initialNotifications || initialNotifications.length === 0) {
+        toast.error("Failed to load notifications from server")
+      }
+    } catch (err) {
+      console.error("Error fetching notifications:", err)
+      if (!initialNotifications || initialNotifications.length === 0) {
+        toast.error("Network error while loading notifications")
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }, [initialNotifications])
+
+  useEffect(() => {
+    fetchNotifications()
+  }, [fetchNotifications])
 
   // Unread count
   const unreadCount = useMemo(() => {
@@ -124,19 +95,93 @@ export function NotificationContainer() {
     })
   }, [notifications, activeFilter, searchQuery])
 
-  // Handlers
-  const handleToggleRead = (id: string | number) => {
+  // Toggle read/unread handler
+  const handleToggleRead = async (id: string | number) => {
+    const idStr = String(id)
+    const target = notifications.find((n) => String(n.id) === idStr)
+    if (!target) return
+
+    const newRead = !target.read
+    const previous = [...notifications]
+
+    // Optimistic UI update
     setNotifications((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, read: !item.read } : item))
+      prev.map((item) => (String(item.id) === idStr ? { ...item, read: newRead } : item))
     )
+
+    try {
+      const res = await fetch("/api/customer/notifications", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: idStr, read: newRead }),
+      })
+
+      if (!res.ok) {
+        throw new Error("Failed to update notification state")
+      }
+
+      toast.success(newRead ? "Marked as read" : "Marked as unread")
+    } catch (err) {
+      // Rollback
+      setNotifications(previous)
+      toast.error("Could not update notification")
+    }
   }
 
-  const handleDelete = (id: string | number) => {
-    setNotifications((prev) => prev.filter((item) => item.id !== id))
+  // Delete notification handler
+  const handleDelete = async (id: string | number) => {
+    const idStr = String(id)
+    const target = notifications.find((n) => String(n.id) === idStr)
+    if (!target) return
+
+    const previous = [...notifications]
+
+    // Optimistic UI update
+    setNotifications((prev) => prev.filter((item) => String(item.id) !== idStr))
+
+    try {
+      const res = await fetch(`/api/customer/notifications?id=${encodeURIComponent(idStr)}`, {
+        method: "DELETE",
+      })
+
+      if (!res.ok) {
+        throw new Error("Failed to delete notification")
+      }
+
+      toast.info("Notification removed")
+    } catch (err) {
+      // Rollback
+      setNotifications(previous)
+      toast.error("Could not delete notification")
+    }
   }
 
-  const handleMarkAllAsRead = () => {
+  // Mark all as read handler
+  const handleMarkAllAsRead = async () => {
+    if (unreadCount === 0) return
+
+    const previous = [...notifications]
+
+    // Optimistic UI update
     setNotifications((prev) => prev.map((item) => ({ ...item, read: true })))
+
+    try {
+      const res = await fetch("/api/customer/notifications", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ all: true }),
+      })
+
+      if (!res.ok) {
+        throw new Error("Failed to mark all as read")
+      }
+
+      toast.success("All notifications marked as read")
+    } catch (err) {
+      // Rollback
+      setNotifications(previous)
+      toast.error("Could not mark all as read")
+    }
   }
 
   return (
@@ -152,12 +197,21 @@ export function NotificationContainer() {
       <div className="flex flex-col lg:flex-row gap-4 w-full items-start">
         {/* Main Feed */}
         <main className="flex-1 min-w-0 w-full">
-          <NotificationList
-            notifications={filteredNotifications}
-            onToggleRead={handleToggleRead}
-            onDelete={handleDelete}
-            onMarkAllAsRead={handleMarkAllAsRead}
-          />
+          {isLoading ? (
+            <div className="bg-white border border-blue-fantastic/15 shadow-sm rounded-2xl p-12 flex flex-col items-center justify-center gap-3">
+              <Loader2 className="h-6 w-6 animate-spin text-burning-flame" />
+              <p className="text-sm font-semibold text-blue-fantastic/70">
+                Loading notifications...
+              </p>
+            </div>
+          ) : (
+            <NotificationList
+              notifications={filteredNotifications}
+              onToggleRead={handleToggleRead}
+              onDelete={handleDelete}
+              onMarkAllAsRead={handleMarkAllAsRead}
+            />
+          )}
         </main>
 
         {/* Sub Sidebar */}

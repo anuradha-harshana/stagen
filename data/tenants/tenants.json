@@ -13,11 +13,11 @@
     "est_handover": "Nov 15, 2026",
     "image_gradient": "from-blue-fantastic/40 to-abyssal-blue/80",
     "contract_value": 485000,
-    "amount_paid": 218250,
+    "amount_paid": 315250,
     "outstanding": 169750,
     "next_due_amount": 97000,
     "next_due_label": "Stage 3 Lock-up",
-    "updated_at": "2026-08-19T09:13:43.056Z"
+    "updated_at": "2026-10-15T04:59:27.438Z"
   },
   {
     "tenant_id": "tenant-lot-901",
@@ -100,5 +100,20 @@
     "outstanding": 0,
     "company_id": "7ab56015-4412-494e-8aff-dbb5095e0095",
     "updated_at": "2026-06-01T15:00:00.000Z"
+  },
+  {
+    "tenant_id": "tenant-lot-1080",
+    "display_name": "Jason Mamoa",
+    "client_user_id": "77eb9763-974d-4d64-902f-65605397b78d",
+    "client_name": "Jason Mamoa",
+    "address": "Lot 104, 12 Harrison Street, Richmond VIC",
+    "status": "On Track",
+    "progress": 0,
+    "current_stage": "Slab",
+    "start_date": "2026-10-28",
+    "est_handover": "2026-10-29",
+    "image_gradient": "from-truffle-trouble/40 to-abyssal-blue/80",
+    "company_id": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "updated_at": "2026-10-28T05:31:31.283Z"
   }
 ]

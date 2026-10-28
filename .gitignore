@@ -23,7 +23,7 @@
 # misc
 .DS_Store
 *.pem
-./data/sessions/sessions.json
+
 
 # debug
 npm-debug.log*
@@ -36,10 +36,11 @@ yarn-error.log*
 
 
 
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-data/sessions/sessions.json
+

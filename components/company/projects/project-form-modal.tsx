@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { toDateInputValue } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -30,6 +31,7 @@ export interface ProjectFormPayload {
   tenant: {
     tenant_id: string;
     display_name: string;
+    client_user_id?: string | null;
     client_name: string;
     address: string;
     status: Project["status"];
@@ -73,25 +75,19 @@ export interface ProjectFormPayload {
 interface ProjectFormModalProps {
   project: Project | null;
   supervisors: Supervisor[];
+  customers: Supervisor[];
   stageTemplates: Stage[];
   isOpen: boolean;
   onClose: () => void;
   onSave: (payload: ProjectFormPayload) => void;
 }
 
-const STAGES = [
-  "Site Cut",
-  "Slab",
-  "Frame",
-  "Lockup",
-  "Fixing",
-  "Completion",
-  "Handover",
-] as const;
+
 
 export default function ProjectFormModal({
   project,
   supervisors,
+  customers,
   stageTemplates,
   isOpen,
   onClose,
@@ -100,6 +96,7 @@ export default function ProjectFormModal({
   const isEdit = !!project;
 
   const [id, setId] = useState("");
+  const [clientUserId, setClientUserId] = useState("");
   const [clientName, setClientName] = useState("");
   const [address, setAddress] = useState("");
 
@@ -121,43 +118,39 @@ export default function ProjectFormModal({
   const [errors, setErrors] =
     useState<Record<string, string>>({});
 
-  const availableStages: string[] = stageTemplates.length > 0
-    ? stageTemplates.map((stage) => stage.name)
-    : [...STAGES];
+  const [selectedStages, setSelectedStages] = useState<string[]>([]);
+  const availableStages = project ? project.stages.map(s => s.name) : selectedStages;
 
   useEffect(() => {
     if (project) {
       setId(project.id);
+      setClientUserId(project.clientUserId ?? "");
       setClientName(project.clientName);
       setAddress(project.address);
       setStatus(project.status);
       setCurrentStage(project.currentStage);
       setProgress(project.progress);
-      setStartDate(project.startDate);
-      setEstHandover(project.estHandover);
+      setStartDate(toDateInputValue(project.startDate));
+      setEstHandover(toDateInputValue(project.estHandover));
 
       // Try to recover supervisor ID from the supplied supervisors list.
       const existingSupervisor = supervisors.find(
         (sup) => sup.username === project.supervisorName
       );
 
-      setSupervisorId(existingSupervisor?.id || "");
+      setSupervisorId(project.supervisorId || existingSupervisor?.id || "");
     } else {
       setId("");
+      setClientUserId("");
       setClientName("");
       setAddress("");
 
       setStatus("On Track");
       setCurrentStage(stageTemplates[0]?.name || "Site Cut");
-      setProgress(5);
+      setProgress(0);
+      setSelectedStages(stageTemplates.map(s => s.name));
 
-      setStartDate(
-        new Date().toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })
-      );
+      setStartDate(toDateInputValue(new Date()));
 
       setEstHandover("");
       setSupervisorId("");
@@ -171,23 +164,13 @@ export default function ProjectFormModal({
   ) => {
     setCurrentStage(stageName);
 
-    const stageProgressDefaults: Record<string, number> = {
-      "Site Cut": 5,
-      Slab: 18,
-      Frame: 45,
-      Lockup: 60,
-      Fixing: 75,
-      Completion: 90,
-      Handover: 98,
-    };
-
-    setProgress(stageProgressDefaults[stageName] ?? progress);
+    setProgress(0);
   };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!id.trim()) {
+    if (isEdit && !id.trim()) {
       newErrors.id = "Lot ID is required";
     }
 
@@ -208,6 +191,8 @@ export default function ProjectFormModal({
         "Estimated Handover is required";
     }
 
+    if (!availableStages.length) newErrors.stages = "Select at least one stage template.";
+    if (!Number.isFinite(Date.parse(startDate)) || !Number.isFinite(Date.parse(estHandover)) || Date.parse(estHandover) < Date.parse(startDate)) newErrors.estHandover = "Enter valid dates, with handover after start.";
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
@@ -216,7 +201,7 @@ export default function ProjectFormModal({
   const handleSave = () => {
     if (!validate()) return;
 
-    const tenantId = id.trim();
+    const tenantId = isEdit ? id.trim() : "new";
 
     /*
      * ---------------------------------------------------------
@@ -230,11 +215,10 @@ export default function ProjectFormModal({
      */
     const originalStages =
       project?.stages ||
-      (stageTemplates.length > 0
-        ? stageTemplates
-        : getDefaultStages());
+      stageTemplates.filter(s => selectedStages.includes(s.name));
 
     const updatedStages = originalStages.map((stage) => {
+      if (project && currentStage === project.currentStage && progress === project.progress) return stage;
       const stageIndex = availableStages.indexOf(stage.name);
 
       const currentIndex = availableStages.indexOf(currentStage);
@@ -250,7 +234,7 @@ export default function ProjectFormModal({
 
         // Keep the current overall project progress for
         // the current stage rather than forcing it to 50%.
-        stageProgress = progress;
+        stageProgress = stage.progress;
       } else {
         newStatus = "Pending";
         stageProgress = 0;
@@ -293,13 +277,14 @@ export default function ProjectFormModal({
      *
      * This keeps compatibility with the existing dashboard.
      */
+    const overallProgress = updatedStages.length ? Math.round(updatedStages.reduce((n, s) => n + s.progress, 0) / updatedStages.length) : 0;
     const savedProject: Project = {
       id: tenantId,
       clientName: clientName.trim(),
       address: address.trim(),
       status,
       currentStage,
-      progress,
+      progress: overallProgress,
       startDate: startDate.trim(),
       estHandover: estHandover.trim(),
 
@@ -313,6 +298,7 @@ export default function ProjectFormModal({
       delays: project?.delays || [],
       questions: project?.questions || [],
 
+      supervisorId: selectedSupervisor?.id,
       supervisorName:
         selectedSupervisor?.username || undefined,
     };
@@ -329,13 +315,14 @@ export default function ProjectFormModal({
       // display-name convention.
       display_name: clientName.trim(),
 
+      client_user_id: clientUserId || null,
       client_name: clientName.trim(),
 
       address: address.trim(),
 
       status,
 
-      progress,
+      progress: overallProgress,
 
       current_stage: currentStage,
 
@@ -373,7 +360,7 @@ export default function ProjectFormModal({
     const timeline = {
       tenant_id: tenantId,
 
-      percentage: progress,
+      percentage: overallProgress,
 
       start_date: startDate.trim(),
 
@@ -439,16 +426,16 @@ export default function ProjectFormModal({
         !open && onClose()
       }
     >
-      <div className="flex justify-center">
+
         <DialogContent
           className="
-            max-w-[60vw]
+            w-full max-w-2xl
             bg-white
             text-blue-fantastic
             font-sans
             border
             border-blue-fantastic/20
-            max-h-[100vh]
+            max-h-[calc(100dvh-3rem)]
             overflow-y-auto
             no-scrollbar
             rounded-2xl
@@ -483,19 +470,15 @@ export default function ProjectFormModal({
                 htmlFor="id"
                 className="text-xs font-bold text-blue-fantastic/70"
               >
-                Lot ID / Project ID
+                Project ID
               </Label>
 
               <Input
                 id="id"
-                placeholder="e.g. lot-104"
+                placeholder="Generated automatically when created"
                 value={id}
-                onChange={(e) =>
-                  setId(
-                    e.target.value.toLowerCase()
-                  )
-                }
-                disabled={isEdit}
+                readOnly
+                aria-describedby="project-id-hint"
                 className={`bg-white border-blue-fantastic/15 text-blue-fantastic h-9 focus-visible:ring-truffle-trouble ${
                   errors.id
                     ? "border-red-500"
@@ -503,6 +486,7 @@ export default function ProjectFormModal({
                 }`}
               />
 
+              <p id="project-id-hint" className="text-xs text-blue-fantastic/60">{isEdit ? "This project ID stays unchanged." : "A unique ID will be generated when you create the project."}</p>
               {errors.id && (
                 <p className="text-[10px] text-red-500 font-bold">
                   {errors.id}
@@ -580,6 +564,15 @@ export default function ProjectFormModal({
             {/* SUPERVISOR                                      */}
             {/* ------------------------------------------------ */}
 
+            <div className="space-y-2"><Label>Customer portal account</Label><Select value={clientUserId || "unassigned"} onValueChange={id => { setClientUserId(id === "unassigned" ? "" : id); const customer = customers.find(c => c.id === id); if (customer) setClientName(customer.username); }}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="unassigned">Unassigned</SelectItem>{customers.map(c => <SelectItem key={c.id} value={c.id}>{c.username}</SelectItem>)}</SelectContent></Select><p className="text-xs text-blue-fantastic/60">Choose the customer who can view this project.</p></div>
+            {!project && <fieldset className="space-y-2"><legend className="font-semibold">Stage templates for this project</legend>
+              {stageTemplates.map(stage => <label key={stage.name} className="flex items-center gap-2 text-sm"><input type="checkbox" checked={selectedStages.includes(stage.name)} onChange={e => {
+                const next = stageTemplates.filter(s => s.name === stage.name ? e.target.checked : selectedStages.includes(s.name)).map(s => s.name);
+                setSelectedStages(next); if (!next.includes(currentStage)) setCurrentStage(next[0] ?? "");
+              }} />{stage.name}</label>)}
+              {errors.stages && <p className="text-red-600 text-sm">{errors.stages}</p>}
+              {!stageTemplates.length && <p>Create stage templates before creating a project.</p>}
+            </fieldset>}
             <div className="space-y-1">
               <Label
                 htmlFor="supervisor"
@@ -747,51 +740,6 @@ export default function ProjectFormModal({
             {/* PROGRESS                                         */}
             {/* ------------------------------------------------ */}
 
-            <div className="space-y-1">
-
-              <div
-                className="
-                  flex
-                  justify-between
-                  items-center
-                  text-xs
-                  font-bold
-                  text-blue-fantastic/70
-                "
-              >
-                <Label htmlFor="progress">
-                  Overall Progress
-                </Label>
-
-                <span className="text-truffle-trouble">
-                  {progress}%
-                </span>
-              </div>
-
-              <Input
-                id="progress"
-                type="range"
-                min="0"
-                max="100"
-                value={progress}
-                onChange={(e) =>
-                  setProgress(
-                    Number(e.target.value)
-                  )
-                }
-                className="
-                  accent-truffle-trouble
-                  h-8
-                  w-full
-                  p-0
-                  border-0
-                  bg-transparent
-                  cursor-pointer
-                "
-              />
-            </div>
-
-            {/* ------------------------------------------------ */}
             {/* DATES                                            */}
             {/* ------------------------------------------------ */}
 
@@ -808,7 +756,9 @@ export default function ProjectFormModal({
 
                 <Input
                   id="startDate"
-                  placeholder="e.g. Mar 10, 2026"
+                  type="date"
+                  required
+                  max={estHandover || undefined}
                   value={startDate}
                   onChange={(e) =>
                     setStartDate(
@@ -840,7 +790,9 @@ export default function ProjectFormModal({
 
                 <Input
                   id="estHandover"
-                  placeholder="e.g. Nov 15, 2026"
+                  type="date"
+                  required
+                  min={startDate || undefined}
                   value={estHandover}
                   onChange={(e) =>
                     setEstHandover(
@@ -914,7 +866,6 @@ export default function ProjectFormModal({
             </Button>
           </div>
         </DialogContent>
-      </div>
     </Dialog>
   );
 }
@@ -934,13 +885,4 @@ function getRandomGradient() {
   return gradients[
     Math.floor(Math.random() * gradients.length)
   ];
-}
-
-function getDefaultStages(): Stage[] {
-  return STAGES.map((name) => ({
-    name,
-    status: "Pending" as const,
-    progress: 0,
-    checklist: [],
-  }));
 }

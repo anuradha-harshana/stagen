@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { TimelineStage, TimelinePageData } from "@/lib/timeline/data";
+import { TimelineStage, TimelinePageData } from "@/lib/customer/timelineTypes";
 import TimelineBar from "./TimelineBar";
 import MilestoneMarker from "./MilestoneMarker";
 import { ZoomScale } from "./ZoomToggle";
@@ -95,7 +95,7 @@ export default function GanttChart({
 
     if (zoomScale === "week") {
       // Columns every Monday
-      let current = new Date(minDate);
+      const current = new Date(minDate);
       // Move to next Monday
       current.setDate(current.getDate() + ((1 + 7 - current.getDay()) % 7));
       
@@ -109,7 +109,7 @@ export default function GanttChart({
       }
     } else {
       // Month scale or Project scale (Columns at start of each month)
-      let current = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+      const current = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
       if (current.getTime() < minTime) {
         current.setMonth(current.getMonth() + 1);
       }

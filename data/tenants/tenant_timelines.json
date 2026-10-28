@@ -58,5 +58,15 @@
     "status_flag": "on-track",
     "delay_days": 0,
     "stages": []
+  },
+  {
+    "tenant_id": "tenant-lot-1080",
+    "percentage": 0,
+    "start_date": "2026-10-28",
+    "original_est_completion": "2026-10-29",
+    "current_projected_completion": "2026-10-29",
+    "status_flag": "on-track",
+    "delay_days": 0,
+    "stages": []
   }
 ]

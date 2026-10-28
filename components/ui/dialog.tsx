@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { createPortal } from "react-dom"
 import { X } from "lucide-react"
 
 interface DialogProps {
@@ -14,20 +15,16 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
   React.useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
     }
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
+    return () => { if (open) document.body.style.overflow = 'unset' }
   }, [open])
 
-  if (!open) return null
+  if (!open || typeof document === "undefined") return null
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-abyssal-blue/65 backdrop-blur-sm transition-opacity duration-300"
         onClick={() => onOpenChange?.(false)}
       />
@@ -35,14 +32,14 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
       <div className="relative z-10 w-full max-w-2xl transition-transform duration-300">
         {React.Children.map(children, child => {
           if (React.isValidElement(child)) {
-            return React.cloneElement(child as React.ReactElement<any>, { 
-              onClose: () => onOpenChange?.(false) 
+            return React.cloneElement(child as React.ReactElement<any>, {
+              onClose: () => onOpenChange?.(false)
             })
           }
           return child
         })}
       </div>
-    </div>
+    </div>, document.body
   )
 }
 
@@ -54,7 +51,7 @@ export function DialogContent({ className, children, onClose, ...props }: Dialog
   return (
     <div
       className={cn(
-        "relative flex flex-col gap-4 rounded-3xl bg-white border border-blue-fantastic/20 p-6 shadow-lg outline-none",
+        "relative max-h-[calc(100dvh-3rem)] overflow-y-auto flex flex-col gap-4 rounded-3xl bg-white border border-blue-fantastic/20 p-6 shadow-lg outline-none",
         className
       )}
       {...props}

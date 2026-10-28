@@ -2,16 +2,16 @@
 
 import { useSupervisorData, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState, useRef } from "react";
-import { 
-  Camera, 
-  Building2, 
-  Search, 
-  Filter, 
-  Plus, 
-  ChevronDown, 
-  ChevronUp, 
-  CheckCircle2, 
-  Clock, 
+import {
+  Camera,
+  Building2,
+  Search,
+  Filter,
+  Plus,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle2,
+  Clock,
   AlertCircle,
   FileImage,
   FolderOpen,
@@ -33,11 +33,11 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useUser } from "@/components/Providers/UserProvider";
-import { Project } from "@/lib/db-mock/projectsData";
-import { 
-  SitePhoto, 
-  STAGE_NAMES, 
-  StageName, 
+import { Project } from "@/lib/types/project";
+import {
+  SitePhoto,
+  STAGE_NAMES,
+  StageName,
 } from "./site-photos-store";
 import { PhotoUploadZone } from "@/components/supervisor/photos/PhotoUploadZone";
 import { PhotoGalleryGrid } from "@/components/supervisor/photos/PhotoGalleryGrid";
@@ -58,7 +58,7 @@ export default function SupervisorSitePhotosPage() {
   const { data: photos, setData: setPhotos } = api;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStageFilter, setSelectedStageFilter] = useState<string>("All");
-  
+
   // Track open state for upload zones per stage
   const [activeUploadStage, setActiveUploadStage] = useState<string | null>(null);
 

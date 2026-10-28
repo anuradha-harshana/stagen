@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { INITIAL_PROJECTS, Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 import { Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { fetchCompanyProjectsAction, reassignSupervisorAction } from "@/lib/company/actions";
 
 import WorkloadHeader from "./WorkloadHeader";
 import WorkloadStats from "./WorloadStats";
@@ -13,37 +14,34 @@ import ReassignModal from "./ReassignModal";
 
 interface WorkloadClientProps {
   dbSupervisors: string[];
+  initialProjects?: Project[];
 }
 
-export default function WorkloadClient({ dbSupervisors }: WorkloadClientProps) {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isHydrated, setIsHydrated] = useState(false);
+export default function WorkloadClient({ dbSupervisors, initialProjects }: WorkloadClientProps) {
+  const [projects, setProjects] = useState<Project[]>(initialProjects || []);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const supervisors = Array.from(new Set([...dbSupervisors, "Eric", "John"]));
+  const supervisors = Array.from(new Set(dbSupervisors));
 
   useEffect(() => {
-    const saved = localStorage.getItem("stagen_company_projects");
-    if (saved) {
+    async function loadData() {
       try {
-        setProjects(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse projects from localStorage", e);
-        setProjects(INITIAL_PROJECTS);
+        const data = await fetchCompanyProjectsAction();
+        if (data && data.length > 0) {
+          setProjects(data);
+        }
+      } catch (err) {
+        console.error("Failed to load company projects for supervisor workload:", err);
       }
-    } else {
-      setProjects(INITIAL_PROJECTS);
     }
-    setIsHydrated(true);
-  }, []);
 
-  useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem("stagen_company_projects", JSON.stringify(projects));
+    if (!initialProjects || initialProjects.length === 0) {
+      loadData();
     }
-  }, [projects, isHydrated]);
+  }, [initialProjects]);
 
-  const handleReassign = (projectId: string, supervisorName: string) => {
+  const handleReassign = async (projectId: string, supervisorName: string) => {
+    // 1. Optimistic UI update
     const nextProjects = projects.map((p) =>
       p.id === projectId
         ? {
@@ -54,10 +52,21 @@ export default function WorkloadClient({ dbSupervisors }: WorkloadClientProps) {
     );
     setProjects(nextProjects);
     setSelectedProject(null);
+
+    // 2. Persist change to JSON file
+    try {
+      const updated = await reassignSupervisorAction(projectId, supervisorName);
+      if (updated) {
+        setProjects(updated);
+      }
+    } catch (err) {
+      setProjects(projects);
+      console.error("Failed to persist supervisor reassignment to JSON file:", err);
+    }
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header */}
       <WorkloadHeader />
 
