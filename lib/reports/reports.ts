@@ -16,135 +16,7 @@ const reportsFilePath = path.join(
 
 // Fallback data if JSON file is missing or empty
 const defaultFallbackTimeframe: TimeframeReportData = {
-  lastSynchronized: "Today at 09:30 AM",
-  header: {
-    title: "Reports & Analytics",
-    subtitle:
-      "Track site velocity, stage durations, regional performance matrix, and operational efficiency metrics.",
-    exportCsvLabel: "Export CSV",
-    downloadPdfLabel: "Executive PDF Report",
-  },
-  stats: {
-    totalActiveSites: {
-      value: 120,
-      change: "+9% vs previous quarter",
-      trend: "up",
-    },
-    avgStageDuration: {
-      value: "14.2 Days",
-      change: "-8% faster stage completion",
-      trend: "down",
-    },
-    siteCompletionRate: {
-      value: "84.5%",
-      change: "+3.2% on-time milestone delivery",
-      trend: "up",
-    },
-    operationalScore: {
-      value: 94,
-      max: 100,
-      label: "High Efficiency Rating",
-    },
-  },
-  monthlyTrends: [
-    { month: "Jan", scheduled: 28, completed: 24 },
-    { month: "Feb", scheduled: 34, completed: 31 },
-    { month: "Mar", scheduled: 38, completed: 36 },
-    { month: "Apr", scheduled: 32, completed: 29 },
-    { month: "May", scheduled: 42, completed: 40 },
-    { month: "Jun", scheduled: 45, completed: 43 },
-  ],
-  stageDurations: [
-    {
-      stage: "Base Slab & Foundation",
-      days: "12 Days",
-      target: "14 Days",
-      status: "Ahead",
-      pct: 85,
-      color: "bg-emerald-500",
-    },
-    {
-      stage: "Frame & Lockup",
-      days: "18 Days",
-      target: "15 Days",
-      status: "Delayed",
-      pct: 110,
-      color: "bg-rose-500",
-    },
-    {
-      stage: "Services & Fitout",
-      days: "14 Days",
-      target: "14 Days",
-      status: "On Track",
-      pct: 100,
-      color: "bg-blue-fantastic",
-    },
-    {
-      stage: "Linings & Carpentry",
-      days: "10 Days",
-      target: "12 Days",
-      status: "Ahead",
-      pct: 83,
-      color: "bg-emerald-500",
-    },
-    {
-      stage: "Practical Completion",
-      days: "7 Days",
-      target: "8 Days",
-      status: "Ahead",
-      pct: 88,
-      color: "bg-emerald-500",
-    },
-  ],
-  bottleneck: {
-    stage: "Frame & Lockup",
-    region: "VIC",
-    delayDays: 3,
-    summary:
-      "Frame & Lockup stage in VIC region averaging +3 days delay due to timber supply chain schedules.",
-  },
-  regionalReports: [
-    {
-      region: "NSW (New South Wales)",
-      code: "NSW",
-      totalSites: 48,
-      activeSites: 38,
-      onTimePct: 92.4,
-      avgDelayDays: 1.8,
-      supervisors: 12,
-      efficiencyScore: 95,
-    },
-    {
-      region: "VIC (Victoria)",
-      code: "VIC",
-      totalSites: 36,
-      activeSites: 28,
-      onTimePct: 81.5,
-      avgDelayDays: 4.2,
-      supervisors: 9,
-      efficiencyScore: 84,
-    },
-    {
-      region: "QLD (Queensland)",
-      code: "QLD",
-      totalSites: 24,
-      activeSites: 18,
-      onTimePct: 88.0,
-      avgDelayDays: 2.5,
-      supervisors: 6,
-      efficiencyScore: 90,
-    },
-    {
-      region: "WA (Western Australia)",
-      code: "WA",
-      totalSites: 12,
-      activeSites: 8,
-      onTimePct: 94.2,
-      avgDelayDays: 1.1,
-      supervisors: 3,
-      efficiencyScore: 97,
-    },
-  ],
+  lastSynchronized: "Not available", stats: { totalActiveSites: { value: 0 }, avgStageDuration: { value: "Not available" }, siteCompletionRate: { value: "Not available" }, operationalScore: { value: 0, max: 100, label: "Not assessed" } }, monthlyTrends: [], stageDurations: [], bottleneck: { stage: "", region: "", delayDays: 0, summary: "No report data" }, regionalReports: []
 };
 
 /**
@@ -187,7 +59,7 @@ export async function getCompanyReports(
   const companyRecord =
     (companyId
       ? records.find((rec) => rec.companyId === companyId)
-      : null) ?? records[0];
+      : null);
 
   const availableTimeframes = companyRecord
     ? Object.keys(companyRecord.timeframes)

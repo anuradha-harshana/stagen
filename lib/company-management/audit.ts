@@ -27,178 +27,13 @@ const auditFilePath = path.join(
   "audit.json"
 );
 
-const DEFAULT_COMPANY_ID = "7ab56015-4412-494e-8aff-dbb5095e0095";
+
 
 export const DEFAULT_AUDIT_DATA: CompanyAuditRecord = {
-  companyId: DEFAULT_COMPANY_ID,
-  companyName: "Build & Co",
-  updatedAt: new Date().toISOString(),
-  stats: {
-    complianceScore: {
-      value: "92%",
-      rating: "Good Standing",
-      description: "ISO 27001 & Safety Verified",
-    },
-    openFlags: {
-      value: 3,
-      rating: "Needs Review",
-      description: "2 Safety, 1 Document Gap",
-    },
-    auditsCompleted: {
-      value: 142,
-      description: "YTD Site & Financial Audits",
-    },
-    dataIntegrityScore: {
-      value: "98.4%",
-      description: "✓ Encrypted & Verified",
-    },
-  },
-  complianceReadiness: {
-    score: 92,
-    rating: "Good Standing",
-    description: "Automated audit rating based on active site compliance policies",
-    categories: [
-      {
-        id: "cat-safety",
-        name: "Site Safety & Hazard Audits",
-        score: 96,
-        color: "emerald",
-      },
-      {
-        id: "cat-docs",
-        name: "Document Verification & Blueprint Sign-offs",
-        score: 94,
-        color: "emerald",
-      },
-      {
-        id: "cat-fin",
-        name: "Financial & Invoice Audit Trail",
-        score: 98,
-        color: "blue",
-      },
-      {
-        id: "cat-workload",
-        name: "Supervisor Workload & Checklists",
-        score: 88,
-        color: "amber",
-      },
-    ],
-    regulatoryFrameworks: [
-      {
-        id: "fw-iso27001",
-        name: "ISO/IEC 27001:2022",
-        standard: "Information Security & Data Integrity",
-        status: "Certified",
-        score: 96,
-        lastAudit: "2026-04-12",
-      },
-      {
-        id: "fw-ncc2026",
-        name: "NCC 2026 / Building Code of Australia",
-        standard: "Structural & Energy Efficiency Compliance",
-        status: "Compliant",
-        score: 94,
-        lastAudit: "2026-05-01",
-      },
-      {
-        id: "fw-whs",
-        name: "Work Health and Safety (WHS) Act 2011",
-        standard: "Site Safety & Subcontractor Induction",
-        status: "Verified",
-        score: 96,
-        lastAudit: "2026-05-10",
-      },
-      {
-        id: "fw-sopa",
-        name: "Security of Payment Act (SOPA)",
-        standard: "Progress Claim & Milestone Integrity",
-        status: "Compliant",
-        score: 98,
-        lastAudit: "2026-05-11",
-      },
-    ],
-  },
-  logs: [
-    {
-      id: "LOG-9041",
-      timestamp: "May 14, 2026 10:24 AM",
-      user: "Sarah Johnson",
-      role: "Company Admin",
-      action: "Updated Project",
-      module: "Projects",
-      details: "P-1028 Stage 4 Lockup completion approved",
-      ipAddress: "203.0.113.42 (Sydney, AU)",
-      severity: "Info",
-    },
-    {
-      id: "LOG-9040",
-      timestamp: "May 14, 2026 09:18 AM",
-      user: "John Smith",
-      role: "Supervisor",
-      action: "Uploaded Document",
-      module: "Documents",
-      details: "Invoice_1038_Signed.pdf uploaded to site B-402",
-      ipAddress: "198.51.100.18 (Melbourne, AU)",
-      severity: "Info",
-    },
-    {
-      id: "LOG-9039",
-      timestamp: "May 13, 2026 04:35 PM",
-      user: "Michael Lee",
-      role: "Company Admin",
-      action: "Created Warranty",
-      module: "Warranty",
-      details: "Warranty claim W-2048 registered for Unit 12",
-      ipAddress: "203.0.113.88 (Brisbane, AU)",
-      severity: "Warning",
-    },
-    {
-      id: "LOG-9038",
-      timestamp: "May 13, 2026 02:11 PM",
-      user: "System Security Bot",
-      role: "System",
-      action: "Failed Login Attempt",
-      module: "Settings",
-      details: "Multiple failed password attempts for user ID admin@stagen.com",
-      ipAddress: "198.51.100.201 (Perth, AU)",
-      severity: "Critical",
-    },
-    {
-      id: "LOG-9037",
-      timestamp: "May 12, 2026 11:45 AM",
-      user: "Emma Davis",
-      role: "Financial Officer",
-      action: "Modified Invoice",
-      module: "Billing",
-      details: "Adjusted payment status on INV-2026-077 to Paid",
-      ipAddress: "203.0.113.15 (Sydney, AU)",
-      severity: "Info",
-    },
-    {
-      id: "LOG-9036",
-      timestamp: "May 12, 2026 09:05 AM",
-      user: "David Miller",
-      role: "Supervisor",
-      action: "Deleted Document",
-      module: "Documents",
-      details: "Removed outdated blueprint_v1.pdf from project P-901",
-      ipAddress: "198.51.100.44 (Adelaide, AU)",
-      severity: "Warning",
-    },
-    {
-      id: "LOG-9035",
-      timestamp: "May 11, 2026 03:50 PM",
-      user: "Sarah Johnson",
-      role: "Company Admin",
-      action: "Updated Permissions",
-      module: "Users",
-      details: "Assigned Supervisor role to new user ID sup_tom@stagen.com",
-      ipAddress: "203.0.113.42 (Sydney, AU)",
-      severity: "Info",
-    },
-  ],
+  companyId: "", companyName: "", updatedAt: "", logs: [],
+  stats: { complianceScore: { value: "Not assessed" }, openFlags: { value: 0 }, auditsCompleted: { value: 0 }, dataIntegrityScore: { value: "Not assessed" } },
+  complianceReadiness: { score: 0, rating: "Not assessed", description: "No audit data recorded", categories: [], regulatoryFrameworks: [] }
 };
-
 // ── File I/O Helpers ──
 
 export async function readAuditRecords(): Promise<CompanyAuditRecord[]> {
@@ -208,9 +43,9 @@ export async function readAuditRecords(): Promise<CompanyAuditRecord[]> {
     if (Array.isArray(records) && records.length > 0) {
       return records as CompanyAuditRecord[];
     }
-    return [DEFAULT_AUDIT_DATA];
+    return [];
   } catch (error) {
-    return [DEFAULT_AUDIT_DATA];
+    return [];
   }
 }
 
@@ -226,9 +61,9 @@ function findOrCreateCompanyRecord(
   records: CompanyAuditRecord[],
   companyId?: string
 ): CompanyAuditRecord {
-  const targetId = companyId || DEFAULT_COMPANY_ID;
+  const targetId = companyId || "";
   let record = records.find(
-    (r) => r.companyId === targetId || r.companyId === DEFAULT_COMPANY_ID
+    (r) => r.companyId === targetId
   );
 
   if (!record) {
@@ -330,7 +165,7 @@ export async function createAuditLog(
     module: input.module.trim(),
     details: input.details.trim(),
     ipAddress:
-      input.ipAddress?.trim() || "203.0.113.42 (Melbourne, AU)",
+      input.ipAddress?.trim() || "Not recorded",
     severity,
   };
 

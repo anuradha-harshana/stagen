@@ -60,12 +60,7 @@ async function readWarrantyFile(): Promise<TenantWarrantyData | TenantWarrantyDa
     const raw = await fs.readFile(warrantyFilePath, "utf8");
     return JSON.parse(raw);
   } catch (error) {
-    return {
-      tenant_id: "tenant-lot-104",
-      warranties: [],
-      maintenance: [],
-      defects: [],
-    };
+    throw new Error("Unable to read project records");
   }
 }
 
@@ -83,7 +78,7 @@ function resolveTenantRecord(
     const found = all.find((item) => item.tenant_id === tenantId);
     return (
       found ||
-      all[0] || {
+      {
         tenant_id: tenantId,
         warranties: [],
         maintenance: [],
@@ -91,7 +86,8 @@ function resolveTenantRecord(
       }
     );
   }
-  return all;
+  if (all.tenant_id === tenantId) return all;
+  return resolveTenantRecord([], tenantId);
 }
 
 // Helper: Update record within data structure
@@ -109,11 +105,11 @@ function updateWarrantyDataStructure(
     }
     return all;
   }
-  return updated;
+  return all.tenant_id === tenantId ? updated : [all, updated];
 }
 
 // ── 1. READ (GET) ──
-export async function getTenantWarranty(tenantId = "tenant-lot-104"): Promise<TenantWarrantyData> {
+export async function getTenantWarranty(tenantId: string): Promise<TenantWarrantyData> {
   const all = await readWarrantyFile();
   return resolveTenantRecord(all, tenantId);
 }
@@ -121,7 +117,7 @@ export async function getTenantWarranty(tenantId = "tenant-lot-104"): Promise<Te
 // ── 2. DEFECTS CRUD ──
 
 export async function createTenantDefect(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   defectData: Omit<DefectItem, "id" | "reported"> & { reported?: string }
 ): Promise<DefectItem> {
   const all = await readWarrantyFile();
@@ -144,7 +140,7 @@ export async function createTenantDefect(
 }
 
 export async function updateTenantDefect(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   defectId: string,
   updates: Partial<DefectItem>
 ): Promise<DefectItem | null> {
@@ -166,7 +162,7 @@ export async function updateTenantDefect(
 }
 
 export async function deleteTenantDefect(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   defectId: string
 ): Promise<boolean> {
   const all = await readWarrantyFile();
@@ -186,7 +182,7 @@ export async function deleteTenantDefect(
 // ── 3. WARRANTIES CRUD ──
 
 export async function createTenantWarranty(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   warrantyData: Omit<WarrantyItem, "id">
 ): Promise<WarrantyItem> {
   const all = await readWarrantyFile();
@@ -207,7 +203,7 @@ export async function createTenantWarranty(
 }
 
 export async function updateTenantWarranty(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   warrantyId: string,
   updates: Partial<WarrantyItem>
 ): Promise<WarrantyItem | null> {
@@ -229,7 +225,7 @@ export async function updateTenantWarranty(
 }
 
 export async function deleteTenantWarranty(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   warrantyId: string
 ): Promise<boolean> {
   const all = await readWarrantyFile();
@@ -249,7 +245,7 @@ export async function deleteTenantWarranty(
 // ── 4. MAINTENANCE CRUD ──
 
 export async function createTenantMaintenance(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   maintenanceData: Omit<MaintenanceItem, "id">
 ): Promise<MaintenanceItem> {
   const all = await readWarrantyFile();
@@ -270,7 +266,7 @@ export async function createTenantMaintenance(
 }
 
 export async function updateTenantMaintenance(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   maintenanceId: string,
   updates: Partial<MaintenanceItem>
 ): Promise<MaintenanceItem | null> {
@@ -292,7 +288,7 @@ export async function updateTenantMaintenance(
 }
 
 export async function deleteTenantMaintenance(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   maintenanceId: string
 ): Promise<boolean> {
   const all = await readWarrantyFile();

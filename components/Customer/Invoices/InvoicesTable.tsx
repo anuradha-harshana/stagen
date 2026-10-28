@@ -9,14 +9,7 @@ import {
 import { Download, FileText, Loader2 } from "lucide-react"
 import type { Invoice, InvoiceStatus } from "@/lib/customer/invoices"
 
-const DEFAULT_INVOICES: Invoice[] = [
-  { id: "INV-001", description: "Deposit – Contract Signing",   date: "Apr 1, 2025",  due: "Apr 1, 2025",  amount: 97000,  status: "Paid" },
-  { id: "INV-002", description: "Stage 1 – Foundation Complete",date: "May 15, 2025", due: "May 20, 2025", amount: 72750,  status: "Paid" },
-  { id: "INV-003", description: "Stage 2 – Frame Complete",     date: "Jun 30, 2025", due: "Jul 5, 2025",  amount: 48500,  status: "Paid" },
-  { id: "INV-004", description: "Stage 3 – Lock-up",            date: "Aug 12, 2025", due: "Aug 17, 2025", amount: 97000,  status: "Pending" },
-  { id: "INV-005", description: "Stage 4 – Fixing Stage",       date: "Oct 1, 2025",  due: "Oct 6, 2025",  amount: 97000,  status: "Upcoming" },
-  { id: "INV-006", description: "Stage 5 – Practical Completion",date:"Dec 1, 2025",  due: "Dec 6, 2025",  amount: 72750,  status: "Upcoming" },
-];
+const DEFAULT_INVOICES: Invoice[] = [];
 
 const statusConfig: Record<InvoiceStatus, { badge: string; dot: string }> = {
   Paid:     { badge: "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 font-bold", dot: "bg-truffle-trouble" },
@@ -51,7 +44,7 @@ export function InvoicesTable({
       onDownload(inv);
       return;
     }
-    // Default simulated receipt download
+    // Export the saved invoice fields as a text receipt
     const blob = new Blob([
       `INVOICE RECEIPT\n----------------\nInvoice: ${inv.id}\nDescription: ${inv.description}\nAmount: ${formatAmount(inv.amount)}\nDate: ${inv.date}\nStatus: ${inv.status}\n`,
     ], { type: "text/plain" });

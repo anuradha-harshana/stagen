@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getCustomerProjects } from "@/lib/tenant/projects";
+import { ApiError } from "@/lib/customer/store";
 import { getCurrentUser } from "@/lib/auth/auth";
 import {
   getTenantWarranty,
@@ -14,16 +16,15 @@ import {
 } from "@/lib/customer/warranty";
 
 // Helper: Resolve tenantId for current user or default
-async function resolveTenantId(req: NextRequest): Promise<string> {
-  const urlTenantId = req.nextUrl.searchParams.get("tenantId");
-  if (urlTenantId) return urlTenantId;
-
+async function resolveTenantId(req: NextRequest, requestedId?: string): Promise<string> {
   const user = await getCurrentUser();
-  if (user && user.role === "customer") {
-    return "tenant-lot-104";
-  }
-
-  return "tenant-lot-104";
+  if (!user) throw new ApiError(401, "Sign in required");
+  if (user.role !== "customer") throw new ApiError(403, "Customer access required");
+  const projects = await getCustomerProjects(user.id, user.companyId);
+  const tenantIds = projects.map(p => "tenant-" + p.id);
+  const id = requestedId || req.nextUrl.searchParams.get("tenantId") || tenantIds[0];
+  if (!id || !tenantIds.includes(id)) throw new ApiError(404, "Assigned project not found");
+  return id;
 }
 
 // GET: Fetch tenant warranties, maintenance schedule, and defects
@@ -35,7 +36,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: (err as Error).message },
-      { status: 500 }
+      { status: err instanceof ApiError ? err.status : 500 }
     );
   }
 }
@@ -44,7 +45,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const tenantId = body.tenantId || (await resolveTenantId(req));
+    const tenantId = await resolveTenantId(req, body.tenantId);
     const user = await getCurrentUser();
     const type = body.type || "defect";
 
@@ -87,7 +88,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: (err as Error).message },
-      { status: 500 }
+      { status: err instanceof ApiError ? err.status : 500 }
     );
   }
 }
@@ -96,7 +97,7 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
-    const tenantId = body.tenantId || (await resolveTenantId(req));
+    const tenantId = await resolveTenantId(req, body.tenantId);
     const type = body.type || "defect";
     const id = body.id;
     const updates = body.updates || {};
@@ -136,7 +137,7 @@ export async function PUT(req: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: (err as Error).message },
-      { status: 500 }
+      { status: err instanceof ApiError ? err.status : 500 }
     );
   }
 }
@@ -169,7 +170,7 @@ export async function DELETE(req: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: (err as Error).message },
-      { status: 500 }
+      { status: err instanceof ApiError ? err.status : 500 }
     );
   }
 }

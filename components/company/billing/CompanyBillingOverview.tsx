@@ -1,5 +1,6 @@
 "use client"
 
+import { useCompanySection, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState } from "react"
 import { CompanyBillingHeader } from "./CompanyBillingHeader"
 import { CompanyCurrentPlanCard } from "./CompanyCurrentPlanCard"
@@ -12,79 +13,13 @@ import { BuyLicencesModal } from "./BuyLicencesModal"
 import { InvoiceReceiptModal } from "./InvoiceReceiptModal"
 import { BillingPlan, PaymentMethodInfo, InvoiceItem, SiteLicenceInfo } from "./types"
 
-// Initial mock data directly matching the user's uploaded reference UI
-const INITIAL_PLAN: BillingPlan = {
-  id: "enterprise-plus",
-  name: "Enterprise Plus",
-  price: 499,
-  billingCycle: "Monthly",
-  description: "Enterprise tier with advanced site management.",
-  features: ["Up to 15 site licences", "Priority support", "Full API Access"],
-}
-
-const INITIAL_PAYMENT_METHOD: PaymentMethodInfo = {
-  brand: "Visa",
-  last4: "4242",
-  expMonth: "12",
-  expYear: "28",
-  cardholderName: "Stagen Admin",
-}
-
-const INITIAL_SITE_LICENCES: SiteLicenceInfo = {
-  used: 12,
-  total: 15,
-  costPerLicence: 25,
-}
-
-const INITIAL_INVOICES: InvoiceItem[] = [
-  {
-    id: "inv-101",
-    invoiceNumber: "INV-2026-0701",
-    date: "July 1, 2026",
-    amount: 499.0,
-    status: "Paid",
-    items: [
-      { description: "Enterprise Plus Plan - Monthly Subscription", amount: 499.0 },
-    ],
-  },
-  {
-    id: "inv-102",
-    invoiceNumber: "INV-2026-0601",
-    date: "June 1, 2026",
-    amount: 499.0,
-    status: "Paid",
-    items: [
-      { description: "Enterprise Plus Plan - Monthly Subscription", amount: 499.0 },
-    ],
-  },
-  {
-    id: "inv-103",
-    invoiceNumber: "INV-2026-0501",
-    date: "May 1, 2026",
-    amount: 499.0,
-    status: "Paid",
-    items: [
-      { description: "Enterprise Plus Plan - Monthly Subscription", amount: 499.0 },
-    ],
-  },
-  {
-    id: "inv-104",
-    invoiceNumber: "INV-2026-0401",
-    date: "April 1, 2026",
-    amount: 499.0,
-    status: "Paid",
-    items: [
-      { description: "Enterprise Plus Plan - Monthly Subscription", amount: 499.0 },
-    ],
-  },
-]
-
 export function CompanyBillingOverview() {
-  const [plan, setPlan] = useState<BillingPlan>(INITIAL_PLAN)
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodInfo>(INITIAL_PAYMENT_METHOD)
-  const [licences, setLicences] = useState<SiteLicenceInfo>(INITIAL_SITE_LICENCES)
-  const [invoices, setInvoices] = useState<InvoiceItem[]>(INITIAL_INVOICES)
-
+  const stored = useCompanySection<{ plan: BillingPlan; paymentMethod: PaymentMethodInfo; licences: SiteLicenceInfo; invoices: InvoiceItem[]; nextRenewal?: string; plans?: BillingPlan[] }>("billing", {
+    plan: { id: "", name: "Not configured", price: 0, billingCycle: "Monthly", description: "", features: [] },
+    paymentMethod: { brand: "Not configured", last4: "", expMonth: "", expYear: "", cardholderName: "" },
+    licences: { used: 0, total: 0, costPerLicence: 0 }, invoices: []
+  });
+  const { plan, paymentMethod, licences, invoices } = stored.data;
   // Modals state
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false)
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
@@ -93,22 +28,20 @@ export function CompanyBillingOverview() {
 
   // Update Plan Handler
   const handleSelectPlan = (newPlan: BillingPlan) => {
-    setPlan(newPlan)
+    void stored.save({ ...stored.data, plan: newPlan })
   }
 
   // Update Payment Method Handler
   const handleSavePaymentMethod = (updated: PaymentMethodInfo) => {
-    setPaymentMethod(updated)
+    void stored.save({ ...stored.data, paymentMethod: updated })
   }
 
   // Buy Additional Licences Handler
   const handlePurchaseLicences = (additionalCount: number) => {
-    setLicences((prev) => ({
-      ...prev,
-      total: prev.total + additionalCount,
-    }))
+    void stored.save({ ...stored.data, licences: { ...licences, total: licences.total + additionalCount } })
   }
 
+  if (stored.loading || stored.error) return <DataState loading={stored.loading} error={stored.error} />;
   return (
     <div className="flex flex-col gap-6 w-full font-sans">
       {/* Header */}
@@ -120,7 +53,7 @@ export function CompanyBillingOverview() {
           <CompanyCurrentPlanCard
             planName={plan.name}
             priceMonthly={plan.price}
-            nextRenewal="August 1, 2026"
+            nextRenewal={stored.data.nextRenewal ?? "Not configured"}
             billingCycle={plan.billingCycle}
             onUpgradePlan={() => setIsUpgradeModalOpen(true)}
           />
@@ -150,7 +83,7 @@ export function CompanyBillingOverview() {
       </div>
 
       {/* Modals */}
-      <UpgradePlanModal
+      <UpgradePlanModal plans={stored.data.plans ?? []}
         isOpen={isUpgradeModalOpen}
         currentPlanName={plan.name}
         onClose={() => setIsUpgradeModalOpen(false)}

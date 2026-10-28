@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Project reference: [Slugs and routes](docs/SLUGS-AND-ROUTES.md) — page URLs, API endpoints, dynamic resources, query parameters, access rules, and navigation gaps.
+
 First, run the development server:
 
 ```bash

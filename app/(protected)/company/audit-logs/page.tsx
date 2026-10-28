@@ -1,19 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
-import { 
-  ScrollText, 
-  Search, 
-  ShieldAlert, 
-  ShieldCheck, 
-  User, 
-  Download, 
-  Filter, 
-  Eye, 
-  AlertTriangle, 
-  Info, 
-  Clock, 
-  CheckCircle2, 
+import React, { useState, useEffect } from "react";
+import {
+  ScrollText,
+  Search,
+  ShieldAlert,
+  ShieldCheck,
+  User,
+  Download,
+  Filter,
+  Eye,
+  AlertTriangle,
+  Info,
+  Clock,
+  CheckCircle2,
   Lock,
   Calendar
 } from "lucide-react";
@@ -22,11 +22,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { MOCK_AUDIT_LOGS, AuditLogItem } from "@/lib/db-mock/companyData";
+import { AuditLogItem } from "@/lib/db-mock/companyData";
 import PageHeader from "@/components/shared/PageHeader";
 
 export default function CompanyAuditLogsPage() {
-  const [logs, setLogs] = useState<AuditLogItem[]>(MOCK_AUDIT_LOGS);
+  const [logs, setLogs] = useState<AuditLogItem[]>([]);
+  useEffect(() => { fetch("/api/company-management/audit").then(async r => { if (!r.ok) throw new Error("Unable to load audit logs"); return r.json(); }).then(result => setLogs(result.data.logs.map((log: import("@/lib/types/audit").AuditLog) => ({ id: log.id, timestamp: log.timestamp, user: { name: log.user, email: "", role: log.role }, action: log.action, category: log.module === "Projects" ? "Project Update" : log.module === "Users" ? "User Management" : "Settings", resource: log.module, ipAddress: log.ipAddress, location: "", severity: log.severity, details: { description: log.details } })))).catch(e => setToastMessage(e.message)); }, []);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("All");
   const [severityFilter, setSeverityFilter] = useState<string>("All");
@@ -41,13 +42,13 @@ export default function CompanyAuditLogsPage() {
 
   // Filter logs
   const filteredLogs = logs.filter((log) => {
-    const matchesSearch = 
+    const matchesSearch =
       log.user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       log.user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       log.action.toLowerCase().includes(searchTerm.toLowerCase()) ||
       log.resource.toLowerCase().includes(searchTerm.toLowerCase()) ||
       log.ipAddress.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesCategory = categoryFilter === "All" || log.category === categoryFilter;
     const matchesSeverity = severityFilter === "All" || log.severity === severityFilter;
 
@@ -89,8 +90,8 @@ export default function CompanyAuditLogsPage() {
             </div>
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Total Audit Records</p>
-              <h3 className="text-base font-bold text-blue-fantastic mt-0.5">1,280 Entries</h3>
-              <p className="text-[10px] text-blue-fantastic/50">Stored in encrypted log vault</p>
+              <h3 className="text-base font-bold text-blue-fantastic mt-0.5">{logs.length} Entries</h3>
+              <p className="text-[10px] text-blue-fantastic/50">Recorded audit events</p>
             </div>
           </CardContent>
         </Card>
@@ -101,9 +102,9 @@ export default function CompanyAuditLogsPage() {
               <ShieldCheck className="h-5 w-5 text-truffle-trouble" />
             </div>
             <div>
-              <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">User Sessions Today</p>
-              <h3 className="text-base font-bold text-blue-fantastic mt-0.5">18 Active Sessions</h3>
-              <p className="text-[10px] text-blue-fantastic/50">All staff authenticated via 2FA</p>
+              <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">User Management Events</p>
+              <h3 className="text-base font-bold text-blue-fantastic mt-0.5">{logs.filter(l => l.category === "User Management").length} Events</h3>
+              <p className="text-[10px] text-blue-fantastic/50">Recorded user changes</p>
             </div>
           </CardContent>
         </Card>
@@ -115,8 +116,8 @@ export default function CompanyAuditLogsPage() {
             </div>
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Flagged Incidents</p>
-              <h3 className="text-base font-bold text-blue-fantastic mt-0.5">1 Flagged Event</h3>
-              <p className="text-[10px] text-blue-fantastic/50">Failed login threshold hit</p>
+              <h3 className="text-base font-bold text-blue-fantastic mt-0.5">{logs.filter(l => l.severity !== "Info").length} Flagged Events</h3>
+              <p className="text-[10px] text-blue-fantastic/50">Warnings and critical events</p>
             </div>
           </CardContent>
         </Card>
@@ -127,9 +128,9 @@ export default function CompanyAuditLogsPage() {
               <Lock className="h-5 w-5 text-blue-fantastic" />
             </div>
             <div>
-              <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Retention Policy</p>
-              <h3 className="text-base font-bold text-blue-fantastic mt-0.5">365 Days</h3>
-              <p className="text-[10px] text-blue-fantastic/50">Compliant with AU Construction standards</p>
+              <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Latest Record</p>
+              <h3 className="text-base font-bold text-blue-fantastic mt-0.5">{logs[0]?.timestamp || "No records"}</h3>
+              <p className="text-[10px] text-blue-fantastic/50">Most recent recorded event</p>
             </div>
           </CardContent>
         </Card>

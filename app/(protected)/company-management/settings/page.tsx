@@ -169,16 +169,16 @@ export default function CompanyManagementSettingsPage() {
           <div className="bg-blue-fantastic/5 p-4 rounded-2xl border border-blue-fantastic/10 space-y-2">
             <div className="flex justify-between items-center text-xs font-bold text-blue-fantastic">
               <span>Active Site Licenses Allocation</span>
-              <span className="text-truffle-trouble font-mono">{settings.activeSitesUsed} / 50 Sites (30% Capacity)</span>
+              <span className="text-truffle-trouble font-mono">{settings.activeSitesUsed} active sites</span>
             </div>
             <div className="h-2.5 rounded-full bg-blue-fantastic/10 overflow-hidden">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-truffle-trouble to-burning-flame transition-all"
-                style={{ width: `${(settings.activeSitesUsed / 50) * 100}%` }}
+                style={{ width: "100%" }}
               />
             </div>
             <p className="text-[10px] text-blue-fantastic/60 font-medium">
-              You have 35 available site licenses for new residential home construction starts.
+              {settings.licenseTier}
             </p>
           </div>
         </CardContent>

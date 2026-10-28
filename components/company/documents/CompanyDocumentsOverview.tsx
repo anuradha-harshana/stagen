@@ -14,64 +14,8 @@ import {
   removeCompanyDocumentAction,
 } from "@/lib/company/actions"
 
-// Initial mock data fallback
-const INITIAL_COMPANY_DOCUMENTS: CompanyDocument[] = [
-  {
-    id: "doc-101",
-    name: "Site Safety Manual",
-    category: "Safety",
-    visibleTo: ["All Roles"],
-    uploadDate: "2023-11-15",
-    fileName: "site_safety_manual.pdf",
-    fileSize: "2.4 MB",
-    fileType: "pdf",
-    description: "Master workplace health and safety compliance manual for high-risk operations.",
-  },
-  {
-    id: "doc-102",
-    name: "Contractor Agreement Template",
-    category: "Legal",
-    visibleTo: ["Admin", "Management"],
-    uploadDate: "2023-12-01",
-    fileName: "subcontractor_agreement.docx",
-    fileSize: "1.2 MB",
-    fileType: "docx",
-    description: "Standard terms and conditions agreement template for external sub-contractors.",
-  },
-  {
-    id: "doc-103",
-    name: "Quality Assurance Checklist",
-    category: "QA",
-    visibleTo: ["Admin", "Supervisor"],
-    uploadDate: "2023-12-20",
-    fileName: "quality_assurance_checklist.pdf",
-    fileSize: "850 KB",
-    fileType: "pdf",
-    description: "Mandatory quality check criteria before handoff and lock-up stages.",
-  },
-  {
-    id: "doc-104",
-    name: "Environmental Compliance Guide",
-    category: "Compliance",
-    visibleTo: ["All Roles"],
-    uploadDate: "2024-01-10",
-    fileName: "environmental_guidelines_2024.pdf",
-    fileSize: "3.1 MB",
-    fileType: "pdf",
-    description: "Waste management and noise control standards across all site developments.",
-  },
-  {
-    id: "doc-105",
-    name: "Customer Handover & Defect Policy",
-    category: "Policy",
-    visibleTo: ["Admin", "Management", "Customer"],
-    uploadDate: "2024-02-05",
-    fileName: "customer_handover_policy.docx",
-    fileSize: "940 KB",
-    fileType: "docx",
-    description: "Protocol for defect inspection sign-off and key handover guarantees.",
-  },
-]
+// Empty until the company document JSON has loaded.
+const INITIAL_COMPANY_DOCUMENTS: CompanyDocument[] = []
 
 export function CompanyDocumentsOverview() {
   const [documents, setDocuments] = useState<CompanyDocument[]>(INITIAL_COMPANY_DOCUMENTS)
@@ -83,7 +27,7 @@ export function CompanyDocumentsOverview() {
   useEffect(() => {
     fetchCompanyDocumentsAction()
       .then((docs) => {
-        if (docs && docs.length > 0) {
+        if (docs) {
           setDocuments(docs)
         }
       })

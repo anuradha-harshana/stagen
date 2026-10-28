@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         await saveSessions(updatedSessions);
     }
 
-    const logoutUrl = getWso2LogoutUrl(idToken);
+    const logoutUrl = idToken ? getWso2LogoutUrl(idToken) : "/login";
 
     const response = NextResponse.json({
         message: "Logged out successfully",
@@ -39,4 +39,4 @@ export async function POST(req: NextRequest) {
     });
 
     return response;
-}
+}

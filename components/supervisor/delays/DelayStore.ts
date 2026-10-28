@@ -1,9 +1,9 @@
 "use client";
 
 import { DelayLogEntry } from "@/lib/supervisor/types";
-import { 
-  INITIAL_SUPERVISOR_TIMELINES, 
-  recalculateTimelineStats 
+import {
+  INITIAL_SUPERVISOR_TIMELINES,
+  recalculateTimelineStats
 } from "@/components/supervisor/timeline/supervisor-timeline-store";
 
 export interface DelayMessage {
@@ -19,45 +19,8 @@ export interface DelayMessage {
   status: "sent" | "delivered" | "read";
 }
 
-// Initial mock customer delay messages
-export const INITIAL_DELAY_MESSAGES: DelayMessage[] = [
-  {
-    id: "msg-1",
-    projectId: "lot-104",
-    delayId: "delay-1",
-    recipientName: "Eleanor Vance",
-    recipientEmail: "eleanor.vance@example.com",
-    stageName: "Frame",
-    subject: "Build Schedule Impact: Heavy Storm Delay (Frame Stage)",
-    body: "Hi Eleanor, due to severe storm conditions experienced on site over the past week, framing work was safely paused to protect structural materials. Work has resumed today, and our revised projected completion date is now Sep 16, 2024.",
-    sentAt: "Jun 16, 2024 at 09:30 AM",
-    status: "read",
-  },
-  {
-    id: "msg-2",
-    projectId: "lot-104",
-    delayId: "delay-2",
-    recipientName: "Eleanor Vance",
-    recipientEmail: "eleanor.vance@example.com",
-    stageName: "Lockup",
-    subject: "Supply Adjustment: Window Fixture Delivery",
-    body: "Hi Eleanor, customized double-glazed window units have been re-routed by our supplier. Work on Lockup stage will proceed seamlessly once delivered on Sep 22, 2024.",
-    sentAt: "Jun 20, 2024 at 02:15 PM",
-    status: "delivered",
-  },
-  {
-    id: "msg-3",
-    projectId: "lot-208",
-    delayId: "delay-208-1",
-    recipientName: "Marcus Sterling",
-    recipientEmail: "m.sterling@example.com",
-    stageName: "Site Cut",
-    subject: "Site Excavation Adjustment: Drainage Permit",
-    body: "Hi Marcus, local council inspection for perimeter drainage required a 4-day administrative review. Excavation completed on May 06, 2026.",
-    sentAt: "May 03, 2026 at 11:00 AM",
-    status: "read",
-  },
-];
+// Empty initial state; records are fetched through the supervisor API.
+export const INITIAL_DELAY_MESSAGES: DelayMessage[] = [];
 
 /**
  * Returns delay category metadata for visual styling and icon selection.

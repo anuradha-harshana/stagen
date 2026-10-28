@@ -4,8 +4,6 @@ import {
   write,
   exclusive,
   ApiError,
-  DEFAULT_CUSTOMER_USER_ID,
-  DEFAULT_CUSTOMER_TENANT_ID,
 } from "./store";
 
 export type NotificationCategory =
@@ -77,7 +75,7 @@ function mapToItem(row: CustomerNotification): NotificationItem {
 
 // ── 1. READ (GET NOTIFICATIONS) ──
 export async function getCustomerNotifications(
-  userId: string = DEFAULT_CUSTOMER_USER_ID
+  userId: string
 ): Promise<NotificationItem[]> {
   const rows = await read("notifications");
   const userNotifications = rows
@@ -89,7 +87,7 @@ export async function getCustomerNotifications(
 
 // ── 2. CREATE (POST NOTIFICATION) ──
 export async function createCustomerNotification(
-  userId: string = DEFAULT_CUSTOMER_USER_ID,
+  userId: string,
   data: {
     title: string;
     description: string;
@@ -104,7 +102,7 @@ export async function createCustomerNotification(
     const newRecord: CustomerNotification = {
       id: `n-${randomUUID().slice(0, 8)}`,
       user_id: userId,
-      tenant_id: data.tenantId || DEFAULT_CUSTOMER_TENANT_ID,
+      tenant_id: data.tenantId || "",
       title: data.title,
       description: data.description,
       time: data.time || "Just now",
@@ -126,7 +124,7 @@ export async function createCustomerNotification(
 
 // ── 3. UPDATE (PUT/PATCH NOTIFICATION) ──
 export async function updateCustomerNotification(
-  userId: string = DEFAULT_CUSTOMER_USER_ID,
+  userId: string,
   id: string | number,
   updates: Partial<{
     read: boolean;
@@ -156,7 +154,7 @@ export async function updateCustomerNotification(
 
 // ── 4. MARK ALL AS READ ──
 export async function markAllNotificationsAsRead(
-  userId: string = DEFAULT_CUSTOMER_USER_ID
+  userId: string
 ): Promise<{ success: boolean; updatedCount: number }> {
   return exclusive(async () => {
     const rows = await read("notifications");
@@ -176,7 +174,7 @@ export async function markAllNotificationsAsRead(
 
 // ── 5. DELETE NOTIFICATION ──
 export async function deleteCustomerNotification(
-  userId: string = DEFAULT_CUSTOMER_USER_ID,
+  userId: string,
   id: string | number
 ): Promise<boolean> {
   return exclusive(async () => {
@@ -198,7 +196,7 @@ export async function deleteCustomerNotification(
 
 // ── 6. GET CHANNELS ──
 export async function getCustomerChannels(
-  userId: string = DEFAULT_CUSTOMER_USER_ID
+  userId: string
 ): Promise<ChannelState> {
   const rows = await read("settings");
   const userSetting = rows.find((s) => s.user_id === userId);
@@ -229,7 +227,7 @@ export async function getCustomerChannels(
 
 // ── 7. UPDATE CHANNELS ──
 export async function updateCustomerChannels(
-  userId: string = DEFAULT_CUSTOMER_USER_ID,
+  userId: string,
   channels: Partial<ChannelState>
 ): Promise<ChannelState> {
   return exclusive(async () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 import { Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,7 +21,7 @@ export default function WorkloadClient({ dbSupervisors, initialProjects }: Workl
   const [projects, setProjects] = useState<Project[]>(initialProjects || []);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const supervisors = Array.from(new Set([...dbSupervisors, "Eric", "John"]));
+  const supervisors = Array.from(new Set(dbSupervisors));
 
   useEffect(() => {
     async function loadData() {
@@ -60,12 +60,13 @@ export default function WorkloadClient({ dbSupervisors, initialProjects }: Workl
         setProjects(updated);
       }
     } catch (err) {
+      setProjects(projects);
       console.error("Failed to persist supervisor reassignment to JSON file:", err);
     }
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header */}
       <WorkloadHeader />
 

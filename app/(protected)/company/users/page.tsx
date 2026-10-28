@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { 
-  UserRoundPen, 
-  Search, 
-  UserPlus, 
-  Building2, 
-  Briefcase, 
-  Clock, 
-  CheckCircle2, 
+import {
+  UserRoundPen,
+  Search,
+  UserPlus,
+  Building2,
+  Briefcase,
+  Clock,
+  CheckCircle2,
   ChevronRight,
   ShieldCheck,
   UserCheck,
@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import type { OrganizationUser } from "@/lib/company/organizationUsers"; 
+import type { OrganizationUser } from "@/lib/company/organizationUsers";
 import PageHeader from "@/components/shared/PageHeader";
 import { PAGE_SHELL_CLASS } from "@/components/shared/pageShell";
 
@@ -84,7 +84,7 @@ useEffect(() => {
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("All");
   const [statusFilter, setStatusFilter] = useState<string>("All");
-  
+
   const [selectedUser, setSelectedUser] = useState<OrganizationUser | null>(null);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -165,13 +165,13 @@ useEffect(() => {
   // Filter users
   const filteredUsers = users.filter((u) => {
     const query = searchTerm.toLowerCase();
-    const matchesSearch = 
+    const matchesSearch =
       u.name.toLowerCase().includes(query) ||
       u.email.toLowerCase().includes(query) ||
       u.role.toLowerCase().includes(query) ||
       u.phone.toLowerCase().includes(query) ||
       u.assignedProjects.some((p) => p.toLowerCase().includes(query));
-    
+
     const matchesRole = roleFilter === "All" || u.role === roleFilter;
     const matchesStatus = statusFilter === "All" || u.status === statusFilter;
 
@@ -299,7 +299,7 @@ useEffect(() => {
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Active Build Coverage</p>
               <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">{totalAssignedSites} Projects</h3>
-              <p className="text-[10px] text-blue-fantastic/50">100% supervisor assigned</p>
+              <p className="text-[10px] text-blue-fantastic/50">Company user records</p>
             </div>
           </CardContent>
         </Card>

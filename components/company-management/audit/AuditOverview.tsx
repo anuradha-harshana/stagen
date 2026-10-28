@@ -22,95 +22,9 @@ import {
 } from "@/components/ui/dialog";
 
 const CLIENT_FALLBACK_AUDIT: CompanyAuditRecord = {
-  companyId: "7ab56015-4412-494e-8aff-dbb5095e0095",
-  companyName: "Build & Co",
-  updatedAt: new Date().toISOString(),
-  stats: {
-    complianceScore: {
-      value: "92%",
-      rating: "Good Standing",
-      description: "ISO 27001 & Safety Verified",
-    },
-    openFlags: {
-      value: 3,
-      rating: "Needs Review",
-      description: "2 Safety, 1 Document Gap",
-    },
-    auditsCompleted: {
-      value: 142,
-      description: "YTD Site & Financial Audits",
-    },
-    dataIntegrityScore: {
-      value: "98.4%",
-      description: "✓ Encrypted & Verified",
-    },
-  },
-  complianceReadiness: {
-    score: 92,
-    rating: "Good Standing",
-    description: "Automated audit rating based on active site compliance policies",
-    categories: [
-      {
-        id: "cat-safety",
-        name: "Site Safety & Hazard Audits",
-        score: 96,
-        color: "emerald",
-      },
-      {
-        id: "cat-docs",
-        name: "Document Verification & Blueprint Sign-offs",
-        score: 94,
-        color: "emerald",
-      },
-      {
-        id: "cat-fin",
-        name: "Financial & Invoice Audit Trail",
-        score: 98,
-        color: "blue",
-      },
-      {
-        id: "cat-workload",
-        name: "Supervisor Workload & Checklists",
-        score: 88,
-        color: "amber",
-      },
-    ],
-    regulatoryFrameworks: [
-      {
-        id: "fw-iso27001",
-        name: "ISO/IEC 27001:2022",
-        standard: "Information Security & Data Integrity",
-        status: "Certified",
-        score: 96,
-        lastAudit: "2026-04-12",
-      },
-      {
-        id: "fw-ncc2026",
-        name: "NCC 2026 / Building Code of Australia",
-        standard: "Structural & Energy Efficiency Compliance",
-        status: "Compliant",
-        score: 94,
-        lastAudit: "2026-05-01",
-      },
-      {
-        id: "fw-whs",
-        name: "Work Health and Safety (WHS) Act 2011",
-        standard: "Site Safety & Subcontractor Induction",
-        status: "Verified",
-        score: 96,
-        lastAudit: "2026-05-10",
-      },
-      {
-        id: "fw-sopa",
-        name: "Security of Payment Act (SOPA)",
-        standard: "Progress Claim & Milestone Integrity",
-        status: "Compliant",
-        score: 98,
-        lastAudit: "2026-05-11",
-      },
-    ],
-  },
-  logs: [],
+  companyId: "", companyName: "", updatedAt: "", logs: [],
+  stats: { complianceScore: { value: "Not assessed" }, openFlags: { value: 0 }, auditsCompleted: { value: 0 }, dataIntegrityScore: { value: "Not assessed" } },
+  complianceReadiness: { score: 0, rating: "Not assessed", description: "No audit data recorded", categories: [], regulatoryFrameworks: [] }
 };
 
 interface AuditOverviewProps {
@@ -120,7 +34,7 @@ interface AuditOverviewProps {
 
 export function AuditOverview({
   initialData,
-  companyId = "7ab56015-4412-494e-8aff-dbb5095e0095",
+  companyId = "",
 }: AuditOverviewProps) {
   const [data, setData] = useState<CompanyAuditRecord>(
     initialData || CLIENT_FALLBACK_AUDIT

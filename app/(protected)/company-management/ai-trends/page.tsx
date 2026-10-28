@@ -1,18 +1,18 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { 
-  TrendingUp, 
-  Bot, 
-  MessageSquareText, 
-  CheckCircle2, 
-  AlertTriangle, 
-  Sparkles, 
-  DollarSign, 
-  Search, 
-  Edit3, 
-  HelpCircle, 
-  ThumbsUp, 
+import {
+  TrendingUp,
+  Bot,
+  MessageSquareText,
+  CheckCircle2,
+  AlertTriangle,
+  Sparkles,
+  DollarSign,
+  Search,
+  Edit3,
+  HelpCircle,
+  ThumbsUp,
   ArrowUpRight,
   Zap,
   BookOpen
@@ -39,7 +39,7 @@ export default function CompanyManagementAiTrendsPage() {
   };
 
   const filteredTrends = trends.filter((item) => {
-    const matchesSearch = 
+    const matchesSearch =
       item.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.sampleAnswer.toLowerCase().includes(searchTerm.toLowerCase());
@@ -126,10 +126,10 @@ export default function CompanyManagementAiTrendsPage() {
             </div>
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Monthly AI Inquiries</p>
-              <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">1,208 Queries</h3>
+              <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">{trends.reduce((sum, t) => sum + t.queryCount, 0)} Queries</h3>
               <p className="text-[10px] text-truffle-trouble font-bold flex items-center gap-0.5 mt-0.5">
                 <ArrowUpRight className="h-3 w-3" />
-                +14.2% from last month
+                Recorded query total
               </p>
             </div>
           </CardContent>
@@ -142,7 +142,7 @@ export default function CompanyManagementAiTrendsPage() {
             </div>
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">AI Resolution Rate</p>
-              <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">92.4% Automated</h3>
+              <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">{trends.length ? (trends.reduce((sum, t) => sum + t.aiResolutionRate, 0) / trends.length).toFixed(1) : 0}% Automated</h3>
               <p className="text-[10px] text-blue-fantastic/50">Handled without supervisor calls</p>
             </div>
           </CardContent>
@@ -155,8 +155,8 @@ export default function CompanyManagementAiTrendsPage() {
             </div>
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Support Cost Savings</p>
-              <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">$18,400 Saved</h3>
-              <p className="text-[10px] text-blue-fantastic/50">~160 supervisor hours freed</p>
+              <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">Not recorded</h3>
+              <p className="text-[10px] text-blue-fantastic/50">No cost-savings data recorded</p>
             </div>
           </CardContent>
         </Card>
@@ -168,60 +168,14 @@ export default function CompanyManagementAiTrendsPage() {
             </div>
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Customer Satisfaction</p>
-              <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">4.85 / 5.0 Rating</h3>
-              <p className="text-[10px] text-blue-fantastic/50">Based on post-chat feedback</p>
+              <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">Not recorded</h3>
+              <p className="text-[10px] text-blue-fantastic/50">No feedback scores recorded</p>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Query Intent Breakdown Visual Bar */}
-      <Card className="bg-white border border-blue-fantastic/15 shadow-sm relative overflow-hidden">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-bold text-blue-fantastic flex items-center gap-2">
-            <Zap className="h-4 w-4 text-burning-flame" />
-            Customer Query Category Breakdown
-          </CardTitle>
-          <CardDescription className="text-xs text-blue-fantastic/60">
-            Most frequent topics asked by home buyers across active construction projects
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3 pt-0">
-          <div className="h-4 w-full rounded-full bg-blue-fantastic/10 flex overflow-hidden">
-            <div className="h-full bg-truffle-trouble text-[10px] text-palladian flex items-center justify-center font-bold" style={{ width: "42%" }}>
-              Stages 42%
-            </div>
-            <div className="h-full bg-burning-flame text-[10px] text-blue-fantastic flex items-center justify-center font-bold" style={{ width: "28%" }}>
-              Invoices 28%
-            </div>
-            <div className="h-full bg-blue-fantastic text-[10px] text-palladian flex items-center justify-center font-bold" style={{ width: "15%" }}>
-              Access 15%
-            </div>
-            <div className="h-full bg-truffle-trouble/70 text-[10px] text-palladian flex items-center justify-center font-bold" style={{ width: "15%" }}>
-              Warranty 15%
-            </div>
-          </div>
-          <div className="flex justify-between items-center text-xs text-blue-fantastic/70 font-semibold pt-1">
-            <span className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-truffle-trouble" />
-              Construction Stage Timelines (42%)
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-burning-flame" />
-              Drawdown & Invoices (28%)
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-blue-fantastic" />
-              Site Inspections & PCI (15%)
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-truffle-trouble/70" />
-              Defects & Warranty (15%)
-            </span>
-          </div>
-        </CardContent>
-      </Card>
-
+      <section className="bg-white p-6 rounded-2xl border border-blue-fantastic/15 space-y-3"><h2 className="font-bold">Customer Query Categories</h2>{Array.from(new Set(trends.map(t => t.category))).map(category => <p key={category}>{category}: {trends.filter(t => t.category === category).reduce((sum, t) => sum + t.queryCount, 0)} queries</p>)}</section>
       {/* Top Customer Questions & FAQ Performance Table */}
       <Card className="bg-white border border-blue-fantastic/15 shadow-sm">
         <CardHeader className="pb-4 border-b border-blue-fantastic/10 flex flex-col md:flex-row md:items-center justify-between gap-4">

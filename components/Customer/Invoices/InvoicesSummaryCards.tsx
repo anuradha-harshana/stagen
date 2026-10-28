@@ -7,11 +7,11 @@ interface InvoicesSummaryCardsProps {
 }
 
 export function InvoicesSummaryCards({ data }: InvoicesSummaryCardsProps) {
-  const contractVal = data?.contract_value ?? 485000;
-  const amountPaid = data?.amount_paid ?? 218250;
+  const contractVal = data?.contract_value ?? 0;
+  const amountPaid = data?.amount_paid ?? 0;
   const outstanding = data?.outstanding ?? (contractVal - amountPaid);
-  const nextDueAmount = data?.next_due?.amount ?? 97000;
-  const nextDueLabel = data?.next_due?.label ?? "Stage 3 – Lock-up";
+  const nextDueAmount = data?.next_due?.amount ?? 0;
+  const nextDueLabel = data?.next_due?.label ?? "None scheduled";
 
   const paidPct = contractVal > 0 ? Math.round((amountPaid / contractVal) * 100) : 0;
   const outstandingPct = contractVal > 0 ? Math.round((outstanding / contractVal) * 100) : 0;

@@ -1,3 +1,4 @@
+import { projectProgress } from "../types/project";
 import { z } from "zod";
 import { randomUUID } from "node:crypto";
 import { activity, ApiError, assignedProjects, findRecord, read, requireProject, Row, scopedRows, write } from "./store";
@@ -6,7 +7,8 @@ const text = z.string().trim().min(1).max(10000);
 const date = z.string().refine(v => Number.isFinite(Date.parse(v)), "Invalid date");
 export async function projects(userId: string) {
   const [tenants, stages, delays, questions, users] = await Promise.all([assignedProjects(userId), read("stages"), read("delays"), read("questions"), read("users")]);
-  return tenants.map(p => ({ customerEmail: users.find(u => u.id === p.client_user_id)?.email ?? "", id: p.tenant_id, lot: p.display_name, clientName: p.client_name, address: p.address, status: p.status, progress: p.progress, currentStage: p.current_stage, startDate: p.start_date, estHandover: p.est_handover, imageGradient: "from-blue-fantastic/40 to-abyssal-blue/80",
+  return tenants.map(p => ({ customerEmail: users.find(u => u.id === p.client_user_id)?.email ?? "", id: p.tenant_id, lot: p.display_name, clientName: p.client_name, address: p.address, startDate: p.start_date, estHandover: p.est_handover, imageGradient: "from-blue-fantastic/40 to-abyssal-blue/80",
+    ...projectProgress(stages.find(s => s.tenant_id === p.tenant_id)?.stages ?? [], p.status),
     stages: stages.find(s => s.tenant_id === p.tenant_id)?.stages ?? [],
     delays: delays.filter(d => d.tenant_id === p.tenant_id).map(d => ({ id: d.id, type: d.type, durationDays: d.duration_days, description: d.reason, date: d.date })),
     questions: questions.filter(q => q.tenant_id === p.tenant_id).map(q => ({ id: q.id, customerName: q.customer_name, questionText: q.question_title, date: q.date_asked, replied: q.status === "ANSWERED", replyText: q.answer_text })) }));
@@ -19,7 +21,7 @@ export async function timelines(userId: string) {
     const t = ts.find(t => t.tenant_id === p.tenant_id) ?? {};
     const stages = ss.find(s => s.tenant_id === p.tenant_id)?.stages ?? [];
     const saved = t.stages ?? [];
-    return [p.tenant_id, { percentage: p.progress, startDate: t.start_date ?? p.start_date, originalEstCompletion: t.original_est_completion ?? p.est_handover, currentProjectedCompletion: t.current_projected_completion ?? p.est_handover, statusFlag: p.status === "Delayed" ? "delayed" : p.progress === 0 ? "not-started" : "on-track", delayDays: t.delay_days ?? 0,
+    return [p.tenant_id, { percentage: projectProgress(stages, p.status).progress, startDate: t.start_date ?? p.start_date, originalEstCompletion: t.original_est_completion ?? p.est_handover, currentProjectedCompletion: t.current_projected_completion ?? p.est_handover, statusFlag: p.status === "Delayed" ? "delayed" : p.progress === 0 ? "not-started" : "on-track", delayDays: t.delay_days ?? 0,
       stages: stages.map((s: Row) => ({ id: stageId(s), name: s.name, description: s.description ?? "", plannedStart: s.start_date ?? new Date(p.start_date).toISOString().slice(0, 10), plannedEnd: s.end_date ?? new Date(p.est_handover).toISOString().slice(0, 10), milestones: s.milestones ?? [], ...saved.find((v: Row) => v.id === stageId(s)), status: s.status === "Completed" ? (saved.find((v: Row) => v.id === stageId(s))?.status === "completed-late" ? "completed-late" : "completed-on-time") : s.status === "Active" ? (saved.find((v: Row) => v.id === stageId(s))?.status === "delayed" ? "delayed" : "in-progress") : "upcoming" })),
       delayLog: ds.filter(d => d.tenant_id === p.tenant_id).map(delayView) }];
   }));
@@ -28,8 +30,8 @@ async function syncProgress(tenantId: string, stages: Row[]) {
   const ps = await read("projects");
   const p = ps.find(p => p.tenant_id === tenantId)!;
   p.progress = stages.length ? Math.round(stages.reduce((n, s) => n + s.progress, 0) / stages.length) : 0;
-  p.current_stage = (stages.find(s => s.status === "Active") ?? stages.at(-1))?.name ?? p.current_stage;
-  if (p.progress === 100) p.status = "Completed";
+  p.current_stage = (stages.find(s => s.status === "Active") ?? stages.find(s => s.status === "Pending") ?? stages.at(-1))?.name ?? p.current_stage;
+  if (stages.length && stages.every(s => s.status === "Completed")) p.status = "Completed";
   else if (p.status === "Completed") p.status = "On Track";
   await write("projects", ps);
   const ts = await read("timeline");

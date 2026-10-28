@@ -470,7 +470,7 @@ export default function CustomerDashboardClient({
                     Site Supervisor
                   </p>
                   <p className="text-sm font-extrabold text-blue-fantastic truncate">
-                    {activeProject?.supervisorName || "Eric Chen"}
+                    {activeProject?.supervisorName || "Unassigned"}
                   </p>
                   <p className="text-[11px] text-blue-fantastic/60 font-medium">
                     Licensed Construction Project Supervisor

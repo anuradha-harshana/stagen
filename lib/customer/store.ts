@@ -65,6 +65,3 @@ export class ApiError extends Error {
     this.name = "ApiError";
   }
 }
-
-export const DEFAULT_CUSTOMER_USER_ID = "7ab56015-4412-494e-8aff-dbb5095e0096";
-export const DEFAULT_CUSTOMER_TENANT_ID = "tenant-lot-104";

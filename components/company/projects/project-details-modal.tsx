@@ -183,20 +183,14 @@ export default function ProjectDetailsModal({
               )}
             </div>
 
-            {/* Required Certificates Checklist */}
+            {/* Project Checklist */}
             <div className="space-y-3">
               <h4 className="text-xs font-bold text-blue-fantastic/60 uppercase tracking-widest flex items-center gap-1.5 border-b border-blue-fantastic/5 pb-2">
                 <FileText className="h-4 w-4 text-blue-fantastic" />
                 Required Certificates Checklist
               </h4>
               <div className="grid grid-cols-1 gap-2 pl-1">
-                {[
-                  { label: "Building Permit & Approved Drawings", done: true },
-                  { label: "Engineering Foundation Sign-off", done: true },
-                  { label: "Structural Framing Certificate", done: project.progress >= 45 },
-                  { label: "Wet Area Waterproofing Certificate", done: project.progress >= 75 },
-                  { label: "Electrical & Gas Safety Certificates", done: project.progress >= 90 },
-                ].map((cert, idx) => (
+                {project.stages.flatMap(stage => stage.checklist.map(item => ({ label: item.label, done: item.completed }))).map((cert, idx) => (
                   <div key={idx} className="flex items-center gap-2 text-xs font-semibold text-blue-fantastic/85">
                     {cert.done ? (
                       <CheckCircle2 className="h-4 w-4 text-truffle-trouble shrink-0" />

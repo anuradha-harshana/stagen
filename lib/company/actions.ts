@@ -26,20 +26,14 @@ import {
   deleteCompanyDefect,
   CompanyDefectRecord,
 } from "./companyDefects";
-import { Project } from "../db-mock/projectsData";
-
-const DEFAULT_COMPANY_ID = "7ab56015-4412-494e-8aff-dbb5095e0095";
+import { Project } from "../types/project";
 
 async function resolveCompanyId(providedId?: string): Promise<string> {
-  if (providedId) return providedId;
-  try {
-    const user = await getCurrentUser();
-    if (user?.role === "company") return user.id;
-    if ((user as { companyId?: string })?.companyId) return (user as { companyId?: string }).companyId!;
-  } catch {
-    // If running in client context without request cookies, fallback
-  }
-  return DEFAULT_COMPANY_ID;
+  const user = await getCurrentUser();
+  if (!user || !["company", "company-management"].includes(user.role)) throw new Error("Company access required");
+  const companyId = user.companyId || user.id;
+  if (providedId && providedId !== companyId) throw new Error("Company access denied");
+  return companyId;
 }
 
 // ==========================================
@@ -153,4 +147,3 @@ export async function removeCompanyDefectAction(
   const targetId = await resolveCompanyId(companyId);
   return await deleteCompanyDefect(targetId, defectId);
 }
-

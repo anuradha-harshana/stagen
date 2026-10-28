@@ -25,6 +25,7 @@ export default async function CompanyManagementProjectsPage() {
     <CompanyProjectsClient
       initialProjects={initialProjects}
       supervisors={supervisors}
+      customers={allUsers.filter(u => u.user.role === "customer").map(u => ({ id: u.user.id, username: u.user.username }))}
       companyId={companyId}
       pageTitle="Projects Overview"
       pageSubtitle="Track active construction sites, manage stage progression, update timelines, and assign site supervisors."

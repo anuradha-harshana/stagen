@@ -1,3 +1,4 @@
+import { projectProgress } from "../types/project";
 import fs from "fs/promises";
 import path from "path";
 import {
@@ -46,6 +47,7 @@ export async function getSupervisorDashboardData(
   const questions = ensureArray(questionsRaw);
   const delays = ensureArray(delaysRaw);
   const stages = ensureArray(stagesRaw);
+  for (const tenant of tenants) { const summary = projectProgress(stages.find(s => s.tenant_id === tenant.tenant_id)?.stages ?? [], tenant.status); Object.assign(tenant, { progress: summary.progress, current_stage: summary.currentStage, status: summary.status }); }
 
   const assignedTenantIds = assignments
     .filter((assignment) => assignment.user_id === supervisorId && assignment.role === "supervisor")

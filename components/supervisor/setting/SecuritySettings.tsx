@@ -21,7 +21,7 @@ export default function SecuritySettings() {
       <Button disabled={api.saving}>Change password</Button>
     </form>
     <label className="flex gap-2"><input type="checkbox" checked={api.data.security.two_factor_enabled} disabled={api.saving} onChange={e => { void api.mutate("PATCH", { section: "security", values: { two_factor_enabled: e.target.checked } }); }} />Two-factor authentication preference</label>
-    <p className="text-sm">This mock database stores your preference. Sign-in verification is not configured.</p>
+    <p className="text-sm">The JSON data store stores your preference. Sign-in verification is not configured.</p>
     <Button variant="outline" disabled={api.saving} onClick={async () => { try { await supervisorRequest("security", "DELETE"); window.location.href = "/login"; } catch (e) { toast.error(e instanceof Error ? e.message : "Unable to log out"); } }}>Log out all devices</Button>
   </div>;
 }

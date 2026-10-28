@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 import { fetchCompanyProjectsAction, replyToCompanyQuestionAction } from "@/lib/company/actions";
 
 import InsightsHeader from "./InsightsHeader";
@@ -85,7 +85,7 @@ export default function CustomerInsightsClient({ initialProjects }: CustomerInsi
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header */}
       <InsightsHeader />
 

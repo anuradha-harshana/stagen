@@ -126,7 +126,9 @@ export async function getCompanyManagementDashboardData(
   let totalContractValue = 0;
   let totalCollected = 0;
   let totalOutstanding = 0;
-  for (const t of companyTenants) {
+  const invoiceValue = JSON.parse(await fs.readFile(path.join(dataRoot, "tenant_invoices.json"), "utf8"));
+  const invoiceRecords = (Array.isArray(invoiceValue) ? invoiceValue : [invoiceValue]).filter(t => companyTenants.some(p => p.tenant_id === t.tenant_id));
+  for (const t of invoiceRecords) {
     totalContractValue += Number(t.contract_value ?? 0);
     totalCollected += Number(t.amount_paid ?? 0);
     totalOutstanding += Number(t.outstanding ?? 0);
@@ -157,15 +159,7 @@ export async function getCompanyManagementDashboardData(
   };
 
   // 4. Compute Stage Breakdown
-  const standardStages = [
-    "Site Cut",
-    "Slab",
-    "Frame",
-    "Lockup",
-    "Fixing",
-    "Completion",
-    "Handover",
-  ];
+  const standardStages = Array.from(new Set(projects.flatMap(p => p.stages.map(s => s.name))));
 
   const stageBreakdown: StageBreakdownItem[] = standardStages.map((stageName) => {
     const count = projects.filter(
@@ -271,7 +265,7 @@ export async function getCompanyManagementDashboardData(
 
   const projectMap = new Map(projects.map((p) => [`tenant-${p.id}`, p]));
   const recentActivities: RecentActivityItem[] = rawActivities
-    .map((act) => {
+    .map((act): RecentActivityItem => {
       const matched = projectMap.get(act.tenant_id) || projects.find((p) => p.id === act.tenant_id?.replace(/^tenant-/, ""));
       return {
         id: act.id,

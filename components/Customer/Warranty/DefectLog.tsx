@@ -16,11 +16,7 @@ import {
 import { AlertTriangle, CheckCircle2, Clock, PlusCircle, ShieldCheck, Trash2, Loader2, ArrowRight } from "lucide-react"
 import type { DefectItem, DefectStatus } from "@/lib/customer/warranty"
 
-const DEFAULT_DEFECTS: DefectItem[] = [
-  { id: "DEF-001", title: "Garage door alignment issue",          area: "Garage",     reported: "Jan 12, 2026", status: "resolved" },
-  { id: "DEF-002", title: "Hairline crack – master bedroom wall", area: "Bedroom 1",  reported: "Feb 3, 2026",  status: "in-progress" },
-  { id: "DEF-003", title: "Laundry tap dripping",                 area: "Laundry",    reported: "Mar 1, 2026",  status: "open" },
-]
+const DEFAULT_DEFECTS: DefectItem[] = []
 
 const statusConfig: Record<DefectStatus, { label: string; badge: string; dot: string }> = {
   resolved:    { label: "Resolved",    badge: "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 font-bold", dot: "bg-truffle-trouble" },

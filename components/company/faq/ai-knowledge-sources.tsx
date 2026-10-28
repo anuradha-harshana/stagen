@@ -40,42 +40,10 @@ export default function AIKnowledgeSources({
     setNewGuardrail("");
   };
 
-  const triggerSimulatedUpload = () => {
-    const fileNames = [
-      "Stagen_Standard_Specifications_2026.pdf",
-      "Builder_Warranty_Terms_Schedule.pdf",
-      "PCI_Practical_Completion_Inspection_Manual.pdf",
-      "Site_Safety_Induction_Booklet.pdf"
-    ];
-    const available = fileNames.filter(n => !documents.some(d => d.name === n));
-    const targetName = available[0] || `Custom_AI_Context_Doc_${documents.length + 1}.pdf`;
-
-    setFileName(targetName);
-    setIsUploading(true);
-    setUploadProgress(0);
-
-    const interval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            onAddDocument({
-              name: targetName,
-              size: `${(Math.random() * 2 + 0.5).toFixed(1)} MB`,
-              uploadedAt: new Date().toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              }),
-            });
-            setIsUploading(false);
-            setFileName("");
-          }, 400);
-          return 100;
-        }
-        return prev + 25;
-      });
-    }, 200);
+  const registerDocument = () => {
+    const input = document.createElement("input"); input.type = "file"; input.accept = ".pdf,.txt,.doc,.docx";
+    input.onchange = () => { const file = input.files?.[0]; if (file) onAddDocument({ name: file.name, size: (file.size / 1024).toFixed(1) + " KB", uploadedAt: new Date().toISOString() }); };
+    input.click();
   };
 
   return (
@@ -142,7 +110,7 @@ export default function AIKnowledgeSources({
           </div>
 
           <p className="text-xs text-blue-fantastic/65 mb-4 font-semibold leading-relaxed">
-            Upload policies, warranties, or builder guides that the AI model references to resolve complex questions.
+            Register reference document metadata. File storage and AI ingestion are not configured.
           </p>
 
           <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
@@ -189,7 +157,7 @@ export default function AIKnowledgeSources({
             </div>
           ) : (
             <Button
-              onClick={triggerSimulatedUpload}
+              onClick={registerDocument}
               className="w-full bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 h-9 rounded-xl flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <Upload className="h-4 w-4" />

@@ -2,18 +2,18 @@
 
 import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState } from "react";
-import { 
-  Building2, 
-  Search, 
-  Calendar, 
-  MapPin, 
-  Clock, 
-  X, 
-  AlertTriangle, 
-  CheckCircle2, 
-  ChevronRight, 
-  Wrench, 
-  FileText, 
+import {
+  Building2,
+  Search,
+  Calendar,
+  MapPin,
+  Clock,
+  X,
+  AlertTriangle,
+  CheckCircle2,
+  ChevronRight,
+  Wrench,
+  FileText,
   TrendingUp,
   User
 } from "lucide-react";
@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 
 export default function SupervisorProjects() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,15 +34,15 @@ export default function SupervisorProjects() {
 
   // Filter projects based on search term & status filter
   const filteredProjects = projects.filter((project) => {
-    const matchesSearch = 
+    const matchesSearch =
       project.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.id.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStatus = 
-      statusFilter === "All" || 
+
+    const matchesStatus =
+      statusFilter === "All" ||
       project.status === statusFilter;
-      
+
     return matchesSearch && matchesStatus;
   });
 

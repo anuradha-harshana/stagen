@@ -6,14 +6,7 @@ import { CreditCard, CheckCircle2, Circle, Clock, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { PaymentMilestone, MilestoneStatus } from "@/lib/customer/invoices"
 
-const DEFAULT_MILESTONES: PaymentMilestone[] = [
-  { label: "Deposit",     amount: 97000,  date: "Apr 1, 2025",  status: "paid",     pct_of_contract: 20 },
-  { label: "Foundation",  amount: 72750,  date: "May 20, 2025", status: "paid",     pct_of_contract: 15 },
-  { label: "Frame",       amount: 48500,  date: "Jul 5, 2025",  status: "paid",     pct_of_contract: 10 },
-  { label: "Lock-up",     amount: 97000,  date: "Aug 17, 2025", status: "pending",  pct_of_contract: 20 },
-  { label: "Fixing",      amount: 97000,  date: "Oct 6, 2025",  status: "upcoming", pct_of_contract: 20 },
-  { label: "Completion",  amount: 72750,  date: "Dec 6, 2025",  status: "upcoming", pct_of_contract: 15 },
-];
+const DEFAULT_MILESTONES: PaymentMilestone[] = [];
 
 function formatAmount(amount: number | string): string {
   if (typeof amount === "string" && amount.startsWith("$")) return amount;

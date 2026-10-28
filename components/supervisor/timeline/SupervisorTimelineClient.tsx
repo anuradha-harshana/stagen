@@ -2,17 +2,17 @@
 
 import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState } from "react";
-import { 
-  History, 
-  Building2, 
-  Calendar, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock, 
-  TrendingUp, 
-  Plus, 
-  Save, 
-  Search, 
+import {
+  History,
+  Building2,
+  Calendar,
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
+  TrendingUp,
+  Plus,
+  Save,
+  Search,
   Camera,
   ChevronLeft,
   ChevronRight
@@ -23,11 +23,11 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useUser } from "@/components/Providers/UserProvider";
-import { Project } from "@/lib/db-mock/projectsData";
-import { 
-  TimelinePageData, 
-  TimelineStage, 
-  DelayLogEntry 
+import { Project } from "@/lib/types/project";
+import {
+  TimelinePageData,
+  TimelineStage,
+  DelayLogEntry
 } from "@/lib/supervisor/types";
 import ZoomToggle, { ZoomScale } from "@/components/Customer/Timeline/ZoomToggle";
 import { SupervisorGanttChart } from "./SupervisorGanttChart";

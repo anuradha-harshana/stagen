@@ -13,37 +13,12 @@ export function ComplianceReadiness({
   readiness,
   onViewReport,
 }: ComplianceReadinessProps) {
-  const score = readiness?.score ?? 92;
-  const rating = readiness?.rating ?? "Good Standing";
+  const score = readiness?.score ?? 0;
+  const rating = readiness?.rating ?? "Not assessed";
   const description =
     readiness?.description ??
-    "Automated audit rating based on active site compliance policies";
-  const categories = readiness?.categories ?? [
-    {
-      id: "cat-safety",
-      name: "Site Safety & Hazard Audits",
-      score: 96,
-      color: "emerald",
-    },
-    {
-      id: "cat-docs",
-      name: "Document Verification & Blueprint Sign-offs",
-      score: 94,
-      color: "emerald",
-    },
-    {
-      id: "cat-fin",
-      name: "Financial & Invoice Audit Trail",
-      score: 98,
-      color: "blue",
-    },
-    {
-      id: "cat-workload",
-      name: "Supervisor Workload & Checklists",
-      score: 88,
-      color: "amber",
-    },
-  ];
+    "No audit data recorded";
+  const categories = readiness?.categories ?? [];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

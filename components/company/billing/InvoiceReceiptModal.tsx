@@ -3,7 +3,6 @@
 import React from "react"
 import { X, Download, Printer, CheckCircle2, Building2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { toast } from "sonner"
 import { InvoiceItem } from "./types"
 
 interface InvoiceReceiptModalProps {
@@ -15,11 +14,11 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
   if (!invoice) return null
 
   const handleDownload = () => {
-    toast.success(`Downloading PDF for invoice ${invoice.invoiceNumber}...`)
+    if (invoice.pdfUrl) window.open(invoice.pdfUrl, "_blank", "noopener,noreferrer")
   }
 
   const handlePrint = () => {
-    toast.info(`Preparing print preview for ${invoice.invoiceNumber}...`)
+    window.print()
   }
 
   return (
@@ -52,7 +51,7 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
           <div className="bg-blue-fantastic/5 border border-blue-fantastic/10 rounded-2xl p-4 flex items-center justify-between">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 block mb-1">
-                Total Amount Paid
+                Invoice Total
               </span>
               <span className="text-2xl sm:text-3xl font-bold text-blue-fantastic font-sans">
                 ${invoice.amount.toFixed(2)}
@@ -62,27 +61,6 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
               <CheckCircle2 className="h-3.5 w-3.5" />
               {invoice.status}
             </span>
-          </div>
-
-          {/* Billing Info Grid */}
-          <div className="grid grid-cols-2 gap-4 text-xs">
-            <div>
-              <span className="font-bold text-neutral-400 uppercase tracking-wider text-[10px] block mb-1">
-                Billed To
-              </span>
-              <p className="font-bold text-blue-fantastic">Stagen Construction Ltd.</p>
-              <p className="text-neutral-500">123 Builder Way, Suite 400</p>
-              <p className="text-neutral-500">Sydney NSW 2000, Australia</p>
-            </div>
-
-            <div>
-              <span className="font-bold text-neutral-400 uppercase tracking-wider text-[10px] block mb-1">
-                Payment Details
-              </span>
-              <p className="font-bold text-blue-fantastic">Visa ending in 4242</p>
-              <p className="text-neutral-500">Processed automatically</p>
-              <p className="text-neutral-500">Ref: TXN-89302910</p>
-            </div>
           </div>
 
           {/* Line Items Table */}
@@ -99,10 +77,6 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
             <div className="flex items-center justify-between text-xs py-1 pt-2 border-t border-dashed border-neutral-200 font-bold">
               <span className="text-neutral-600">Subtotal</span>
               <span className="text-blue-fantastic">${invoice.amount.toFixed(2)}</span>
-            </div>
-            <div className="flex items-center justify-between text-xs py-1 text-neutral-500">
-              <span>GST / Tax (0%)</span>
-              <span>$0.00</span>
             </div>
           </div>
         </div>
@@ -127,11 +101,12 @@ export function InvoiceReceiptModal({ invoice, onClose }: InvoiceReceiptModalPro
               Close
             </Button>
             <Button
+              disabled={!invoice.pdfUrl}
               onClick={handleDownload}
               className="h-10 px-4 bg-blue-fantastic text-palladian hover:bg-blue-fantastic/90 text-xs font-bold rounded-xl shadow-sm gap-2 cursor-pointer"
             >
               <Download className="h-4 w-4" />
-              <span>Download PDF</span>
+              <span>{invoice.pdfUrl ? "Download PDF" : "PDF not attached"}</span>
             </Button>
           </div>
         </div>

@@ -37,3 +37,27 @@ export function useSupervisorData<T>(resource: string, initial: T) {
 export function DataState({ loading, error, empty = false }: { loading: boolean; error: string; empty?: boolean }) {
   return <div className="p-6 text-blue-fantastic" role={error ? "alert" : "status"}>{loading ? "Loading…" : error || (empty ? "No assigned project data available." : "")}{error && <button className="ml-3 underline" onClick={() => window.location.reload()}>Retry</button>}</div>;
 }
+
+export function useCompanySection<T>(section: string, empty: T) {
+  const [data, setData] = useState<T>(empty);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const pending = useRef(false);
+  const url = "/api/company-management/settings?section=" + section;
+  useEffect(() => { let active = true; fetch(url, { cache: "no-store" }).then(async r => { if (!r.ok) throw new Error("Unable to load " + section); const result = await r.json(); if (active && result.data) setData(result.data); }).catch(e => { if (active) setError(e.message); }).finally(() => { if (active) setLoading(false); }); return () => { active = false; }; }, [url, section]);
+  const save = async (next: T) => {
+    if (loading || error || pending.current) return false;
+    pending.current = true;
+    try { const r = await fetch(url, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(next) }); if (!r.ok) throw new Error("Unable to save " + section); const result = await r.json(); setData(result.data); toast.success("Changes saved"); return true; }
+    catch (e) { toast.error(e instanceof Error ? e.message : "Unable to save"); return false; }
+    finally { pending.current = false; }
+  };
+  return { data, loading, error, save };
+}
+
+export function useCompanyDashboard() {
+  const [data, setData] = useState<Awaited<ReturnType<typeof import("@/lib/company/company").getCompanyDashboard>> | null>(null);
+  const [error, setError] = useState("");
+  useEffect(() => { fetch("/api/company/projects?view=dashboard", { cache: "no-store" }).then(async r => { if (!r.ok) throw new Error("Unable to load company records"); setData(await r.json()); }).catch(e => setError(e.message)); }, []);
+  return { data, error };
+}

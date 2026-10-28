@@ -12,56 +12,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   ShieldCheck,
 }
 
-const DEFAULT_WARRANTIES: WarrantyItem[] = [
-  {
-    id: "w-001",
-    icon_key: "Home",
-    title: "Structural Warranty",
-    provider: "Stagen Homes",
-    period: "6 Years",
-    expiry: "Dec 2031",
-    status: "Active",
-    description: "Full structural integrity coverage including foundations, frame, and load-bearing walls.",
-    years_total: 6,
-    years_left: 5.5,
-  },
-  {
-    id: "w-002",
-    icon_key: "Droplets",
-    title: "Waterproofing",
-    provider: "Stagen Homes",
-    period: "6 Years",
-    expiry: "Dec 2031",
-    status: "Active",
-    description: "Roof, bathroom, laundry, and wet area waterproofing coverage.",
-    years_total: 6,
-    years_left: 5.5,
-  },
-  {
-    id: "w-003",
-    icon_key: "Zap",
-    title: "Electrical Systems",
-    provider: "ElectroPro Pty Ltd",
-    period: "2 Years",
-    expiry: "Dec 2027",
-    status: "Active",
-    description: "Wiring, switchboards, power points, and all fixed electrical fittings.",
-    years_total: 2,
-    years_left: 1.5,
-  },
-  {
-    id: "w-004",
-    icon_key: "Wind",
-    title: "HVAC & Ventilation",
-    provider: "CoolAir Systems",
-    period: "5 Years",
-    expiry: "Dec 2030",
-    status: "Active",
-    description: "Ducted air conditioning, mechanical ventilation, and exhaust systems.",
-    years_total: 5,
-    years_left: 4.5,
-  },
-]
+const DEFAULT_WARRANTIES: WarrantyItem[] = []
 
 const statusConfig: Record<WarrantyStatus, { badge: string; dot: string }> = {
   Active:          { badge: "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 font-bold", dot: "bg-truffle-trouble" },

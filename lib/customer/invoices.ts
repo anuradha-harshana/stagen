@@ -55,16 +55,7 @@ async function readInvoicesFile(): Promise<TenantInvoicesData | TenantInvoicesDa
     const raw = await fs.readFile(invoicesFilePath, "utf8");
     return JSON.parse(raw);
   } catch (error) {
-    // If not found or empty, return default empty structure
-    return {
-      tenant_id: "tenant-lot-104",
-      contract_value: 485000,
-      amount_paid: 218250,
-      outstanding: 169750,
-      next_due: { amount: 97000, label: "Stage 3 – Lock-up", due_date: "Aug 17, 2025" },
-      invoices: [],
-      payment_milestones: [],
-    };
+    throw new Error("Unable to read project records");
   }
 }
 
@@ -82,18 +73,19 @@ function resolveTenantRecord(
     const found = all.find((item) => item.tenant_id === tenantId);
     return (
       found ||
-      all[0] || {
+      {
         tenant_id: tenantId,
-        contract_value: 485000,
+        contract_value: 0,
         amount_paid: 0,
-        outstanding: 485000,
+        outstanding: 0,
         next_due: { amount: 0, label: "None", due_date: "" },
         invoices: [],
         payment_milestones: [],
       }
     );
   }
-  return all;
+  if (all.tenant_id === tenantId) return all;
+  return resolveTenantRecord([], tenantId);
 }
 
 // Helper: Update record within data structure
@@ -111,7 +103,7 @@ function updateInvoicesDataStructure(
     }
     return all;
   }
-  return updated;
+  return all.tenant_id === tenantId ? updated : [all, updated];
 }
 
 // Helper: Recalculate summary metrics based on invoices and milestones
@@ -146,7 +138,7 @@ function recalculateMetrics(data: TenantInvoicesData): TenantInvoicesData {
 }
 
 // ── 1. READ (GET) ──
-export async function getTenantInvoices(tenantId = "tenant-lot-104"): Promise<TenantInvoicesData> {
+export async function getTenantInvoices(tenantId: string): Promise<TenantInvoicesData> {
   const all = await readInvoicesFile();
   const record = resolveTenantRecord(all, tenantId);
   return recalculateMetrics(record);
@@ -154,7 +146,7 @@ export async function getTenantInvoices(tenantId = "tenant-lot-104"): Promise<Te
 
 // ── 2. CREATE (POST) ──
 export async function createTenantInvoice(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   invoiceData: Omit<Invoice, "id">
 ): Promise<Invoice> {
   const all = await readInvoicesFile();
@@ -177,7 +169,7 @@ export async function createTenantInvoice(
 
 // ── 3. UPDATE (PUT) ──
 export async function updateTenantInvoice(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   invoiceId: string,
   updates: Partial<Invoice>
 ): Promise<Invoice | null> {
@@ -213,7 +205,7 @@ export async function updateTenantInvoice(
 
 // ── 4. PAY INVOICE (PUT/POST) ──
 export async function payTenantInvoice(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   invoiceId: string
 ): Promise<TenantInvoicesData | null> {
   const all = await readInvoicesFile();
@@ -269,7 +261,7 @@ export async function payTenantInvoice(
 
 // ── 5. DELETE (DELETE) ──
 export async function deleteTenantInvoice(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   invoiceId: string
 ): Promise<boolean> {
   const all = await readInvoicesFile();
@@ -292,7 +284,7 @@ export async function deleteTenantInvoice(
 
 // ── 6. UPDATE MILESTONE ──
 export async function updateTenantMilestone(
-  tenantId = "tenant-lot-104",
+  tenantId: string,
   milestoneIdOrLabel: string,
   updates: Partial<PaymentMilestone>
 ): Promise<PaymentMilestone | null> {

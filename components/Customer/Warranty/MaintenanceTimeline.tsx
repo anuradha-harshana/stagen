@@ -4,13 +4,7 @@ import { Wrench, CheckCircle2, Clock, Circle, CalendarDays } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { MaintenanceItem, ServiceStatus } from "@/lib/customer/warranty"
 
-const DEFAULT_SERVICES: MaintenanceItem[] = [
-  { id: "m-001", title: "3-Month Defects Inspection",  date: "Mar 15, 2026", provider: "Stagen Site Manager", status: "completed", notes: "Minor touch-up paintwork completed." },
-  { id: "m-002", title: "6-Month Maintenance Check",   date: "Jun 15, 2026", provider: "Stagen Homes",         status: "scheduled", notes: "Confirmation sent via email." },
-  { id: "m-003", title: "Annual HVAC Service",         date: "Dec 10, 2026", provider: "CoolAir Systems",       status: "upcoming",  notes: "" },
-  { id: "m-004", title: "12-Month Defects Inspection", date: "Dec 15, 2026", provider: "Stagen Site Manager",   status: "upcoming",  notes: "" },
-  { id: "m-005", title: "5-Year Structural Review",    date: "Dec 15, 2030", provider: "Stagen Homes",          status: "upcoming",  notes: "" },
-]
+const DEFAULT_SERVICES: MaintenanceItem[] = []
 
 const statusConfig: Record<ServiceStatus, { label: string; badge: string; dot: string }> = {
   completed: { label: "Completed", badge: "bg-truffle-trouble/10 text-truffle-trouble border-truffle-trouble/30 font-bold", dot: "bg-truffle-trouble" },

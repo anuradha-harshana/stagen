@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { 
-  UserRoundPen, 
-  Search, 
-  UserPlus, 
-  Building2, 
-  ShieldCheck, 
-  Mail, 
-  Phone, 
-  Clock, 
-  MoreHorizontal, 
-  CheckCircle2, 
+import {
+  UserRoundPen,
+  Search,
+  UserPlus,
+  Building2,
+  ShieldCheck,
+  Mail,
+  Phone,
+  Clock,
+  MoreHorizontal,
+  CheckCircle2,
   Briefcase,
   SlidersHorizontal,
   ChevronRight,
@@ -34,7 +34,7 @@ export default function CompanyManagementUsersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("All");
   const [statusFilter, setStatusFilter] = useState<string>("All");
-  
+
   const [selectedUser, setSelectedUser] = useState<OrganizationUser | null>(null);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -82,11 +82,11 @@ export default function CompanyManagementUsersPage() {
 
   // Filter users
   const filteredUsers = users.filter((u) => {
-    const matchesSearch = 
+    const matchesSearch =
       u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       u.role.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesRole = roleFilter === "All" || u.role === roleFilter;
     const matchesStatus = statusFilter === "All" || u.status === statusFilter;
 
@@ -299,7 +299,7 @@ export default function CompanyManagementUsersPage() {
             <div>
               <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Active Build Coverage</p>
               <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">15 Projects</h3>
-              <p className="text-[10px] text-blue-fantastic/50">100% supervisor assigned</p>
+              <p className="text-[10px] text-blue-fantastic/50">Company user records</p>
             </div>
           </CardContent>
         </Card>

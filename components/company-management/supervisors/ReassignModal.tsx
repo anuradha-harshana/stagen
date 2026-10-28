@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 
 interface ReassignModalProps {
   project: Project | null;

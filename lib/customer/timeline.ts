@@ -7,7 +7,7 @@ interface ProjectRecord {
   progress?: number; status?: string; start_date?: string; est_handover?: string;
 }
 interface StageRecord {
-  id?: string; name: string; description?: string; status?: string;
+  id?: string; name: string; description?: string; status?: string; progress?: number;
   start_date?: string; end_date?: string; plannedStart?: string; plannedEnd?: string;
   actualStart?: string; actualEnd?: string; milestones?: Partial<TimelineMilestone>[];
 }
@@ -53,7 +53,7 @@ export async function getCustomerTimelines(userId: string): Promise<CustomerTime
     const timeline = timelines.find(t => t.tenant_id === p.tenant_id);
     const saved = timeline?.stages ?? [];
     const current = stageRecords.find(s => s.tenant_id === p.tenant_id)?.stages ?? [];
-    const combined = [...current, ...saved.filter(s => !current.some(c => stageId(c) === stageId(s) || c.name === s.name))];
+    const combined = current;
     const stages: TimelineStage[] = combined.map(s => {
       const schedule = saved.find(v => stageId(v) === stageId(s) || v.name === s.name);
       const milestones = (schedule?.milestones ?? s.milestones ?? []).filter(m => m.name && date(m.date)).map(m => ({
@@ -69,7 +69,7 @@ export async function getCustomerTimelines(userId: string): Promise<CustomerTime
       };
     });
     const projectDelays = delays.filter(d => d.tenant_id === p.tenant_id);
-    const percentage = Math.max(0, Math.min(100, p.progress ?? timeline?.percentage ?? 0));
+    const percentage = current.length ? Math.round(current.reduce((n, s) => n + Number(s.progress || 0), 0) / current.length) : 0;
     const flag: TimelinePageData["statusFlag"] = p.status?.toLowerCase() === "delayed" ? "delayed" : percentage === 0 ? "not-started" : timeline?.status_flag === "ahead" ? "ahead" : "on-track";
     return {
       id: p.tenant_id, name: p.display_name ?? p.tenant_id, address: p.address ?? "",

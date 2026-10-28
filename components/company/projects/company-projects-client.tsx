@@ -16,6 +16,7 @@ import ProjectFormModal, { ProjectFormPayload } from "./project-form-modal";
 interface CompanyProjectsClientProps {
   initialProjects: Project[];
   supervisors: { id: string; username: string }[];
+  customers?: { id: string; username: string }[];
   companyId: string;
   pageTitle?: string;
   pageSubtitle?: string;
@@ -24,6 +25,7 @@ interface CompanyProjectsClientProps {
 export default function CompanyProjectsClient({
   initialProjects,
   supervisors,
+  customers = [],
   companyId,
   pageTitle,
   pageSubtitle,
@@ -54,6 +56,7 @@ export default function CompanyProjectsClient({
       }
     };
 
+    if (new URLSearchParams(window.location.search).get("create") === "1") setIsFormOpen(true);
     void loadStageTemplates();
   }, [companyId]);
 
@@ -64,7 +67,7 @@ export default function CompanyProjectsClient({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!response.ok) throw new Error("Failed to save project");
+      if (!response.ok) { const error = await response.json(); throw new Error(error.error || "Failed to save project"); }
 
       const data: { project: Project } = await response.json();
       setProjects((current) => {
@@ -78,7 +81,7 @@ export default function CompanyProjectsClient({
       toast.success(editingProject ? "Project updated successfully" : "New project created successfully");
     } catch (error) {
       console.error("Failed to save project", error);
-      toast.error("Failed to save project. Please check fields and try again.");
+      toast.error(error instanceof Error ? error.message : "Failed to save project");
     }
   };
 
@@ -113,7 +116,7 @@ export default function CompanyProjectsClient({
   });
 
   return (
-    <div className="flex flex-col gap-0.5 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       <ProjectsHeader
         onCreateClick={() => {
           setEditingProject(null);
@@ -164,6 +167,7 @@ export default function CompanyProjectsClient({
       <ProjectFormModal
         project={editingProject}
         supervisors={supervisors}
+        customers={customers}
         stageTemplates={stageTemplates}
         isOpen={isFormOpen}
         onClose={() => {

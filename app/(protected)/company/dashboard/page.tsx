@@ -6,7 +6,7 @@ import CompanyDashboardClient from "@/components/company/dashboard/CompanyDashbo
 export default async function CompanyDashboardPage() {
   const user = await requireRole(["company"]);
 
-  const projects = await getCompanyProjects(user.id);
 
-  return <CompanyDashboardClient user={user} projects={projects} />;
+
+  return <CompanyDashboardClient user={user} />;
 }

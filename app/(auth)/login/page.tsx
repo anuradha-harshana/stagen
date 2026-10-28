@@ -4,18 +4,18 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { AuthLogo } from "@/components/auth/logo"
+import { AuthLogo } from "@/components/auth/Logo"
 import { BrandPanel } from "@/components/auth/BrandPanel"
 
 import { useForm } from "react-hook-form"
 import { LoginFormData, loginSchema } from "@/lib/login/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useSearchParams, useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
 import { getRedirectPath } from "@/hooks/Auth/redirection"
 import { toast } from "sonner"
 
-export default function LoginPage() {
+function LoginForm() {
 
   const {
     register,
@@ -121,4 +121,8 @@ export default function LoginPage() {
       </div>
     </div>
   )
+}
+
+export default function LoginPage() {
+  return <Suspense fallback={<div className="min-h-screen bg-abyssal-blue text-palladian flex items-center justify-center">Loading sign in…</div>}><LoginForm /></Suspense>;
 }

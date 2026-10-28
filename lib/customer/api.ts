@@ -1,5 +1,5 @@
 import { getCurrentUser } from "@/lib/auth/auth";
-import { ApiError, DEFAULT_CUSTOMER_USER_ID } from "./store";
+import { ApiError } from "./store";
 
 export async function resolveCustomer(): Promise<{ id: string; role: string; username: string }> {
   const user = await getCurrentUser();
@@ -15,12 +15,7 @@ export async function resolveCustomer(): Promise<{ id: string; role: string; use
     };
   }
 
-  // Fallback to default customer in development/mock sessions
-  return {
-    id: DEFAULT_CUSTOMER_USER_ID,
-    role: "customer",
-    username: "Anuradha",
-  };
+  throw new ApiError(401, "Sign in required");
 }
 
 export function handleApiError(error: unknown): Response {

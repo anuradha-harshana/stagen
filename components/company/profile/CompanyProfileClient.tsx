@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import { useCompanySection, DataState } from "@/components/supervisor/useSupervisorData";
+import React, { useState, useEffect } from "react";
 import {
   Save,
   RotateCcw,
@@ -32,20 +33,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const INITIAL_PROFILE = {
-  companyName: "STAGEN Constructions",
-  abn: "98 123 456 789",
-  businessAddress: "Level 14, 100 St Kilda Road, Melbourne VIC 3004",
-  contactNumber: "+61 3 9876 5432",
-  primaryEmail: "admin@stagen.com.au",
-  websiteUrl: "https://stagen.com.au",
-  timezone: "Australia/Melbourne",
-  defaultCurrency: "AUD ($)",
-  logoUrl: "/images/logo.png",
-};
+const INITIAL_PROFILE = { companyName: "", abn: "", businessAddress: "", contactNumber: "", primaryEmail: "", websiteUrl: "", timezone: "Australia/Sydney", defaultCurrency: "AUD ($)", logoUrl: "" };
 
 export default function CompanyProfileClient() {
 
+  const stored = useCompanySection("profile", INITIAL_PROFILE);
+  useEffect(() => { setProfile(stored.data); }, [stored.data]);
   // Form State
   const [profile, setProfile] = useState(INITIAL_PROFILE);
   const [isSaving, setIsSaving] = useState(false);
@@ -58,26 +51,22 @@ export default function CompanyProfileClient() {
   };
 
   // Save Changes Handler
-  const handleSave = (e?: React.FormEvent) => {
+  const handleSave = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsSaving(true);
 
-    setTimeout(() => {
-      setIsSaving(false);
-      setHasChanges(false);
-      toast.success("Company Profile updated successfully!", {
-        description: "All core business details and regional preferences saved.",
-      });
-    }, 1000);
+    if (await stored.save(profile)) setHasChanges(false);
+    setIsSaving(false);
   };
 
   // Reset Changes Handler
   const handleReset = () => {
-    setProfile(INITIAL_PROFILE);
+    setProfile(stored.data);
     setHasChanges(false);
     toast.info("Form reset to original company details.");
   };
 
+  if (stored.loading || stored.error) return <DataState loading={stored.loading} error={stored.error} />;
   return (
     <div className={PAGE_SHELL_CLASS}>
       <PageHeader
@@ -124,7 +113,7 @@ export default function CompanyProfileClient() {
       <Card className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-blue-fantastic/15">
         <CardContent className="p-0">
           <form onSubmit={handleSave} className="space-y-6">
-            
+
             {/* Top Logo & Branding Banner */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-gray-100 gap-4">
               <div className="flex items-center gap-4">
@@ -137,14 +126,14 @@ export default function CompanyProfileClient() {
                 <div>
                   <div className="flex items-center gap-2">
                     <h2 className="text-lg font-sans font-semibold text-blue-fantastic">
-                      {profile.companyName || "STAGEN Constructions"}
+                      {profile.companyName || "Company profile"}
                     </h2>
                     <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-none text-[11px] font-medium">
-                      Verified Organization
+                      Company Details
                     </Badge>
                   </div>
                   <p className="text-xs text-gray-500 mt-0.5">
-                    ABN: {profile.abn || "98 123 456 789"} • Enterprise Subscription
+                    ABN: {profile.abn || "Not recorded"}
                   </p>
                 </div>
               </div>
@@ -303,7 +292,7 @@ export default function CompanyProfileClient() {
             <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
               <span className="text-xs text-gray-400 flex items-center gap-1">
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                Changes auto-synced across build site tools
+                Save changes to update your company profile
               </span>
 
               <Button

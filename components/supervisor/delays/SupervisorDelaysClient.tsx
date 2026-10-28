@@ -3,7 +3,7 @@
 import { useSupervisorData, supervisorRequest, DataState } from "@/components/supervisor/useSupervisorData";
 import React, { useState } from "react";
 import { useUser } from "@/components/Providers/UserProvider";
-import { Project } from "@/lib/db-mock/projectsData";
+import { Project } from "@/lib/types/project";
 import { TimelinePageData, DelayLogEntry } from "@/lib/supervisor/types";
 import { DelayMessage, getDelayCategoryMeta } from "./DelayStore";
 import { DelayStatsOverview } from "./DelayStatsOverview";
@@ -13,18 +13,18 @@ import { DelayMessagesList } from "./DelayMessagesList";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { 
-  AlertTriangle, 
-  Plus, 
-  Send, 
-  Edit3, 
-  Trash2, 
-  ArrowRight, 
-  CloudRain, 
-  Wrench, 
-  FileCheck, 
-  Users, 
-  Package, 
+import {
+  AlertTriangle,
+  Plus,
+  Send,
+  Edit3,
+  Trash2,
+  ArrowRight,
+  CloudRain,
+  Wrench,
+  FileCheck,
+  Users,
+  Package,
   HelpCircle,
   Building2,
   Calendar,

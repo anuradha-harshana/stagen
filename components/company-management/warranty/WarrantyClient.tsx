@@ -7,56 +7,7 @@ import DefectsList from "./DefectsList";
 import WarrantyCoverageSummary from "./WarrantyCoverageSummary";
 import DefectManagementModal from "./DefectManagementModal";
 
-const INITIAL_DEFECTS: DefectItem[] = [
-  {
-    id: "DEF-001",
-    projectId: "208",
-    clientName: "Sarah Jenkins",
-    title: "Garage door alignment issue",
-    area: "Garage",
-    priority: "High",
-    reported: "2026-07-25",
-    status: "resolved",
-    assignedSupervisor: "Eric",
-    description: "Garage door rollers are catching on the tracks during closure, preventing it from sealing properly at the base."
-  },
-  {
-    id: "DEF-002",
-    projectId: "104",
-    clientName: "Anuradha Harshana",
-    title: "Hairline crack – master bedroom wall",
-    area: "Bedroom 1",
-    priority: "Low",
-    reported: "2026-07-28",
-    status: "in-progress",
-    assignedSupervisor: "Eric",
-    description: "Small hairline crack has appeared along the plaster joint above the walk-in wardrobe door."
-  },
-  {
-    id: "DEF-003",
-    projectId: "104",
-    clientName: "Anuradha Harshana",
-    title: "Laundry tap dripping",
-    area: "Laundry",
-    priority: "Medium",
-    reported: "2026-08-01",
-    status: "open",
-    assignedSupervisor: "Unassigned",
-    description: "The cold water tap in the laundry basin is dripping continuously at a rate of 1 drip per 5 seconds, causing moisture build-up."
-  },
-  {
-    id: "DEF-004",
-    projectId: "312",
-    clientName: "Marcus Vance",
-    title: "Kitchen splashback silicone peeling",
-    area: "Kitchen",
-    priority: "Low",
-    reported: "2026-08-03",
-    status: "open",
-    assignedSupervisor: "Unassigned",
-    description: "The silicone seal between the stone benchtop and glass splashback is peeling behind the sink."
-  }
-];
+const INITIAL_DEFECTS: DefectItem[] = [];
 
 import {
   fetchCompanyDefectsAction,
@@ -106,10 +57,10 @@ export default function WarrantyClient({ initialDefects, supervisors }: Warranty
     }
   };
 
-  const supervisorsList = supervisors && supervisors.length > 0 ? supervisors : ["Eric", "John"];
+  const supervisorsList = supervisors ?? [];
 
   return (
-    <div className="flex flex-col gap-6 w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
+    <div className="w-full p-4 sm:p-6 space-y-6 max-w-7xl mx-auto font-sans">
       {/* Header */}
       <WarrantyHeader />
 

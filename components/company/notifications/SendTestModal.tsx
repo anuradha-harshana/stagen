@@ -16,22 +16,14 @@ export function SendTestModal({
   isOpen,
   onClose,
 }: SendTestModalProps) {
-  const [recipient, setRecipient] = useState("admin@stagen.com")
+  const [recipient, setRecipient] = useState("")
   const [isSending, setIsSending] = useState(false)
 
   if (!isOpen || !template) return null
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSending(true)
-
-    setTimeout(() => {
-      setIsSending(false)
-      toast.success(
-        `Test notification for "${template.title}" sent to ${recipient}!`
-      )
-      onClose()
-    }, 800)
+    toast.info("Notification delivery is not configured. You can preview and save templates.")
   }
 
   return (

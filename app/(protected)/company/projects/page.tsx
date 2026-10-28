@@ -22,6 +22,7 @@ export default async function CompanyProjectsPage() {
     <CompanyProjectsClient
       initialProjects={initialProjects}
       supervisors={supervisors}
+      customers={allUsers.filter(u => u.user.role === "customer").map(u => ({ id: u.user.id, username: u.user.username }))}
       companyId={user.id}
     />
   );

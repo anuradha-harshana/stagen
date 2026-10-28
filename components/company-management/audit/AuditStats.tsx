@@ -8,23 +8,23 @@ interface AuditStatsProps {
 }
 
 export function AuditStats({ stats }: AuditStatsProps) {
-  const complianceScore = stats?.complianceScore?.value ?? "92%";
-  const complianceRating = stats?.complianceScore?.rating ?? "Good Standing";
+  const complianceScore = stats?.complianceScore?.value ?? "Not assessed";
+  const complianceRating = stats?.complianceScore?.rating ?? "Not assessed";
   const complianceDesc =
-    stats?.complianceScore?.description ?? "ISO 27001 & Safety Verified";
+    stats?.complianceScore?.description ?? "Not assessed";
 
-  const openFlags = stats?.openFlags?.value ?? 3;
-  const flagsRating = stats?.openFlags?.rating ?? "Needs Review";
+  const openFlags = stats?.openFlags?.value ?? 0;
+  const flagsRating = stats?.openFlags?.rating ?? "Not assessed";
   const flagsDesc =
-    stats?.openFlags?.description ?? "2 Safety, 1 Document Gap";
+    stats?.openFlags?.description ?? "Not assessed";
 
-  const auditsCompleted = stats?.auditsCompleted?.value ?? 142;
+  const auditsCompleted = stats?.auditsCompleted?.value ?? 0;
   const auditsDesc =
-    stats?.auditsCompleted?.description ?? "YTD Site & Financial Audits";
+    stats?.auditsCompleted?.description ?? "Not assessed";
 
-  const dataIntegrity = stats?.dataIntegrityScore?.value ?? "98.4%";
+  const dataIntegrity = stats?.dataIntegrityScore?.value ?? "Not assessed";
   const integrityDesc =
-    stats?.dataIntegrityScore?.description ?? "✓ Encrypted & Verified";
+    stats?.dataIntegrityScore?.description ?? "Not assessed";
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

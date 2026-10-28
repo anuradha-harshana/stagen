@@ -29,12 +29,12 @@ export function UpdatePaymentMethodModal({
 
   useEffect(() => {
     if (currentPaymentMethod) {
-      setCardholderName(currentPaymentMethod.cardholderName || "John Doe")
+      setCardholderName(currentPaymentMethod.cardholderName || "")
       setCardNumber(`•••• •••• •••• ${currentPaymentMethod.last4}`)
       setExpMonth(currentPaymentMethod.expMonth)
       setExpYear(currentPaymentMethod.expYear)
       setCvc("•••")
-      setPostalCode("90210")
+      setPostalCode("")
     }
   }, [currentPaymentMethod, isOpen])
 
@@ -46,7 +46,7 @@ export function UpdatePaymentMethodModal({
     const last4Digit = cardNumber.replace(/\s+/g, "").slice(-4) || currentPaymentMethod.last4
 
     const updated: PaymentMethodInfo = {
-      brand: "Visa",
+      brand: currentPaymentMethod.brand,
       last4: last4Digit,
       expMonth: expMonth.padStart(2, "0"),
       expYear: expYear.slice(-2),
@@ -54,7 +54,7 @@ export function UpdatePaymentMethodModal({
     }
 
     onSave(updated)
-    toast.success("Payment method updated successfully!")
+
     onClose()
   }
 
