@@ -1,5 +1,29 @@
 [
   {
+    "user_id": "d6e39c53-8a2d-4380-aa54-7ddc45a9f35d",
+    "role": "supervisor",
+    "avatar_url": "/profile-avatar.png",
+    "avatarBg": "bg-burning-flame",
+    "full_name": "Imesha",
+    "email": "imesha@stagen.com",
+    "phone": "61400400400",
+    "home_address": "",
+    "account_created": "Oct 28, 2026",
+    "language": "English",
+    "timezone": "Australia/Melbourne",
+    "linked_accounts": [
+      {
+        "provider": "google",
+        "connected": false
+      }
+    ],
+    "password_updated_at": "2026-10-28",
+    "status": "Active",
+    "assigned_projects": [],
+    "assigned_projects_count": 0,
+    "last_active": "Account created"
+  },
+  {
     "user_id": "USR-0800",
     "role": "supervisor",
     "avatar_url": "/profile-avatar.png",

@@ -40,6 +40,7 @@ export default function CompanyManagementUsersPage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const [inviteForm, setInviteForm] = useState({
+    password: "",
     name: "",
     email: "",
     phone: "",
@@ -103,11 +104,12 @@ export default function CompanyManagementUsersPage() {
     const payload = {
       name: inviteForm.name.trim(),
       email: inviteForm.email.trim(),
-      phone: inviteForm.phone.trim() || "+61 400 000 000",
+      phone: inviteForm.phone.trim(),
+      password: inviteForm.password,
       role: inviteForm.role,
-      status: "Pending" as const,
+      status: "Active" as const,
       assignedProjectsCount: inviteForm.assignedProjects.trim() ? 1 : 0,
-      assignedProjects: inviteForm.assignedProjects.trim() ? [inviteForm.assignedProjects.trim()] : ["Unassigned"],
+      assignedProjects: inviteForm.assignedProjects.split(",").map(p => p.trim()).filter(Boolean),
       avatarBg: randomBg,
     };
 
@@ -118,14 +120,14 @@ export default function CompanyManagementUsersPage() {
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("Failed to invite user");
+      if (!res.ok) throw new Error((await res.json()).error || "Failed to create user");
       const { user } = await res.json();
       setUsers((prev) => [user, ...prev]);
       setIsInviteOpen(false);
-      setInviteForm({ name: "", email: "", phone: "", role: "Site Supervisor", assignedProjects: "" });
-      showNotification(`User invitation sent to ${user.email}`);
+      setInviteForm({ name: "", email: "", phone: "", password: "", role: "Site Supervisor", assignedProjects: "" });
+      showNotification(`User account created for ${user.email}`);
     } catch (err) {
-      showNotification("Failed to send user invitation.");
+      showNotification(err instanceof Error ? err.message : "Failed to create user.");
     }
   };
 
@@ -195,7 +197,7 @@ export default function CompanyManagementUsersPage() {
     const updates: Partial<OrganizationUser> = {
       name: editForm.name.trim(),
       email: editForm.email.trim(),
-      phone: editForm.phone.trim() || "+61 400 000 000",
+      phone: editForm.phone.trim(),
       role: editForm.role,
       assignedProjects: projectList.length > 0 ? projectList : ["Unassigned"],
       assignedProjectsCount: projectList.length
@@ -208,7 +210,7 @@ export default function CompanyManagementUsersPage() {
         body: JSON.stringify({ id: editForm.id, updates })
       });
 
-      if (!res.ok) throw new Error("Failed to update user");
+      if (!res.ok) throw new Error((await res.json()).error || "Failed to update user");
 
       const { user: updated } = await res.json();
       setUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
@@ -216,7 +218,7 @@ export default function CompanyManagementUsersPage() {
       setIsEditOpen(false);
       showNotification(`User details for '${updated.name}' updated successfully.`);
     } catch (err) {
-      showNotification("Failed to update user details.");
+      showNotification(err instanceof Error ? err.message : "Failed to update user details.");
     }
   };
 
@@ -241,7 +243,7 @@ export default function CompanyManagementUsersPage() {
             className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold h-9 rounded-xl shadow-sm"
           >
             <UserPlus className="mr-1.5 h-3.5 w-3.5" />
-            Invite New User
+            Create User
           </Button>
         }
       />
@@ -282,7 +284,7 @@ export default function CompanyManagementUsersPage() {
               <Clock className="h-5 w-5 text-truffle-trouble" />
             </div>
             <div>
-              <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Pending Invites</p>
+              <p className="text-[11px] font-bold text-blue-fantastic/60 uppercase tracking-wider">Pending Accounts</p>
               <h3 className="text-xl font-bold text-blue-fantastic mt-0.5">
                 {users.filter((u) => u.status === "Pending").length} Pending
               </h3>
@@ -588,14 +590,16 @@ export default function CompanyManagementUsersPage() {
           <DialogHeader className="pb-3 border-b border-blue-fantastic/10">
             <DialogTitle className="text-lg font-bold text-blue-fantastic flex items-center gap-2">
               <UserPlus className="h-5 w-5 text-truffle-trouble" />
-              Invite New User Account
+              Create User Account
             </DialogTitle>
             <DialogDescription className="text-xs text-blue-fantastic/60">
-              Send an email invitation link to join Stagen Build Progress OS
+              Create a login account and assign its role and projects
             </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleInviteSubmit} className="space-y-3 py-2">
+            <label className="block text-xs font-semibold">Initial password<Input type="password" autoComplete="new-password" minLength={8} required value={inviteForm.password} onChange={e => setInviteForm({...inviteForm, password:e.target.value})} /></label>
+            <p className="text-xs text-blue-fantastic/60">Creates an active login account. Share credentials securely; no invitation email is sent. Enter project IDs separated by commas.</p>
             <div>
               <label className="text-xs font-bold text-blue-fantastic/80 block mb-1">Full Name</label>
               <Input
@@ -667,7 +671,7 @@ export default function CompanyManagementUsersPage() {
                 type="submit"
                 className="bg-truffle-trouble text-palladian hover:bg-truffle-trouble/90 text-xs font-semibold"
               >
-                Send Invitation
+                Create Account
               </Button>
             </div>
           </form>

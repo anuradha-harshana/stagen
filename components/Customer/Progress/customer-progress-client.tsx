@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -55,7 +56,14 @@ export default function CustomerProgressClient({
   user,
   defaultProjectId,
 }: CustomerProgressClientProps) {
-  const [projects] = useState<Project[]>(initialProjects);
+  const projects = initialProjects;
+  const router = useRouter();
+  useEffect(() => {
+    const refresh = () => { if (document.visibilityState === "visible") router.refresh(); };
+    const timer = window.setInterval(refresh, 15000);
+    window.addEventListener("focus", refresh);
+    return () => { window.clearInterval(timer); window.removeEventListener("focus", refresh); };
+  }, [router]);
   const [selectedProjectId, setSelectedProjectId] = useState<string>(
     defaultProjectId || initialProjects[0]?.id || ""
   );

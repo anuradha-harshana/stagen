@@ -42,5 +42,18 @@
     ],
     "lastActive": "15 mins ago",
     "avatarBg": "bg-blue-fantastic"
+  },
+  {
+    "id": "d6e39c53-8a2d-4380-aa54-7ddc45a9f35d",
+    "companyId": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "name": "Imesha",
+    "email": "imesha@stagen.com",
+    "role": "Site Supervisor",
+    "phone": "61400400400",
+    "status": "Active",
+    "avatarBg": "bg-burning-flame",
+    "lastActive": "Account created",
+    "assignedProjects": [],
+    "assignedProjectsCount": 0
   }
 ]

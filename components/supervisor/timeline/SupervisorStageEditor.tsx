@@ -121,7 +121,7 @@ function SupervisorStageEditorDraft({
                 Manage {stage.name} Stage
               </h3>
               <p className="text-xs text-blue-fantastic/60 font-sans">
-                Update status, dates & milestone markers
+                Update dates and milestones. Complete checklists in Stage Updates.
               </p>
             </div>
           </div>
@@ -145,19 +145,19 @@ function SupervisorStageEditorDraft({
                 <SelectValue placeholder="Select Status..." />
               </SelectTrigger>
               <SelectContent className="bg-white border-blue-fantastic/20 font-sans">
-                <SelectItem value="upcoming" className="text-xs cursor-pointer">
+                <SelectItem disabled={stage.status !== "upcoming"} value="upcoming" className="text-xs cursor-pointer">
                   ⚪ Not Started (Upcoming)
                 </SelectItem>
-                <SelectItem value="in-progress" className="text-xs cursor-pointer">
+                <SelectItem disabled={!["in-progress", "delayed"].includes(stage.status)} value="in-progress" className="text-xs cursor-pointer">
                   🔵 Active Build (In Progress)
                 </SelectItem>
-                <SelectItem value="completed-on-time" className="text-xs cursor-pointer text-emerald-700">
+                <SelectItem disabled={!stage.status.startsWith("completed")} value="completed-on-time" className="text-xs cursor-pointer text-emerald-700">
                   🟢 Completed On-Time
                 </SelectItem>
-                <SelectItem value="completed-late" className="text-xs cursor-pointer text-amber-700">
+                <SelectItem disabled={!stage.status.startsWith("completed")} value="completed-late" className="text-xs cursor-pointer text-amber-700">
                   🟠 Completed Late
                 </SelectItem>
-                <SelectItem value="delayed" className="text-xs cursor-pointer text-red-700">
+                <SelectItem disabled={!["in-progress", "delayed"].includes(stage.status)} value="delayed" className="text-xs cursor-pointer text-red-700">
                   🔴 Projected Delay
                 </SelectItem>
               </SelectContent>

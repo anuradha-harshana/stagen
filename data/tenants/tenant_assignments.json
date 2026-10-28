@@ -34,5 +34,11 @@
     "tenant_id": "tenant-lot-502",
     "user_id": "7ab56015-4412-494e-8aff-dbb5095e0098",
     "role": "supervisor"
+  },
+  {
+    "id": "assign-lot-1080-supervisor",
+    "tenant_id": "tenant-lot-1080",
+    "user_id": "d6e39c53-8a2d-4380-aa54-7ddc45a9f35d",
+    "role": "supervisor"
   }
 ]

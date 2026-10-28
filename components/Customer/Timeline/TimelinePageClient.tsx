@@ -30,6 +30,13 @@ export default function TimelinePageClient() {
     return () => controller.abort();
   }, [revision]);
 
+  useEffect(() => {
+    const refreshSaved = () => { if (document.visibilityState === "visible") setRevision(value => value + 1); };
+    const timer = window.setInterval(refreshSaved, 15000);
+    window.addEventListener("focus", refreshSaved);
+    return () => { window.clearInterval(timer); window.removeEventListener("focus", refreshSaved); };
+  }, []);
+
   const refresh = () => { setLoading(true); setError(""); setRevision(value => value + 1); };
   if (loading) return <div className="p-6 text-blue-fantastic" role="status">Loading your timeline…</div>;
   if (error) return <div className="p-6 text-blue-fantastic" role="alert">{error} <button className="ml-3 underline" onClick={refresh}>Retry</button></div>;

@@ -39,7 +39,7 @@ export async function getCurrentUser(): Promise<User | null> {
         user => user.id === session.userId
     );
 
-    return user ?? null;
+    return user && user.status !== "Suspended" && user.status !== "Pending" ? user : null;
 }
 
 export async function requireAuth(): Promise<User> {

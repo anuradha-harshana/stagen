@@ -51,5 +51,14 @@
     "email": "buildit@stagen.com",
     "password": "Stagen@123456",
     "role": "company"
+  },
+  {
+    "id": "d6e39c53-8a2d-4380-aa54-7ddc45a9f35d",
+    "username": "Imesha",
+    "email": "imesha@stagen.com",
+    "role": "supervisor",
+    "companyId": "87862a2a-24ae-4965-b036-d8f170fbe268",
+    "status": "Active",
+    "password": "Stagen@12456"
   }
 ]

@@ -12,6 +12,7 @@ export interface User {
     username: string;
     email: string;
     password?: string;
+    status?: "Active" | "Pending" | "Suspended";
     role: string;
     companyId?: string;
 }

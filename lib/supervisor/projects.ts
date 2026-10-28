@@ -45,6 +45,7 @@ export async function updateStage(userId: string, body: unknown) {
   const stages: Row[] = rows.find(r => r.tenant_id === b.tenantId)?.stages ?? [];
   const s = stages.find(s => s.name === b.stageName);
   if (!s) throw new ApiError(404, "Stage not found");
+  if (s.status !== "Active") throw new ApiError(400, "Only the active stage can be updated. Complete stages in order.");
   if (b.checklist) {
     if (b.checklist.length !== s.checklist.length || new Set(b.checklist.map(c => c.id)).size !== b.checklist.length || b.checklist.some(c => !s.checklist.some((v: Row) => v.id === c.id))) throw new ApiError(400, "Checklist does not match the stage");
     s.checklist = s.checklist.map((c: Row) => ({ ...c, completed: b.checklist!.find(v => v.id === c.id)!.completed }));
@@ -71,9 +72,8 @@ export async function updateTimeline(userId: string, body: unknown) {
     const s = stages.find(s => stageId(s) === v.id && s.name === v.name);
     if (!s) throw new ApiError(400, "Unknown stage");
     if (Date.parse(v.plannedEnd) < Date.parse(v.plannedStart) || (v.actualStart && v.actualEnd && Date.parse(v.actualEnd) < Date.parse(v.actualStart))) throw new ApiError(400, "End date must follow start date");
-    s.status = v.status.startsWith("completed") ? "Completed" : ["in-progress", "delayed"].includes(v.status) ? "Active" : "Pending";
-    s.progress = s.status === "Completed" ? 100 : s.status === "Pending" ? 0 : Math.min(s.progress, 99);
-    if (s.status === "Completed") s.checklist = s.checklist.map((c: Row) => ({ ...c, completed: true }));
+    const requestedStatus = v.status.startsWith("completed") ? "Completed" : ["in-progress", "delayed"].includes(v.status) ? "Active" : "Pending";
+    if (requestedStatus !== s.status) throw new ApiError(400, "Use Stage Updates to complete checklists and advance stages. Timeline edits change dates and milestones only.");
     s.start_date = v.plannedStart; s.end_date = v.plannedEnd; s.milestones = v.milestones;
   }
   const ts = await read("timeline");

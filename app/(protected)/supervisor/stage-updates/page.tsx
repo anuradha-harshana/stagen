@@ -24,7 +24,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Project } from "@/lib/types/project";
+import { projectProgress, Project } from "@/lib/types/project";
 
 function StageUpdatesContent() {
   const searchParams = useSearchParams();
@@ -32,7 +32,7 @@ function StageUpdatesContent() {
 
   const api = useSupervisorData<Project[]>("stage-updates", []);
   const { data: projects, setData: setProjects } = api;
-  const [selectedProjectId, setSelectedProjectId] = useState<string>(lotQuery ?? "");
+  const [selectedProjectId, setSelectedProjectId] = useState<string>(lotQuery ? (lotQuery.startsWith("tenant-") ? lotQuery : "tenant-" + lotQuery) : "");
   const [selectedStageName, setSelectedStageName] = useState<string>("");
   const [progressNote, setProgressNote] = useState("");
 
@@ -59,6 +59,7 @@ function StageUpdatesContent() {
 
   // Toggle checklist item completeness
   const handleToggleChecklist = (stageName: string, itemId: string) => {
+    if (api.saving) return;
     setProjects(prev => prev.map(p => {
       if (p.id === activeProject.id) {
         const updatedStages = p.stages.map(s => {
@@ -86,13 +87,7 @@ function StageUpdatesContent() {
 
         // Calculate new overall progress of the project
         // E.g., we have 7 stages. Each completed stage is 14% overall (or let's compute weighted progress)
-        const completedStagesCount = updatedStages.filter(s => s.status === "Completed").length;
-        const activeStageObj = updatedStages.find(s => s.status === "Active");
-        const activeStageProgressContribution = activeStageObj ? (activeStageObj.progress / 100) : 0;
-
-        // Simpler overall progress: (Completed Stages + active stage progress fraction) / total stages * 100
-        const rawProgress = ((completedStagesCount + activeStageProgressContribution) / updatedStages.length) * 100;
-        const newOverallProgress = Math.min(Math.round(rawProgress), 100);
+        const newOverallProgress = projectProgress(updatedStages, p.status).progress;
 
         return {
           ...p,
@@ -108,7 +103,7 @@ function StageUpdatesContent() {
     await api.mutate("PUT", { tenantId: activeProject.id, stageName: currentStageDetails.name, checklist: currentStageDetails.checklist, progress: currentStageDetails.progress });
   };
   const handleCompleteStage = async (stageName: string) => {
-    await api.mutate("PUT", { tenantId: activeProject.id, stageName, checklist: currentStageDetails.checklist, progress: currentStageDetails.progress, complete: true });
+    if (await api.mutate("PUT", { tenantId: activeProject.id, stageName, checklist: currentStageDetails.checklist, progress: currentStageDetails.progress, complete: true })) setSelectedStageName("");
   };
   const handlePostNote = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -233,12 +228,13 @@ function StageUpdatesContent() {
           </CardHeader>
           <CardContent className="pt-4 flex flex-col gap-4 min-h-[300px]">
             {/* Checklist items */}
+            <p className="text-xs text-blue-fantastic/60">{currentStageDetails.status === "Active" ? "Tick completed tasks, then Save Progress to publish them to the customer. Once all tasks are done, mark the stage complete to unlock the next stage." : "This stage is read-only. Complete the active stage to unlock the next checklist."}</p>
             {currentStageDetails.checklist && currentStageDetails.checklist.length > 0 ? (
               <div className="flex flex-col gap-2">
                 {currentStageDetails.checklist.map((item) => (
                   <div
                     key={item.id}
-                    onClick={() => handleToggleChecklist(currentStageDetails.name, item.id)}
+                    onClick={() => { if (currentStageDetails.status === "Active") handleToggleChecklist(currentStageDetails.name, item.id); }}
                     className={`flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer ${
                       item.completed
                         ? "bg-blue-fantastic/4 border-blue-fantastic/10 text-blue-fantastic/50"
@@ -246,6 +242,8 @@ function StageUpdatesContent() {
                     }`}
                   >
                     <Checkbox
+                      aria-label={item.label}
+                      disabled={api.saving || currentStageDetails.status !== "Active"}
                       checked={item.completed}
                       onCheckedChange={() => {}} // toggled on container click
                       className="border-blue-fantastic/30 data-[state=checked]:bg-truffle-trouble data-[state=checked]:border-truffle-trouble h-4.5 w-4.5 rounded"
@@ -268,12 +266,12 @@ function StageUpdatesContent() {
               </div>
             )}
 
-            {currentStageDetails.checklist.length === 0 && <label className="text-sm">Progress (%)<Input type="number" min={0} max={100} value={currentStageDetails.progress} onChange={e => setProjects(prev => prev.map(p => p.id === activeProject.id ? { ...p, stages: p.stages.map(st => st.name === currentStageDetails.name ? { ...st, progress: Number(e.target.value) } : st) } : p))} /></label>}
+            {currentStageDetails.checklist.length === 0 && <label className="text-sm">Progress (%)<Input type="number" min={0} max={100} disabled={api.saving || currentStageDetails.status !== "Active"} value={currentStageDetails.progress} onChange={e => setProjects(prev => prev.map(p => p.id === activeProject.id ? { ...p, stages: p.stages.map(st => st.name === currentStageDetails.name ? { ...st, progress: Number(e.target.value) } : st) } : p))} /></label>}
             {/* Quick Actions Panel */}
             <div className="flex gap-2 justify-end mt-auto pt-3 border-t border-blue-fantastic/10">
               <Button
                 variant="outline"
-                disabled={api.saving} onClick={handleSaveProgress}
+                disabled={api.saving || currentStageDetails.status !== "Active"} onClick={handleSaveProgress}
                 className="text-xs font-semibold border-blue-fantastic/20 text-blue-fantastic hover:bg-blue-fantastic/10 gap-1.5 h-8"
               >
                 <Save className="h-3.5 w-3.5" />

@@ -63,9 +63,7 @@ export async function getUserProfiles(): Promise<UserProfile[]> {
 // Helper: Save user profiles to both user_profiles.json and userProfiles.json
 export async function saveUserProfiles(profiles: UserProfile[]): Promise<void> {
   const jsonContent = JSON.stringify(profiles, null, 2);
-  await Promise.all([
-    fs.writeFile(userProfilesFile, jsonContent, "utf8").catch(() => {}),
-  ]);
+  await fs.writeFile(userProfilesFile, jsonContent, "utf8");
 }
 
 // Get single user profile by user_id
@@ -95,7 +93,7 @@ export function mapOrgUserToProfile(orgUser: {
 
   const projects = orgUser.assignedProjects || [];
   const validProjects = projects.filter((p) => p && p.toLowerCase() !== "unassigned");
-  const homeAddress = validProjects.length > 0 ? validProjects.join(", ") : "Lot 104, 12 Harrison Street, Richmond VIC";
+  const homeAddress = validProjects.length > 0 ? validProjects.join(", ") : "";
 
   return {
     user_id: orgUser.id,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -45,7 +45,13 @@ export default function CustomerDashboardClient({
   user,
 }: CustomerDashboardClientProps) {
   const router = useRouter();
-  const [projects] = useState<Project[]>(initialProjects);
+  const projects = initialProjects;
+  useEffect(() => {
+    const refresh = () => { if (document.visibilityState === "visible") router.refresh(); };
+    const timer = window.setInterval(refresh, 15000);
+    window.addEventListener("focus", refresh);
+    return () => { window.clearInterval(timer); window.removeEventListener("focus", refresh); };
+  }, [router]);
   const [selectedProjectId, setSelectedProjectId] = useState<string>(
     initialProjects[0]?.id || ""
   );
