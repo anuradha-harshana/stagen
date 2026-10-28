@@ -32,20 +32,51 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CompanyProfileData } from "@/lib/company/companyProfile";
 
 const INITIAL_PROFILE = { companyName: "", abn: "", businessAddress: "", contactNumber: "", primaryEmail: "", websiteUrl: "", timezone: "Australia/Sydney", defaultCurrency: "AUD ($)", logoUrl: "" };
 
-export default function CompanyProfileClient() {
+interface CompanyProfileClientProps {
+  initialProfile?: CompanyProfileData | null;
+}
 
   const stored = useCompanySection("profile", INITIAL_PROFILE);
   useEffect(() => { setProfile(stored.data); }, [stored.data]);
   // Form State
   const [profile, setProfile] = useState(INITIAL_PROFILE);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(!initialProfile);
   const [hasChanges, setHasChanges] = useState(false);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Fetch from API route if initialProfile wasn't supplied
+  useEffect(() => {
+    if (!initialProfile) {
+      setIsLoading(true);
+      fetch("/api/company/profile")
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to load profile");
+          return res.json();
+        })
+        .then((data: CompanyProfileData) => {
+          if (data && data.companyId) {
+            setProfile(data);
+            setSavedProfile(data);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching company profile:", err);
+          toast.error("Could not fetch latest profile from server.");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [initialProfile]);
+
   // Handle Input Changes
-  const handleChange = (field: keyof typeof INITIAL_PROFILE, value: string) => {
+  const handleChange = (field: keyof CompanyProfileData, value: string) => {
     setProfile((prev) => ({ ...prev, [field]: value }));
     setHasChanges(true);
   };
@@ -120,7 +151,7 @@ export default function CompanyProfileClient() {
                 <Avatar className="h-16 w-16 border-2 border-gray-100 shadow-xs bg-[#eee9df]">
                   <AvatarImage src={profile.logoUrl} alt="Company Logo" />
                   <AvatarFallback className="bg-blue-fantastic text-white font-bold text-lg">
-                    ST
+                    {profile.companyName ? profile.companyName.slice(0, 2).toUpperCase() : "ST"}
                   </AvatarFallback>
                 </Avatar>
                 <div>
@@ -138,18 +169,27 @@ export default function CompanyProfileClient() {
                 </div>
               </div>
 
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => toast.info("Brand Logo update dialog opened.")}
-                className="rounded-xl border-gray-200 text-xs text-blue-fantastic hover:bg-gray-50 h-9"
-              >
-                <Upload className="mr-1.5 h-3.5 w-3.5" />
-                Change Logo
-              </Button>
+              <div>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleLogoFileChange}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="rounded-xl border-gray-200 text-xs text-blue-fantastic hover:bg-gray-50 h-9"
+                >
+                  <Upload className="mr-1.5 h-3.5 w-3.5" />
+                  Change Logo
+                </Button>
+              </div>
             </div>
 
-            {/* FORM FIELDS GRID - Exact match to Figma layout */}
+            {/* FORM FIELDS GRID */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
               {/* Field 1: Company Name */}
               <div className="space-y-2">
